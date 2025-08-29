@@ -43,7 +43,7 @@ except Exception as e:
 
 print("[TEST] before call: place_order")
 try:
-    res = okx.place_order('ETH-USDT-SWAP', side='buy', ord_type='limit', size=0.01, price=okx.get_price_now('ETH-USDT-SWAP')*0.9)
+    res = okx.place_order('ETH-USDT-SWAP', side='buy', order_type='limit', size=0.01, price=okx.get_price_now('ETH-USDT-SWAP')*0.9)
     order_id, err  = res
     print("[TEST] after call: place_order ->", res)
 except Exception as e:

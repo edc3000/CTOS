@@ -128,7 +128,7 @@ class OkxDriver(TradingSyscalls):
             return None, err
 
     # -------------- trading --------------
-    def place_order(self, symbol, side, ord_type, size, price=None, client_id=None, **kwargs):
+    def place_order(self, symbol, side, order_type, size, price=None, client_id=None, **kwargs):
         """
         Normalize inputs to your okex client.
         Expected mapping often is:
@@ -141,7 +141,7 @@ class OkxDriver(TradingSyscalls):
         order_id, err = self.okx.place_order(
             symbol=full,
             side=str(side).lower(),
-            ord_type=str(ord_type).lower(),
+            order_type=str(order_type).lower(),
             quantity=float(size),
             price=price,
             **kwargs
