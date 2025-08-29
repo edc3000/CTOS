@@ -87,9 +87,17 @@ class OkxDriver(TradingSyscalls):
     def exchange_limits(self):
         return {"price_scale": self.price_scale, "size_scale": self.size_scale}
 
-    def fees(self):
+    def fees(self, symbol='ETH-USDT-SWAP', instType='SPOT'):
         # If your okex client exposes real fees, put them here.
-        return {"maker": None, "taker": None}
+        full, _, _ = self._norm_symbol(symbol)
+        if not hasattr(self.okx, "get_fee"):
+            raise NotImplementedError("okex.py client lacks get_fee(symbol, instType)")
+
+        raw, err = self.okx.get_fee(full, instType)
+        if not err:
+            return raw, err
+        else:
+            return None, err
 
     # -------------- market data --------------
     def get_price_now(self, symbol='ETH-USDT-SWAP'):
