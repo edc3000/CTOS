@@ -280,12 +280,12 @@ class OkexSpot:
         )
         return result
 
-    def get_order_status(self, order_no):
+    def get_order_status(self, order_id):
         """Get order status.
-       @param order_no: order id.
+       @param order_id: order id.
        """
         uri = "/api/v5/trade/order"
-        params = {"instId": self.symbol, "ordId": order_no}
+        params = {"instId": self.symbol, "ordId": order_id}
         success, error = self.request(method="GET", uri=uri, params=params, auth=True)
         return success, error
 
@@ -390,17 +390,17 @@ class OkexSpot:
             return None, error
         return success["data"][0]["ordId"], error
 
-    def revoke_order(self, order_no):
+    def revoke_order(self, order_id):
         """Cancel an order.
-       @param order_no: order id
+       @param order_id: order id
        """
         uri = "/api/v5/trade/cancel-order"
-        data = {"instId": self.symbol, "ordId": order_no}
+        data = {"instId": self.symbol, "ordId": order_id}
         _, error = self.request(method="POST", uri=uri, body=data, auth=True)
         if error:
-            return order_no, error
+            return order_id, error
         else:
-            return order_no, None
+            return order_id, None
 
     def transfer_money(self, usdt_amount, direction='z2j'):
         """
@@ -440,13 +440,13 @@ class OkexSpot:
         else:
             return resp, None
 
-    def revoke_orders(self, order_nos):
+    def revoke_orders(self, order_ids):
         """
        Cancel mutilple orders by order ids.
-       @param order_nos :order list
+       @param order_ids :order list
        """
         success, error = [], []
-        for order_id in order_nos:
+        for order_id in order_ids:
             _, e = self.revoke_order(order_id)
             if e:
                 error.append((order_id, e))
