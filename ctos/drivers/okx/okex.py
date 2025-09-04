@@ -457,12 +457,16 @@ class OkexSpot:
         else:
             return resp, None
 
-    def revoke_orders(self, order_ids):
+    def revoke_orders(self, order_ids=[], symbol=None):
         """
        Cancel mutilple orders by order ids.
        @param order_ids :order list
        """
+
+        symbol = self.symbol if not symbol else symbol
         success, error = [], []
+        if not order_ids and symbol:
+            order_ids = self.get_open_orders(symbol=symbol)[0]
         for order_id in order_ids:
             _, e = self.revoke_order(order_id)
             if e:

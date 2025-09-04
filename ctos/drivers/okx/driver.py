@@ -92,7 +92,6 @@ class OkxDriver(TradingSyscalls):
         full, _, _ = self._norm_symbol(symbol)
         if not hasattr(self.okx, "get_fee"):
             raise NotImplementedError("okex.py client lacks get_fee(symbol, instType)")
-
         raw, err = self.okx.get_fee(full, instType)
         if not err:
             return raw, err
@@ -156,13 +155,13 @@ class OkxDriver(TradingSyscalls):
         )
         return order_id, err
 
-    def amend_order(self, order_id, **kwargs):
+    def amend_order(self, orderId, **kwargs):
         # Map to amend/modify if available
         if hasattr(self.okx, "amend_order"):
-            order_id, err = self.okx.amend_order(order_id=order_id, **kwargs)
+            order_id, err = self.okx.amend_order(orderId=orderId, **kwargs)
             return order_id, err
         if hasattr(self.okx, "modify_order"):
-            order_id, err  = self.okx.modify_order(order_id=order_id, **kwargs)
+            order_id, err  = self.okx.modify_order(orderId=orderId, **kwargs)
             return order_id, err
         raise NotImplementedError("okex.py client lacks amend_order/modify_order")
 
@@ -174,7 +173,7 @@ class OkxDriver(TradingSyscalls):
 
     def get_order_status(self, order_id):
         if hasattr(self.okx, "get_order_status"):
-            success, error = self.okx.cancel_order(order_id=order_id)
+            success, error = self.okx.get_order_status(order_id=order_id)
             return success, error
         raise NotImplementedError("okex.py client lacks cancel_order(order_id=...)")
 

@@ -59,7 +59,7 @@ except Exception as e:
 
 print("[TEST] before call: get_order_status")
 try:
-    res = okx.get_order_status('order123')
+    res = okx.get_order_status(order_id)
     print("[TEST] after call: get_order_status ->", res)
 except Exception as e:
     print("[TEST] after call: get_order_status raised:", e)
