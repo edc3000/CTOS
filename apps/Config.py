@@ -3,6 +3,8 @@ import os
 config_paths = [
     '../local_config',
     '../config', 
+    '../../local_config',
+    '../../config', 
     '../configs/secrets.yaml',
     '../configs/secrets.example.yaml'
 ]

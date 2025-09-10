@@ -1,9 +1,18 @@
 import sys
 import os
+
+from pathlib import Path
+# Ensure project root (which contains the `ctos/` package directory) is on sys.path
+_THIS_FILE = Path(__file__).resolve()
+_PROJECT_ROOT = _THIS_FILE.parents[1]  # repo root containing the top-level `ctos/` package dir
+if str(_PROJECT_ROOT) not in sys.path:
+    sys.path.insert(0, str(_PROJECT_ROOT))
+
+
 sys.path.append(os.path.join(os.path.dirname(os.path.abspath(__file__)), '..', 'ctos', 'drivers', 'okx'))
-from Config import ACCESS_KEY, SECRET_KEY, PASSPHRASE, HOST_IP, HOST_USER, HOST_PASSWD, HOST_IP_1
 import logging
-from okex import get_okexExchage
+from ctos.drivers.okx.driver import OkxDriver, init_OkxClient
+from ctos.drivers.okx.Config import ACCESS_KEY, SECRET_KEY, PASSPHRASE
 from util import BeijingTime, align_decimal_places, save_para, rate_price2order, cal_amount, get_min_amount_to_trade
 import time
 # from average_method import get_good_bad_coin_group  # 暂时注释掉，文件不存在
@@ -18,15 +27,15 @@ class OkexExecutionEngine:
         Initialize the execution engine with API credentials and setup logging.
         """
         self.account = account
-        self.okex_spot = get_okexExchage(symbol, self.account, show=False)
+        self.okex_spot =  OkxDriver()
         self.strategy_detail = strategy_detail
         self.monitor = SystemMonitor(self, strategy)
         self.logger = self.monitor.logger
         # self.setup_logger()
-        self.init_balance = float(self.fetch_balance('USDT')['total_equity_usd'])
+        self.init_balance = float(self.okex_spot.fetch_balance('USDT'))
         self.watch_threads = []  # 存储所有监控线程
         self.soft_orders_to_focus = []
-        self.min_amount_to_trade = get_min_amount_to_trade(get_okexExchage)
+        self.min_amount_to_trade = get_min_amount_to_trade(init_OkxClient)
 
     def setup_logger(self):
         """
@@ -468,7 +477,7 @@ class OkexExecutionEngine:
         for coin, usdt_amount in zip(coins, usdt_amounts):
             try:
                 symbol_full = f"{coin.upper()}-USDT-SWAP"
-                # exchange = get_okexExchage(coin)
+                # exchange = init_OkxClient(coin)
                 data = all_pos_info.get(symbol_full, None)
 
                 if not data:
@@ -746,8 +755,8 @@ class OkexExecutionEngine:
 
 def init_all_thing():
     engine = OkexExecutionEngine()
-    eth = get_okexExchage('eth', engine.account)
-    btc = get_okexExchage('btc', engine.account)
+    eth = init_OkxClient('eth', engine.account)
+    btc = init_OkxClient('btc', engine.account)
     return engine, eth, btc
 
 
@@ -768,7 +777,7 @@ def define_self_operate():
 
 def minize_money_to_buy():
     for coin in rate_price2order.keys():
-        x = get_okexExchage(coin)
+        x = init_OkxClient(coin)
         for amount in [0.01, 0.05, 0.1, 0.5, 1]:
             now_prince = x.get_price_now()
             success, _ = x.buy(now_prince * 0.98, amount)
@@ -794,7 +803,7 @@ if __name__ == '__main__':
     # engine = OkexExecutionEngine()
     # engine.fetch_balance('ETH')
     # now_money = float(engine.fetch_balance('USDT')['total_equity_usd'])
-
+    exit()
     just_kill_position = False
     reset_start_money = 748
     win_times = 0

@@ -5,7 +5,7 @@ sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 # 添加ctos/drivers/okx目录到路径
 sys.path.append(os.path.join(os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__)))), 'ctos', 'drivers', 'okx'))
 
-from ExecutionEngine import OkexExecutionEngine, get_okexExchage
+from ExecutionEngine import OkexExecutionEngine, init_OkxClient
 try:
     from util import get_rates, load_trade_log_once, update_rates, save_trade_log_once, save_para, load_para, \
         number_to_ascii_art, cal_amount, BeijingTime, rate_price2order, get_min_amount_to_trade
@@ -108,7 +108,7 @@ def btc_is_the_king(account=0, start_leverage=1.0, coins_to_be_bad=['eth'], good
             engine.fetch_balance('USDT')['total_equity_usd']) else 1
     print(new_rate_place2order)
     sanction_line = 0.01
-    min_coin_amount_to_trade = get_min_amount_to_trade(get_okexExchage)
+    min_coin_amount_to_trade = get_min_amount_to_trade(init_OkxClient)
 
     last_operation_time = 0
     grid_add = 0.00388

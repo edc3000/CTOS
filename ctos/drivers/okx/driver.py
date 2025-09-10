@@ -24,8 +24,10 @@ except ImportError:
     sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), "../../..")))
     from ctos.core.kernel.syscalls import TradingSyscalls
 
-def init_OkxClient():
-    return OkexSpot(symbol="ETH-USDT-SWAP", access_key=ACCESS_KEY, secret_key=SECRET_KEY, passphrase=PASSPHRASE, host=None)
+def init_OkxClient(symbol="ETH-USDT-SWAP", account=0, show=False):
+    if symbol.find('-') == -1:
+        symbol = f'{symbol.upper()}-USDT-SWAP'
+    return OkexSpot(symbol=symbol, access_key=ACCESS_KEY, secret_key=SECRET_KEY, passphrase=PASSPHRASE, host=None)
 
 class OkxDriver(TradingSyscalls):
     """
