@@ -1,30 +1,3 @@
-# Tests 目录说明
-
-本目录包含针对不同交易所驱动的快速集成测试脚本与输出快照。
-
-包含内容：
-- test_okx_driver.py：OKX 驱动基础功能调用示例与输出。
-- test_bp_driver.py：Backpack 驱动基础功能调用示例与输出，运行后会自动生成 tests/README_bp.py 快照文件。
-- README_okx.md：OKX 驱动一次实际运行的输出样例。
-- README_bp.py：由 test_bp_driver.py 自动生成的 Backpack 测试输出快照。
-
-运行 Backpack 测试：
-1) 设置环境变量（建议使用权限最小的 API Key）：
-   - BP_PUBLIC_KEY=<your_key>
-   - BP_SECRET_KEY=<your_secret>
-   - 可选：
-     - BP_TEST_MODE=perp|spot（默认 perp）
-     - BP_TEST_SYMBOL（默认 perp: ETH_USDC_PERP，spot: ETH_USDC）
-     - BP_TEST_TIMEFRAME（默认 15m）
-     - BP_TEST_LIMIT（默认 5）
-
-2) 执行：
-   - python -m tests.test_bp_driver
-
-3) 查看输出：
-   - 终端打印
-   - tests/README_bp.py（自动写入的输出快照）
-
 <ctos.drivers.okx.driver.OkxDriver object at 0x7fe8668ff8e0>
 
 [TEST] before call: get_price_now
@@ -109,4 +82,3 @@ ETH-USDT-SWAP eth
 [TEST] before call: fees
 
 [TEST] after call: fees raised: too many values to unpack (expected 2)
-

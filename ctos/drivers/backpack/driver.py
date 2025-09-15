@@ -9,12 +9,29 @@ import time
 from datetime import datetime, timezone
 
 try:
-    from bpx.account import Account
-    from bpx.public import Public
+    # 优先包内相对导入（作为包被 import 时）
+    from .bpx.account import Account
+    from .bpx.public import Public
 except Exception as e:
-    print('Error importing bpx clients:', e)
-    Account = object  # fallback for static analyzers
-    Public = object
+    print('1111 ', e)
+    try:
+        # 其次尝试绝对导入（已在 PYTHONPATH 时）
+        from bpx.account import Account
+        from bpx.public import Public
+    except Exception as e:
+        print('2222 ', e)
+        # 最后动态修正 sys.path，加入当前驱动目录以便导入本地 bpx 包
+        import sys as _sys, os as _os
+        _pkg_root = _os.path.abspath(_os.path.join(_os.path.dirname(__file__)))
+        if _pkg_root not in _sys.path:
+            _sys.path.insert(0, _pkg_root)
+        try:
+            from bpx.account import Account
+            from bpx.public import Public
+        except Exception as e:
+            print('Error importing Backpack clients:', e)
+            Account = object  # fallback for static analyzers
+            Public = object
 
 # Import syscall base
 try:
@@ -66,6 +83,7 @@ class BackpackDriver(TradingSyscalls):
             self.public = public_client
         self.mode = (mode or "perp").lower()
         self.default_quote = default_quote or "USDC"
+        self.symbol = 'ETH_USDC_PERP'
 
     # -------------- helpers --------------
     def _norm_symbol(self, symbol):
@@ -414,7 +432,7 @@ class BackpackDriver(TradingSyscalls):
         raise NotImplementedError("Account.cancel_order unavailable")
 
 
-    def get_order_status(self, symbol='ETH_USDC_PERP', order_id=None, market_type=None, window=None):
+    def get_order_status(self,  order_id=None, symbol='ETH_USDC_PERP', market_type=None, window=None):
         full, _, _ = self._norm_symbol(symbol)
         if not hasattr(self.account, "get_open_order"):
             raise NotImplementedError("Account.get_open_order unavailable")
@@ -489,11 +507,11 @@ class BackpackDriver(TradingSyscalls):
                 cur = str(currency).upper()
                 if isinstance(raw, dict):
                     if cur in raw:
-                        return raw[cur]['available']
+                        return float(raw[cur]['available'])
                     # 容错：键名大小写不一致
                     for k, v in raw.items():
                         if str(k).upper() == cur:
-                            return v['available']
+                            return float(v['available'])
                 return {}
             except Exception as e:
                 return e

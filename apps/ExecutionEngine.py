@@ -138,58 +138,6 @@ class OkexExecutionEngine:
             self.logger.error(f"获取{currency}余额时发生异常：{str(e)}")
             return None
 
-    def place_order(self, side, price, size, order_type='limit', tdMode='cross'):
-        """
-        Place an order and log the action and response, adjusting to use specific buy and sell methods.
-        """
-        try:
-            symbol = self.okex_spot.symbol  # 假设当前 symbol 已在实例中设置
-            self.monitor.record_operation("PlaceOrder", self.strategy_detail, {
-                "symbol": symbol, "side": side, "price": price, "size": size, "order_type": order_type, "tdMode": tdMode
-            })
-            # Check if the operation is a buy or a sell, and call the appropriate function
-            if side.lower() == 'buy':
-                order_response, _ = self.okex_spot.buy(price, size, order_type, tdMode)
-            elif side.lower() == 'sell':
-                order_response, _ = self.okex_spot.sell(price, size, order_type, tdMode)
-            elif side.lower() == 'stop':
-                try:
-                    position_info = self.fetch_position(self.okex_spot.symbol, show=False)
-                    if position_info:
-                        mark_px = float(position_info['最新标记价格'])
-                        pos_qty = float(position_info['持仓数量'])
-                        if pos_qty > 0:
-                            order_response, _ = self.okex_spot.sell(mark_px * 0.9975, abs(pos_qty), 'limit', 'cross')
-                        else:
-                            order_response, _ = self.okex_spot.buy(mark_px * 1.0025, abs(pos_qty), 'limit', 'cross')
-                        #
-                        self.logger.info(f"Position closed: {order_response}")
-                        self.monitor.record_operation("PlaceOrder", self.strategy_detail,
-                                                      {"symbol": symbol, "order_response": order_response})
-                        return order_response
-                    else:
-                        self.logger.error("Failed to fetch position details for closing.")
-                        return None
-
-                except Exception as e:
-                    self.logger.error(f"Failed to close position due to error: {str(e)}")
-                    self.monitor.handle_error(str(e), context="place_order stop")
-                    return None
-            else:
-                raise ValueError("Side must be either 'stop', 'buy' or 'sell'")
-
-            # Log the successful order placement
-            self.logger.info(f"Order placed: {order_response}")
-            return order_response
-
-        except ValueError as ve:
-            # Handle incorrect 'side' parameter error
-            self.logger.error(f"Order placement failed due to parameter error: {ve}")
-            return None
-        except Exception as e:
-            # Log other exceptions that may occur
-            self.logger.error(f"Failed to place order: {e}")
-            return None
 
     def fetch_and_growth(self):
         # 获取当前的总余额
@@ -417,45 +365,6 @@ class OkexExecutionEngine:
                     order_response, _ = self.okex_spot.buy(order_price, abs(pos_qty), 'limit', 'cross')
             print(order_response)
 
-    def set_stop_loss(self, symbol):
-        """
-        Set a stop-loss order and log the action.
-        """
-        try:
-            self.okex_spot.symbol = symbol
-            price = self.okex_spot.get_price_now()
-            stop_loss_response = self.place_order('stop', price, 1)
-            self.logger.info(f"Stop loss set for {symbol} at {price}")
-            return stop_loss_response
-        except Exception as e:
-            self.logger.error(f"Failed to set stop loss for {symbol}: {e}")
-            return None
-
-    def process_signals(self, signals):
-        """
-        Process incoming trade signals and execute trades. Each signal is logged for monitoring and verification.
-        """
-        for signal in signals:
-            symbol, action, price, size = signal  # Assume signals come in this format
-            try:
-                if action == 'buy':
-                    # Log the intention to buy before the actual order is placed
-                    self.logger.info(f"Processing buy signal for {symbol} at price {price} with size {size}")
-                    response = self.place_order('buy', price, size)
-                    # Log the response from the order placement
-                    self.logger.info(f"Buy order response for {symbol}: {response}")
-                elif action == 'sell':
-                    # Log the intention to sell before the actual order is placed
-                    self.logger.info(f"Processing sell signal for {symbol} at price {price} with size {size}")
-                    response = self.place_order('sell', price, size)
-                    # Log the response from the order placement
-                    self.logger.info(f"Sell order response for {symbol}: {response}")
-                else:
-                    # Log any signals that do not match expected actions
-                    self.logger.warning(f"Received an unrecognized action '{action}' for symbol {symbol}")
-            except Exception as e:
-                # Log any exceptions that occur during signal processing
-                self.logger.error(f"Error processing signal for {symbol}: {e}")
 
     def set_coin_position_to_target(self, usdt_amounts=[10], coins=['eth'], soft=False):
         start_time = time.time()
@@ -796,7 +705,6 @@ if __name__ == '__main__':
     # print(f"Balance for BTC: {balance}")
 
     # Example to place an order
-    # order_response = engine.place_order('ETH-USD-SWAP', 'buy', '3000', '0.01')
     # print(f"Order Response: {order_response}")
 
     # from ExecutionEngine import *
