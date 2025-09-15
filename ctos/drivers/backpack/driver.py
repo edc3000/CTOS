@@ -80,7 +80,8 @@ class BackpackDriver(TradingSyscalls):
         """
         s = str(symbol or "").strip()
         if not s:
-            raise ValueError("symbol is empty")
+            return None, None, None
+            # raise ValueError("symbol is empty")
 
         # unify separators to underscore and uppercase
         su = s.replace("-", "_").replace("/", "_").upper()
@@ -438,34 +439,28 @@ class BackpackDriver(TradingSyscalls):
         except Exception as e:
             return None, e
 
-    def get_open_orders(self, symbol='SOL_USDC_PERP', order_id=None, market_type='PERP', window=5):
+    def get_open_orders(self, symbol=None, market_type='PERP'):
         """
         获取未完成订单列表，或按 order_id 过滤返回单个。
         返回 (result, error)
         """
-        if not hasattr(self.account, "get_open_orders"):
+        if hasattr(self.account, "get_open_orders"):
             try:
-                full, _, _ = self._norm_symbol(symbol)
-                resp = self.account.get_open_orders(market_type,symbol=symbol,  window=window)
-                print(resp)
-                if order_id is None:
-                    return resp, None
-                # 过滤指定 order_id
-                if isinstance(resp, dict):
-                    if str(resp.get('id')) == str(order_id):
-                        return resp, None
-                    return None, None
-                if isinstance(resp, list):
-                    for od in resp:
-                        try:
-                            if str(od.get('id')) == str(order_id):
-                                return od, None
-                        except Exception:
-                            continue
-                    return None, None
-                return None, None
+                if symbol:
+                    try:
+                        full, _, _ = self._norm_symbol(symbol)
+                    except Exception as e:
+                        full = symbol
+                else:
+                    full = symbol
+                print(full)
+                resp = self.account.get_open_orders(market_type=market_type, symbol=full)
+                print('aaa: ', resp)
+                return resp, None
             except Exception as e:
                 return None, e
+        else:
+            print('我草你妈')
                 
     def cancel_all(self, symbol='ETH_USDC_PERP'):
         full, _, _ = self._norm_symbol(symbol)

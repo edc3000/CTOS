@@ -403,10 +403,11 @@ def test_get_order_history_query(account_client: Account):
 test_get_order_history_query(account)
 
 def test_get_open_order(account_client: Account):
-    order = account_client.get_open_order('ETH_USDC_PERP')
+    order = account_client.get_open_orders('ETH_USDC_PERP')
     print(order)
     assert isinstance(order, dict)
 
+print('test_get_open_orders(account)')
 test_get_open_order(account)
 
 def test_cancel_order(account_client: Account):
