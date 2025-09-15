@@ -455,7 +455,6 @@ class BackpackDriver(TradingSyscalls):
                     full = symbol
                 print(full)
                 resp = self.account.get_open_orders(market_type=market_type, symbol=full)
-                print('aaa: ', resp)
                 return resp, None
             except Exception as e:
                 return None, e
