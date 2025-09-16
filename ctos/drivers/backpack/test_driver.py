@@ -32,11 +32,11 @@ if __name__ == '__main__':
     all_coins, _  = bp.symbols()
     print(all_coins)
 
-    all_coins = [x[:x.find('_')].lower() for x in all_coins if x[:x.find('_')].lower() in rate_price2order.keys()]
+    all_coins = [x[:x.find('_')].lower() for x in all_coins if x[:x.find('_')].lower() in rate_price2order.keys() or (x[0].lower()=='v' and x[1:x.find('_')].lower() in rate_price2order.keys())]
     print(all_coins, len(all_coins))
 
 
-    with open('/home/zzb/Quantify/okx/good_group.txt', 'r', encoding='utf8') as f:
+    with open('good_group.txt', 'r', encoding='utf8') as f:
         data = f.readlines()
         good_group = data[0].strip().split(',')
         all_rate = [float(x) for x in data[1].strip().split(',')]
@@ -44,8 +44,8 @@ if __name__ == '__main__':
         split_rate = {good_group[x + 1]: all_rate[x + 1] / sum(all_rate) for x in range(len(all_rate) - 1)}
 
 
-    init_operate_position = bp.fetch_balance() * 0.33
-    new_rate_place2order = {k:v for k,v in rate_price2order.items() if k in all_coins}
+    init_operate_position = bp.fetch_balance()
+    new_rate_place2order = {k:v for k,v in rate_price2order.items() if k in all_coins or 'v'+k in all_coins}
 
     usdt_amounts = []
     coins_to_deal = []

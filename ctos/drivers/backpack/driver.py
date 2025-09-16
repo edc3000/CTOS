@@ -563,3 +563,47 @@ class BackpackDriver(TradingSyscalls):
             return None, e
 
 
+    def close_all_positions(self, mode="market", price_offset=0.001, symbol=None):
+        """
+        平掉所有仓位
+        :param mode: "market" 或 "limit"
+        :param price_offset: limit 平仓时的价格偏移系数（相对于标记价格）
+        """
+        positions = self.get_posistion(symbol=symbol)  # 获取所有仓位信息
+        
+        if not positions:
+            print("✅ 当前无持仓")
+            return
+        
+        for pos in positions:
+            symbol = pos["symbol"]
+            qty = float(pos["netQuantity"])
+            mark_price = float(pos["markPrice"])
+            
+            if qty == 0:
+                continue  # 没仓位就跳过
+
+            # 判断方向，构造平仓单
+            if qty > 0:  # 多仓 -> 卖出平仓
+                side = "SELL"
+                size = qty
+            else:        # 空仓 -> 买入平仓
+                side = "BUY"
+                size = abs(qty)
+
+            if mode == "market":
+                # 市价单平仓
+                self.place_order(symbol=symbol, side=side, order_type="market", size=size)
+                print(f"📤 市价平仓: {symbol} {side} {size}")
+
+            elif mode == "limit":
+                # 限价单平仓，设置一个偏移，保证容易成交
+                if side == "SELL":
+                    price = mark_price * (1 + price_offset)  # 卖单挂低一点
+                else:
+                    price = mark_price * (1 - price_offset)  # 买单挂高一点
+                self.place_order(symbol=symbol, side=side, order_type="limit", size=size, price=price)
+                print(f"📤 限价平仓: {symbol} {side} {size} @ {price}")
+
+            else:
+                raise ValueError("mode 必须是 'market' 或 'limit'")
