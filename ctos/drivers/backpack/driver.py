@@ -8,30 +8,38 @@ import os
 import time
 from datetime import datetime, timezone
 
+import sys
+import os
+
+# 动态添加bpx包路径到sys.path
+def _add_bpx_path():
+    """添加bpx包路径到sys.path，支持多种运行方式"""
+    current_dir = os.path.dirname(os.path.abspath(__file__))
+    bpx_path = os.path.join(current_dir, 'bpx')
+    
+    # 添加当前目录的bpx路径
+    if bpx_path not in sys.path:
+        sys.path.insert(0, bpx_path)
+    
+    # 添加项目根目录的bpx路径（如果存在）
+    project_root = os.path.abspath(os.path.join(current_dir, '../../..'))
+    root_bpx_path = os.path.join(project_root, 'bpx')
+    if os.path.exists(root_bpx_path) and root_bpx_path not in sys.path:
+        sys.path.insert(0, root_bpx_path)
+    if os.path.exists(project_root) and project_root not in sys.path:
+        sys.path.insert(0, project_root)
+
+# 执行路径添加
+_add_bpx_path()
+
 try:
-    # 优先包内相对导入（作为包被 import 时）
     from .bpx.account import Account
     from .bpx.public import Public
-except Exception as e:
-    print('1111 ', e)
-    try:
-        # 其次尝试绝对导入（已在 PYTHONPATH 时）
-        from bpx.account import Account
-        from bpx.public import Public
-    except Exception as e:
-        print('2222 ', e)
-        # 最后动态修正 sys.path，加入当前驱动目录以便导入本地 bpx 包
-        import sys as _sys, os as _os
-        _pkg_root = _os.path.abspath(_os.path.join(_os.path.dirname(__file__)))
-        if _pkg_root not in _sys.path:
-            _sys.path.insert(0, _pkg_root)
-        try:
-            from bpx.account import Account
-            from bpx.public import Public
-        except Exception as e:
-            print('Error importing Backpack clients:', e)
-            Account = object  # fallback for static analyzers
-            Public = object
+except ImportError as e:
+    print(f'Error importing bpx clients: {e}')
+    print(f'Current sys.path: {sys.path[:3]}...')  # 只显示前3个路径
+    Account = object  # fallback for static analyzers
+    Public = object
 
 # Import syscall base
 try:
@@ -565,9 +573,13 @@ class BackpackDriver(TradingSyscalls):
 
     def close_all_positions(self, mode="market", price_offset=0.001, symbol=None, side=None, is_good=None):
         """
-        平掉所有仓位
+        平掉所有仓位，可附加过滤条件
+
         :param mode: "market" 或 "limit"
-        :param price_offset: limit 平仓时的价格偏移系数（相对于标记价格）
+        :param price_offset: limit 平仓时的价格偏移系数
+        :param symbol: 仅平某个币种 (e.g. "BTC_USDC_PERP")
+        :param side: "long" 仅平多仓, "short" 仅平空仓, None 表示不限
+        :param is_good: True 仅平盈利仓, False 仅平亏损仓, None 表示不限
         """
         positions = self.get_posistion(symbol=symbol)  # 获取所有仓位信息
         

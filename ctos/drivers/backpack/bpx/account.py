@@ -1,7 +1,7 @@
-from bpx.base.base_account import BaseAccount
-from bpx.http_client.sync_http_client import SyncHttpClient
+from ..bpx.base.base_account import BaseAccount
+from ..bpx.http_client.sync_http_client import SyncHttpClient
 from typing import Optional, Union, Dict, Any, List
-from bpx.constants.enums import *
+from ..bpx.constants.enums import *
 
 
 http_client = SyncHttpClient()

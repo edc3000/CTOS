@@ -1,6 +1,6 @@
 import requests
 from typing import Dict, Any, List, Union
-from bpx.http_client.base.http_client import HttpClient
+from ...bpx.http_client.base.http_client import HttpClient
 import json
 
 

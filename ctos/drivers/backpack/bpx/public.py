@@ -1,11 +1,11 @@
-from bpx.base.base_public import BasePublic
-from bpx.http_client.sync_http_client import SyncHttpClient
-from bpx.models.objects import (
+from ..bpx.base.base_public import BasePublic
+from ..bpx.http_client.sync_http_client import SyncHttpClient
+from ..bpx.models.objects import (
     MMFFunction,
     IMFFunction,
     HaircutFunction,
 )
-from bpx.constants.enums import (
+from ..bpx.constants.enums import (
     TimeIntervalType,
     TimeIntervalEnum,
     BorrowLendMarketHistoryIntervalType,

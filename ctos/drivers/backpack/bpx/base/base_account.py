@@ -1,10 +1,11 @@
 from cryptography.hazmat.primitives.asymmetric import ed25519
 import base64
+
 from typing import Optional, Union
-from bpx.models.objects import RequestConfiguration
+from ...bpx.models.objects import RequestConfiguration
 from time import time
-from bpx.exceptions import *
-from bpx.constants.enums import *
+from ...bpx.exceptions import *
+from ...bpx.constants.enums import *
 
 
 class BaseAccount:

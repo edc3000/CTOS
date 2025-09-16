@@ -347,6 +347,179 @@ def round_to_two_digits(x: float) -> float:
     return round(x / scale) * scale
 
 
+def discover_min_trade_quantity(bp, symbol, start_usd=10, price_buffer=0.95, max_steps=8):
+    """
+    通过不断下单撤单的方式发现最小交易数量
+    
+    参数:
+        bp: BackpackDriver实例
+        symbol: 交易对符号
+        start_usd: 起始测试金额（美元）
+        price_buffer: 价格缓冲系数，用于设置远离市价的限价单
+        max_steps: 最大测试步数
+    
+    返回:
+        (min_qty_str, details): 最小交易数量字符串和详细信息
+    """
+    try:
+        # 获取当前价格
+        price = bp.get_price_now(symbol)
+        print(f"当前价格: {price}")
+        
+        # 计算起始数量
+        start_qty = start_usd / price
+        print(f"起始数量: {start_qty}")
+        
+        # 确定精度步长
+        # 根据价格大小调整精度策略
+        if price < 0.01:  # 价格很小的情况，如SHIB等
+            precision_steps = [1, 10, 100, 1000, 10000, 100000, 1000000]
+        elif price < 1:   # 价格较小的情况
+            precision_steps = [0.1, 1, 10, 100, 1000, 10000]
+        else:             # 价格正常的情况
+            precision_steps = [0.001, 0.01, 0.1, 1, 10, 100]
+        
+        # 设置限价单价格（远离市价）
+        if price < 1:
+            # 对于低价币种，使用更大的价格偏移
+            test_price = price * (1 + price_buffer) if price_buffer > 0 else price * 1.5
+        else:
+            test_price = price * (1 + price_buffer) if price_buffer > 0 else price * 1.01
+        
+        print(f"测试价格: {test_price}")
+        
+        # 记录测试结果
+        test_results = []
+        min_successful_qty = None
+        
+        # 从最粗精度开始测试
+        for step, precision in enumerate(precision_steps[:max_steps]):
+            # 计算当前测试数量
+            test_qty = round(start_qty * precision, 8)
+            
+            # 确保数量不为0
+            if test_qty <= 0:
+                test_qty = precision
+                
+            print(f"步骤 {step + 1}: 测试数量 {test_qty} (精度: {precision})")
+            
+            try:
+                # 尝试下post_only限价单
+                order_id, error = bp.place_order(
+                    symbol=symbol,
+                    side="buy",  # 使用买单，价格设置高于市价
+                    order_type="limit",
+                    size=test_qty,
+                    price=test_price,
+                    post_only=True  # 确保是post_only订单
+                )
+                
+                if error is None and order_id:
+                    print(f"  ✅ 订单成功: {order_id}")
+                    min_successful_qty = test_qty
+                    
+                    # 立即撤单
+                    cancel_ok, cancel_error = bp.revoke_order(order_id, symbol)
+                    if cancel_ok:
+                        print(f"  ✅ 撤单成功")
+                    else:
+                        print(f"  ⚠️ 撤单失败: {cancel_error}")
+                    
+                    test_results.append({
+                        "step": step + 1,
+                        "quantity": test_qty,
+                        "precision": precision,
+                        "success": True,
+                        "order_id": order_id
+                    })
+                else:
+                    print(f"  ❌ 订单失败: {error}")
+                    test_results.append({
+                        "step": step + 1,
+                        "quantity": test_qty,
+                        "precision": precision,
+                        "success": False,
+                        "error": str(error)
+                    })
+                    
+                    # 如果第一个测试就失败，说明数量太大，尝试更小的数量
+                    if step == 0:
+                        # 尝试更小的起始数量
+                        smaller_qty = test_qty / 10
+                        print(f"  🔄 尝试更小数量: {smaller_qty}")
+                        try:
+                            order_id2, error2 = bp.place_order(
+                                symbol=symbol,
+                                side="buy",
+                                order_type="limit", 
+                                size=smaller_qty,
+                                price=test_price,
+                                post_only=True
+                            )
+                            if error2 is None and order_id2:
+                                print(f"  ✅ 小数量订单成功: {order_id2}")
+                                min_successful_qty = smaller_qty
+                                # 撤单
+                                bp.revoke_order(order_id2, symbol)
+                                test_results.append({
+                                    "step": step + 1,
+                                    "quantity": smaller_qty,
+                                    "precision": precision,
+                                    "success": True,
+                                    "order_id": order_id2,
+                                    "note": "adjusted_smaller"
+                                })
+                        except Exception as e:
+                            print(f"  ❌ 小数量订单也失败: {e}")
+                    
+                    # 如果连续失败，停止测试
+                    if step > 2 and not any(r["success"] for r in test_results[-3:]):
+                        print(f"  🛑 连续失败，停止测试")
+                        break
+                        
+            except Exception as e:
+                print(f"  ❌ 异常: {e}")
+                test_results.append({
+                    "step": step + 1,
+                    "quantity": test_qty,
+                    "precision": precision,
+                    "success": False,
+                    "error": str(e)
+                })
+        
+        # 确定最小交易数量
+        if min_successful_qty is not None:
+            # 找到最小的成功数量
+            successful_results = [r for r in test_results if r["success"]]
+            if successful_results:
+                min_qty = min(r["quantity"] for r in successful_results)
+                min_qty_str = f"{min_qty:.8f}".rstrip('0').rstrip('.')
+                print(f"\n🎯 发现最小交易数量: {min_qty_str}")
+            else:
+                min_qty_str = "未知"
+                print(f"\n❌ 未找到可用的交易数量")
+        else:
+            min_qty_str = "未知"
+            print(f"\n❌ 未找到可用的交易数量")
+        
+        # 返回结果
+        details = {
+            "symbol": symbol,
+            "price": price,
+            "test_price": test_price,
+            "start_usd": start_usd,
+            "min_quantity": min_qty_str,
+            "test_results": test_results,
+            "successful_tests": len([r for r in test_results if r["success"]])
+        }
+        
+        return min_qty_str, details
+        
+    except Exception as e:
+        print(f"❌ 发现最小交易数量时出错: {e}")
+        return "错误", {"error": str(e)}
+
+
 # # 测试
 # print(round_to_two_digits(554))       # 550
 # print(round_to_two_digits(0.000145))  # 0.00014

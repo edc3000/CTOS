@@ -1,6 +1,6 @@
-from bpx.exceptions import *
-from bpx.constants.enums import *
-from bpx.constants.enums import (
+from ...bpx.exceptions import *
+from ...bpx.constants.enums import *
+from ...bpx.constants.enums import (
     BorrowLendMarketHistoryIntervalEnum,
     BorrowLendMarketHistoryIntervalType,
 )

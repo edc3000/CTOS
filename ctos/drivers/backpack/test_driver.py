@@ -26,15 +26,15 @@ if __name__ == '__main__':
     now_position = {x['symbol']:float(x['netCost']) for x in pos}
     print(now_position)
 
-    # while True:
-    #     time.sleep(3)
-
     all_coins, _  = bp.symbols()
     print(all_coins)
 
-    all_coins = [x[:x.find('_')].lower() for x in all_coins if x[:x.find('_')].lower() in rate_price2order.keys() or (x[0].lower()=='v' and x[1:x.find('_')].lower() in rate_price2order.keys())]
+    all_coins = [x[:x.find('_')].lower() for x in all_coins if x[:x.find('_')].lower() in rate_price2order.keys()]
     print(all_coins, len(all_coins))
 
+
+    while True:
+        time.sleep(3)
 
     with open('good_group.txt', 'r', encoding='utf8') as f:
         data = f.readlines()
@@ -45,7 +45,7 @@ if __name__ == '__main__':
 
 
     init_operate_position = bp.fetch_balance()
-    new_rate_place2order = {k:v for k,v in rate_price2order.items() if k in all_coins or 'v'+k in all_coins}
+    new_rate_place2order = {k:v for k,v in rate_price2order.items() if k in all_coins}
 
     usdt_amounts = []
     coins_to_deal = []
