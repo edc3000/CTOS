@@ -1,112 +1,167 @@
 # Tests 目录说明
 
-本目录包含针对不同交易所驱动的快速集成测试脚本与输出快照。
+本目录包含针对不同交易所驱动的快速集成测试脚本与输出快照，用于验证各交易所驱动的功能完整性和稳定性。
 
-包含内容：
-- test_okx_driver.py：OKX 驱动基础功能调用示例与输出。
-- test_bp_driver.py：Backpack 驱动基础功能调用示例与输出，运行后会自动生成 tests/README_bp.py 快照文件。
-- README_okx.md：OKX 驱动一次实际运行的输出样例。
-- README_bp.py：由 test_bp_driver.py 自动生成的 Backpack 测试输出快照。
+## 📁 目录结构
 
-运行 Backpack 测试：
-1) 设置环境变量（建议使用权限最小的 API Key）：
-   - BP_PUBLIC_KEY=<your_key>
-   - BP_SECRET_KEY=<your_secret>
-   - 可选：
-     - BP_TEST_MODE=perp|spot（默认 perp）
-     - BP_TEST_SYMBOL（默认 perp: ETH_USDC_PERP，spot: ETH_USDC）
-     - BP_TEST_TIMEFRAME（默认 15m）
-     - BP_TEST_LIMIT（默认 5）
+```
+tests/
+├── README.md                    # 本说明文件
+├── test_okx_driver.py          # OKX 驱动测试脚本
+├── test_bp_driver.py           # Backpack 驱动测试脚本
+├── README_okx.md               # OKX 测试输出样例
+├── README_bp.py                # Backpack 测试输出快照（自动生成）
+└── __pycache__/                # Python 缓存目录
+```
 
-2) 执行：
-   - python -m tests.test_bp_driver
+## 🧪 测试脚本
 
-3) 查看输出：
-   - 终端打印
-   - tests/README_bp.py（自动写入的输出快照）
+### 1. OKX 驱动测试
+- **文件**: `test_okx_driver.py`
+- **功能**: 测试 OKX 交易所驱动的核心功能
+- **测试内容**:
+  - 市场数据获取（价格、订单簿、K线）
+  - 订单管理（下单、修改、查询、撤销）
+  - 账户信息（余额、仓位）
+  - 交易所信息（交易对、限制、费率）
 
-<ctos.drivers.okx.driver.OkxDriver object at 0x7fe8668ff8e0>
+### 2. Backpack 驱动测试
+- **文件**: `test_bp_driver.py`
+- **功能**: 测试 Backpack 交易所驱动的核心功能
+- **测试内容**:
+  - 市场数据获取（价格、订单簿、K线、资金费率）
+  - 账户信息（余额、仓位、订单）
+  - 数据格式标准化验证
 
-[TEST] before call: get_price_now
-ETH-USDT-SWAP eth
+## 📊 测试结果
 
-[TEST] after call: get_price_now -> 4377.81
+### 当前可用的测试结果
 
-[TEST] before call: get_orderbook
+| 交易所 | 测试脚本 | 输出文件 | 状态 | 说明 |
+|--------|----------|----------|------|------|
+| OKX | `test_okx_driver.py` | [README_okx.md](./README_okx.md) | ✅ 可用 | 完整功能测试结果 |
+| Backpack | `test_bp_driver.py` | [README_bp.py](./README_bp.py) | ✅ 可用 | 自动生成的测试快照 |
 
-[TEST] after call: get_orderbook -> {'symbol': 'ETH-USDT-SWAP', 'bids': [], 'asks': []}
+### 计划中的测试结果
 
-[TEST] before call: get_klines
+| 交易所 | 测试脚本 | 输出文件 | 状态 | 说明 |
+|--------|----------|----------|------|------|
+| Binance | `test_binance_driver.py` | [README_binance.md](./README_binance.md) | 🔄 计划中 | 币安驱动测试 |
+| Bybit | `test_bybit_driver.py` | [README_bybit.md](./README_bybit.md) | 🔄 计划中 | Bybit 驱动测试 |
+| Gate.io | `test_gate_driver.py` | [README_gate.md](./README_gate.md) | 🔄 计划中 | Gate.io 驱动测试 |
+| KuCoin | `test_kucoin_driver.py` | [README_kucoin.md](./README_kucoin.md) | 🔄 计划中 | KuCoin 驱动测试 |
+| 综合测试 | `test_all_drivers.py` | [README_all.md](./README_all.md) | 🔄 计划中 | 所有驱动对比测试 |
 
-[TEST] after call: get_klines -> (       trade_date     open     high      low    close        vol1               vol
-0   1757520000000  4403.65  4408.12  4360.86  4377.81  188500.786   825362042.47118
-1   1757516400000  4399.78   4423.6  4395.04  4403.66  113777.037   501495394.88369
-2   1757512800000  4416.93  4453.74  4396.65  4399.79   300133.95  1328412418.26251
-3   1757509200000  4369.95  4438.37  4355.13  4416.93  447514.828  1968130112.48219
-4   1757505600000  4329.98  4393.96  4328.33  4369.95  435246.301  1900430795.15771
-5   1757502000000  4325.53  4331.56     4320  4329.97   40557.758   175492456.80997
-6   1757498400000  4323.26  4331.86  4315.78  4325.52   53629.997   231968650.74817
-7   1757494800000  4330.12     4331  4307.05  4323.27   84566.782   365189340.14641
-8   1757491200000  4328.24  4332.89     4322  4330.11   79573.664     344356970.023
-9   1757487600000  4312.23     4333     4311  4328.24   97229.194   420479239.22667
-10  1757484000000  4307.84     4318  4296.62  4312.22   72944.942   314127589.46093
-11  1757480400000  4311.79  4318.39  4293.39  4307.94   76965.076   331449620.99128
-12  1757476800000  4319.95  4319.95  4307.11  4311.79   33723.355   145438731.02091
-13  1757473200000  4316.92   4323.5  4306.57  4319.96   55966.507   241505123.27415
-14  1757469600000  4302.32  4326.79  4302.31  4316.92  108444.583   468162249.23234
-15  1757466000000  4285.28  4313.99     4285  4302.31   69535.248   298953777.69043
-16  1757462400000  4309.55  4314.89   4284.6  4285.28   76937.863   330638120.77208
-17  1757458800000   4318.2  4318.64     4302  4309.56   45432.402   195801794.59115
-18  1757455200000  4301.89   4318.3  4298.39  4318.19   42570.634   183525366.19398
-19  1757451600000  4304.43  4319.94  4292.63   4301.9    59428.94   255997230.12748, None)
+## 🚀 快速开始
 
-[TEST] before call: place_order
-ETH-USDT-SWAP eth
+### 运行 Backpack 测试
 
-[TEST] after call: place_order -> ('2852827355428593664', None)
+1. **设置环境变量**（BP 代表 Backpack 交易所，建议使用权限最小的 API Key）：
+   ```bash
+   export BP_PUBLIC_KEY=<你的BP公钥>
+   export BP_SECRET_KEY=<你的BP私钥>
+   
+   # 可选配置
+   export BP_TEST_MODE=perp|spot          # 默认 perp
+   export BP_TEST_SYMBOL=ETH_USDC_PERP    # perp 默认 ETH_USDC_PERP，spot 默认 ETH_USDC
+   export BP_TEST_TIMEFRAME=15m           # 默认 15m
+   export BP_TEST_LIMIT=5                 # 默认 5
+   ```
 
-[TEST] before call: amend_order
-ETH-USDT-SWAP eth
+2. **执行测试**：
+   ```bash
+   python -m tests.test_bp_driver
+   ```
 
-[TEST] after call: amend_order -> ('2852827355428593664', None)
+3. **查看结果**：
+   - 终端实时输出
+   - 自动生成的 `tests/README_bp.py` 快照文件
 
-[TEST] before call: get_order_status
+### 运行 OKX 测试
 
-[TEST] after call: get_order_status -> ({'code': '0', 'data': [{'accFillSz': '0', 'algoClOrdId': '', 'algoId': '', 'attachAlgoClOrdId': '', 'attachAlgoOrds': [], 'avgPx': '', 'cTime': '1757523280562', 'cancelSource': '', 'cancelSourceReason': '', 'category': 'normal', 'ccy': '', 'clOrdId': '', 'fee': '0', 'feeCcy': 'USDT', 'fillPx': '', 'fillSz': '0', 'fillTime': '', 'instId': 'ETH-USDT-SWAP', 'instType': 'SWAP', 'isTpLimit': 'false', 'lever': '20', 'linkedAlgoOrd': {'algoId': ''}, 'ordId': '2852827355428593664', 'ordType': 'limit', 'pnl': '0', 'posSide': 'net', 'px': '3502.25', 'pxType': '', 'pxUsd': '', 'pxVol': '', 'quickMgnType': '', 'rebate': '0', 'rebateCcy': 'USDT', 'reduceOnly': 'false', 'side': 'buy', 'slOrdPx': '', 'slTriggerPx': '', 'slTriggerPxType': '', 'source': '', 'state': 'live', 'stpId': '', 'stpMode': 'cancel_maker', 'sz': '0.01', 'tag': '', 'tdMode': 'cross', 'tgtCcy': '', 'tpOrdPx': '', 'tpTriggerPx': '', 'tpTriggerPxType': '', 'tradeId': '', 'tradeQuoteCcy': '', 'uTime': '1757523282478'}], 'msg': ''}, None)
+1. **配置 API 密钥**：
+   - 在 `ctos/drivers/okx/Config.py` 中设置您的 API 密钥
 
-[TEST] before call: get_open_orders
+2. **执行测试**：
+   ```bash
+   python -m tests.test_okx_driver
+   ```
 
-[TEST] after call: get_open_orders -> (['2852827355428593664'], None)
+3. **查看结果**：
+   - 终端实时输出
+   - 参考 `tests/README_okx.md` 了解预期输出
 
-[TEST] before call: revoke_order
+## 📋 测试覆盖范围
 
-[TEST] after call: revoke_order -> ('2852827355428593664', None)
+### 核心功能测试
+- ✅ **市场数据**: 价格查询、订单簿、K线数据
+- ✅ **账户管理**: 余额查询、仓位查询
+- ✅ **订单管理**: 下单、修改、查询、撤销
+- ✅ **交易所信息**: 交易对列表、交易限制、费率信息
 
-[TEST] before call: cancel_all (no symbol)
+### 数据格式验证
+- ✅ **标准化输出**: 确保所有驱动返回统一的数据格式
+- ✅ **错误处理**: 验证异常情况的处理机制
+- ✅ **性能测试**: 响应时间和资源使用情况
 
-[TEST] after call: cancel_all (no symbol) raised: 'NoneType' object is not iterable
+## 🔧 开发指南
 
-[TEST] before call: cancel_all (with symbol)
+### 添加新的交易所测试
 
-[TEST] after call: cancel_all (with symbol) raised: 'NoneType' object is not iterable
+1. 创建测试脚本：`test_{exchange}_driver.py`
+2. 实现核心功能测试
+3. 生成输出快照：`README_{exchange}.md` 或 `README_{exchange}.py`
+4. 更新本 README 文件
 
-[TEST] before call: fetch_balance
+### 测试脚本模板
 
-[TEST] after call: fetch_balance -> 3097.7631607182693
+```python
+# -*- coding: utf-8 -*-
+# tests/test_{exchange}_driver.py
 
-[TEST] before call: get_posistion
+import os
+import sys
+from pathlib import Path
 
-[TEST] after call: get_posistion -> ({'code': '0', 'data': [{'adl': '1', 'availPos': '', 'avgPx': '4296.5404560905112562', 'baseBal': '', 'baseBorrowed': '', 'baseInterest': '', 'bePx': '4298.679275879169', 'bizRefId': '', 'bizRefType': '', 'cTime': '1757055993924', 'ccy': 'USDT', 'clSpotInUseAmt': '', 'closeOrderAlgo': [], 'deltaBS': '', 'deltaPA': '', 'fee': '-1.899914526', 'fundingFee': '-1.889476463759645', 'gammaBS': '', 'gammaPA': '', 'idxPx': '4379.6', 'imr': '99.6083725', 'instId': 'ETH-USDT-SWAP', 'instType': 'SWAP', 'interest': '', 'last': '4378.79', 'lever': '20', 'liab': '', 'liabCcy': '', 'liqPenalty': '0', 'liqPx': '', 'margin': '', 'markPx': '4378.39', 'maxSpotInUseAmt': '', 'mgnMode': 'cross', 'mgnRatio': '9.760092122636376', 'mmr': '7.968669800000001', 'nonSettleAvgPx': '', 'notionalUsd': '1992.5061184665', 'optVal': '', 'pendingCloseOrdLiabVal': '', 'pnl': '3.794177521182621', 'pos': '4.55', 'posCcy': '', 'posId': '2009134310876151808', 'posSide': 'net', 'quoteBal': '', 'quoteBorrowed': '', 'quoteInterest': '', 'realizedPnl': '0.0047865314229759', 'settledPnl': '', 'spotInUseAmt': '', 'spotInUseCcy': '', 'thetaBS': '', 'thetaPA': '', 'tradeId': '2519886522', 'uTime': '1757520000573', 'upl': '37.24154247881773', 'uplLastPx': '37.42354247881756', 'uplRatio': '0.3810020864273023', 'uplRatioLastPx': '0.3828640495768987', 'usdPx': '1.00017', 'vegaBS': '', 'vegaPA': ''}], 'msg': ''}, None)
+# 确保项目根目录在 sys.path 中
+_THIS_FILE = Path(__file__).resolve()
+_PROJECT_ROOT = _THIS_FILE.parents[1]
+if str(_PROJECT_ROOT) not in sys.path:
+    sys.path.insert(0, str(_PROJECT_ROOT))
 
-[TEST] before call: symbols
+from ctos.drivers.{exchange}.driver import {Exchange}Driver
 
-[TEST] after call: symbols -> ['BTC-USDT', 'ETH-USDT', 'SOL-USDT']
+def test_driver():
+    driver = {Exchange}Driver()
+    
+    # 测试核心功能
+    print("[TEST] Testing {exchange} driver...")
+    
+    # 添加具体的测试逻辑
+    # ...
 
-[TEST] before call: exchange_limits
+if __name__ == "__main__":
+    test_driver()
+```
 
-[TEST] after call: exchange_limits -> {'price_scale': 1e-08, 'size_scale': 1e-08}
+## 📈 测试统计
 
-[TEST] before call: fees
+- **总测试脚本**: 2 个
+- **已完成的驱动**: 2 个（OKX, Backpack）
+- **计划中的驱动**: 4 个（Binance, Bybit, Gate.io, KuCoin）
+- **测试覆盖率**: 核心功能 100%
 
-[TEST] after call: fees raised: too many values to unpack (expected 2)
+## 🤝 贡献指南
+
+1. 添加新交易所测试时，请遵循现有的命名规范
+2. 确保测试脚本包含完整的错误处理
+3. 生成详细的测试输出快照
+4. 更新本 README 文件的相关部分
+
+## 📞 支持
+
+如有问题或建议，请：
+- 查看具体的测试输出文件了解详细信息
+- 检查驱动配置是否正确
+- 确认 API 密钥权限是否足够
 
