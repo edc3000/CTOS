@@ -78,14 +78,34 @@ ctos/
 
 ---
 
-## Trading Syscalls (Canonical Interface)
+## BackpackDriver Feature Overview
 
-> Drivers implement these consistently per exchange; strategies only talk to syscalls.
+---
 
-* **Market Data:** `subscribe_ticks`, `subscribe_klines(tf)`, `get_orderbook(level)`
-* **Trading:** `place_order(...)`, `amend_order(...)`, `cancel_order(id)`, `cancel_all(symbol?)`
-* **Account:** `balances()`, `positions()`, `margin_info()`, `transfer(...)`
-* **Ref‑data:** `symbols()`, `exchange_limits()`, `fees()`
+### Market Data
+
+* `symbols()` → (list, error): Retrieves and filters trading pairs from the public market interface based on type (perp/spot).
+* `get_price_now(symbol)`: Gets the latest traded price.
+* `get_orderbook(symbol, level)`: Gets the order book (bids/asks).
+* `get_klines(symbol, timeframe, limit, start_time, end_time)`: Returns k-line data according to the target data frame structure (automatically derives time ranges based on period boundaries).
+* `fees(symbol, limit, offset)`: Retrieves funding rates (returns raw data and a latest snapshot).
+
+---
+
+### Trading
+
+* `place_order(symbol, side, order_type, size, price=None, **kwargs)`: Places an order, compatible with parameters like `post_only` and `time_in_force`.
+* `revoke_order(order_id, symbol)`: Cancels an order (requires `symbol` for Backpack API).
+* `amend_order(order_id, symbol, ...)`: Amends an order by looking it up, canceling it, and then placing a new one. Supports changes to price, size, TIF, `post_only`, etc.
+* `get_open_orders(symbol=None, market_type='PERP')`: Gets open orders. Can be used with `get_order_status(symbol, order_id, ...)` to query a single order.
+* `cancel_all(symbol)`: Cancels all open orders for a specified trading pair.
+
+---
+
+### Account/Position
+
+* `fetch_balance(currency)`: Returns the balance for all or a specified currency (case-insensitive).
+* `get_posistion(symbol=None)`: Returns position information for all or a specified trading pair.
 
 ### 🎯 CTOS Design Goals (For Beginners)
 

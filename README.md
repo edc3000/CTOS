@@ -84,10 +84,22 @@ ctos/
 
 > 每个交易所的 driver 必须实现这些接口；策略只调用 syscall。
 
-* **行情数据：** `subscribe_ticks`、`subscribe_klines(tf)`、`get_orderbook(level)`
-* **交易执行：** `place_order(...)`、`amend_order(...)`、`cancel_order(id)`、`cancel_all(symbol?)`
-* **账户管理：** `balances()`、`positions()`、`margin_info()`、`transfer(...)`
-* **参考数据：** `symbols()`、`exchange_limits()`、`fees()`
+功能概览（BackpackDriver）
+- 行情相关：
+  - `symbols()` → (list, error)：从公开市场接口获取并按模式（perp/spot）过滤交易对
+  - `get_price_now(symbol)`：获取最新成交价
+  - `get_orderbook(symbol, level)`：获取订单簿（bids/asks）
+  - `get_klines(symbol, timeframe, limit, start_time, end_time)`：按目标 DF 结构返回 K 线（自动按周期边界推导时间范围）
+  - `fees(symbol, limit, offset)`：获取资金费率（返回原始数据及 latest 快照）
+- 交易相关：
+  - `place_order(symbol, side, order_type, size, price=None, **kwargs)`：下单，兼容 `post_only`、`time_in_force` 等参数
+  - `revoke_order(order_id, symbol)`：撤单（Backpack 撤单需带 symbol）
+  - `amend_order(order_id, symbol, ...)`：通过“查单→撤单→下单”实现改单，支持改价/改量/TIF/post_only 等
+  - `get_open_orders(symbol=None, market_type='PERP')`：获取未完成订单；可配合 `get_order_status(symbol, order_id, ...)` 查询单一订单
+  - `cancel_all(symbol)`：撤销指定交易对的全部未完成订单
+- 账户/仓位：
+  - `fetch_balance(currency)`：返回全部或指定币种余额（大小写不敏感）
+  - `get_posistion(symbol=None)`：返回全部或指定交易对的仓位信息
 
 ---
 

@@ -599,9 +599,9 @@ class BackpackDriver(TradingSyscalls):
             elif mode == "limit":
                 # 限价单平仓，设置一个偏移，保证容易成交
                 if side == "SELL":
-                    price = mark_price * (1 + price_offset)  # 卖单挂低一点
+                    price = mark_price * (1 + price_offset) 
                 else:
-                    price = mark_price * (1 - price_offset)  # 买单挂高一点
+                    price = mark_price * (1 - price_offset) 
                 self.place_order(symbol=symbol, side=side, order_type="limit", size=size, price=price)
                 print(f"📤 限价平仓: {symbol} {side} {size} @ {price}")
 
