@@ -563,7 +563,7 @@ class BackpackDriver(TradingSyscalls):
             return None, e
 
 
-    def close_all_positions(self, mode="market", price_offset=0.001, symbol=None):
+    def close_all_positions(self, mode="market", price_offset=0.001, symbol=None, side=None, is_good=None):
         """
         平掉所有仓位
         :param mode: "market" 或 "limit"
@@ -576,34 +576,50 @@ class BackpackDriver(TradingSyscalls):
             return
         
         for pos in positions:
-            symbol = pos["symbol"]
+            sym = pos["symbol"]
             qty = float(pos["netQuantity"])
             mark_price = float(pos["markPrice"])
-            
+            pnl_unreal = float(pos["pnlUnrealized"])
+
             if qty == 0:
-                continue  # 没仓位就跳过
+                continue  # 跳过空仓
 
-            # 判断方向，构造平仓单
-            if qty > 0:  # 多仓 -> 卖出平仓
-                side = "SELL"
+            # 过滤 symbol
+            if symbol and sym != symbol:
+                continue
+
+            # 判断仓位方向
+            pos_side = "long" if qty > 0 else "short"
+
+            # 过滤 side
+            if side and side != pos_side:
+                continue
+
+            # 过滤 盈亏
+            if is_good is True and pnl_unreal <= 0:
+                continue
+            if is_good is False and pnl_unreal > 0:
+                continue
+
+            # 构造平仓单
+            if qty > 0:  # 多仓 -> 平仓卖出
+                order_side = "SELL"
                 size = qty
-            else:        # 空仓 -> 买入平仓
-                side = "BUY"
+            else:        # 空仓 -> 平仓买入
+                order_side = "BUY"
                 size = abs(qty)
-
+                
             if mode == "market":
-                # 市价单平仓
-                self.place_order(symbol=symbol, side=side, order_type="market", size=size)
-                print(f"📤 市价平仓: {symbol} {side} {size}")
+                self.place_order(symbol=sym, side=order_side, order_type="market", size=size)
+                print(f"📤 市价平仓: {sym} {order_side} {size}")
 
             elif mode == "limit":
-                # 限价单平仓，设置一个偏移，保证容易成交
-                if side == "SELL":
-                    price = mark_price * (1 + price_offset) 
+                if order_side == "SELL":
+                    price = mark_price * (1 - price_offset)
                 else:
-                    price = mark_price * (1 - price_offset) 
-                self.place_order(symbol=symbol, side=side, order_type="limit", size=size, price=price)
-                print(f"📤 限价平仓: {symbol} {side} {size} @ {price}")
+                    price = mark_price * (1 + price_offset)
+                self.place_order(symbol=sym, side=order_side, order_type="limit", size=size, price=price)
+                print(f"📤 限价平仓: {sym} {order_side} {size} @ {price}")
 
             else:
                 raise ValueError("mode 必须是 'market' 或 'limit'")
