@@ -6,7 +6,7 @@ __pycache__/
 .venv/
 .env
 .ipynb_checkpoints/
-*.png
+# *.png
 *.log
 .first_run_flag
 account.yaml
