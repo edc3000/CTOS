@@ -1,5 +1,5 @@
 {
-  "timestamp": "2025-10-09T08:42:54.447385",
+  "timestamp": "2025-10-09T08:55:52.270695",
   "exchange": "backpack",
   "GridPositions": {
     "ETH_USDC_PERP": {
@@ -21,13 +21,13 @@
       "sell_order_id": "12538433801"
     },
     "OP_USDC_PERP": {
-      "baseline_price": 0.7174161057766888,
+      "baseline_price": 0.698155972359461,
       "avg_cost": 0.6670818281524904,
       "size": 756.0,
       "side": "short",
       "pnlUnrealized": 19.587267,
-      "buy_order_id": "12494349900",
-      "sell_order_id": "12494355395"
+      "buy_order_id": "12540403887",
+      "sell_order_id": "12540414692"
     },
     "DOGE_USDC_PERP": {
       "baseline_price": 0.2472097033108884,
@@ -84,13 +84,13 @@
       "sell_order_id": "12529554789"
     },
     "AAVE_USDC_PERP": {
-      "baseline_price": 284.49980682216494,
+      "baseline_price": 277.2296043769717,
       "avg_cost": 268.4400639323255,
       "size": 1.9,
       "side": "short",
       "pnlUnrealized": 26.796516,
-      "buy_order_id": "12431862964",
-      "sell_order_id": "12431865231"
+      "buy_order_id": "12540043303",
+      "sell_order_id": "12540052354"
     },
     "JUP_USDC_PERP": {
       "baseline_price": 0.4316164220827861,
@@ -246,13 +246,13 @@
       "sell_order_id": "12534484418"
     },
     "TRUMP_USDC_PERP": {
-      "baseline_price": 7.823116890488737,
+      "baseline_price": 7.607217860791924,
       "avg_cost": 7.550416475829215,
       "size": 66.67,
       "side": "short",
       "pnlUnrealized": 74.609585,
-      "buy_order_id": "12461922238",
-      "sell_order_id": "12461923230"
+      "buy_order_id": "12540164397",
+      "sell_order_id": "12540174042"
     },
     "LINK_USDC_PERP": {
       "baseline_price": 22.319846045567253,
