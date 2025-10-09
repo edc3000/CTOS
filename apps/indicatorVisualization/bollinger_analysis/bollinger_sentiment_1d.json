@@ -1,0 +1,16 @@
+{
+  "sentiment_score": -0.09328179252468626,
+  "upper_ratio": 0.08571428571428572,
+  "middle_ratio": 0.8571428571428571,
+  "lower_ratio": 0.05714285714285714,
+  "extreme_filtered": {
+    "upper_ratio": 0.030303030303030304,
+    "middle_ratio": 0.9090909090909091,
+    "lower_ratio": 0.06060606060606061,
+    "total_coins": 33,
+    "filtered_out": 2
+  },
+  "timestamp": "2025-10-08T13:37:47.114206",
+  "total_analyzed_coins": 35,
+  "time_gap": "1d"
+}

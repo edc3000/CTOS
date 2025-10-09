@@ -1,0 +1,192 @@
+[
+  {
+    "volatility": 3.7034303973242113,
+    "long_coins": [
+      "btc",
+      "bnb"
+    ],
+    "long_weights": {
+      "btc": 0.5999727072911017,
+      "bnb": 0.40002729270889825
+    },
+    "short_coins": [
+      "link",
+      "arb",
+      "near",
+      "pengu"
+    ],
+    "diff_returns_mean": -0.16082711824086549,
+    "sharpe_ratio": -0.04342652648665024
+  },
+  {
+    "volatility": 3.703435616907803,
+    "long_coins": [
+      "btc",
+      "bnb"
+    ],
+    "long_weights": {
+      "btc": 0.5999207380488176,
+      "bnb": 0.4000792619511824
+    },
+    "short_coins": [
+      "link",
+      "arb",
+      "near",
+      "pengu"
+    ],
+    "diff_returns_mean": -0.16081659071837714,
+    "sharpe_ratio": -0.04342362264492437
+  },
+  {
+    "volatility": 3.70345804453867,
+    "long_coins": [
+      "btc",
+      "bnb"
+    ],
+    "long_weights": {
+      "btc": 0.5996976783175301,
+      "bnb": 0.40030232168246993
+    },
+    "short_coins": [
+      "link",
+      "arb",
+      "near",
+      "pengu"
+    ],
+    "diff_returns_mean": -0.16077140502325926,
+    "sharpe_ratio": -0.04341115873051186
+  },
+  {
+    "volatility": 3.703483544410155,
+    "long_coins": [
+      "btc",
+      "bnb"
+    ],
+    "long_weights": {
+      "btc": 0.5994445396748063,
+      "bnb": 0.40055546032519374
+    },
+    "short_coins": [
+      "link",
+      "arb",
+      "near",
+      "pengu"
+    ],
+    "diff_returns_mean": -0.1607201261776036,
+    "sharpe_ratio": -0.043397013717041126
+  },
+  {
+    "volatility": 3.703493831026161,
+    "long_coins": [
+      "btc",
+      "bnb"
+    ],
+    "long_weights": {
+      "btc": 0.5993425668383331,
+      "bnb": 0.4006574331616669
+    },
+    "short_coins": [
+      "link",
+      "arb",
+      "near",
+      "pengu"
+    ],
+    "diff_returns_mean": -0.16069946931823856,
+    "sharpe_ratio": -0.043391315511847925
+  },
+  {
+    "volatility": 3.7034945820040415,
+    "long_coins": [
+      "btc",
+      "bnb"
+    ],
+    "long_weights": {
+      "btc": 0.5993351254870065,
+      "bnb": 0.4006648745129935
+    },
+    "short_coins": [
+      "link",
+      "arb",
+      "near",
+      "pengu"
+    ],
+    "diff_returns_mean": -0.16069796190750885,
+    "sharpe_ratio": -0.04339089968927447
+  },
+  {
+    "volatility": 3.7035351296584604,
+    "long_coins": [
+      "btc",
+      "bnb"
+    ],
+    "long_weights": {
+      "btc": 0.5989339894556225,
+      "bnb": 0.4010660105443775
+    },
+    "short_coins": [
+      "link",
+      "arb",
+      "near",
+      "pengu"
+    ],
+    "diff_returns_mean": -0.1606167029088079,
+    "sharpe_ratio": -0.04336848370157621
+  },
+  {
+    "volatility": 3.703555591446496,
+    "long_coins": [
+      "btc",
+      "bnb"
+    ],
+    "long_weights": {
+      "btc": 0.5987320411453783,
+      "bnb": 0.40126795885462174
+    },
+    "short_coins": [
+      "link",
+      "arb",
+      "near",
+      "pengu"
+    ],
+    "diff_returns_mean": -0.1605757938001866,
+    "sharpe_ratio": -0.04335719819382287
+  },
+  {
+    "volatility": 3.7035564070802374,
+    "long_coins": [
+      "btc",
+      "bnb"
+    ],
+    "long_weights": {
+      "btc": 0.5987239978501835,
+      "bnb": 0.4012760021498165
+    },
+    "short_coins": [
+      "link",
+      "arb",
+      "near",
+      "pengu"
+    ],
+    "diff_returns_mean": -0.16057416445237777,
+    "sharpe_ratio": -0.04335674870386791
+  },
+  {
+    "volatility": 3.7035582976394643,
+    "long_coins": [
+      "btc",
+      "bnb"
+    ],
+    "long_weights": {
+      "btc": 0.5987053562296987,
+      "bnb": 0.40129464377030133
+    },
+    "short_coins": [
+      "link",
+      "arb",
+      "near",
+      "pengu"
+    ],
+    "diff_returns_mean": -0.16057038817875427,
+    "sharpe_ratio": -0.04335570693759484
+  }
+]

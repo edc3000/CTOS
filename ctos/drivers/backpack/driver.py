@@ -268,6 +268,8 @@ class BackpackDriver(TradingSyscalls):
             full = full.replace("_PERP", "")
         if full in ['KSHIB_USDC_PERP', 'KPEPE_USDC_PERP', 'KBONK_USDC_PERP']:
             full = full[0].lower() + full[1:]
+        if full in ['SHIB_USDC_PERP', 'PEPE_USDC_PERP', 'BONK_USDC_PERP']:
+            full = 'k' + full
         return full, base.lower(), quote.upper()
 
     def _timeframe_to_seconds(self, timeframe):
@@ -849,10 +851,13 @@ class BackpackDriver(TradingSyscalls):
         existing_order = None
         try:
             od, oerr = self.get_order_status(order_id=order_id, symbol=full)
-            if oerr is None and od:
+            if oerr is None and od.get('orderId', None) == order_id:
                 existing_order = od
+            else:
+                return None, None
         except Exception:
             existing_order = None
+            return None, None
         # 2) 撤单
         ok, cerr = self.revoke_order(order_id, symbol=full)
         if not ok:
@@ -872,15 +877,11 @@ class BackpackDriver(TradingSyscalls):
         old_type = _get(existing_order, ['type', 'orderType'])
         old_qty = _get(existing_order, ['quantity', 'size', 'qty'])
         old_price = _get(existing_order, ['price'])
-        old_tif = _get(existing_order, ['timeInForce', 'time_in_force']) or 'GTC'
-        old_post_only = _get(existing_order, ['postOnly', 'post_only'])
 
         new_side = side if side is not None else old_side
         new_type = order_type if order_type is not None else old_type
         new_qty = size if size is not None else old_qty
         new_price = price if price is not None else old_price
-        new_tif = time_in_force if time_in_force is not None else old_tif
-        new_post_only = post_only if post_only is not None else old_post_only
 
         if not new_side:
             return None, ValueError("side not provided and cannot infer from existing order")
@@ -889,11 +890,6 @@ class BackpackDriver(TradingSyscalls):
         if not new_qty:
             return None, ValueError("size not provided and cannot infer from existing order")
 
-        place_kwargs = {}
-        if new_post_only is not None:
-            place_kwargs['post_only'] = bool(new_post_only)
-        if new_tif is not None:
-            place_kwargs['time_in_force'] = new_tif
 
         return self.place_order(
             symbol=full,
@@ -901,7 +897,6 @@ class BackpackDriver(TradingSyscalls):
             order_type=new_type,
             size=str(new_qty),
             price=str(new_price) if new_price is not None else None,
-            **place_kwargs,
             **kwargs
         )
 
@@ -1244,11 +1239,11 @@ class BackpackDriver(TradingSyscalls):
         positions, err = self.get_position(symbol=symbol, keep_origin=False)  # 获取所有仓位信息
         if err:
             print("获取仓位失败:", err)
-            return
+            return positions, err
         
         if not positions:
             print("✅ 当前无持仓")
-            return
+            return None, err
         if ignore:
             ignore_position = [self._norm_symbol(x)[0] for x in ignore]
         else:
@@ -1257,11 +1252,13 @@ class BackpackDriver(TradingSyscalls):
             target_position = [self._norm_symbol(x)[0] for x in target]
         else:
             target_position = []
+        closed_positions = []
+        unclosed_positions = []
         for pos in positions:
             sym = pos["symbol"]
-            if sym in ignore_position:
+            if ignore_position and sym in ignore_position:
                 continue
-            if sym not in target_position:
+            if target_position and sym not in target_position:
                 continue
             qty = float(pos["quantity"])
             mark_price =self.get_price_now(sym)
@@ -1293,7 +1290,11 @@ class BackpackDriver(TradingSyscalls):
                 size = abs(qty)
                 
             if mode == "market":
-                self.place_order(symbol=sym, side=order_side, order_type="market", size=size)
+                order_id, err = self.place_order(symbol=sym, side=order_side, order_type="market", size=size)
+                if err:
+                    unclosed_positions.append(pos)
+                    continue
+                closed_positions.append(pos)
                 print(f"📤 市价平仓: {sym} {order_side} {size}")
 
             elif mode == "limit":
@@ -1301,11 +1302,16 @@ class BackpackDriver(TradingSyscalls):
                     price = align_decimal_places(mark_price, mark_price * (1 + price_offset))
                 else:
                     price = align_decimal_places(mark_price, mark_price * (1 - price_offset))
-                self.place_order(symbol=sym, side=order_side, order_type="limit", size=size, price=price)
+                order_id, err = self.place_order(symbol=sym, side=order_side, order_type="limit", size=size, price=price)
+                if err:
+                    unclosed_positions.append(pos)
+                    continue
+                closed_positions.append(pos)
                 print(f"📤 限价平仓: {sym} {order_side} {size} @ {price}")
 
             else:
                 raise ValueError("mode 必须是 'market' 或 'limit'")
+        return closed_positions if len(closed_positions) > 0 else None, unclosed_positions if len(unclosed_positions) > 0 else None
 
 
 def test_error_handling():

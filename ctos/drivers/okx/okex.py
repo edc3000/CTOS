@@ -533,7 +533,7 @@ class OkexSpot:
                         order_ids.append(order_info)
             return order_ids, None
 
-    def amend_order(self, price=None, quantity=None, orderId=None):
+    def amend_order(self, price=None, quantity=None, orderId=None, symbol=None):
         """
        Open buy order.
        :param price:order price
@@ -542,7 +542,7 @@ class OkexSpot:
        :return:order id and None, otherwise None and error information
        """
         uri = "/api/v5/trade/amend-order"
-        data = {"instId": self.symbol, "ordId": orderId}
+        data = {"instId": self.symbol if not symbol else symbol, "ordId": orderId}
         if not price and not quantity:
             print('WTF想修改啥？')
             return

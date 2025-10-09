@@ -483,3 +483,12 @@
 {"ts": "2025-09-25 17:00:08", "op": "StrategyExit", "src": "Grid-Order-Management", "det": {"reason": "Manual interrupt", "uptime": 475.6238582134247}}
 {"ts": "2025-09-25 17:00:42", "op": "StrategyStart", "src": "Grid-Order-Management", "det": {"exchange": "backpack", "strategy": "Grid-Order-Management", "version": "3.0", "force_refresh": false}}
 {"ts": "2025-09-26 01:01:25", "op": "StrategyStart", "src": "Grid-Order-Management", "det": {"exchange": "backpack", "strategy": "Grid-Order-Management", "version": "3.0", "force_refresh": true}}
+{"ts": "2025-09-26 16:43:56", "op": "StrategyExit", "src": "Grid-Order-Management", "det": {"reason": "Manual interrupt", "uptime": 56550.78193092346}}
+{"ts": "2025-10-05 00:17:35", "op": "StrategyStart", "src": "Grid-Order-Management", "det": {"exchange": "backpack", "strategy": "Grid-Order-Management", "version": "3.0", "force_refresh": false}}
+{"ts": "2025-10-06 08:32:19", "op": "StrategyExit", "src": "Grid-Order-Management", "det": {"reason": "Manual interrupt", "uptime": 116082.55193376541}}
+{"ts": "2025-10-06 08:32:54", "op": "StrategyStart", "src": "Grid-Order-Management", "det": {"exchange": "backpack", "strategy": "Grid-Order-Management", "version": "3.0", "force_refresh": false}}
+{"ts": "2025-10-07 01:59:57", "op": "StrategyStart", "src": "Grid-Order-Management", "det": {"exchange": "backpack", "strategy": "Grid-Order-Management", "version": "3.0", "force_refresh": false}}
+{"ts": "2025-10-07 02:00:03", "op": "StrategyExit", "src": "Grid-Order-Management", "det": {"reason": "Manual interrupt", "uptime": 4.960922479629517}}
+{"ts": "2025-10-07 02:00:16", "op": "StrategyStart", "src": "Grid-Order-Management", "det": {"exchange": "backpack", "strategy": "Grid-Order-Management", "version": "3.0", "force_refresh": false}}
+{"ts": "2025-10-07 21:17:09", "op": "StrategyStart", "src": "Grid-Order-Management", "det": {"exchange": "backpack", "strategy": "Grid-Order-Management", "version": "3.0", "force_refresh": false}}
+{"ts": "2025-10-08 01:38:37", "op": "StrategyStart", "src": "Grid-Order-Management", "det": {"exchange": "backpack", "strategy": "Grid-Order-Management", "version": "3.0", "force_refresh": false}}

@@ -491,13 +491,13 @@ class OkxDriver(TradingSyscalls):
         )
 
 
-    def amend_order(self, order_id, **kwargs):
+    def amend_order(self, order_id, symbol=None, **kwargs):
         # Map to amend/modify if available
         if hasattr(self.okx, "amend_order"):
-            order_id, err = self.okx.amend_order(orderId=order_id, **kwargs)
+            order_id, err = self.okx.amend_order(orderId=order_id, symbol=symbol, **kwargs)
             return order_id, err
         if hasattr(self.okx, "modify_order"):
-            order_id, err  = self.okx.modify_order(orderId=order_id, **kwargs)
+            order_id, err  = self.okx.modify_order(orderId=order_id, symbol=symbol, **kwargs)
             return order_id, err
         raise NotImplementedError("okex.py client lacks amend_order/modify_order")
 

@@ -192,8 +192,6 @@ def load_gaps():
 
 
 def load_para(name='parameters.txt'):
-    if not os.path.exists(name):
-        name = 'trade_log_okex/' + name
     try:
         with open(name, 'r', encoding='utf8') as f:
             return json.load(f)
@@ -208,7 +206,7 @@ def save_para(paras, name='parameters.txt'):
         with open(name, 'w', encoding='utf8') as log:
             log.write(string)
         return 
-    with open(f'trade_log_okex/{name}', 'w', encoding='utf8') as log:
+    with open(f'{name}', 'w', encoding='utf8') as log:
         log.write(string)
 
 

@@ -27,3 +27,23 @@
 {"ts": "2025-09-25 16:52:13", "op": "StrategyStart", "src": "Grid-Order-Management", "det": {"exchange": "backpack", "strategy": "Grid-Order-Management", "version": "3.0", "force_refresh": false}}
 {"ts": "2025-09-25 17:00:42", "op": "StrategyStart", "src": "Grid-Order-Management", "det": {"exchange": "backpack", "strategy": "Grid-Order-Management", "version": "3.0", "force_refresh": false}}
 {"ts": "2025-09-25 20:17:03", "op": "StrategyExit", "src": "Grid-Order-Management", "det": {"reason": "Manual interrupt", "uptime": 11781.532798528671}}
+{"ts": "2025-09-28 22:13:00", "op": "StrategyStart", "src": "Grid-Order-Management", "det": {"exchange": "backpack", "strategy": "Grid-Order-Management", "version": "3.0", "force_refresh": false}}
+{"ts": "2025-09-28 22:13:31", "op": "StrategyExit", "src": "Grid-Order-Management", "det": {"reason": "Manual interrupt", "uptime": 27.8738534450531}}
+{"ts": "2025-09-28 22:14:13", "op": "StrategyStart", "src": "Grid-Order-Management", "det": {"exchange": "backpack", "strategy": "Grid-Order-Management", "version": "3.0", "force_refresh": false}}
+{"ts": "2025-09-28 22:21:12", "op": "StrategyExit", "src": "Grid-Order-Management", "det": {"reason": "Manual interrupt", "uptime": 419.44432282447815}}
+{"ts": "2025-09-28 22:21:18", "op": "StrategyStart", "src": "Grid-Order-Management", "det": {"exchange": "backpack", "strategy": "Grid-Order-Management", "version": "3.0", "force_refresh": false}}
+{"ts": "2025-09-28 22:21:38", "op": "StrategyExit", "src": "Grid-Order-Management", "det": {"reason": "Manual interrupt", "uptime": 20.279106378555298}}
+{"ts": "2025-09-28 22:21:43", "op": "StrategyStart", "src": "Grid-Order-Management", "det": {"exchange": "backpack", "strategy": "Grid-Order-Management", "version": "3.0", "force_refresh": false}}
+{"ts": "2025-09-28 22:22:02", "op": "StrategyExit", "src": "Grid-Order-Management", "det": {"reason": "Manual interrupt", "uptime": 18.970775604248047}}
+{"ts": "2025-09-28 22:22:05", "op": "StrategyStart", "src": "Grid-Order-Management", "det": {"exchange": "backpack", "strategy": "Grid-Order-Management", "version": "3.0", "force_refresh": false}}
+{"ts": "2025-09-28 22:29:13", "op": "StrategyStart", "src": "Grid-Order-Management", "det": {"exchange": "backpack", "strategy": "Grid-Order-Management", "version": "3.0", "force_refresh": false}}
+{"ts": "2025-09-30 14:03:57", "op": "StrategyExit", "src": "Grid-Order-Management", "det": {"reason": "Manual interrupt", "uptime": 142484.20793366432}}
+{"ts": "2025-09-30 14:49:10", "op": "StrategyStart", "src": "Grid-Order-Management", "det": {"exchange": "backpack", "strategy": "Grid-Order-Management", "version": "3.0", "force_refresh": false}}
+{"ts": "2025-10-05 00:17:23", "op": "StrategyExit", "src": "Grid-Order-Management", "det": {"reason": "Manual interrupt", "uptime": 379692.73626971245}}
+{"ts": "2025-10-05 00:17:35", "op": "StrategyStart", "src": "Grid-Order-Management", "det": {"exchange": "backpack", "strategy": "Grid-Order-Management", "version": "3.0", "force_refresh": false}}
+{"ts": "2025-10-06 08:32:54", "op": "StrategyStart", "src": "Grid-Order-Management", "det": {"exchange": "backpack", "strategy": "Grid-Order-Management", "version": "3.0", "force_refresh": false}}
+{"ts": "2025-10-07 01:59:40", "op": "StrategyExit", "src": "Grid-Order-Management", "det": {"reason": "Manual interrupt", "uptime": 62805.927565574646}}
+{"ts": "2025-10-07 01:59:57", "op": "StrategyStart", "src": "Grid-Order-Management", "det": {"exchange": "backpack", "strategy": "Grid-Order-Management", "version": "3.0", "force_refresh": false}}
+{"ts": "2025-10-07 02:00:16", "op": "StrategyStart", "src": "Grid-Order-Management", "det": {"exchange": "backpack", "strategy": "Grid-Order-Management", "version": "3.0", "force_refresh": false}}
+{"ts": "2025-10-07 21:17:09", "op": "StrategyStart", "src": "Grid-Order-Management", "det": {"exchange": "backpack", "strategy": "Grid-Order-Management", "version": "3.0", "force_refresh": false}}
+{"ts": "2025-10-08 01:38:37", "op": "StrategyStart", "src": "Grid-Order-Management", "det": {"exchange": "backpack", "strategy": "Grid-Order-Management", "version": "3.0", "force_refresh": false}}

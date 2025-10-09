@@ -53,12 +53,16 @@ def pick_exchange(cex, account, strategy='NONAME', strategy_detail='COMMON'):
     # 创建ExecutionEngine实例
     # INSERT_YOUR_CODE
     # 增加对strategy和strategy_detail参数的交互式输入，允许回车使用默认值
-    strategy_input = input(f"请输入策略名称 strategy (默认 {strategy if strategy else 'GRID_EXE_TEST'}): ").strip()
-    if strategy_input:
-        strategy = strategy_input
-    strategy_detail_input = input(f"请输入策略详情 strategy_detail (默认 {strategy_detail if strategy_detail else 'COMMON'}): ").strip()
-    if strategy_detail_input:
-        strategy_detail = strategy_detail_input
+    
+    if strategy:
+        pass
+    else:
+        strategy = input(f"请输入策略名称 strategy (默认 {strategy if strategy else 'GRID_EXE_TEST'}): ").strip()
+
+    if strategy_detail:
+        pass
+    else:
+        strategy_detail = input(f"请输入策略详情 strategy_detail (默认 {strategy_detail if strategy_detail else 'COMMON'}): ").strip()
     engine = ExecutionEngine(account=account, strategy=strategy, strategy_detail=strategy_detail, exchange_type=ex)
     return ex, engine
 
@@ -78,7 +82,7 @@ class ExecutionEngine:
         self.account = account
         self.exchange_type = exchange_type.lower()
         self.strategy_detail = strategy_detail
-        
+        self.order_id_to_coin = {}
         # 获取AccountManager
         if account_manager is None:
             self.account_manager = get_account_manager()
@@ -145,7 +149,7 @@ class ExecutionEngine:
                             self.logger.warning(f"Failed to place incremental orders: {err}")
                             return None, err
                     except Exception as ex:
-                        print('！！！！！！！！！！！！！艹了！怎么出这种问题', e)
+                        print('！！！！！！！！！！！！！艹了！怎么出这种问题', ex)
                         self.monitor.handle_error(str(ex),
                                                   context=f" OpenPosition Fallback in set_coin_position_to_target for {coin}")
                     continue
@@ -153,8 +157,8 @@ class ExecutionEngine:
                     side = data['side']
                     open_position = float(data['quantityUSD']) if  side == 'long' else -float(data['quantityUSD'])
                     diff = open_position - usdt_amount
-                    if diff < 1:
-                        continue
+                    # if abs(diff) < 1:
+                    #     continue
                     print(f"【{coin.upper()} 】需要补齐差额: {round(diff, 2)} = 现有:{round(open_position, 2)} - Target:{round(usdt_amount)}")
                     # 记录操作开始
                     
@@ -229,7 +233,7 @@ class ExecutionEngine:
                     if err or not exist_orders_for_coin:
                         done_coin.append(coin)
                         continue
-                    if len(exist_orders_for_coin) == 0:
+                    if len(exist_orders_for_coin) == 0 or len([x for x in exist_orders_for_coin if x in soft_orders_to_focus]) == 0:
                         done_coin.append(coin)
                         continue
                     for order in exist_orders_for_coin:
@@ -242,19 +246,28 @@ class ExecutionEngine:
                             now_price = exchange.get_price_now(symbol)
                             if now_price <= float(data['price']):
                                 tmp_price = align_decimal_places(now_price, now_price * (1 + 0.0001 * (200 - watch_times_for_all_coins) / 200))
+                                if tmp_price == float(data['price']):
+                                    continue
                                 new_price = tmp_price if tmp_price < float(data['price']) else float(data['price'])
                             else:
                                 tmp_price = align_decimal_places(now_price, now_price * (1 - 0.0001 * (200 - watch_times_for_all_coins) / 200))
+                                if tmp_price == float(data['price']):
+                                    continue
                                 new_price = tmp_price if tmp_price > float(data['price']) else float(data['price'])
                             # 解决 TypeError: 'str' object cannot be interpreted as an integer
                             # pop() 需要传入索引时是整数，但这里 order 是订单号（字符串），应使用 remove
-
-                            new_order, err = exchange.amend_order(order_id=order,  symbol=self.cex_driver._norm_symbol(coin)[0], price=new_price, quantity=float(data['quantity']))
-                            if err is None and new_order in soft_orders_to_focus and exchange.cex.lower() == 'backpack':
-                                soft_orders_to_focus[soft_orders_to_focus.index(order)] = new_order
-                            print(f"amend_order  {order} to {new_order}: {self.cex_driver._norm_symbol(coin)[0]} {new_price}, {float(data['quantity'])}")
-                            time.sleep(6.66)
                             need_to_watch = True
+                            new_order, err = exchange.amend_order(order_id=order,  symbol=self.cex_driver._norm_symbol(coin)[0], price=new_price, quantity=float(data['quantity']))
+                            if new_order is None and err is None:
+                                soft_orders_to_focus.remove(order)
+                                print(f"\n  {order} is deal: {self.cex_driver._norm_symbol(coin)[0]}")
+                                done_coin.append(coin)
+                                time.sleep(2.88)
+                            else:
+                                if err is None and exchange.cex.lower() == 'backpack':
+                                    soft_orders_to_focus[soft_orders_to_focus.index(order)] = new_order
+                                print(f"\n\namend_order  {order} to {new_order}: {self.cex_driver._norm_symbol(coin)[0]} {new_price}, {float(data['quantity'])}")
+                                time.sleep(6.66)
                     print(f'\r共有{len(coins)}个币种，完成了{len(done_coin)}个, 正追踪【{coin}】中，它目前还有{len(exist_orders_for_coin)}个订单', end=' ')
                 except Exception as e:
                     try:
@@ -281,6 +294,16 @@ class ExecutionEngine:
         self.watch_threads.append(t)
         print(f"🎯 新监控线程已启动，共 {len(self.watch_threads)} 个任务运行中")
 
+    def revoke_all_orders(self):
+        open_orders, err = self.cex_driver.get_open_orders(onlyOrderId=True)
+        if err:
+            print('❌ 获取未完成订单失败: {err}')
+            return
+        for order_id in open_orders:
+            if order_id in self.order_id_to_coin.keys():
+                self.cex_driver.revoke_order(order_id, self.order_id_to_coin[order_id])
+        self.order_id_to_coin = {}
+
     def place_incremental_orders(self, usdt_amount, coin, direction, soft=False, price=None):
         """
         根据usdt_amount下分步订单，并通过 SystemMonitor 记录审核信息
@@ -290,8 +313,7 @@ class ExecutionEngine:
         if price:
             soft=True
         exchange = self.cex_driver
-        if soft:
-            soft_orders_to_focus = []
+        soft_orders_to_focus = []
         exchange_limits_info, err = self.cex_driver.exchange_limits(symbol=symbol_full)
         if err:
             print('CEX DRIVER.exchange_limits error ', err)
@@ -302,7 +324,7 @@ class ExecutionEngine:
         contract_value = exchange_limits_info['contract_value']
 
         # 获取当前市场价格
-        price = exchange.get_price_now(coin)
+        price = exchange.get_price_now(coin) if price is None else price
         if price is None:
             self.monitor.record_operation("PlaceIncrementalOrders", self.strategy_detail,
                                           {"symbol": symbol_full, "error": "获取当前价格失败"})
@@ -320,23 +342,23 @@ class ExecutionEngine:
                                           {"symbol": symbol_full, "error": "订单金额过小，无法下单"})
             print('订单金额过小，无法下单')
             return None, "订单金额过小，无法下单"
-        order_id = 0
+        order_id = None
         if direction.lower() == 'buy':
             if not soft:
-                if order_amount > 0:
-                    order_id, err_msg = self.cex_driver.place_order(symbol_full, 'buy', 'MARKET', order_amount)
-                    if order_id:
-                        soft_orders_to_focus.append(order_id)
+                order_id, err_msg = self.cex_driver.place_order(symbol_full, 'buy', 'MARKET', order_amount)
+                if order_id:
+                    self.order_id_to_coin[order_id] = coin
+                    soft_orders_to_focus.append(order_id)
             else:
-                if order_amount > 0:
-                    if price:
-                        limit_price =  round_like(price_precision, price)
-                    else:
-                        limit_price = round_like(price_precision, price * 0.9995)
-                    print(f"limit_price: {limit_price}, order_amount:{order_amount}")
-                    order_id, err_msg = self.cex_driver.place_order(symbol_full, 'buy', 'limit', order_amount, limit_price)
-                    if order_id:
-                        soft_orders_to_focus.append(order_id)
+                if price:
+                    limit_price = round_like(price_precision, price)
+                else:
+                    limit_price = round_like(price_precision, price * 0.9995)
+                print(f"limit_price: {limit_price}, order_amount:{order_amount}")
+                order_id, err_msg = self.cex_driver.place_order(symbol_full, 'buy', 'limit', order_amount, limit_price)
+                if order_id:
+                    self.order_id_to_coin[order_id] = coin
+                    soft_orders_to_focus.append(order_id)
             if order_id:
                 print(f"\r**BUY** order for {order_amount if order_id else 0} units of 【{coin.upper()}】 at price {price}")
                 self.monitor.record_operation("PlaceIncrementalOrders", self.strategy_detail, {
@@ -348,20 +370,21 @@ class ExecutionEngine:
 
         elif direction.lower() == 'sell':
             if not soft:
-                if order_amount > 0:
-                    order_id, err_msg = self.cex_driver.place_order(symbol_full, 'sell', 'MARKET', order_amount)
-                    if order_id:
-                        soft_orders_to_focus.append(order_id)
+                order_id, err_msg = self.cex_driver.place_order(symbol_full, 'sell', 'MARKET', order_amount)
+                if order_id:
+                    soft_orders_to_focus.append(order_id)
             else:
-                if order_amount > 0:
-                    if price:
-                        limit_price =  round_like(price_precision, price)
-                    else:
-                        limit_price = round_like(price_precision, price * 1.0005)
-                    print(f"limit_price: {limit_price}, order_amount:{order_amount}")
-                    order_id, err_msg = self.cex_driver.place_order(symbol_full, 'sell', 'limit', order_amount, limit_price)
-                    if order_id:
-                        soft_orders_to_focus.append(order_id)
+                if price:
+                    limit_price =  round_like(price_precision, price)
+                else:
+                    limit_price = round_like(price_precision, price * 1.0005)
+                print(f"limit_price: {limit_price}, order_amount:{order_amount}")
+                order_id, err_msg = self.cex_driver.place_order(symbol_full, 'sell', 'limit', order_amount, limit_price)
+                if order_id:
+                    self.order_id_to_coin[order_id] = coin
+                    soft_orders_to_focus.append(order_id)
+                else:
+                    self.order_id_to_coin[order_id] = coin
             if order_id:
                 print(f"\r **SELL**  order for {order_amount if order_id else 0} units of 【{coin.upper()}】 at price {price}")
                 self.monitor.record_operation("PlaceIncrementalOrders", self.strategy_detail, {

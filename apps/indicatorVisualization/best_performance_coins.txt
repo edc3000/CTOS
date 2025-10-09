@@ -1,1 +1,1 @@
-doge,tia,op,arb,gala,ldo,jup,om,bonk,crv,cro,pengu,near,avax,wld,hype,imx,ip
+apt,jup,near,crv,wif,pyth,hype,ldo,virtual,bonk,wld,bera,pengu,s,w,ip,fartcoin,kaito

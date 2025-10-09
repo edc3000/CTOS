@@ -669,3 +669,45 @@
 2025-09-25 20:17:03,563 - INFO - OP StrategyExit | {'reason': 'Manual interrupt', 'uptime': 11781.532798528671}
 2025-09-26 01:01:25,274 - INFO - ExecutionEngine initialized for backpack account 1
 2025-09-26 01:01:25,274 - INFO - OP StrategyStart | {'exchange': 'backpack', 'strategy': 'Grid-Order-Management', 'version': '3.0', 'force_refresh': True}
+2025-09-26 16:43:56,976 - INFO - OP StrategyExit | {'reason': 'Manual interrupt', 'uptime': 56550.78193092346}
+2025-10-05 00:17:28,207 - INFO - ExecutionEngine initialized for backpack account 1
+2025-10-05 00:17:31,997 - INFO - ExecutionEngine initialized for backpack account 0
+2025-10-05 00:17:35,675 - INFO - ExecutionEngine initialized for backpack account 3
+2025-10-05 00:17:35,675 - INFO - OP StrategyStart | {'exchange': 'backpack', 'strategy': 'Grid-Order-Management', 'version': '3.0', 'force_refresh': False}
+2025-10-05 00:17:35,676 - INFO - OP StrategyStart | {'exchange': 'backpack', 'strategy': 'Grid-Order-Management', 'version': '3.0', 'force_refresh': False}
+2025-10-05 00:17:35,676 - INFO - OP StrategyStart | {'exchange': 'backpack', 'strategy': 'Grid-Order-Management', 'version': '3.0', 'force_refresh': False}
+2025-10-06 08:32:19,431 - INFO - OP StrategyExit | {'reason': 'Manual interrupt', 'uptime': 116082.55193376541}
+2025-10-06 08:32:36,507 - INFO - ExecutionEngine initialized for backpack account 1
+2025-10-06 08:32:41,246 - INFO - ExecutionEngine initialized for backpack account 0
+2025-10-06 08:32:54,191 - INFO - ExecutionEngine initialized for backpack account 3
+2025-10-06 08:32:54,192 - INFO - OP StrategyStart | {'exchange': 'backpack', 'strategy': 'Grid-Order-Management', 'version': '3.0', 'force_refresh': False}
+2025-10-06 08:32:54,192 - INFO - OP StrategyStart | {'exchange': 'backpack', 'strategy': 'Grid-Order-Management', 'version': '3.0', 'force_refresh': False}
+2025-10-06 08:32:54,193 - INFO - OP StrategyStart | {'exchange': 'backpack', 'strategy': 'Grid-Order-Management', 'version': '3.0', 'force_refresh': False}
+2025-10-07 01:59:40,123 - INFO - OP StrategyExit | {'reason': 'Manual interrupt', 'uptime': 62805.927565574646}
+2025-10-07 01:59:52,777 - INFO - ExecutionEngine initialized for backpack account 1
+2025-10-07 01:59:55,411 - INFO - ExecutionEngine initialized for backpack account 0
+2025-10-07 01:59:57,193 - INFO - ExecutionEngine initialized for backpack account 3
+2025-10-07 01:59:57,194 - INFO - OP StrategyStart | {'exchange': 'backpack', 'strategy': 'Grid-Order-Management', 'version': '3.0', 'force_refresh': False}
+2025-10-07 01:59:57,194 - INFO - OP StrategyStart | {'exchange': 'backpack', 'strategy': 'Grid-Order-Management', 'version': '3.0', 'force_refresh': False}
+2025-10-07 01:59:57,195 - INFO - OP StrategyStart | {'exchange': 'backpack', 'strategy': 'Grid-Order-Management', 'version': '3.0', 'force_refresh': False}
+2025-10-07 02:00:03,072 - INFO - OP StrategyExit | {'reason': 'Manual interrupt', 'uptime': 4.960922479629517}
+2025-10-07 02:00:10,589 - INFO - ExecutionEngine initialized for backpack account 1
+2025-10-07 02:00:14,313 - INFO - ExecutionEngine initialized for backpack account 0
+2025-10-07 02:00:16,416 - INFO - ExecutionEngine initialized for backpack account 3
+2025-10-07 02:00:16,416 - INFO - OP StrategyStart | {'exchange': 'backpack', 'strategy': 'Grid-Order-Management', 'version': '3.0', 'force_refresh': False}
+2025-10-07 02:00:16,417 - INFO - OP StrategyStart | {'exchange': 'backpack', 'strategy': 'Grid-Order-Management', 'version': '3.0', 'force_refresh': False}
+2025-10-07 02:00:16,417 - INFO - OP StrategyStart | {'exchange': 'backpack', 'strategy': 'Grid-Order-Management', 'version': '3.0', 'force_refresh': False}
+2025-10-07 21:16:57,119 - INFO - OP StrategyExit | {'reason': 'Manual interrupt', 'uptime': 69400.69913649559}
+2025-10-07 21:17:02,665 - INFO - ExecutionEngine initialized for backpack account 1
+2025-10-07 21:17:05,925 - INFO - ExecutionEngine initialized for backpack account 0
+2025-10-07 21:17:09,885 - INFO - ExecutionEngine initialized for backpack account 3
+2025-10-07 21:17:09,885 - INFO - OP StrategyStart | {'exchange': 'backpack', 'strategy': 'Grid-Order-Management', 'version': '3.0', 'force_refresh': False}
+2025-10-07 21:17:09,886 - INFO - OP StrategyStart | {'exchange': 'backpack', 'strategy': 'Grid-Order-Management', 'version': '3.0', 'force_refresh': False}
+2025-10-07 21:17:09,887 - INFO - OP StrategyStart | {'exchange': 'backpack', 'strategy': 'Grid-Order-Management', 'version': '3.0', 'force_refresh': False}
+2025-10-08 01:38:27,514 - INFO - OP StrategyExit | {'reason': 'Manual interrupt', 'uptime': 15677.624453783035}
+2025-10-08 01:38:31,821 - INFO - ExecutionEngine initialized for backpack account 1
+2025-10-08 01:38:34,773 - INFO - ExecutionEngine initialized for backpack account 0
+2025-10-08 01:38:37,473 - INFO - ExecutionEngine initialized for backpack account 3
+2025-10-08 01:38:37,473 - INFO - OP StrategyStart | {'exchange': 'backpack', 'strategy': 'Grid-Order-Management', 'version': '3.0', 'force_refresh': False}
+2025-10-08 01:38:37,474 - INFO - OP StrategyStart | {'exchange': 'backpack', 'strategy': 'Grid-Order-Management', 'version': '3.0', 'force_refresh': False}
+2025-10-08 01:38:37,474 - INFO - OP StrategyStart | {'exchange': 'backpack', 'strategy': 'Grid-Order-Management', 'version': '3.0', 'force_refresh': False}

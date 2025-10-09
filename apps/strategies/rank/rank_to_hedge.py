@@ -11,19 +11,10 @@ _PROJECT_ROOT = _THIS_FILE.parents[3]
 if str(_PROJECT_ROOT) not in sys.path:
     sys.path.insert(0, str(_PROJECT_ROOT))
 
-# 工具函数
-from ctos.drivers.backpack.util import align_decimal_places, round_dynamic, round_to_two_digits, rate_price2order
+from ctos.drivers.backpack.util import align_decimal_places, round_dynamic, round_to_two_digits, rate_price2order, cal_amount, BeijingTime
+from ctos.core.runtime.ExecutionEngine import pick_exchange
 
-def pick_exchange(from_arg: str | None = None):
-    ex = (from_arg or os.getenv('GRID_EX') or '').strip().lower()
-    if ex not in ('okx', 'bp'):
-        ex = input("选择交易所 exchange [okx/bp] (默认 okx): ").strip().lower() or 'okx'
-    if ex == 'bp':
-        from ctos.drivers.backpack.driver import BackpackDriver as Driver
-        return 'bp', Driver()
-    else:
-        from ctos.drivers.okx.driver import OkxDriver as Driver
-        return 'okx', Driver()
+
 
 class HourlyLongShortStrategy:
     def __init__(self, driver, coins, capital_per_side=10000):
@@ -41,20 +32,20 @@ class HourlyLongShortStrategy:
         """获取上一小时的涨跌幅"""
         returns = {}
         for coin in self.coins:
-            symbol, _, _ = self.driver._norm_symbol(f"{coin}-USDT-SWAP")
+            symbol, _, _ = self.driver._norm_symbol(coin)
             df, err = self.driver.get_klines(symbol, timeframe='1m', limit=60)
             if err or df is None or len(df) < 2:
                 continue
             if isinstance(df, pd.DataFrame):
-                open_price = float(df.iloc[0]['open'])
-                close_price = float(df.iloc[-1]['close'])
+                close_price = float(df.iloc[0]['close'])
+                open_price = float(df.iloc[-1]['open'])
             else:  # 兼容 list 格式
                 open_price = float(df[0]['open'])
                 close_price = float(df[-1]['close'])
             returns[coin] = (close_price - open_price) / open_price
         return returns
 
-    def rebalance(self):
+    def rebalance(self, engine=None):
         """每小时第一秒：决定开仓方向"""
         returns = self.get_last_hour_returns()
         if not returns:
@@ -78,16 +69,27 @@ class HourlyLongShortStrategy:
         # print("涨幅排名:", sorted_coins)
 
         # 多头
+        usdt_amounts = []
+        coins_to_deal = []
         for coin, ret in longs:
             price = self.driver.get_price_now(f"{coin}-USDT-SWAP")
-            print(f"\r➡️ 做多 {coin}: {long_cap} USDT @ {price}", end='')
+            print(f"\r➡️ 做多 {coin}: {long_cap} USDT @ {price}, with return {ret*100:.4f}%", end='')
             self.positions[coin] = {"side": "long", "entry": price}
-
+            coins_to_deal.append(coin)
+            usdt_amounts.append(long_cap)
         # 空头
         for coin, ret in shorts:
             price = self.driver.get_price_now(f"{coin}-USDT-SWAP")
-            print(f"\r⬅️ 做空 {coin}: {short_cap} USDT @ {price}", end='')
+            print(f"\r⬅️ 做空 {coin}: {short_cap} USDT @ {price}, with return {ret*100:.4f}%", end='')
             self.positions[coin] = {"side": "short", "entry": price}
+            coins_to_deal.append(coin)
+            usdt_amounts.append(-short_cap)
+
+        if engine is not None:
+            focus_orders = engine.set_coin_position_to_target(usdt_amounts, coins_to_deal, soft=True)
+            engine.focus_on_orders(coins_to_deal, focus_orders)
+            while len(engine.watch_threads) > 0:
+                time.sleep(1)
 
     def evaluate(self):
         """每小时最后10秒：评估盈亏"""
@@ -111,18 +113,37 @@ class HourlyLongShortStrategy:
         print(f"\n📈 本小时总体平均收益率: {avg_pnl*100:.4f}%")
 
         return results, avg_pnl
-def main():
-    ex_name, driver = pick_exchange()
-    coins = [x.upper() for x in rate_price2order.keys()]  # 示例
-    strat = HourlyLongShortStrategy(driver, coins)
 
+def main():
+        # 自动用当前文件名（去除后缀）作为默认策略名，细节默认为COMMON
+    default_strategy = os.path.splitext(os.path.basename(__file__))[0].upper()
+    exch1, engine1 = pick_exchange('okx', 0, strategy=default_strategy, strategy_detail="COMMON")
+    exch2, engine2 = pick_exchange('bp', 2, strategy=default_strategy, strategy_detail="COMMON")
+    all_coins_in_cex, _  = engine2.cex_driver.symbols()
+    print(all_coins_in_cex, len(all_coins_in_cex))
+    all_coins = []
+    for x in all_coins_in_cex:
+        if x.find('-') != -1:
+            if x[:x.find('-')].lower() in rate_price2order.keys():
+                all_coins.append(x[:x.find('-')].lower())
+        else:
+            if x[:x.find('_')].lower() in rate_price2order.keys():
+                all_coins.append(x[:x.find('_')].lower())
+    print(all_coins, len(all_coins))
+    coins = [x.lower() for x in all_coins]  # 示例
+    strat = HourlyLongShortStrategy(engine1.cex_driver, coins, 1000)
+    clear_flag = False
     while True:
         now = datetime.now()
         # 整点 + 1 秒：开仓
-        if now.minute == 0 and now.second >50:
+        if now.minute == 0 and clear_flag:
             strat.rebalance()
+            # strat.rebalance(engine2)
+            clear_flag = False
         # 整点 - 10 秒：评估
         if now.minute == 59 and now.second >= 50:
+            clear_flag = True
+            # engine2.revoke_all_orders()
             strat.evaluate()
             time.sleep(15)  # 避免重复触发
         time.sleep(1)

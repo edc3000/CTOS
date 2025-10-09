@@ -15,7 +15,7 @@ if str(_PROJECT_ROOT) not in sys.path:
 
 
 from ctos.core.runtime.ExecutionEngine import pick_exchange, ExecutionEngine
-from ctos.drivers.okx.util import rate_price2order, align_decimal_places, cal_amount, json
+from ctos.drivers.okx.util import rate_price2order, align_decimal_places, cal_amount, json, BeijingTime
 
 
 def quick_test(exchange_type, coin, amount=10):
@@ -101,14 +101,22 @@ def main_test():
     print(f"测试结果: {success_count}/{total_count} 成功")
     print(f"{'='*50}")
 
-def main1_test(cex='bp', account=3, strategy='HEDGE', strategy_detail='COMMON', leverage_times=1):
-    cex, engine = pick_exchange(cex=cex, account=account, strategy=strategy, strategy_detail=strategy_detail)
-    bp = engine.cex_driver
-    all_coins, _  = bp.symbols()
-
-    all_coins = [x[:x.find('U') - 1].lower() for x in all_coins if x[:x.find('U') - 1].lower() in rate_price2order.keys()] 
+def main1_test(cex='bp', account=3, strategy='HEDGE', strategy_detail='COMMON', leverage_times=1, engine=None):
+    if engine is None:  
+        cex, engine = pick_exchange(cex=cex, account=account, strategy=strategy, strategy_detail=strategy_detail)
+    else:
+        cex = engine.cex_driver.cex if cex is None else cex
+    cex = engine.cex_driver
+    all_coins_in_cex, _  = cex.symbols()
+    all_coins = []
+    for x in all_coins_in_cex:
+        if x.find('-') != -1:
+            if x[:x.find('-')].lower() in rate_price2order.keys():
+                all_coins.append(x[:x.find('-')].lower())
+        else:
+            if x[:x.find('_')].lower() in rate_price2order.keys():
+                all_coins.append(x[:x.find('_')].lower())
     print(all_coins, len(all_coins))
-
 
     # while True:
     #     time.sleep(3)
@@ -130,7 +138,7 @@ def main1_test(cex='bp', account=3, strategy='HEDGE', strategy_detail='COMMON', 
         btc_rate = all_rate[0] / sum(all_rate)
         split_rate = {good_group[x + 1]: all_rate[x + 1] / sum(all_rate) for x in range(len(all_rate) - 1)}
 
-    start_money = bp.fetch_balance()
+    start_money = cex.fetch_balance()
     print(f"start_money: {start_money}")
     init_operate_position = start_money * leverage_times
     new_rate_place2order = {k:v for k,v in rate_price2order.items() if k in all_coins}
@@ -139,13 +147,12 @@ def main1_test(cex='bp', account=3, strategy='HEDGE', strategy_detail='COMMON', 
     is_btc_failed = False
     now_position = {}
     for coin in set(all_coins):
-        time.sleep(0.2)
         if coin in good_group:
             operate_amount = cal_amount(coin, init_operate_position, good_group, btc_rate, split_rate)
             if is_btc_failed:
                 operate_amount = -operate_amount
-            if bp._norm_symbol(coin)[0] in now_position:
-                operate_amount = operate_amount - now_position[bp._norm_symbol(coin)[0]]
+            if cex._norm_symbol(coin)[0] in now_position:
+                operate_amount = operate_amount - now_position[cex._norm_symbol(coin)[0]]
             usdt_amounts.append(operate_amount)
             coins_to_deal.append(coin)
         else:
@@ -153,16 +160,73 @@ def main1_test(cex='bp', account=3, strategy='HEDGE', strategy_detail='COMMON', 
             if is_btc_failed:
                 sell_amount = -sell_amount
             sell_amount = -sell_amount
-            if bp._norm_symbol(coin)[0] in now_position:
-                sell_amount = sell_amount - now_position[bp._norm_symbol(coin)[0]]
+            if cex._norm_symbol(coin)[0] in now_position:
+                sell_amount = sell_amount - now_position[cex._norm_symbol(coin)[0]]
             usdt_amounts.append(sell_amount)
             coins_to_deal.append(coin)
     print(usdt_amounts, coins_to_deal,)
-    focus_orders = engine.set_coin_position_to_target(usdt_amounts, coins_to_deal, soft=True)
-    engine.focus_on_orders(new_rate_place2order.keys(), focus_orders)
-    while len(engine.watch_threads) > 0:
-        time.sleep(1)
+    focus_orders = engine.set_coin_position_to_target(usdt_amounts, coins_to_deal, soft=False if engine.account == 3 else True)
+    if engine.account != 3:
+        engine.focus_on_orders(new_rate_place2order.keys(), focus_orders)
+        while len(engine.watch_threads) > 0:
+            time.sleep(1)
 
 if __name__ == '__main__':
-    main1_test(cex='okx', account=0, strategy='HEDGE', strategy_detail='COMMON', leverage_times=1)
-    # main1_test(cex='bp', account=3, strategy='HEDGE', strategy_detail='COMMON', leverage_times=1)
+     # 自动用当前文件名（去除后缀）作为默认策略名，细节默认为COMMON
+    default_strategy = os.path.splitext(os.path.basename(__file__))[0].upper()
+    exch1, engine1 = pick_exchange('okx', 0, strategy='COMMON', strategy_detail="COMMON")
+    exch2, engine2 = pick_exchange('bp', 0, strategy='COMMON', strategy_detail="COMMON")
+    exch3, engine3 = pick_exchange('bp', 3, strategy='COMMON', strategy_detail="COMMON")
+    # exch4, engine4 = pick_exchange('bp', 2, strategy='COMMON', strategy_detail="COMMON")
+    balances = [engine.cex_driver.fetch_balance() for engine in [engine1, engine2, engine3]]
+    start_balances =  [engine.cex_driver.fetch_balance() for engine in [engine1, engine2, engine3]]
+    acount_ids = [0, 0, 3]
+    cexes = ['okx', 'bp', 'bp', 'bp']
+    engines = [engine1, engine2, engine3]
+    leverages = [1.88, 1.88, 1.88]
+    for idx in range(4):
+        if idx in [0, 1, 2]:
+            print(f"{BeijingTime()} 测试 {cexes[idx]} - {acount_ids[idx]} - {balances[idx]}")
+            main1_test(cex=cexes[idx], account=acount_ids[idx], strategy='HEDGE', strategy_detail='COMMON', leverage_times=leverages[idx], engine=engines[idx])
+            print(f"{BeijingTime()} 测试完成 {cexes[idx]} - {acount_ids[idx]} - {balances[idx]}")
+            # time.sleep(60)
+    add_times = [0, 0, 0]
+    reduce_times = [0, 0, 0]
+    max_leverage = 3.88
+    min_leverage = 0.28
+    add_position_rate = 0.00388
+    reduce_position_rate = 0.00388
+    while True:
+        for idx in range(3):
+            try:
+                if idx in [0, 1, 2, 3]:
+                    now_balance = round(engines[idx].cex_driver.fetch_balance(), 2)
+                    base_balance = round(balances[idx], 2)
+                    down_target_balance = round(base_balance - base_balance * leverages[idx] * add_position_rate, 2)
+                    up_target_balance = round(base_balance + base_balance * leverages[idx] * reduce_position_rate, 2)
+
+                    if now_balance < down_target_balance and leverages[idx] < max_leverage and now_balance < start_balances[idx]:
+                        add_times[idx] += 1
+                        reduce_times[idx] = 0 if reduce_times[idx] == 0 else reduce_times[idx] - 1
+                        leverages[idx] += 0.1 * (1 + add_times[idx]/20)
+                        balances[idx] = now_balance
+                        print(f"{BeijingTime()} 加仓 {cexes[idx]} - {acount_ids[idx]} - Base:{balances[idx]} 开始")
+                        main1_test(cex=cexes[idx], account=acount_ids[idx], strategy='HEDGE', strategy_detail='COMMON', leverage_times=leverages[idx], engine=engines[idx])
+                        print(f"{BeijingTime()} 加仓完成 {cexes[idx]} - {acount_ids[idx]} - {balances[idx]}")
+
+                    elif now_balance > up_target_balance and leverages[idx] > min_leverage and now_balance > start_balances[idx]:
+                        start_balances[idx] = now_balance
+                        reduce_times[idx] += 1
+                        add_times[idx] = 0 if add_times[idx] == 0 else add_times[idx] - 1       
+                        leverages[idx] -= 0.1 * (1 + reduce_times[idx]/20)
+                        balances[idx] = now_balance
+                        print(f"{BeijingTime()} 减仓 {cexes[idx]} - {acount_ids[idx]} - {balances[idx]} 开始")
+                        main1_test(cex=cexes[idx], account=acount_ids[idx], strategy='HEDGE', strategy_detail='COMMON', leverage_times=leverages[idx], engine=engines[idx])
+                        print(f"{BeijingTime()} 减仓完成 {cexes[idx]} - {acount_ids[idx]} - {balances[idx]}")
+                    else:
+                        print(f"\r{BeijingTime()} 测试 {cexes[idx]} - {acount_ids[idx]} - [{down_target_balance} {now_balance} {up_target_balance}], Base:{round(start_balances[idx], 2)}, Leverage: {round(leverages[idx], 2)} 目前无需加仓！", end='')
+                time.sleep(6.66)
+            except Exception as e:
+                print(f"{BeijingTime()} 测试失败 {cexes[idx]} - {acount_ids[idx]} - {e}")
+                time.sleep(6.66)
+        # time.sleep(60)

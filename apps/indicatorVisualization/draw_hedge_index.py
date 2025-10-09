@@ -85,7 +85,27 @@ print(PROJECT_ROOT)
 from ctos.drivers.okx.util import BeijingTime, get_host_ip, rate_price2order, pad_dataframe_to_length_fast
 from ctos.drivers.okx.driver import init_CexClient as get_okexExchage
 # === 配置 ===
-COINS = list(rate_price2order.keys())
+
+try:
+    print(get_current_dir() + '/' + 'good_group_plot.txt')
+    with open(get_current_dir() + '/' + 'good_group_plot.txt', 'r', encoding='utf8') as f:
+        data = f.readlines()
+        good_group = data[0].strip().split(',')
+        all_rate = [float(x) for x in data[1].strip().split(',')]
+        if len(good_group) != len(all_rate):
+            print('TMD不对啊')
+        btc_rate = all_rate[0] / sum(all_rate)
+        if len(data) >= 3:
+            bad_coins = [x for x  in data[2].replace(' ', '').strip().split(',') if x not in good_group]
+        else:
+            bad_coins = []
+except Exception as e:
+    print('我草拟吗 他么出什么傻逼问题了？！', e)
+    good_group = []
+    bad_coins = []
+
+COINS = list(rate_price2order.keys())  if len(bad_coins) == 0 else list(set(good_group + bad_coins))
+
 # TIMEFRAMES = {
 #     '1m': 10/len(COINS),  # 每 1 秒拉一次
 #     '5m': 1,  # 每 5  秒拉一次
@@ -362,6 +382,67 @@ def fetch_and_process(coin, timeframe='5m'):
         return None
 
 
+def pad_kline_data(data, target_length, tf):
+    """
+    补齐K线数据到目标长度，保持时间连续性
+    
+    Parameters:
+    -----------
+    data : pd.DataFrame
+        原始K线数据
+    target_length : int
+        目标长度
+    tf : str
+        时间周期
+        
+    Returns:
+    --------
+    pd.DataFrame : 补齐后的数据
+    """
+    if len(data) >= target_length:
+        return data.iloc[-target_length:]  # 取最新的数据
+    
+    if len(data) == 0:
+        return data
+    
+    # 时间间隔（秒）
+    interval_seconds = {
+        '1m': 60, '5m': 300, '15m': 900, 
+        '1h': 3600, '4h': 14400, '1d': 86400
+    }.get(tf, 300)
+    
+    # 获取最新时间戳（毫秒）
+    latest_timestamp = data['trade_date'].iloc[-1]
+    if not isinstance(latest_timestamp, (int, float)):
+        # 如果不是数字，尝试转换
+        try:
+            latest_timestamp = int(latest_timestamp)
+        except:
+            # 如果转换失败，使用当前时间
+            latest_timestamp = int(pd.Timestamp.now().timestamp() * 1000)
+    
+    # 检查时间戳是否在合理范围内（2020-2030年）
+    if latest_timestamp < 1577836800000 or latest_timestamp > 1893456000000:
+        # 如果时间戳超出范围，使用当前时间
+        latest_timestamp = int(pd.Timestamp.now().timestamp() * 1000)
+    
+    # 补齐数据
+    padded_data = data.copy()
+    missing_count = target_length - len(data)
+    
+    for i in range(missing_count):
+        # 向前推算时间戳（毫秒）
+        new_timestamp = latest_timestamp - (i + 1) * interval_seconds * 1000
+        
+        # 创建新行（使用最新数据的值作为默认值）
+        new_row = data.iloc[-1].copy()
+        new_row['trade_date'] = int(new_timestamp)
+        
+        # 插入到开头
+        padded_data = pd.concat([pd.DataFrame([new_row]), padded_data], ignore_index=True)
+    
+    return padded_data
+
 def fetch_loop(coins: list, tf: str, interval_sec: int):
     while True:
         for coin in coins:
@@ -374,15 +455,18 @@ def fetch_loop(coins: list, tf: str, interval_sec: int):
                 time.sleep(0.1)
             symbol = f"{coin.upper()}-USDT-SWAP"
             try:
-                # with lock_for_apis:
-                    # data, err = exchange.get_kline(tf, KLINE_LENGTH, symbol)
                 data, err = exchange.get_kline(tf, KLINE_LENGTH, symbol)
                 if err is not None:
                     time.sleep(5)
                     print(f"😔 fetch {symbol} {tf} err:", err)
                     continue
-                if tf == '1d':
-                    data = pad_dataframe_to_length_fast(data, KLINE_LENGTH)
+                
+                # 检查数据长度并补齐
+                if len(data) < KLINE_LENGTH:
+                    print(f"⚠️ {symbol} {tf} 数据不足: {len(data)}/{KLINE_LENGTH}, 正在补齐...")
+                    data = pad_kline_data(data, KLINE_LENGTH, tf)
+                    print(f"✅ {symbol} {tf} 数据已补齐到: {len(data)}")
+                
                 with lock:
                     if coin in shared_data[tf]:
                         del shared_data[tf][coin]
@@ -591,8 +675,8 @@ def draw_allcoin_trend(time_gap, coins):
                 down_boll_y.append(trend_df[col].iloc[i])
 
         # 批量画点
-        ax_price.scatter(up_ma10_x, up_ma10_y, marker='^', color='red', s=20, zorder=5, label=None)
-        ax_price.scatter(down_ma10_x, down_ma10_y, marker='v', color='blue', s=20, zorder=5, label=None)
+        # ax_price.scatter(up_ma10_x, up_ma10_y, marker='^', color='red', s=20, zorder=5, label=None)
+        # ax_price.scatter(down_ma10_x, down_ma10_y, marker='v', color='blue', s=20, zorder=5, label=None)
         ax_price.scatter(up_boll_x, up_boll_y, marker='*', color='red', s=20, zorder=5, label=None)
         ax_price.scatter(down_boll_x, down_boll_y, marker='o', color='blue', s=20, zorder=5, label=None)
 
@@ -794,6 +878,253 @@ def factor_strength_ranking(
     return score, ranks, weight
 
 
+def calculate_bollinger_market_sentiment(data_frames: dict, time_gap: str, window: int = 20, std_multiplier: float = 2.0) -> dict:
+    """
+    计算所有币种的布林带，并分析市场整体情绪倾向
+    
+    Parameters:
+    -----------
+    data_frames : dict
+        包含所有币种数据的字典，每个值为包含OHLCV数据的DataFrame
+    time_gap : str
+        时间周期标识，用于数据存储文件名
+    window : int, default=20
+        布林带计算窗口期
+    std_multiplier : float, default=2.0
+        标准差倍数
+        
+    Returns:
+    --------
+    dict : 包含市场情绪分析结果的字典
+        {
+            'sentiment_score': float,  # -1到1之间，-1表示极度超卖，1表示极度超买，0表示中性
+            'upper_ratio': float,      # 价格接近上轨的币种比例
+            'middle_ratio': float,     # 价格接近中轨的币种比例  
+            'lower_ratio': float,      # 价格接近下轨的币种比例
+            'extreme_filtered': dict,  # 过滤极端情况后的统计
+            'coin_positions': dict,    # 每个币种的具体位置信息
+            'timestamp': str           # 分析时间戳
+        }
+    """
+    
+    if not data_frames:
+        return {}
+    
+    coin_positions = {}
+    position_scores = []  # 用于计算整体情绪，-1(下轨) 到 1(上轨)
+    
+    # 为每个币种计算布林带并判断当前价格位置
+    for coin, df in data_frames.items():
+        if df is None or len(df) < window:
+            continue
+            
+        try:
+            # 确保数据按时间排序
+            df_sorted = df.sort_values('trade_date').copy()
+            
+            # 计算布林带
+            close_prices = df_sorted['close'].astype(float)
+            sma = close_prices.rolling(window=window).mean()
+            std = close_prices.rolling(window=window).std()
+            
+            upper_band = sma + (std * std_multiplier)
+            middle_band = sma
+            lower_band = sma - (std * std_multiplier)
+            
+            # 获取最新价格和布林带值
+            latest_price = close_prices.iloc[-1]
+            latest_upper = upper_band.iloc[-1]
+            latest_middle = middle_band.iloc[-1]
+            latest_lower = lower_band.iloc[-1]
+            
+            # 跳过无效数据
+            if pd.isna(latest_upper) or pd.isna(latest_lower) or pd.isna(latest_middle):
+                continue
+                
+            # 计算价格在布林带中的相对位置 (-1到1)
+            band_width = latest_upper - latest_lower
+            if band_width > 0:
+                # 相对位置：-1(下轨), 0(中轨), 1(上轨)
+                relative_position = (latest_price - latest_middle) / (band_width / 2)
+                relative_position = max(-1, min(1, relative_position))  # 限制在[-1, 1]范围内
+            else:
+                relative_position = 0
+                
+            # 计算距离各轨道的相对距离
+            if band_width > 0:
+                dist_to_upper = abs(latest_price - latest_upper) / band_width
+                dist_to_middle = abs(latest_price - latest_middle) / band_width  
+                dist_to_lower = abs(latest_price - latest_lower) / band_width
+            else:
+                dist_to_upper = dist_to_middle = dist_to_lower = 1.0
+                
+            # 判断最接近哪条线
+            distances = {
+                'upper': dist_to_upper,
+                'middle': dist_to_middle, 
+                'lower': dist_to_lower
+            }
+            closest_band = min(distances.keys(), key=lambda k: distances[k])
+            
+            coin_positions[coin] = {
+                'latest_price': latest_price,
+                'upper_band': latest_upper,
+                'middle_band': latest_middle,
+                'lower_band': latest_lower,
+                'relative_position': relative_position,
+                'closest_band': closest_band,
+                'distances': distances,
+                'band_width': band_width
+            }
+            
+            position_scores.append(relative_position)
+            
+        except Exception as e:
+            print(f"计算 {coin} 布林带时出错: {e}")
+            continue
+    
+    if not position_scores:
+        return {}
+    
+    # 过滤极端值 (使用四分位数方法)
+    position_scores_array = np.array(position_scores)
+    q1 = np.percentile(position_scores_array, 25)
+    q3 = np.percentile(position_scores_array, 75)
+    iqr = q3 - q1
+    lower_bound = q1 - 1.5 * iqr
+    upper_bound = q3 + 1.5 * iqr
+    
+    # 过滤后的分数
+    filtered_scores = position_scores_array[
+        (position_scores_array >= lower_bound) & 
+        (position_scores_array <= upper_bound)
+    ]
+    
+    # 计算统计指标
+    total_coins = len(position_scores)
+    
+    # 原始统计
+    upper_count = sum(1 for score in position_scores if score > 0.5)
+    middle_count = sum(1 for score in position_scores if -0.5 <= score <= 0.5) 
+    lower_count = sum(1 for score in position_scores if score < -0.5)
+    
+    upper_ratio = upper_count / total_coins if total_coins > 0 else 0
+    middle_ratio = middle_count / total_coins if total_coins > 0 else 0
+    lower_ratio = lower_count / total_coins if total_coins > 0 else 0
+    
+    # 过滤后统计
+    filtered_total = len(filtered_scores)
+    if filtered_total > 0:
+        filtered_upper_count = sum(1 for score in filtered_scores if score > 0.5)
+        filtered_middle_count = sum(1 for score in filtered_scores if -0.5 <= score <= 0.5)
+        filtered_lower_count = sum(1 for score in filtered_scores if score < -0.5)
+        
+        filtered_upper_ratio = filtered_upper_count / filtered_total
+        filtered_middle_ratio = filtered_middle_count / filtered_total
+        filtered_lower_ratio = filtered_lower_count / filtered_total
+        
+        # 计算整体情绪分数 (过滤后的平均值)
+        sentiment_score = np.mean(filtered_scores)
+    else:
+        filtered_upper_ratio = filtered_middle_ratio = filtered_lower_ratio = 0
+        sentiment_score = np.mean(position_scores_array)
+    
+    # 构建结果
+    result = {
+        'sentiment_score': float(sentiment_score),
+        'upper_ratio': float(upper_ratio),
+        'middle_ratio': float(middle_ratio), 
+        'lower_ratio': float(lower_ratio),
+        'extreme_filtered': {
+            'upper_ratio': float(filtered_upper_ratio),
+            'middle_ratio': float(filtered_middle_ratio),
+            'lower_ratio': float(filtered_lower_ratio),
+            'total_coins': filtered_total,
+            'filtered_out': total_coins - filtered_total
+        },
+        'coin_positions': coin_positions,
+        'timestamp': datetime.now().isoformat(),
+        'total_analyzed_coins': total_coins
+    }
+    
+    # 保存数据到文件
+    save_bollinger_analysis(result, time_gap)
+    
+    # 打印简要信息
+    print(f"\n📊 布林带市场情绪分析 (时间周期: {time_gap})")
+    print(f"   总分析币种: {total_coins}")
+    print(f"   情绪分数: {sentiment_score:.3f} ({'超买' if sentiment_score > 0.3 else '超卖' if sentiment_score < -0.3 else '中性'})")
+    print(f"   上轨附近: {upper_ratio:.1%} | 中轨附近: {middle_ratio:.1%} | 下轨附近: {lower_ratio:.1%}")
+    print(f"   过滤极值后: 上轨 {filtered_upper_ratio:.1%} | 中轨 {filtered_middle_ratio:.1%} | 下轨 {filtered_lower_ratio:.1%}")
+    
+    return result
+
+
+def save_bollinger_analysis(analysis_result: dict, time_gap: str):
+    """
+    保存布林带分析结果到文件
+    
+    Parameters:
+    -----------
+    analysis_result : dict
+        分析结果字典
+    time_gap : str
+        时间周期标识
+    """
+    try:
+        # 创建保存目录
+        save_dir = os.path.join(os.path.dirname(__file__), 'bollinger_analysis')
+        os.makedirs(save_dir, exist_ok=True)
+        
+        # 生成文件名
+        timestamp = datetime.now().strftime('%Y%m%d_%H%M%S')
+        filename = f'bollinger_sentiment_{time_gap}.json'
+        filepath = os.path.join(save_dir, filename)
+        
+        # 保存简化版本（不包含详细的coin_positions以节省空间）
+        simplified_result = {
+            'sentiment_score': analysis_result['sentiment_score'],
+            'upper_ratio': analysis_result['upper_ratio'],
+            'middle_ratio': analysis_result['middle_ratio'],
+            'lower_ratio': analysis_result['lower_ratio'],
+            'extreme_filtered': analysis_result['extreme_filtered'],
+            'timestamp': analysis_result['timestamp'],
+            'total_analyzed_coins': analysis_result['total_analyzed_coins'],
+            'time_gap': time_gap
+        }
+        
+        with open(filepath, 'w', encoding='utf-8') as f:
+            json.dump(simplified_result, f, indent=2, ensure_ascii=False)
+            
+        # 同时保存到历史汇总文件
+        history_file = os.path.join(save_dir, f'bollinger_history_{time_gap}.json')
+        
+        # 读取现有历史记录
+        history_data = []
+        if os.path.exists(history_file):
+            try:
+                with open(history_file, 'r', encoding='utf-8') as f:
+                    history_data = json.load(f)
+            except:
+                history_data = []
+        
+        # 添加新记录
+        history_data.append(simplified_result)
+        
+        # 保持最近1000条记录
+        if len(history_data) > 1000:
+            history_data = history_data[-1000:]
+            
+        # 保存历史记录
+        with open(history_file, 'w', encoding='utf-8') as f:
+            json.dump(history_data, f, indent=2, ensure_ascii=False)
+            
+        print(f"   💾 布林带分析结果已保存: {filename}")
+        
+    except Exception as e:
+        print(f"保存布林带分析结果时出错: {e}")
+
+
 def market_strength_index(
     data_frames: dict,
     lookback: int = 60,
@@ -853,6 +1184,181 @@ def market_strength_index(
     idx = w_mom * m_avg + w_slope * s_avg + w_up * (u_avg - 0.5)  # 上涨频率中心化
 
     return float(idx)
+
+def optimize_hedge_configuration(
+    data_frames: dict = None,
+    lookback: int = 60,
+    n_trials: int = 1000,
+    precision: float = 0.1
+) -> list:
+    """
+    搜索最优的多空配置，最小化diff_returns的波动率
+    
+    Parameters:
+    -----------
+    data_frames : dict
+        包含所有币种日线数据的字典
+    lookback : int
+        回看期数
+    n_trials : int
+        搜索次数
+    precision : float
+        权重搜索精度
+        
+    Returns:
+    --------
+    list : 波动率最小的前10名配置
+    """
+    if not data_frames:
+        return []
+    
+    # 读取good_group配置
+
+    try:
+        print(get_current_dir() + '/' + 'good_group_plot.txt')
+        with open(get_current_dir() + '/' + 'good_group_plot.txt', 'r', encoding='utf8') as f:
+            data = f.readlines()
+            good_group = data[0].strip().split(',')
+            all_rate = [float(x) for x in data[1].strip().split(',')]
+            if len(good_group) != len(all_rate):
+                print('TMD不对啊')
+                return None
+            btc_rate = all_rate[0] / sum(all_rate)
+            if len(data) >= 3:
+                bad_coins = [x for x  in data[2].replace(' ', '').strip().split(',') if x not in good_group]
+            else:
+                bad_coins = []
+    except Exception as e:
+        print('我草拟吗 他么出什么傻逼问题了？！', e)
+        good_group = ['btc', 'sol']
+        bad_coins = []
+    if len(bad_coins) > 0:
+        top10_coins = bad_coins
+        
+    # 确保有足够的币种数据
+    available_coins = [coin for coin in good_group+bad_coins if coin in data_frames and len(data_frames[coin]) >= lookback]
+    if len(available_coins) < 6:  # 至少需要6个币种
+        print(f"可用币种不足: {len(available_coins)}")
+        return []
+    
+    print(f"开始优化搜索，可用币种: {available_coins}")
+    returns_data = {}
+    for coin in available_coins:
+        df = fetch_and_process(coin, '1d')
+        data_frames[coin] = df
+        df = data_frames[coin].iloc[-lookback:].copy()
+        df['daily_return'] = df['close'].pct_change() * 100
+        returns_data[coin] = df['daily_return'].dropna()
+
+    # 对齐时间索引
+    common_index = returns_data[available_coins[0]].index
+    for coin in available_coins[1:]:
+        common_index = common_index.intersection(returns_data[coin].index)
+    
+    for coin in available_coins:
+        returns_data[coin] = returns_data[coin].loc[common_index]
+    
+    best_configs = []
+    
+    for trial in range(n_trials):
+        try:
+            # 随机选择多头币种（最多1/5，至少包含btc,eth,bnb）
+            max_long = max(3, len(available_coins) // 5)
+            long_coins = ['btc', 'bnb']  # 必须包含的币种
+            
+            # 添加其他随机币种
+            remaining_coins = [c for c in available_coins if c not in long_coins]
+            if len(remaining_coins) > 0:
+                n_additional = min(max_long - 3, len(remaining_coins))
+                additional = random.sample(remaining_coins, n_additional)
+                long_coins.extend(additional)
+            
+            # 生成多头权重（btc至少1/5，最大权重不超过最小权重的3倍）
+            long_weights = {}
+            btc_weight = random.uniform(0.2, 0.6)  # btc权重至少20%
+            long_weights['btc'] = btc_weight
+            
+            # 分配剩余权重给其他多头币种
+            remaining_weight = 1.0 - btc_weight
+            other_long_coins = [c for c in long_coins if c != 'btc']
+            
+            if other_long_coins:
+                # 使用Dirichlet分布生成权重，但需要调整以满足比例约束
+                max_attempts = 10
+                for attempt in range(max_attempts):
+                    weights = np.random.dirichlet(np.ones(len(other_long_coins))) * remaining_weight
+                    
+                    # 检查比例约束：最大权重 <= 最小权重 * 3
+                    if len(weights) > 1:
+                        min_weight = min(weights)
+                        max_weight = max(weights)
+                        if max_weight <= min_weight * 3:
+                            # 满足约束，分配权重
+                            for coin, weight in zip(other_long_coins, weights):
+                                long_weights[coin] = weight
+                            break
+                    else:
+                        # 只有一个其他币种，直接分配
+                        long_weights[other_long_coins[0]] = remaining_weight
+                        break
+                else:
+                    # 如果多次尝试都不满足约束，使用均匀分配
+                    uniform_weight = remaining_weight / len(other_long_coins)
+                    for coin in other_long_coins:
+                        long_weights[coin] = uniform_weight
+            
+            # 计算多头组合收益
+            long_returns = pd.Series(0.0, index=common_index)
+            for coin, weight in long_weights.items():
+                if coin in returns_data:
+                    long_returns += returns_data[coin] * weight
+            
+            # 计算空头组合收益（等权重）
+            short_coins = [c for c in available_coins if c not in long_coins]
+            if short_coins:
+                short_returns = pd.concat([returns_data[coin] for coin in short_coins], axis=1).mean(axis=1)
+            else:
+                short_returns = pd.Series(0.0, index=common_index)
+            
+            # 计算diff_returns
+            diff_returns = long_returns - short_returns
+            
+            # 计算波动率
+            volatility = diff_returns.std()
+            
+            # 记录配置
+            config = {
+                'volatility': volatility,
+                'long_coins': long_coins,
+                'long_weights': long_weights,
+                'short_coins': short_coins,
+                'diff_returns_mean': diff_returns.mean(),
+                'sharpe_ratio': diff_returns.mean() / volatility if volatility > 0 else 0
+            }
+            
+            best_configs.append(config)
+            
+        except Exception as e:
+            continue
+    
+    # 按波动率排序，取前10名
+    best_configs.sort(key=lambda x: x['volatility'])
+    top_10 = best_configs[:10]
+    
+    print(f"\n📊 优化完成，找到 {len(best_configs)} 个有效配置")
+    print("🏆 波动率最小的前10名配置:")
+    print("-" * 80)
+    
+    for i, config in enumerate(top_10, 1):
+        print(f"{i:2d}. 波动率: {config['volatility']:.4f} | "
+              f"夏普比: {config['sharpe_ratio']:.4f} | "
+              f"多头: {config['long_coins']}")
+        print(f"    多头权重: {config['long_weights']}")
+        print(f"    空头: {config['short_coins']}")
+        print()
+    
+    return top_10
+
 
 def cluster_kline_graph(
     data_frames: dict= None,
@@ -943,7 +1449,7 @@ def main1(top10_coins=['btc', 'eth', 'xrp', 'bnb', 'sol', 'ada', 'doge', 'trx', 
                     return None
                 btc_rate = all_rate[0] / sum(all_rate)
                 if len(data) == 3:
-                    bad_coins = [x for x  in data[2].strip().split(',') if x not in good_group]
+                    bad_coins = [x for x  in data[2].replace(' ', '').strip().split(',') if x not in good_group]
                 else:
                     bad_coins = []
         except Exception as e:
@@ -960,7 +1466,10 @@ def main1(top10_coins=['btc', 'eth', 'xrp', 'bnb', 'sol', 'ada', 'doge', 'trx', 
         data_frames[coin] = df
     
     market_idx_1 = market_strength_index(data_frame, lookback=30)
-
+    
+    # ⭐ ---------- 布林带市场情绪分析 ------------------------------------
+    # bollinger_sentiment = calculate_bollinger_market_sentiment(data_frames, time_gap)
+    
     # ① ---------- 构造权重向量（归一化到 1）------------------------------
     total = sum(all_rate)
     weights = {c: r / total for c, r in zip(good_group, all_rate)}  # {'btc':0.45, 'doge':0.30, …}
@@ -1406,7 +1915,7 @@ def main1(top10_coins=['btc', 'eth', 'xrp', 'bnb', 'sol', 'ada', 'doge', 'trx', 
     # ax1.legend(h1 + h2, l1 + l2, loc='upper left')
 
     plt.title(
-        f'goodGroup {",".join(good_group)} vs. Top {len(top10_coins)} Coins at {BeijingTime(format="%H:%M:%S")}, BTC: {round(exchange.get_price_now("btc"))} Money:{round(exchange.fetch_balance("USDT"))}, T:{time_gap.upper()}, MC:{round(market_idx_1,4)}')
+        f'goodGroup {",".join(good_group)} vs. Top {len(top10_coins)} Coins at {BeijingTime(format="%H:%M:%S")}, BTC: {round(exchange.get_price_now("btc"))}, T:{time_gap.upper()}, MC:{round(market_idx_1,4)}')
 
     plt.tight_layout()
     plt.ylabel('Daily Returns (%)', fontsize=16)
@@ -1516,6 +2025,139 @@ def scan_loop(interval=60):
         time.sleep(sleep_sec)
 
 
+def hedge_optimization_worker():
+    """
+    等待数据准备就绪后，运行对冲配置优化
+    """
+    print("🔄 启动对冲配置优化线程...")
+    
+    # 等待数据准备就绪
+    while True:
+        try:
+            # 检查日线数据是否可用
+            daily_data = {}
+            for coin in COINS:
+                df = fetch_and_process(coin, '1d')
+                if df is not None and len(df) >= 60:
+                    daily_data[coin] = df
+            
+            if len(daily_data) >= 6:  # 至少需要6个币种的数据
+                print(f"✅ 日线数据准备就绪，开始优化搜索...")
+                break
+            else:
+                print(f"⏳ 等待日线数据准备就绪... (当前: {len(daily_data)} 个币种)")
+                time.sleep(30)
+        except Exception as e:
+            print(f"❌ 检查数据时出错: {e}")
+            time.sleep(30)
+    
+    # 运行优化搜索
+    try:
+        best_configs = optimize_hedge_configuration(
+            data_frames=daily_data,
+            lookback=200,
+            n_trials=2000,  # 增加搜索次数
+            precision=0.1
+        )
+        
+        # 保存结果到文件
+        if best_configs:
+            save_dir = Path(get_current_dir()) / 'hedge_optimization'
+            save_dir.mkdir(parents=True, exist_ok=True)
+            
+            timestamp = datetime.now().strftime('%Y%m%d_%H%M%S')
+            
+            # 1. 保存原始JSON数据
+            result_file = save_dir / f'best_hedge_configs_{timestamp}.json'
+            with open(result_file, 'w', encoding='utf-8') as f:
+                json.dump(best_configs, f, indent=2, ensure_ascii=False)
+            
+            # 2. 保存直观的描述文档
+            summary_file = save_dir / f'hedge_summary_{timestamp}.md'
+            with open(summary_file, 'w', encoding='utf-8') as f:
+                f.write(f"# 对冲配置优化结果\n\n")
+                f.write(f"**生成时间**: {datetime.now().strftime('%Y-%m-%d %H:%M:%S')}\n")
+                f.write(f"**数据来源**: 日线K线数据 (回看期: 60天)\n")
+                f.write(f"**搜索次数**: 2000次\n")
+                f.write(f"**约束条件**: BTC+BNB必选多头, BTC权重≥20%, 多头≤总币种1/5, 最大权重≤最小权重×3\n\n")
+                f.write("---\n\n")
+                
+                f.write(f"## 📊 优化统计\n\n")
+                f.write(f"- **总配置数**: {len(best_configs)}\n")
+                f.write(f"- **前10名配置**: 按波动率升序排列\n")
+                f.write(f"- **优化目标**: 最小化diff_returns波动率\n\n")
+                
+                f.write("## 🏆 最优配置详情\n\n")
+                
+                for i, config in enumerate(best_configs, 1):
+                    f.write(f"### 第{i}名 - 波动率: {config['volatility']:.4f}\n\n")
+                    f.write(f"**风险指标**:\n")
+                    f.write(f"- 波动率: `{config['volatility']:.4f}`\n")
+                    f.write(f"- 夏普比率: `{config['sharpe_ratio']:.4f}`\n")
+                    f.write(f"- 平均收益: `{config['diff_returns_mean']:.4f}%`\n\n")
+                    
+                    f.write(f"**多头配置** (权重总和: {sum(config['long_weights'].values()):.3f}):\n")
+                    for coin, weight in sorted(config['long_weights'].items(), key=lambda x: x[1], reverse=True):
+                        f.write(f"- {coin.upper()}: `{weight:.3f}` ({weight*100:.1f}%)\n")
+                    f.write(f"\n**空头配置**: {', '.join([c.upper() for c in config['short_coins']])}\n\n")
+                    
+                    f.write("---\n\n")
+                
+                f.write("## 📈 配置分析\n\n")
+                f.write("### 权重分布统计\n\n")
+                
+                # 统计权重分布
+                all_weights = {}
+                for config in best_configs:
+                    for coin, weight in config['long_weights'].items():
+                        if coin not in all_weights:
+                            all_weights[coin] = []
+                        all_weights[coin].append(weight)
+                
+                f.write("| 币种 | 平均权重 | 最大权重 | 最小权重 | 出现次数 |\n")
+                f.write("|------|----------|----------|----------|----------|\n")
+                
+                for coin in sorted(all_weights.keys()):
+                    weights = all_weights[coin]
+                    f.write(f"| {coin.upper()} | {np.mean(weights):.3f} | {max(weights):.3f} | {min(weights):.3f} | {len(weights)} |\n")
+                
+                f.write(f"\n### 空头币种统计\n\n")
+                short_count = {}
+                for config in best_configs:
+                    for coin in config['short_coins']:
+                        short_count[coin] = short_count.get(coin, 0) + 1
+                
+                for coin, count in sorted(short_count.items(), key=lambda x: x[1], reverse=True):
+                    f.write(f"- {coin.upper()}: {count}次\n")
+                
+                f.write(f"\n---\n\n")
+                f.write(f"*此报告由对冲配置优化系统自动生成*\n")
+            
+            print(f"💾 优化结果已保存:")
+            print(f"   📄 原始数据: {result_file.name}")
+            print(f"   📋 详细报告: {summary_file.name}")
+            
+            # 同步到服务器
+            if HOST_IP.find(SERVER_IP) != -1:
+                os.system(f'cp {result_file} ~/mysite/static/images/')
+            else:
+                os.system(f'scp {result_file} root@{SERVER_IP}:/root/mysite/static/images/')
+        
+    except Exception as e:
+        print(f"❌ 对冲优化过程中出错: {e}")
+    
+    print("🏁 对冲配置优化完成")
+
+
+def scan_loop(interval=60):
+    while True:
+        t0 = time.time()
+        scan_coins()
+        dt = time.time() - t0
+        sleep_sec = max(5, interval - dt)               # 至少歇 5 秒
+        time.sleep(sleep_sec)
+
+
 if __name__ == '__main__':
     launch_fetchers()
     # time.sleep(len(COINS) * 1.5)
@@ -1543,6 +2185,7 @@ if __name__ == '__main__':
     last_run = {g: 0 for g in update_interval}   # 初始化
     worst_performance_coins, best_performance_coins = get_good_bad_coin_group(18)
     threading.Thread(target=scan_loop, daemon=True).start()
+    threading.Thread(target=hedge_optimization_worker, daemon=True).start()
     for idx, gap in enumerate(['1m','5m','15m','1h','4h','1d']):
         data_frame = {c: fetch_and_process(c, gap) for c in COINS}
         score, ranks, weight = factor_strength_ranking(

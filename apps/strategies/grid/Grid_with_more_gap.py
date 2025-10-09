@@ -228,8 +228,8 @@ def manage_grid_orders(engine, sym, data, open_orders, price_precision, size_pre
     sell_exists = sell_order_id and sell_order_id in open_orders
     
     # 计算目标价格
-    buy_price = align_decimal_places(price_precision, baseline_price * 0.975)
-    sell_price = align_decimal_places(price_precision, baseline_price * 1.015)
+    buy_price = align_decimal_places(price_precision, baseline_price * 0.966)
+    sell_price = align_decimal_places(price_precision, baseline_price * 1.018)
     
     # 情况1: 两个订单都不存在，下新订单
     if not buy_exists and not sell_exists:
@@ -279,8 +279,8 @@ def manage_grid_orders(engine, sym, data, open_orders, price_precision, size_pre
         new_baseline_price = data["baseline_price"]
         
         # 计算新价格
-        new_buy_price = align_decimal_places(price_precision,  new_baseline_price * 0.975)
-        new_sell_price = align_decimal_places(price_precision,  new_baseline_price * 1.015)
+        new_buy_price = align_decimal_places(price_precision,  new_baseline_price * 0.966)
+        new_sell_price = align_decimal_places(price_precision,  new_baseline_price * 1.018)
         
         # 下新买单
         buy_qty = align_decimal_places(size_precision, base_amount / new_buy_price)
@@ -324,8 +324,8 @@ def manage_grid_orders(engine, sym, data, open_orders, price_precision, size_pre
         new_baseline_price = data["baseline_price"]
         
         # 计算新价格
-        new_buy_price = align_decimal_places(price_precision,  new_baseline_price * 0.975)
-        new_sell_price = align_decimal_places(price_precision,  new_baseline_price * 1.015)
+        new_buy_price = align_decimal_places(price_precision,  new_baseline_price * 0.966)
+        new_sell_price = align_decimal_places(price_precision,  new_baseline_price * 1.018)
         
         # 改单现有买单
         if buy_order_id:
@@ -387,18 +387,17 @@ def print_position(account, sym, pos, baseline_price, start_ts):
 
         change_pct = (price_now - baseline_price) / baseline_price * 100 if baseline_price else 0.0
 
-        header = f"=== [仓位监控] {sym} | Account {account} | Uptime {hh:02d}:{mm:02d}:{ss:02d} ==="
+        header = f"[仓位监控] {sym} | Account {account} | Uptime {hh:02d}:{mm:02d}:{ss:02d}"
         line = (
             f"现价={round_dynamic(price_now)} | "
             f"起步价={round_dynamic(baseline_price)} | "
             f"数量={round_to_two_digits(size)} | "
             f"方向={side} | "
-            f"浮盈={pnlUnrealized:+.2f} | "
             f"涨跌幅={change_pct:+.2f}%"
         )
-        output = header + line + '===='
-    if len(output) < 150:
-        output += ' ' * (180 - len(output))
+        output = header + line 
+    if len(output) < 110:
+        output += ' ' * (110 - len(output))
     print('\r' + output, end='')
 
 def show_help():
@@ -446,8 +445,9 @@ def show_help():
   ✓ 提高执行效率
 """)
 
-def main(engines=None, exchs=None):
-
+def grid_with_more_gap(engines=None, exchs=None, force_refresh=False, base_amount=8.88):
+    if base_amount is None:
+        base_amount = 8.88
     print(f"使用交易所: {exchs}")
     
     if force_refresh:
@@ -473,7 +473,7 @@ def main(engines=None, exchs=None):
             return
         print("初始持仓:", GridPositions)
     start_ts = time.time()
-    sleep_time = 0.88
+    sleep_time = 1.88
     need_to_update = False
     while True:
         try:
@@ -501,6 +501,9 @@ def main(engines=None, exchs=None):
                             pos = {}
                         else:
                             pos = poses[sym]
+                        if abs(float(pos["quantityUSD"])) < 10:
+                            time.sleep(sleep_time)
+                            continue
                         exchange_limits_info, err = engine.cex_driver.exchange_limits(symbol=sym)
                         if err:
                             print('CEX DRIVER.exchange_limits error ', err)
@@ -562,9 +565,7 @@ if __name__ == '__main__':
     
     # 自动用当前文件名（去除后缀）作为默认策略名，细节默认为COMMON
     default_strategy = os.path.splitext(os.path.basename(__file__))[0].upper()
-    exch1, engine1 = pick_exchange(arg_ex, 1, strategy=default_strategy, strategy_detail="COMMON")
-    # exch2, engine2 = pick_exchange(arg_ex, 0, strategy=default_strategy, strategy_detail="COMMON")
-    # exch3, engine3 = pick_exchange(arg_ex, 3, strategy=default_strategy, strategy_detail="COMMON")
-    # main1_test(engine)
-    # main([engine1, engine2, engine3], [exch1, exch2, exch3])
-    main([engine1], [exch1])
+    exch1, engine1 = pick_exchange('bp', 1, strategy=default_strategy, strategy_detail="COMMON")
+    exch2, engine2 = pick_exchange('bp', 0, strategy=default_strategy, strategy_detail="COMMON")
+    exch3, engine3 = pick_exchange('bp', 3, strategy=default_strategy, strategy_detail="COMMON")
+    grid_with_more_gap([engine1, engine2, engine3], [exch1, exch2, exch3])
