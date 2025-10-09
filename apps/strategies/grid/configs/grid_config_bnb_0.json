@@ -1,0 +1,8 @@
+{
+  "exchange": "bnb",
+  "account": 0,
+  "base_amount": 8.88,
+  "force_refresh": false,
+  "description": "网格策略配置 - 请根据实际情况修改参数",
+  "MODE": "DEACTIVATED"
+}

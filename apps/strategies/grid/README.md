@@ -14,49 +14,69 @@
 - **多账户支持**：支持同时管理多个交易所账户
 
 ### 交易逻辑
-- **买单价格**：基准价格 × 0.966 (3.4% 折扣)
-- **卖单价格**：基准价格 × 1.018 (1.8% 溢价)
+- **买单价格**：基准价格 × buy_grid_step (默认0.966，3.4% 折扣)
+- **卖单价格**：基准价格 × sell_grid_step (默认1.018，1.8% 溢价)
 - **成交调整**：
-  - 买单成交 → 基准价格下调至 0.99x
-  - 卖单成交 → 基准价格上调至 1.01x
+  - 买单成交 → 基准价格调整至 buy_move_step 倍数 (默认0.99x)
+  - 卖单成交 → 基准价格调整至 sell_move_step 倍数 (默认1.01x)
+- **动态参数**：所有网格参数可通过配置文件自定义调整
 
 ## 🚀 快速开始
 
 ### 基本用法
 
 ```bash
-# 交互式选择交易所
+# 使用配置文件启动（推荐）
 python Grid_with_more_gap.py
-
-# 指定交易所
-python Grid_with_more_gap.py bp
-
-# 强制刷新缓存
-python Grid_with_more_gap.py --refresh bp
 
 # 查看帮助
 python Grid_with_more_gap.py --help
 ```
 
+### 配置文件方式
+策略现在完全基于配置文件运行，无需命令行参数：
+
+1. **自动创建配置**：首次运行会自动创建默认配置文件
+2. **多账户支持**：支持同时配置多个交易所和账户
+3. **参数持久化**：所有参数保存在配置文件中
+
 ### 支持的交易所
-- `okx`, `ok`, `o`, `ox`, `okex` - 欧易交易所
-- `bp`, `backpack`, `b`, `back` - Backpack交易所
+- `bp` - Backpack交易所
+- `okx` - 欧易交易所
+- `bnb` - 币安交易所
 
 ## ⚙️ 配置参数
 
-### 命令行参数
+### 配置文件格式
 
-| 参数 | 简写 | 说明 | 示例 |
-|------|------|------|------|
-| `--refresh` | `-r` | 强制刷新持仓缓存 | `--refresh` |
-| `--force` | - | 强制刷新持仓缓存 | `--force` |
-| `--help` | `-h` | 显示帮助信息 | `--help` |
+配置文件位于 `configs/` 文件夹下，命名规则：`configs/grid_config_{exchange}_{account}.json`
+
+示例配置文件：
+- `configs/grid_config_bp_0.json` - Backpack账户0
+- `configs/grid_config_bp_3.json` - Backpack账户3
+- `configs/grid_config_okx_0.json` - OKX账户0
+
+### 配置文件内容
+
+```json
+{
+  "exchange": "bp",           // 交易所名称 (bp/okx/bnb)
+  "account": 0,               // 账户ID (0-6)
+  "base_amount": 8.88,        // 基础交易金额 (USDT)
+  "force_refresh": false,     // 是否强制刷新缓存
+  "buy_grid_step": 0.966,     // 买单网格步长 (基准价格倍数)
+  "sell_grid_step": 1.018,   // 卖单网格步长 (基准价格倍数)
+  "buy_move_step": 0.99,      // 买单成交后基准价格调整倍数
+  "sell_move_step": 1.01,     // 卖单成交后基准价格调整倍数
+  "MODE": "ACTIVATED",        // 运行模式 (ACTIVATED/DEACTIVATED)
+  "description": "配置说明"    // 配置描述
+}
+```
 
 ### 内置配置
 
 ```python
 # 默认配置
-base_amount = 8.88  # 基础交易金额 (USDT)
 sleep_time = 1.88   # 循环间隔 (秒)
 cache_hours = 6     # 缓存有效期 (小时)
 ```
@@ -65,7 +85,7 @@ cache_hours = 6     # 缓存有效期 (小时)
 
 ### 1. 初始化阶段
 ```
-启动策略 → 加载持仓缓存 → 获取关注币种 → 对齐持仓数据
+加载配置文件 → 初始化交易所 → 加载持仓缓存 → 获取关注币种 → 对齐持仓数据
 ```
 
 ### 2. 主循环逻辑
@@ -85,14 +105,31 @@ cache_hours = 6     # 缓存有效期 (小时)
 ## 📁 文件结构
 
 ### 输入文件
-- `focus_symbols.json` - 关注币种列表（自动生成）
+- `configs/grid_config_{exchange}_{account}.json` - 配置文件（自动创建，最好是仔细检查哈~ ）
+- `symbols/{exchange}_Account{account}_focus_symbols.json` - 关注币种列表（自动生成）
 
 ### 输出文件
-- `{exchange}_Account{account}_{strategy}_GridPositions.json` - 持仓数据缓存
+- `GridPositions/{exchange}_Account{account}_{strategy}_GridPositions.json` - 持仓数据缓存
 
 ### 文件示例
 
-#### focus_symbols.json
+#### configs/grid_config_bp_0.json
+```json
+{
+  "exchange": "bp",
+  "account": 0,
+  "base_amount": 8.88,
+  "force_refresh": false,
+  "buy_grid_step": 0.966,
+  "sell_grid_step": 1.018,
+  "buy_move_step": 0.99,
+  "sell_move_step": 1.01,
+  "MODE": "ACTIVATED",
+  "description": "Backpack账户0 - 主要交易账户"
+}
+```
+
+#### symbols/bp_Account0_focus_symbols.json
 ```json
 [
   "BTC-USDT-SWAP",
@@ -102,7 +139,7 @@ cache_hours = 6     # 缓存有效期 (小时)
 ]
 ```
 
-#### GridPositions.json
+#### GridPositions/bp_Account0_GRID_WITH_MORE_GAP_GridPositions.json
 ```json
 {
   "timestamp": "2025-01-20T10:30:00",
@@ -126,11 +163,11 @@ cache_hours = 6     # 缓存有效期 (小时)
 ### 自定义关注币种
 
 1. **自动模式**：策略会自动从当前持仓中提取币种
-2. **手动模式**：编辑 `focus_symbols.json` 文件
+2. **手动模式**：编辑 `symbols/{exchange}_Account{account}_focus_symbols.json` 文件
 
 ```bash
 # 编辑关注币种
-vim focus_symbols.json
+vim symbols/bp_Account0_focus_symbols.json
 ```
 
 ### 调整交易参数
@@ -139,9 +176,13 @@ vim focus_symbols.json
 # 修改基础交易金额
 base_amount = 10.0  # 改为10 USDT
 
-# 修改网格间距
-buy_price = baseline_price * 0.97   # 3% 折扣
-sell_price = baseline_price * 1.02  # 2% 溢价
+# 修改网格间距（通过配置文件）
+"buy_grid_step": 0.97,   # 买单3%折扣
+"sell_grid_step": 1.02,  # 卖单2%溢价
+
+# 修改成交后调整幅度
+"buy_move_step": 0.98,   # 买单成交后基准价格调整
+"sell_move_step": 1.02,  # 卖单成交后基准价格调整
 ```
 
 ## 📈 监控与日志
@@ -185,7 +226,7 @@ sell_price = baseline_price * 1.02  # 2% 溢价
 #### 2. 持仓数据加载失败
 ```
 原因：缓存文件损坏、网络问题
-解决：使用 --refresh 参数强制刷新
+解决：设置 force_refresh: true 强制刷新
 ```
 
 #### 3. 币种不支持

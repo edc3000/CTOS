@@ -39,10 +39,12 @@ from ctos.core.runtime.ExecutionEngine import pick_exchange
 
 
 def get_GridPositions_storage_path(exchange: str, account: int) -> str:
-    """获取GridPositions存储文件路径"""
+    """获取GridPositions存储文件路径（统一放到 GridPositions 文件夹下）"""
     logging_dir = os.path.dirname(os.path.abspath(__file__))
     default_strategy = os.path.splitext(os.path.basename(__file__))[0].upper()
-    return os.path.join(logging_dir, f'{exchange}_Account{account}_{default_strategy}_GridPositions.json')
+    folder = os.path.join(logging_dir, "GridPositions")
+    os.makedirs(folder, exist_ok=True)
+    return os.path.join(folder, f'{exchange}_Account{account}_{default_strategy}_GridPositions.json')
 
 def save_GridPositions(GridPositions: dict, exchange: str, account: int) -> None:
     """保存GridPositions到本地文件"""
@@ -143,7 +145,7 @@ def get_all_GridPositions(engine, exchange: str, use_cache: bool = True):
         print("get_all_GridPositions 异常:", e)
     return GridPositions
 
-def manage_grid_orders(engine, sym, data, open_orders, price_precision, size_precision, base_amount):
+def manage_grid_orders(engine, sym, data, open_orders, price_precision, size_precision, base_amount, config):
     """
     管理网格订单逻辑
     1. 检查买单和卖单是否在open_orders中
@@ -159,8 +161,8 @@ def manage_grid_orders(engine, sym, data, open_orders, price_precision, size_pre
     sell_exists = sell_order_id and sell_order_id in open_orders
     
     # 计算目标价格
-    buy_price = align_decimal_places(price_precision, baseline_price * 0.966)
-    sell_price = align_decimal_places(price_precision, baseline_price * 1.018)
+    buy_price = align_decimal_places(price_precision, baseline_price * config["buy_grid_step"])
+    sell_price = align_decimal_places(price_precision, baseline_price * config["sell_grid_step"])
     
     # 情况1: 两个订单都不存在，下新订单
     if not buy_exists and not sell_exists:
@@ -206,12 +208,12 @@ def manage_grid_orders(engine, sym, data, open_orders, price_precision, size_pre
         
         # 更新初始价格
         price_now = engine.cex_driver.get_price_now(sym)
-        data["baseline_price"] = (baseline_price + price_now) * 0.495 if price_now < baseline_price else baseline_price * 0.99
+        data["baseline_price"] = (baseline_price + price_now) / 2 * config["buy_move_step"] if price_now < baseline_price else baseline_price * config["buy_move_step"]
         new_baseline_price = data["baseline_price"]
         
         # 计算新价格
-        new_buy_price = align_decimal_places(price_precision,  new_baseline_price * 0.966)
-        new_sell_price = align_decimal_places(price_precision,  new_baseline_price * 1.018)
+        new_buy_price = align_decimal_places(price_precision,  new_baseline_price * config["buy_grid_step"])
+        new_sell_price = align_decimal_places(price_precision,  new_baseline_price * config["sell_grid_step"])
         
         # 下新买单
         buy_qty = align_decimal_places(size_precision, base_amount / new_buy_price)
@@ -251,12 +253,12 @@ def manage_grid_orders(engine, sym, data, open_orders, price_precision, size_pre
         
         # 更新初始价格
         price_now = engine.cex_driver.get_price_now(sym)
-        data["baseline_price"] = (baseline_price + price_now) * 0.505 if price_now > baseline_price else baseline_price * 1.01
+        data["baseline_price"] = (baseline_price + price_now) / 2 * config["sell_move_step"] if price_now > baseline_price else baseline_price * config["sell_move_step"]
         new_baseline_price = data["baseline_price"]
         
         # 计算新价格
-        new_buy_price = align_decimal_places(price_precision,  new_baseline_price * 0.966)
-        new_sell_price = align_decimal_places(price_precision,  new_baseline_price * 1.018)
+        new_buy_price = align_decimal_places(price_precision,  new_baseline_price * config["buy_grid_step"])
+        new_sell_price = align_decimal_places(price_precision,  new_baseline_price * config["sell_grid_step"])
         
         # 改单现有买单
         if buy_order_id:
@@ -331,52 +333,168 @@ def print_position(account, sym, pos, baseline_price, start_ts):
         output += ' ' * (110 - len(output))
     print('\r' + output, end='')
 
+def load_config():
+    """
+    加载配置文件
+    支持多交易所多账户配置
+    配置文件格式: grid_config_{exchange}_{account}.json
+    """
+    configs = []
+    
+    # 默认配置
+    default_config = {
+        "exchange": "bp",
+        "account": 0,
+        "base_amount": 8.88,
+        "force_refresh": False,
+        "buy_grid_step": 0.966,
+        "sell_grid_step": 1.018,
+        "buy_move_step": 0.99,
+        "sell_move_step": 1.01,
+        "MODE": "DEACTIVATED",
+        "description": "网格策略配置 - 请根据实际情况修改参数"
+    }
+    
+    # 尝试加载多个配置文件
+    current_dir = os.path.dirname(os.path.abspath(__file__))
+    config_dir = os.path.join(current_dir, "configs")
+    
+    # 创建配置文件夹（如果不存在）
+    if not os.path.exists(config_dir):
+        os.makedirs(config_dir)
+        print(f"✓ 创建配置文件夹: {config_dir}")
+    
+    # 支持的交易所和账户组合
+    exchange_accounts = [
+        ("bp", 0), ("bp", 1), ("bp", 3), ("bp", 4), ("bp", 5), ("bp", 6),
+        ("okx", 0), ("okx", 1), ("okx", 2), ("okx", 3), ("okx", 4), ("okx", 5), ("okx", 6),
+        ("bnb", 0), ("bnb", 1), ("bnb", 2), ("bnb", 3), ("bnb", 4), ("bnb", 5), ("bnb", 6)
+    ]
+    
+    for exchange, account in exchange_accounts:
+        config_file = os.path.join(config_dir, f"grid_config_{exchange}_{account}.json")
+        
+        if os.path.exists(config_file):
+            try:
+                with open(config_file, 'r', encoding='utf-8') as f:
+                    config = json.load(f)
+                if config["MODE"] == 'DEACTIVATED':
+                    continue
+                # 验证必要字段
+                required_fields = ["exchange", "account", "base_amount", "buy_grid_step", "sell_grid_step", "buy_move_step", "sell_move_step"]
+                if all(field in config for field in required_fields):
+                    configs.append(config)
+                    print(f"✓ 加载配置: {exchange}-{account}")
+                else:
+                    print(f"⚠ 配置文件缺少必要字段: {config_file}")
+                    
+            except Exception as e:
+                print(f"✗ 加载配置文件失败 {config_file}: {e}")
+        else:
+            # 创建默认配置文件
+            config = default_config.copy()
+            config["exchange"] = exchange
+            config["account"] = account
+            config["MODE"] = 'DEACTIVATED'
+            
+            try:
+                with open(config_file, 'w', encoding='utf-8') as f:
+                    json.dump(config, f, ensure_ascii=False, indent=2)
+                print(f"✓ 创建默认配置文件: {config_file}")
+            except Exception as e:
+                print(f"✗ 创建配置文件失败 {config_file}: {e}")
+    
+    # 如果没有找到任何配置文件，使用默认配置
+    if not configs:
+        print("⚠ 未找到配置文件，使用默认配置")
+        configs = []
+    # 检查是否为首次运行（通过标记文件）
+    first_run_flag = os.path.join(config_dir, ".first_run_flag")
+    # 检查标记文件是否存在，且路径是否与当前脚本一致
+    need_confirm = True
+    if os.path.exists(first_run_flag):
+        try:
+            with open(first_run_flag, "r") as f:
+                flag_content = f.read().strip()
+            # 获取当前脚本绝对路径
+            current_file_path = os.path.abspath(__file__)
+            # 标记文件内容为首次运行时写入的脚本路径
+            if flag_content == current_file_path:
+                need_confirm = False
+        except Exception as e:
+            print(f"读取首次运行标记文件异常: {e}")
+    if need_confirm:
+        print("\n=== 检测到首次运行！请确认以下配置文件是否需要启用 ===\n")
+        confirmed_configs = []
+        for config in configs:
+            print(f"\n------------------------------")
+            print(f"配置文件: grid_config_{config['exchange']}_{config['account']}.json")
+            print(json.dumps(config, ensure_ascii=False, indent=2))
+            resp = input("是否启用该配置？(y/n, 默认y): ").strip().lower()
+            if resp in ["", "y", "yes", "是"]:
+                confirmed_configs.append(config)
+                print("✓ 已保留该配置。")
+            else:
+                print("✗ 已丢弃该配置。")
+        configs = confirmed_configs
+        # 创建标记文件，表示已完成首次确认
+        with open(first_run_flag, "w") as f:
+            f.write(os.path.abspath(__file__))
+        print("\n首次配置确认已完成，后续将不再提示。")
+    return configs
+
 def show_help():
     """显示帮助信息"""
     print("""
-=== 网格策略使用说明 (订单管理版) ===
+=== 网格策略使用说明 (配置文件版) ===
 
-用法: python Grid_with_more_gap.py [选项] [交易所]
+用法: python Grid_with_more_gap.py
 
-选项:
-  --refresh, -r, --force    强制刷新持仓缓存，忽略本地存储
-  --help, -h                显示此帮助信息
+配置文件:
+  策略使用配置文件进行参数设置，配置文件位于 configs/ 文件夹下:
+  configs/grid_config_{exchange}_{account}.json
+  
+  示例配置文件:
+  - configs/grid_config_bp_0.json    # Backpack账户0
+  - configs/grid_config_bp_3.json    # Backpack账户3  
+  - configs/grid_config_okx_0.json   # OKX账户0
 
-交易所:
-  okx, ok, o, ox, okex      欧易交易所 (默认)
-  bp, backpack, b, back     Backpack交易所
-
-示例:
-  python Grid_with_more_gap.py                    # 交互式选择交易所
-  python Grid_with_more_gap.py okx                # 使用欧易交易所
-  python Grid_with_more_gap.py --refresh okx      # 强制刷新缓存
-  python Grid_with_more_gap.py bp                 # 使用Backpack交易所
+配置文件格式:
+{
+  "exchange": "bp",           # 交易所名称 (bp/okx)
+  "account": 0,               # 账户ID (0-4)
+  "base_amount": 8.88,        # 基础交易金额 (USDT)
+  "force_refresh": false,     # 是否强制刷新缓存
+  "description": "配置说明"    # 配置描述
+}
 
 策略特性:
   ✓ 订单管理策略 (基于get_open_orders)
-  ✓ 自动网格下单 (买单@0.975x, 卖单@1.015x)
+  ✓ 自动网格下单 (买单@0.966x, 卖单@1.018x)
   ✓ 成交后自动调整 (买单成交→0.99x, 卖单成交→1.01x)
   ✓ 智能改单机制 (存在订单直接改单，不存在则下新单)
   ✓ 订单状态监控 (实时检查订单存在性)
   ✓ 本地持仓缓存 (6小时内自动加载)
   ✓ 完整操作日志记录
+  ✓ 多账户配置文件支持
 
 策略逻辑:
-  1. 获取全局所有订单
-  2. 检查每个币种的买单和卖单是否存在
-  3. 如果都不存在 → 下新订单
-  4. 如果买单成交 → 下新买单 + 改单现有卖单
-  5. 如果卖单成交 → 改单现有买单 + 下新卖单
-  6. 如果都在 → 等待下一轮
+  1. 自动加载所有配置文件
+  2. 获取全局所有订单
+  3. 检查每个币种的买单和卖单是否存在
+  4. 如果都不存在 → 下新订单
+  5. 如果买单成交 → 下新买单 + 改单现有卖单
+  6. 如果卖单成交 → 改单现有买单 + 下新卖单
+  7. 如果都在 → 等待下一轮
 
-改单优势:
-  ✓ 减少API调用次数
-  ✓ 保持订单优先级
-  ✓ 避免订单丢失风险
-  ✓ 提高执行效率
+配置文件优势:
+  ✓ 支持多交易所多账户
+  ✓ 参数持久化保存
+  ✓ 自动创建默认配置
+  ✓ 独立配置管理
 """)
 
-def grid_with_more_gap(engines=None, exchs=None, force_refresh=None, base_amount=None):
+def grid_with_more_gap(engines=None, exchs=None, force_refresh=None, base_amount=None, configs=None):
     print(f"使用交易所: {exchs}")
     if force_refresh is None:
         force_refresh = [False] * len(engines)
@@ -406,36 +524,53 @@ def grid_with_more_gap(engines=None, exchs=None, force_refresh=None, base_amount
             return
         print("初始持仓:", GridPositions)
 
-    # 币种关注列表文件名
-    SYMBOLS_FILE = "focus_symbols.json"
-
-    # 获取当前脚本所在目录
+    # 创建关注币种文件夹
     current_dir = os.path.dirname(os.path.abspath(__file__))
-    symbols_file_path = os.path.join(current_dir, SYMBOLS_FILE)
+    symbols_dir = os.path.join(current_dir, "symbols")
+    
+    if not os.path.exists(symbols_dir):
+        os.makedirs(symbols_dir)
+        print(f"✓ 创建关注币种文件夹: {symbols_dir}")
 
-    # 读取关注币种集合
-    if os.path.exists(symbols_file_path):
-        try:
-            with open(symbols_file_path, "r", encoding="utf-8") as f:
-                focus_symbols = set(json.load(f))
-        except Exception as e:
-            print(f"读取关注币种文件失败: {e}，将使用当前持仓币种")
-            focus_symbols = set()
-    else:
-        # 文件不存在，使用当前GridPositions的币种
-        focus_symbols = set()
-        for GridPositions in GridPositions_all:
-            focus_symbols.update(GridPositions.keys())
-        # 保存币种集合到文件
-        try:
-            with open(symbols_file_path, "w", encoding="utf-8") as f:
-                json.dump(list(focus_symbols), f, ensure_ascii=False, indent=2)
-            print(f"已保存关注币种到 {symbols_file_path}: {focus_symbols}")
-        except Exception as e:
-            print(f"保存关注币种文件失败: {e}")
+    # 为每个交易所和账户组合处理关注币种
+    focus_symbols_all = {}
+    
+    for engine, exch, GridPositions in zip(engines, exchs, GridPositions_all):
+        symbols_file = f"{exch}_Account{engine.account}_focus_symbols.json"
+        symbols_file_path = os.path.join(symbols_dir, symbols_file)
+        
+        # 读取关注币种集合
+        if os.path.exists(symbols_file_path):
+            try:
+                with open(symbols_file_path, "r", encoding="utf-8") as f:
+                    focus_symbols = set(json.load(f))
+                print(f"✓ 加载关注币种: {exch}-{engine.account}")
+            except Exception as e:
+                print(f"✗ 读取关注币种文件失败 {symbols_file_path}: {e}")
+                focus_symbols = set()
+        else:
+            # 文件不存在，使用当前GridPositions的币种
+            focus_symbols = set(GridPositions.keys())
+            # 保存币种集合到文件
+            try:
+                with open(symbols_file_path, "w", encoding="utf-8") as f:
+                    json.dump(list(focus_symbols), f, ensure_ascii=False, indent=2)
+                print(f"✓ 创建关注币种文件: {symbols_file_path}")
+            except Exception as e:
+                print(f"✗ 保存关注币种文件失败 {symbols_file_path}: {e}")
+        
+        focus_symbols_all[f"{exch}_{engine.account}"] = focus_symbols
+    
+    # 合并所有关注币种（用于后续处理）
+    all_focus_symbols = set()
+    for symbols in focus_symbols_all.values():
+        all_focus_symbols.update(symbols)
 
     # 对齐GridPositions到关注币种集合
-    for engine, GridPositions in zip(engines, GridPositions_all):
+    for engine, exch, GridPositions in zip(engines, exchs, GridPositions_all):
+        key = f"{exch}_{engine.account}"
+        focus_symbols = focus_symbols_all.get(key, set())
+        
         # 1. 如果少了币种，则币种置空仓位
         for sym in focus_symbols:
             if sym not in GridPositions:
@@ -476,7 +611,7 @@ def grid_with_more_gap(engines=None, exchs=None, force_refresh=None, base_amount
     need_to_update = False
     while True:
         try:
-            for engine, GridPositions, ba in zip(engines, GridPositions_all, base_amount):
+            for engine, GridPositions, ba, config in zip(engines, GridPositions_all, base_amount, configs):
             # 获取全局所有订单
                 open_orders, err = engine.cex_driver.get_open_orders(symbol=None, onlyOrderId=True, keep_origin=False)
                 if err:
@@ -513,7 +648,7 @@ def grid_with_more_gap(engines=None, exchs=None, force_refresh=None, base_amount
                         print_position(engine.account, sym, pos, baseline_price, start_ts)
                         
                         # 使用新的订单管理逻辑
-                        order_updated = manage_grid_orders(engine, sym, data, open_orders, price_precision, min_order_size, 6.66 if engine.account==-1 else ba)
+                        order_updated = manage_grid_orders(engine, sym, data, open_orders, price_precision, min_order_size, 6.66 if engine.account==-1 else ba, config)
                         
                         # 如果有订单更新，保存数据
                         if order_updated:
@@ -537,38 +672,44 @@ def grid_with_more_gap(engines=None, exchs=None, force_refresh=None, base_amount
             sys.exit()
 
 if __name__ == '__main__':
-    print("\n=== 网格策略 (订单管理版) ===")
+    print("\n=== 网格策略 (配置文件版) ===")
 
-    # 解析命令行参数
-    force_refresh = False
-    arg_ex = None
-    show_help_flag = False
-    acount_id = None
-    base_amount = 8.88
-    if len(sys.argv) > 1:
-        for arg in sys.argv[1:]:
-            if arg in ['--refresh', '-r', '--force']:
-                force_refresh = True
-            elif arg in ['--help', '-h']:
-                show_help_flag = True
-            elif arg in ['okx', 'bp', 'ok', 'backpack']:
-                arg_ex = arg
-            elif arg in ['01234']:
-                acount_id = int(arg)
-            elif arg in ['8.88', '888', '8888', '6.66', '66.6', '6666']:
-                base_amount = float(arg)
-    
-    if show_help_flag:
+    # 检查命令行参数
+    if len(sys.argv) > 1 and sys.argv[1] in ['--help', '-h']:
         show_help()
         sys.exit()
     
+    # 加载配置文件
+    configs = load_config()
+    
+    if not configs:
+        print("❌ 未找到有效配置文件，退出")
+        sys.exit(1)
+    
     # 自动用当前文件名（去除后缀）作为默认策略名，细节默认为COMMON
     default_strategy = os.path.splitext(os.path.basename(__file__))[0].upper()
-    exch1, engine1 = pick_exchange('bp', 1, strategy=default_strategy, strategy_detail="COMMON")
-    exch2, engine2 = pick_exchange('bp', 0, strategy=default_strategy, strategy_detail="COMMON")
-    exch3, engine3 = pick_exchange('bp', 3, strategy=default_strategy, strategy_detail="COMMON")
-    engines = [engine1, engine2, engine3]
-    exchs = [exch1, exch2, exch3]
-    force_refresh = [force_refresh]*len(engines)
-    base_amount = [base_amount]*len(engines)
-    grid_with_more_gap(engines, exchs, force_refresh, base_amount)
+    
+    # 根据配置文件初始化交易所和引擎
+    engines = []
+    exchs = []
+    force_refresh = []
+    base_amount = []
+    
+    for config in configs:
+        try:
+            exchange, account = config["exchange"], config["account"]
+            exch, engine = pick_exchange(exchange, account, strategy=default_strategy, strategy_detail="COMMON")
+            engines.append(engine)
+            exchs.append(exch)
+            force_refresh.append(config.get("force_refresh", False))
+            base_amount.append(config.get("base_amount", 8.88))
+            print(f"✓ 初始化 {exchange}-{account} 成功")
+        except Exception as e:
+            print(f"✗ 初始化 {config['exchange']}-{config['account']} 失败: {e}")
+    
+    if not engines:
+        print("❌ 没有成功初始化任何交易所，退出")
+        sys.exit(1)
+    
+    print(f"🚀 启动网格策略，共 {len(engines)} 个账户")
+    grid_with_more_gap(engines, exchs, force_refresh, base_amount, configs)

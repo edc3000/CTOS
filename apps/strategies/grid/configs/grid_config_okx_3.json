@@ -1,0 +1,12 @@
+{
+  "exchange": "okx",
+  "account": 3,
+  "base_amount": 8.88,
+  "force_refresh": false,
+  "buy_grid_step": 0.966,
+  "sell_grid_step": 1.018,
+  "buy_move_step": 0.99,
+  "sell_move_step": 1.01,
+  "MODE": "DEACTIVATED",
+  "description": "网格策略配置 - 请根据实际情况修改参数"
+}

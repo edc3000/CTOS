@@ -1,5 +1,5 @@
 {
-  "timestamp": "2025-10-09T08:55:52.270695",
+  "timestamp": "2025-10-09T12:44:11.459027",
   "exchange": "backpack",
   "GridPositions": {
     "ETH_USDC_PERP": {
@@ -237,13 +237,13 @@
       "sell_order_id": "12529330737"
     },
     "CRV_USDC_PERP": {
-      "baseline_price": 0.7173195871074156,
+      "baseline_price": 0.7319568914892449,
       "avg_cost": 0.660695916158972,
       "size": 759.0,
       "side": "short",
       "pnlUnrealized": 19.328291,
-      "buy_order_id": "12534477862",
-      "sell_order_id": "12534484418"
+      "buy_order_id": "12569271240",
+      "sell_order_id": "12569273649"
     },
     "TRUMP_USDC_PERP": {
       "baseline_price": 7.607217860791924,

@@ -63,3 +63,16 @@
 2025-09-30 14:49:10,489 - INFO - OP StrategyStart | {'exchange': 'backpack', 'strategy': 'Grid-Order-Management', 'version': '3.0', 'force_refresh': False}
 2025-09-30 14:49:10,490 - INFO - OP StrategyStart | {'exchange': 'backpack', 'strategy': 'Grid-Order-Management', 'version': '3.0', 'force_refresh': False}
 2025-10-05 00:17:23,229 - INFO - OP StrategyExit | {'reason': 'Manual interrupt', 'uptime': 379692.73626971245}
+2025-10-09 20:32:40,046 - INFO - ExecutionEngine initialized for backpack account 0
+2025-10-09 20:32:40,965 - INFO - ExecutionEngine initialized for backpack account 1
+2025-10-09 20:32:41,890 - INFO - ExecutionEngine initialized for backpack account 3
+2025-10-09 20:32:41,890 - INFO - OP StrategyStart | {'exchange': 'backpack', 'strategy': 'Grid-Order-Management', 'version': '3.0', 'force_refresh': False, 'base_amount': 8.88}
+2025-10-09 20:32:41,891 - INFO - OP StrategyStart | {'exchange': 'backpack', 'strategy': 'Grid-Order-Management', 'version': '3.0', 'force_refresh': False, 'base_amount': 8.88}
+2025-10-09 20:32:41,891 - INFO - OP StrategyStart | {'exchange': 'backpack', 'strategy': 'Grid-Order-Management', 'version': '3.0', 'force_refresh': False, 'base_amount': 8.88}
+2025-10-09 20:47:23,821 - INFO - OP StrategyExit | {'reason': 'Manual interrupt', 'uptime': 881.9269435405731}
+2025-10-09 20:47:26,545 - INFO - ExecutionEngine initialized for backpack account 0
+2025-10-09 20:47:27,553 - INFO - ExecutionEngine initialized for backpack account 1
+2025-10-09 20:47:28,545 - INFO - ExecutionEngine initialized for backpack account 3
+2025-10-09 20:47:28,546 - INFO - OP StrategyStart | {'exchange': 'backpack', 'strategy': 'Grid-Order-Management', 'version': '3.0', 'force_refresh': False, 'base_amount': 8.88}
+2025-10-09 20:47:28,546 - INFO - OP StrategyStart | {'exchange': 'backpack', 'strategy': 'Grid-Order-Management', 'version': '3.0', 'force_refresh': False, 'base_amount': 8.88}
+2025-10-09 20:47:28,547 - INFO - OP StrategyStart | {'exchange': 'backpack', 'strategy': 'Grid-Order-Management', 'version': '3.0', 'force_refresh': False, 'base_amount': 8.88}

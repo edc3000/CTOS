@@ -21,3 +21,6 @@
 {"ts": "2025-10-08 01:38:37", "op": "StrategyStart", "src": "Grid-Order-Management", "det": {"exchange": "backpack", "strategy": "Grid-Order-Management", "version": "3.0", "force_refresh": false}}
 {"ts": "2025-10-09 19:28:59", "op": "StrategyStart", "src": "Grid-Order-Management", "det": {"exchange": "backpack", "strategy": "Grid-Order-Management", "version": "3.0", "force_refresh": false}}
 {"ts": "2025-10-09 19:29:08", "op": "StrategyStart", "src": "Grid-Order-Management", "det": {"exchange": "backpack", "strategy": "Grid-Order-Management", "version": "3.0", "force_refresh": false}}
+{"ts": "2025-10-09 20:32:41", "op": "StrategyStart", "src": "Grid-Order-Management", "det": {"exchange": "backpack", "strategy": "Grid-Order-Management", "version": "3.0", "force_refresh": false, "base_amount": 8.88}}
+{"ts": "2025-10-09 20:47:23", "op": "StrategyExit", "src": "Grid-Order-Management", "det": {"reason": "Manual interrupt", "uptime": 881.9269435405731}}
+{"ts": "2025-10-09 20:47:28", "op": "StrategyStart", "src": "Grid-Order-Management", "det": {"exchange": "backpack", "strategy": "Grid-Order-Management", "version": "3.0", "force_refresh": false, "base_amount": 8.88}}

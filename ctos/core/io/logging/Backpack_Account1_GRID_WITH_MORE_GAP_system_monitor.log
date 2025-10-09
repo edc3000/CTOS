@@ -725,3 +725,4 @@
 2025-10-09 19:29:08,354 - INFO - OP StrategyStart | {'exchange': 'backpack', 'strategy': 'Grid-Order-Management', 'version': '3.0', 'force_refresh': False}
 2025-10-09 19:29:08,354 - INFO - OP StrategyStart | {'exchange': 'backpack', 'strategy': 'Grid-Order-Management', 'version': '3.0', 'force_refresh': False}
 2025-10-09 19:29:08,354 - INFO - OP StrategyStart | {'exchange': 'backpack', 'strategy': 'Grid-Order-Management', 'version': '3.0', 'force_refresh': False}
+2025-10-09 20:32:37,621 - INFO - OP StrategyExit | {'reason': 'Manual interrupt', 'uptime': 3809.2636330127716}
