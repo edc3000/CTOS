@@ -1,5 +1,6 @@
 🌐 Languages: [English](README_EN.md) | [中文](README.md) | [日本語](scripts/README_JP.md) | [한국어](scripts/README_KR.md)
 ![](logo.png)
+![](balance_trend.png)
 ## CTOS：加密交易操作系统（借鉴 Linux 设计理念）
 
 **范围：** 面向中心化交易所（CEX）的量化交易（初期支持 OKX、Backpack、Binance）。

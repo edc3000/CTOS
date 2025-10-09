@@ -1,5 +1,5 @@
 {
-  "timestamp": "2025-10-09T12:44:11.459027",
+  "timestamp": "2025-10-09T14:02:27.895277",
   "exchange": "backpack",
   "GridPositions": {
     "ETH_USDC_PERP": {
@@ -12,13 +12,13 @@
       "sell_order_id": "12535121694"
     },
     "APT_USDC_PERP": {
-      "baseline_price": 5.003519895051464,
+      "baseline_price": 4.870067348050474,
       "avg_cost": 4.12221912526707,
       "size": 121.4,
       "side": "short",
       "pnlUnrealized": 56.361105,
-      "buy_order_id": "12538427661",
-      "sell_order_id": "12538433801"
+      "buy_order_id": "12581017628",
+      "sell_order_id": "12581027644"
     },
     "OP_USDC_PERP": {
       "baseline_price": 0.698155972359461,
@@ -138,13 +138,13 @@
       "sell_order_id": "12492977273"
     },
     "BNB_USDC_PERP": {
-      "baseline_price": 1300.9370924648467,
+      "baseline_price": 1262.713860770099,
       "avg_cost": 971.1802745424374,
       "size": 1.074,
       "side": "long",
       "pnlUnrealized": 84.586345,
-      "buy_order_id": "12516071823",
-      "sell_order_id": "12516074056"
+      "buy_order_id": "12581119318",
+      "sell_order_id": "12581129592"
     },
     "ONDO_USDC_PERP": {
       "baseline_price": 0.893908006891621,
@@ -219,13 +219,13 @@
       "sell_order_id": "12534048037"
     },
     "ARB_USDC_PERP": {
-      "baseline_price": 0.42835872670649466,
+      "baseline_price": 0.41686856971971487,
       "avg_cost": 0.4211869395118279,
       "size": 1206.0,
       "side": "short",
       "pnlUnrealized": 24.754113,
-      "buy_order_id": "12494135022",
-      "sell_order_id": "12494141739"
+      "buy_order_id": "12581195313",
+      "sell_order_id": "12581206804"
     },
     "XLM_USDC_PERP": {
       "baseline_price": 0.3815936548639842,
@@ -255,13 +255,13 @@
       "sell_order_id": "12540174042"
     },
     "LINK_USDC_PERP": {
-      "baseline_price": 22.319846045567253,
+      "baseline_price": 21.69379379255579,
       "avg_cost": 20.893321211297117,
       "size": 24.2,
       "side": "short",
       "pnlUnrealized": 23.635863,
-      "buy_order_id": "12404660181",
-      "sell_order_id": "12404663780"
+      "buy_order_id": "12581243284",
+      "sell_order_id": "12581253088"
     },
     "UNI_USDC_PERP": {
       "baseline_price": 7.8908925436106605,

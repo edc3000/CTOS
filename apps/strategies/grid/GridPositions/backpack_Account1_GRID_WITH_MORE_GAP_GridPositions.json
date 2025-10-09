@@ -1,5 +1,5 @@
 {
-  "timestamp": "2025-10-09T12:44:24.667774",
+  "timestamp": "2025-10-09T13:57:54.373895",
   "exchange": "backpack",
   "GridPositions": {
     "XPL_USDC_PERP": {
@@ -12,13 +12,13 @@
       "sell_order_id": "12556654184"
     },
     "ASTER_USDC_PERP": {
-      "baseline_price": 1.845412873074578,
+      "baseline_price": 1.796658372171916,
       "avg_cost": 2.0201613756392356,
       "size": 93.0,
       "side": "short",
       "pnlUnrealized": -0.152477,
-      "buy_order_id": "12569311698",
-      "sell_order_id": "12569314024"
+      "buy_order_id": "12580414576",
+      "sell_order_id": "12580422322"
     },
     "IP_USDC_PERP": {
       "baseline_price": 9.054903523703862,
