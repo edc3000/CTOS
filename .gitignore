@@ -10,7 +10,7 @@ __pycache__/
 allcoin*.png
 comparison_chart_*.png
 performance*.png
-# *.png
+*.png
 *.log
 .first_run_flag
 account.yaml

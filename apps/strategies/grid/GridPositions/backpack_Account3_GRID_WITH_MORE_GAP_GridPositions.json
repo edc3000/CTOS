@@ -1,5 +1,5 @@
 {
-  "timestamp": "2025-10-09T14:35:52.816903",
+  "timestamp": "2025-10-09T15:05:51.835703",
   "exchange": "backpack",
   "GridPositions": {
     "SUI_USDC_PERP": {
@@ -12,13 +12,13 @@
       "sell_order_id": "12557822043"
     },
     "HYPE_USDC_PERP": {
-      "baseline_price": 44.759863022164666,
+      "baseline_price": 43.574782195971515,
       "avg_cost": 44.3700137174674,
       "size": 9.73,
       "side": "short",
       "pnlUnrealized": 5.99786,
-      "buy_order_id": "12557828214",
-      "sell_order_id": "12557830060"
+      "buy_order_id": "12592330287",
+      "sell_order_id": "12592336871"
     },
     "OP_USDC_PERP": {
       "baseline_price": 0.7049476433010256,
@@ -30,13 +30,13 @@
       "sell_order_id": "12557838110"
     },
     "APT_USDC_PERP": {
-      "baseline_price": 4.876300971443408,
+      "baseline_price": 4.966826990578921,
       "avg_cost": 4.127694134490372,
       "size": 102.9,
       "side": "short",
       "pnlUnrealized": 7.854153,
-      "buy_order_id": "12580458931",
-      "sell_order_id": "12580468325"
+      "buy_order_id": "12592023923",
+      "sell_order_id": "12592026357"
     },
     "ETH_USDC_PERP": {
       "baseline_price": 4425.904261939106,
