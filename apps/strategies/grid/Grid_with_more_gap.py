@@ -432,10 +432,23 @@ def load_config():
             print(json.dumps(config, ensure_ascii=False, indent=2))
             resp = input("是否启用该配置？(y/n, 默认y): ").strip().lower()
             if resp in ["", "y", "yes", "是"]:
+                config["MODE"] = "ACTIVATED"
                 confirmed_configs.append(config)
-                print("✓ 已保留该配置。")
+                print("✓ 已启用该配置。")
             else:
-                print("✗ 已丢弃该配置。")
+                config["MODE"] = "DEACTIVATED"
+                confirmed_configs.append(config)
+                print("✗ 已设置为未激活（MODE=DEACTIVATED）。")
+            
+            # 将修改后的配置写回文件
+            config_file = os.path.join(config_dir, f"grid_config_{config['exchange']}_{config['account']}.json")
+            try:
+                with open(config_file, 'w', encoding='utf-8') as f:
+                    json.dump(config, f, ensure_ascii=False, indent=2)
+                print(f"✓ 配置已保存到: {config_file}")
+            except Exception as e:
+                print(f"✗ 保存配置文件失败: {e}")
+        
         configs = confirmed_configs
         # 创建标记文件，表示已完成首次确认
         with open(first_run_flag, "w") as f:
