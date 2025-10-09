@@ -38,78 +38,9 @@ from ctos.drivers.backpack.util import align_decimal_places, round_dynamic, roun
 from ctos.core.runtime.ExecutionEngine import pick_exchange
 
 
-def main1_test(engine):
-    bp = engine.cex_driver
-    pos, _ = bp.get_position()
-
-    now_position = {x['symbol']:float(x['netCost']) for x in pos}
-    print(json.dumps(now_position, indent=4))
-
-    all_coins, _  = bp.symbols()
-
-    all_coins = [x[:x.find('_')].lower() for x in all_coins if x[:x.find('_')].lower() in rate_price2order.keys()] 
-    print(all_coins, len(all_coins))
-
-
-    # while True:
-    #     time.sleep(3)
-
-    with open(str(PROJECT_ROOT) + '/apps/strategies/hedge/good_group' + '_bp.txt' if engine.cex_driver.cex.find('p')!=-1 else '.txt', 'r', encoding='utf8') as f:
-        data = f.readlines()
-        good_group = data[0].strip().split(',')
-        all_rate = [float(x) for x in data[1].strip().split(',')]
-        # 将good_group中不在all_coins中的元素去掉，并同步删除all_rate中对应的元素
-        filtered_good_group = []
-        filtered_all_rate = []
-        for i, coin in enumerate(good_group):
-            if coin in all_coins:
-                filtered_good_group.append(coin)
-                filtered_all_rate.append(all_rate[i])
-        good_group = filtered_good_group
-        all_rate = filtered_all_rate
-        all_rate = [x for x in all_rate if x > 0]
-        btc_rate = all_rate[0] / sum(all_rate)
-        split_rate = {good_group[x + 1]: all_rate[x + 1] / sum(all_rate) for x in range(len(all_rate) - 1)}
-
-    start_money = bp.fetch_balance()
-    print(f"start_money: {start_money}")
-    leverage_times = 0.2
-    init_operate_position = start_money * leverage_times if start_money * leverage_times > len(all_coins) * 10 else len(all_coins) * 10
-    new_rate_place2order = {k:v for k,v in rate_price2order.items() if k in all_coins}
-
-    usdt_amounts = []
-    coins_to_deal = []
-    is_btc_failed = False
-    now_position = {}
-    for coin in all_coins:
-        time.sleep(0.2)
-        if coin in good_group:
-            operate_amount = cal_amount(coin, init_operate_position, good_group, btc_rate, split_rate)
-            if is_btc_failed:
-                operate_amount = -operate_amount
-            if bp._norm_symbol(coin)[0] in now_position:
-                operate_amount = operate_amount - now_position[bp._norm_symbol(coin)[0]]
-            usdt_amounts.append(operate_amount)
-            coins_to_deal.append(coin)
-        else:
-            sell_amount = init_operate_position / (len(new_rate_place2order) - len(good_group))
-            if is_btc_failed:
-                sell_amount = -sell_amount
-            sell_amount = -sell_amount
-            if bp._norm_symbol(coin)[0] in now_position:
-                sell_amount = sell_amount - now_position[bp._norm_symbol(coin)[0]]
-            usdt_amounts.append(sell_amount)
-            coins_to_deal.append(coin)
-    print(usdt_amounts, coins_to_deal,)
-    focus_orders = engine.set_coin_position_to_target(usdt_amounts, coins_to_deal, soft=True)
-    engine.focus_on_orders(new_rate_place2order.keys(), focus_orders)
-    while len(engine.watch_threads) > 0:
-        time.sleep(1)
-
 def get_GridPositions_storage_path(exchange: str, account: int) -> str:
     """获取GridPositions存储文件路径"""
-    logging_dir = os.path.join(PROJECT_ROOT, 'ctos', 'core', 'io', 'logging')
-    os.makedirs(logging_dir, exist_ok=True)
+    logging_dir = os.path.dirname(os.path.abspath(__file__))
     default_strategy = os.path.splitext(os.path.basename(__file__))[0].upper()
     return os.path.join(logging_dir, f'{exchange}_Account{account}_{default_strategy}_GridPositions.json')
 
@@ -445,25 +376,27 @@ def show_help():
   ✓ 提高执行效率
 """)
 
-def grid_with_more_gap(engines=None, exchs=None, force_refresh=False, base_amount=8.88):
-    if base_amount is None:
-        base_amount = 8.88
+def grid_with_more_gap(engines=None, exchs=None, force_refresh=None, base_amount=None):
     print(f"使用交易所: {exchs}")
-    
-    if force_refresh:
-        print("🔄 强制刷新模式：忽略本地缓存")
-
+    if force_refresh is None:
+        force_refresh = [False] * len(engines)
+    for fr, engine, exch in zip(force_refresh, engines, exchs):
+        if fr:
+            print(f"🔄 强制刷新模式：忽略本地缓存 {exch}-{engine.account}")
+    if base_amount is None:
+        base_amount = [8.88] * len(engines)
     # 记录策略启动
-    for engine, exch in zip(engines, exchs):
+    for engine, exch, fr, ba in zip(engines, exchs, force_refresh, base_amount):
         engine.monitor.record_operation("StrategyStart", "Grid-Order-Management", {
             "exchange": exch,
             "strategy": "Grid-Order-Management",
             "version": "3.0",
-            "force_refresh": force_refresh
+            "force_refresh": fr,
+            "base_amount": ba
         })
 
     # 获取持仓（支持缓存）
-    GridPositions_all = [get_all_GridPositions(engine, exch, use_cache=True if not force_refresh else False) for engine, exch in zip(engines, exchs)]
+    GridPositions_all = [get_all_GridPositions(engine, exch, use_cache=True if not fr else False) for engine, exch, fr in zip(engines, exchs, force_refresh)]
     for engine, GridPositions in zip(engines, GridPositions_all):
         if not GridPositions:
             print("没有持仓，退出。")
@@ -472,12 +405,78 @@ def grid_with_more_gap(engines=None, exchs=None, force_refresh=False, base_amoun
             })
             return
         print("初始持仓:", GridPositions)
+
+    # 币种关注列表文件名
+    SYMBOLS_FILE = "focus_symbols.json"
+
+    # 获取当前脚本所在目录
+    current_dir = os.path.dirname(os.path.abspath(__file__))
+    symbols_file_path = os.path.join(current_dir, SYMBOLS_FILE)
+
+    # 读取关注币种集合
+    if os.path.exists(symbols_file_path):
+        try:
+            with open(symbols_file_path, "r", encoding="utf-8") as f:
+                focus_symbols = set(json.load(f))
+        except Exception as e:
+            print(f"读取关注币种文件失败: {e}，将使用当前持仓币种")
+            focus_symbols = set()
+    else:
+        # 文件不存在，使用当前GridPositions的币种
+        focus_symbols = set()
+        for GridPositions in GridPositions_all:
+            focus_symbols.update(GridPositions.keys())
+        # 保存币种集合到文件
+        try:
+            with open(symbols_file_path, "w", encoding="utf-8") as f:
+                json.dump(list(focus_symbols), f, ensure_ascii=False, indent=2)
+            print(f"已保存关注币种到 {symbols_file_path}: {focus_symbols}")
+        except Exception as e:
+            print(f"保存关注币种文件失败: {e}")
+
+    # 对齐GridPositions到关注币种集合
+    for engine, GridPositions in zip(engines, GridPositions_all):
+        # 1. 如果少了币种，则币种置空仓位
+        for sym in focus_symbols:
+            if sym not in GridPositions:
+                # 置空仓位
+                price_now = engine.cex_driver.get_price_now(sym)
+                GridPositions[sym] =  {
+                        "baseline_price": price_now,
+                        "avg_cost": price_now,
+                        "size": 0,
+                        "side": 0,
+                        'pnlUnrealized': 0,
+                        "buy_order_id": None,  # 买单订单ID
+                        "sell_order_id": None,  # 卖单订单ID
+                    }
+        # 2. 如果多了币种，则撤销该仓位的订单并移除
+        remove_syms = []
+        for sym in list(GridPositions.keys()):
+            if sym not in focus_symbols:
+                # 撤销该币种的订单
+                buy_order_id = GridPositions[sym].get("buy_order_id")
+                sell_order_id = GridPositions[sym].get("sell_order_id")
+                for oid in [buy_order_id, sell_order_id]:
+                    if oid:
+                        try:
+                            cancel_result, cancel_err = engine.cex_driver.revoke_order(order_id=oid, symbol=sym)
+                            if cancel_err:
+                                print(f"[{sym}] 撤销订单 {oid} 失败: {cancel_err}")
+                            else:
+                                print(f"[{sym}] 已撤销订单 {oid}")
+                        except Exception as e:
+                            print(f"[{sym}] 撤销订单 {oid} 异常: {e}")
+                remove_syms.append(sym)
+        for sym in remove_syms:
+            del GridPositions[sym]
+
     start_ts = time.time()
     sleep_time = 1.88
     need_to_update = False
     while True:
         try:
-            for engine, GridPositions in zip(engines, GridPositions_all):
+            for engine, GridPositions, ba in zip(engines, GridPositions_all, base_amount):
             # 获取全局所有订单
                 open_orders, err = engine.cex_driver.get_open_orders(symbol=None, onlyOrderId=True, keep_origin=False)
                 if err:
@@ -501,7 +500,7 @@ def grid_with_more_gap(engines=None, exchs=None, force_refresh=False, base_amoun
                             pos = {}
                         else:
                             pos = poses[sym]
-                        if abs(float(pos["quantityUSD"])) < 10:
+                        if abs(float(pos["quantityUSD"])) < 10 and abs(float(pos["quantityUSD"])) > 0:
                             time.sleep(sleep_time)
                             continue
                         exchange_limits_info, err = engine.cex_driver.exchange_limits(symbol=sym)
@@ -514,7 +513,7 @@ def grid_with_more_gap(engines=None, exchs=None, force_refresh=False, base_amoun
                         print_position(engine.account, sym, pos, baseline_price, start_ts)
                         
                         # 使用新的订单管理逻辑
-                        order_updated = manage_grid_orders(engine, sym, data, open_orders, price_precision, min_order_size, 6.66 if engine.account==-1 else 8.88)
+                        order_updated = manage_grid_orders(engine, sym, data, open_orders, price_precision, min_order_size, 6.66 if engine.account==-1 else ba)
                         
                         # 如果有订单更新，保存数据
                         if order_updated:
@@ -568,4 +567,8 @@ if __name__ == '__main__':
     exch1, engine1 = pick_exchange('bp', 1, strategy=default_strategy, strategy_detail="COMMON")
     exch2, engine2 = pick_exchange('bp', 0, strategy=default_strategy, strategy_detail="COMMON")
     exch3, engine3 = pick_exchange('bp', 3, strategy=default_strategy, strategy_detail="COMMON")
-    grid_with_more_gap([engine1, engine2, engine3], [exch1, exch2, exch3])
+    engines = [engine1, engine2, engine3]
+    exchs = [exch1, exch2, exch3]
+    force_refresh = [force_refresh]*len(engines)
+    base_amount = [base_amount]*len(engines)
+    grid_with_more_gap(engines, exchs, force_refresh, base_amount)

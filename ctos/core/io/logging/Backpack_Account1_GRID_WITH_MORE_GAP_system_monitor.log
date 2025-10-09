@@ -711,3 +711,17 @@
 2025-10-08 01:38:37,473 - INFO - OP StrategyStart | {'exchange': 'backpack', 'strategy': 'Grid-Order-Management', 'version': '3.0', 'force_refresh': False}
 2025-10-08 01:38:37,474 - INFO - OP StrategyStart | {'exchange': 'backpack', 'strategy': 'Grid-Order-Management', 'version': '3.0', 'force_refresh': False}
 2025-10-08 01:38:37,474 - INFO - OP StrategyStart | {'exchange': 'backpack', 'strategy': 'Grid-Order-Management', 'version': '3.0', 'force_refresh': False}
+2025-10-09 19:27:40,575 - INFO - OP StrategyExit | {'reason': 'Manual interrupt', 'uptime': 150543.09824347496}
+2025-10-09 19:28:57,298 - INFO - ExecutionEngine initialized for backpack account 1
+2025-10-09 19:28:58,217 - INFO - ExecutionEngine initialized for backpack account 0
+2025-10-09 19:28:59,137 - INFO - ExecutionEngine initialized for backpack account 3
+2025-10-09 19:28:59,138 - INFO - OP StrategyStart | {'exchange': 'backpack', 'strategy': 'Grid-Order-Management', 'version': '3.0', 'force_refresh': False}
+2025-10-09 19:28:59,138 - INFO - OP StrategyStart | {'exchange': 'backpack', 'strategy': 'Grid-Order-Management', 'version': '3.0', 'force_refresh': False}
+2025-10-09 19:28:59,138 - INFO - OP StrategyStart | {'exchange': 'backpack', 'strategy': 'Grid-Order-Management', 'version': '3.0', 'force_refresh': False}
+2025-10-09 19:29:00,224 - INFO - OP StrategyExit | {'reason': 'Manual interrupt', 'uptime': 1.0832831859588623}
+2025-10-09 19:29:06,514 - INFO - ExecutionEngine initialized for backpack account 1
+2025-10-09 19:29:07,433 - INFO - ExecutionEngine initialized for backpack account 0
+2025-10-09 19:29:08,353 - INFO - ExecutionEngine initialized for backpack account 3
+2025-10-09 19:29:08,354 - INFO - OP StrategyStart | {'exchange': 'backpack', 'strategy': 'Grid-Order-Management', 'version': '3.0', 'force_refresh': False}
+2025-10-09 19:29:08,354 - INFO - OP StrategyStart | {'exchange': 'backpack', 'strategy': 'Grid-Order-Management', 'version': '3.0', 'force_refresh': False}
+2025-10-09 19:29:08,354 - INFO - OP StrategyStart | {'exchange': 'backpack', 'strategy': 'Grid-Order-Management', 'version': '3.0', 'force_refresh': False}
