@@ -1,5 +1,5 @@
 🌐 Languages: [English](../README_EN.md) | [中文](../README.md) | [日本語](README_JP.md) | [한국어](README_KR.md)
-![](logo.png)
+![](ctoslogo.png)
 ## CTOS：暗号通貨取引オペレーティングシステム（Linux設計理念を参考）
 
 **範囲：** 中央集権取引所（CEX）向けの量的取引（初期はOKX、Backpack、Binanceをサポート）。

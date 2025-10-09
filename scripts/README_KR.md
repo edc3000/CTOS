@@ -1,5 +1,5 @@
 🌐 Languages: [English](../README_EN.md) | [中文](../README.md) | [日本語](README_JP.md) | [한국어](README_KR.md)
-![](logo.png)
+![](ctoslogo.png)
 ## CTOS: 암호화폐 거래 운영체제 (Linux 설계 철학 참조)
 
 **범위:** 중앙화 거래소(CEX) 대상 정량 거래 (초기 OKX, Backpack, Binance 지원).

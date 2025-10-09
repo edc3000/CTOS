@@ -7,6 +7,10 @@ __pycache__/
 .env
 .ipynb_checkpoints/
 # *.png
+allcoin*.png
+comparison_chart_*.png
+performance*.png
+*.png
 *.log
 .first_run_flag
 account.yaml
@@ -17,4 +21,4 @@ account.yaml
 data/
 logs/
 tmp/
-chart_for_group/
+apps/indicatorVisualization/chart_for_group/
