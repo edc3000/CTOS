@@ -22,7 +22,6 @@ echo ""
 echo "🔍 检查敏感目录是否在Git历史中..."
 
 HEDGE_IN_HISTORY=$(git log --oneline --name-only | grep -c "apps/strategies/hedge" || echo "0")
-GRID_IN_HISTORY=$(git log --oneline --name-only | grep -c "apps/strategies/grid" || echo "0")
 
 echo "hedge目录在历史中出现次数: $HEDGE_IN_HISTORY"
 echo "grid目录在历史中出现次数: $GRID_IN_HISTORY"
@@ -44,13 +43,6 @@ if [ "$HEDGE_IN_HISTORY" -gt 0 ]; then
         --prune-empty --tag-name-filter cat -- --all
 fi
 
-# 清理grid目录
-if [ "$GRID_IN_HISTORY" -gt 0 ]; then
-    echo "清理 apps/strategies/grid/ 目录的历史..."
-    git filter-branch --force --index-filter \
-        'git rm -rf --cached --ignore-unmatch apps/strategies/grid/' \
-        --prune-empty --tag-name-filter cat -- --all
-fi
 
 # 4. 清理引用和垃圾回收
 echo ""
@@ -63,7 +55,6 @@ git gc --prune=now --aggressive
 echo ""
 echo "🔍 验证清理结果..."
 HEDGE_AFTER=$(git log --oneline --name-only | grep -c "apps/strategies/hedge" || echo "0")
-GRID_AFTER=$(git log --oneline --name-only | grep -c "apps/strategies/grid" || echo "0")
 
 echo "清理后hedge目录出现次数: $HEDGE_AFTER"
 echo "清理后grid目录出现次数: $GRID_AFTER"
