@@ -21,4 +21,8 @@ account.yaml
 data/
 logs/
 tmp/
+<<<<<<< HEAD
 apps/indicatorVisualization/chart_for_group/
+=======
+apps/indicatorVisualization/chart_for_group/
+>>>>>>> 721bac5a4958d7ca4a62cc87b46a5ccdd4632288
