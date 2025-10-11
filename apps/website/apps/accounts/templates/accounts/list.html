@@ -1,15 +1,114 @@
 {% extends "base.html" %}
+{% load static %}
 
 {% block content %}
-  <h2>账户信息</h2>
-  <table border="1" cellpadding="5">
-    <tr><th>交易所</th><th>子账户</th><th>余额 (USDT)</th></tr>
-    {% for acc in accounts %}
-    <tr>
-      <td>{{ acc.exchange }}</td>
-      <td>{{ acc.sub }}</td>
-      <td>{{ acc.balance }}</td>
-    </tr>
-    {% endfor %}
-  </table>
+<div class="accounts-container">
+  <div class="accounts-header">
+    <h2>账户信息管理</h2>
+    <div class="controls">
+      <div class="account-selector">
+        <label for="exchange-select">选择交易所:</label>
+        <select id="exchange-select">
+          <option value="">全部交易所</option>
+          {% for exchange in exchanges %}
+          <option value="{{ exchange }}">{{ exchange|upper }}</option>
+          {% endfor %}
+        </select>
+      </div>
+      <div class="refresh-controls">
+        <button id="refresh-btn" class="btn btn-primary">
+          <span class="refresh-icon">🔄</span>
+          刷新余额
+        </button>
+        <div class="auto-refresh">
+          <label>
+            <input type="checkbox" id="auto-refresh-checkbox">
+            自动刷新 (30秒)
+          </label>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  {% if error %}
+  <div class="error-message">
+    <h3>错误信息</h3>
+    <p>{{ error }}</p>
+  </div>
+  {% endif %}
+
+  <div class="accounts-table-container">
+    <table class="accounts-table">
+      <thead>
+        <tr>
+          <th>交易所</th>
+          <th>账户名称</th>
+          <th>账户ID</th>
+          <th>余额 (USDT)</th>
+          <th>状态</th>
+          <th>配置状态</th>
+          <th>操作</th>
+        </tr>
+      </thead>
+      <tbody id="accounts-tbody">
+        {% for acc in accounts %}
+        <tr class="account-row" data-exchange="{{ acc.exchange }}" data-account-id="{{ acc.account_id }}">
+          <td class="exchange-cell">
+            <span class="exchange-badge exchange-{{ acc.exchange }}">{{ acc.exchange|upper }}</span>
+          </td>
+          <td class="account-name">{{ acc.account_name }}</td>
+          <td class="account-id">{{ acc.account_id }}</td>
+          <td class="balance-cell">
+            <span class="balance-value" data-balance="{{ acc.balance }}">
+              {{ acc.balance|floatformat:2 }}
+            </span>
+          </td>
+          <td class="status-cell">
+            <span class="status-badge status-{{ acc.status|lower }}">
+              {{ acc.status }}
+            </span>
+          </td>
+          <td class="config-cell">
+            {% if acc.credentials_configured %}
+              <span class="config-badge config-ok">✓ 已配置</span>
+            {% else %}
+              <span class="config-badge config-error">✗ 未配置</span>
+            {% endif %}
+          </td>
+          <td class="actions-cell">
+            <div class="action-buttons">
+              <a href="/accounts/{{ acc.exchange }}/{{ acc.account_id }}/" 
+                 class="btn btn-small btn-primary">
+                查看详情
+              </a>
+              <button class="btn btn-small refresh-single" 
+                      data-exchange="{{ acc.exchange }}" 
+                      data-account-id="{{ acc.account_id }}">
+                刷新
+              </button>
+            </div>
+          </td>
+        </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+  </div>
+
+  <div class="accounts-summary">
+    <div class="summary-item">
+      <span class="summary-label">总账户数:</span>
+      <span class="summary-value" id="total-accounts">{{ accounts|length }}</span>
+    </div>
+    <div class="summary-item">
+      <span class="summary-label">总余额:</span>
+      <span class="summary-value" id="total-balance">计算中...</span>
+    </div>
+    <div class="summary-item">
+      <span class="summary-label">正常账户:</span>
+      <span class="summary-value" id="healthy-accounts">计算中...</span>
+    </div>
+  </div>
+</div>
+
+<script src="{% static 'js/accounts.js' %}"></script>
 {% endblock %}

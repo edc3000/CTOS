@@ -1,5 +1,221 @@
 {% extends "base.html" %}
+{% load static %}
+
 {% block content %}
-  <h2>指标可视化</h2>
-  <p>这里以后会展示收益曲线、仓位分布等图表。</p>
+<div class="metrics-container">
+  <div class="metrics-header">
+    <h2>指标可视化中心</h2>
+    <p>选择您要查看的指标类型</p>
+  </div>
+
+  <div class="indicators-grid">
+    {% for indicator in indicators %}
+    <div class="indicator-card">
+      <div class="indicator-header">
+        <h3>{{ indicator.name }}</h3>
+        <span class="indicator-type">{{ indicator.type|title }}</span>
+      </div>
+      
+      <div class="indicator-content">
+        <p class="indicator-description">{{ indicator.description }}</p>
+        
+        <div class="indicator-stats">
+          <div class="stat-item">
+            <span class="stat-label">图表数量:</span>
+            <span class="stat-value">{{ indicator.charts }}</span>
+          </div>
+          <div class="stat-item">
+            <span class="stat-label">时间框架:</span>
+            <span class="stat-value">{{ indicator.timeframes|join:", " }}</span>
+          </div>
+        </div>
+      </div>
+      
+      <div class="indicator-actions">
+        <a href="/metrics/{{ indicator.id }}/" class="btn btn-primary">
+          查看详情
+        </a>
+      </div>
+    </div>
+    {% endfor %}
+  </div>
+
+  <div class="metrics-info">
+    <h3>使用说明</h3>
+    <ul>
+      <li><strong>TOPDOGINDEX 指标</strong>: 多时间框架对比分析，支持6张图片同时展示</li>
+      <li><strong>全币种趋势</strong>: 显示所有币种的价格变化趋势</li>
+      <li><strong>K线图</strong>: 单个币种的详细K线图展示</li>
+    </ul>
+    <p class="note">所有图表支持10秒自动刷新，可手动选择时间框架和币种参数。</p>
+  </div>
+</div>
+
+<style>
+.metrics-container {
+  max-width: 1200px;
+  margin: 2rem auto;
+  padding: 0 1rem;
+}
+
+.metrics-header {
+  text-align: center;
+  margin-bottom: 3rem;
+}
+
+.metrics-header h2 {
+  font-size: 2.5rem;
+  color: #333;
+  margin-bottom: 0.5rem;
+}
+
+.metrics-header p {
+  font-size: 1.1rem;
+  color: #666;
+}
+
+.indicators-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+  gap: 2rem;
+  margin-bottom: 3rem;
+}
+
+.indicator-card {
+  background: white;
+  border-radius: 12px;
+  box-shadow: 0 4px 20px rgba(0,0,0,0.1);
+  overflow: hidden;
+  transition: transform 0.3s, box-shadow 0.3s;
+}
+
+.indicator-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 8px 30px rgba(0,0,0,0.15);
+}
+
+.indicator-header {
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  color: white;
+  padding: 1.5rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.indicator-header h3 {
+  margin: 0;
+  font-size: 1.3rem;
+  font-weight: 500;
+}
+
+.indicator-type {
+  background: rgba(255,255,255,0.2);
+  padding: 0.25rem 0.75rem;
+  border-radius: 20px;
+  font-size: 0.8rem;
+  font-weight: 500;
+}
+
+.indicator-content {
+  padding: 1.5rem;
+}
+
+.indicator-description {
+  color: #666;
+  line-height: 1.6;
+  margin-bottom: 1rem;
+}
+
+.indicator-stats {
+  display: flex;
+  gap: 1rem;
+  margin-bottom: 1rem;
+}
+
+.stat-item {
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+}
+
+.stat-label {
+  font-size: 0.9rem;
+  color: #999;
+}
+
+.stat-value {
+  font-size: 1rem;
+  font-weight: 600;
+  color: #333;
+}
+
+.indicator-actions {
+  padding: 0 1.5rem 1.5rem;
+}
+
+.btn {
+  display: inline-block;
+  padding: 0.75rem 1.5rem;
+  background: #007bff;
+  color: white;
+  text-decoration: none;
+  border-radius: 5px;
+  font-weight: 500;
+  transition: background 0.3s;
+  width: 100%;
+  text-align: center;
+}
+
+.btn:hover {
+  background: #0056b3;
+  color: white;
+}
+
+.metrics-info {
+  background: #f8f9fa;
+  padding: 2rem;
+  border-radius: 10px;
+  margin-top: 2rem;
+}
+
+.metrics-info h3 {
+  color: #333;
+  margin-bottom: 1rem;
+}
+
+.metrics-info ul {
+  list-style: none;
+  padding: 0;
+}
+
+.metrics-info li {
+  padding: 0.5rem 0;
+  border-bottom: 1px solid #dee2e6;
+}
+
+.metrics-info li:last-child {
+  border-bottom: none;
+}
+
+.note {
+  margin-top: 1rem;
+  padding: 1rem;
+  background: #e3f2fd;
+  border-left: 4px solid #2196f3;
+  border-radius: 0 5px 5px 0;
+  color: #1976d2;
+}
+
+@media (max-width: 768px) {
+  .indicators-grid {
+    grid-template-columns: 1fr;
+  }
+  
+  .indicator-stats {
+    flex-direction: column;
+    gap: 0.5rem;
+  }
+}
+</style>
 {% endblock %}

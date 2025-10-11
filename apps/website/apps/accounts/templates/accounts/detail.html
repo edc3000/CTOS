@@ -1,0 +1,141 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block content %}
+<div class="account-detail-container">
+  <div class="account-header">
+    <div class="breadcrumb">
+      <a href="{% url 'account_list' %}">账户列表</a>
+      <span class="separator">></span>
+      <span class="current">{{ account_info.exchange|upper }} 账户 {{ account_info.account_id }}</span>
+    </div>
+    
+    <div class="account-info">
+      <h2>{{ account_info.exchange|upper }} 账户 {{ account_info.account_id }}</h2>
+      <div class="account-stats">
+        <div class="stat-item">
+          <span class="stat-label">余额:</span>
+          <span class="stat-value">{{ account_info.balance|floatformat:2 }} USDT</span>
+        </div>
+        <div class="stat-item">
+          <span class="stat-label">状态:</span>
+          <span class="stat-value status-{{ account_info.status|lower }}">
+            {{ account_info.status }}
+          </span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  {% if error %}
+  <div class="error-message">
+    <h3>错误信息</h3>
+    <p>{{ error }}</p>
+  </div>
+  {% endif %}
+
+  <div class="detail-tabs">
+    <div class="tab-nav">
+      <button class="tab-btn active" data-tab="positions">仓位信息</button>
+      <button class="tab-btn" data-tab="orders">订单信息</button>
+    </div>
+
+    <div class="tab-content">
+      <!-- 仓位信息标签页 -->
+      <div class="tab-panel active" id="positions-panel">
+        <div class="panel-header">
+          <h3>当前仓位</h3>
+          <div class="panel-controls">
+            <button id="refresh-positions" class="btn btn-primary">
+              <span class="refresh-icon">🔄</span>
+              刷新仓位
+            </button>
+            <div class="auto-refresh">
+              <label>
+                <input type="checkbox" id="auto-refresh-positions">
+                自动刷新 (30秒)
+              </label>
+            </div>
+          </div>
+        </div>
+        
+        <div class="table-container">
+          <table class="data-table" id="positions-table">
+            <thead>
+              <tr>
+                <th>交易对</th>
+                <th>方向</th>
+                <th>数量</th>
+                <th>开仓价格</th>
+                <th>标记价格</th>
+                <th>未实现盈亏</th>
+                <th>已实现盈亏</th>
+                <th>杠杆</th>
+                <th>强平价格</th>
+              </tr>
+            </thead>
+            <tbody id="positions-tbody">
+              <tr>
+                <td colspan="9" class="loading-cell">加载中...</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+      <!-- 订单信息标签页 -->
+      <div class="tab-panel" id="orders-panel">
+        <div class="panel-header">
+          <h3>当前订单</h3>
+          <div class="panel-controls">
+            <button id="refresh-orders" class="btn btn-primary">
+              <span class="refresh-icon">🔄</span>
+              刷新订单
+            </button>
+            <div class="auto-refresh">
+              <label>
+                <input type="checkbox" id="auto-refresh-orders">
+                自动刷新 (30秒)
+              </label>
+            </div>
+          </div>
+        </div>
+        
+        <div class="table-container">
+          <table class="data-table" id="orders-table">
+            <thead>
+              <tr>
+                <th>订单ID</th>
+                <th>交易对</th>
+                <th>类型</th>
+                <th>方向</th>
+                <th>数量</th>
+                <th>价格</th>
+                <th>状态</th>
+                <th>创建时间</th>
+                <th>操作</th>
+              </tr>
+            </thead>
+            <tbody id="orders-tbody">
+              <tr>
+                <td colspan="9" class="loading-cell">加载中...</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script src="{% static 'js/account-detail.js' %}"></script>
+<script>
+  // 传递账户信息给JavaScript
+  window.accountInfo = {
+    exchange: '{{ account_info.exchange }}',
+    accountId: {{ account_info.account_id }},
+    balance: {{ account_info.balance }},
+    status: '{{ account_info.status }}'
+  };
+</script>
+{% endblock %}

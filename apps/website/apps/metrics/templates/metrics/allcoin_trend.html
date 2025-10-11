@@ -1,0 +1,72 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block content %}
+<div class="allcoin-trend-container">
+  <div class="indicator-header">
+    <div class="breadcrumb">
+      <a href="{% url 'metrics_home' %}">指标中心</a>
+      <span class="separator">></span>
+      <span class="current">全币种趋势</span>
+    </div>
+    
+    <div class="indicator-info">
+      <h2>全币种趋势分析</h2>
+      <p>显示所有币种的价格变化趋势图</p>
+    </div>
+  </div>
+
+  <div class="controls-panel">
+    <div class="control-group">
+      <label for="timeframe-select">时间框架:</label>
+      <select id="timeframe-select">
+        {% for timeframe in timeframes %}
+        <option value="{{ timeframe }}" {% if timeframe == "5m" %}selected{% endif %}>{{ timeframe|upper }}</option>
+        {% endfor %}
+      </select>
+    </div>
+    
+    <div class="control-group">
+      <button id="refresh-btn" class="btn btn-primary">
+        <span class="refresh-icon">🔄</span>
+        手动刷新
+      </button>
+    </div>
+    
+    <div class="control-group">
+      <label>
+        <input type="checkbox" id="auto-refresh-checkbox" checked>
+        自动刷新 (10秒)
+      </label>
+    </div>
+  </div>
+
+  <div class="chart-container">
+    <div class="chart-card">
+      <div class="chart-header">
+        <h3 id="chart-title">全币种趋势 - 5M</h3>
+      </div>
+      <div class="chart-content">
+        <img id="chart-image" src="" alt="全币种趋势图" class="chart-image">
+      </div>
+      <div class="chart-footer">
+        <span class="chart-timestamp">最后更新: <span id="last-update">-</span></span>
+      </div>
+    </div>
+  </div>
+
+  <div class="loading-overlay" id="loading-overlay">
+    <div class="loading-spinner"></div>
+    <p>正在加载图表...</p>
+  </div>
+</div>
+
+<script src="{% static 'js/allcoin-trend.js' %}"></script>
+<script>
+  // 传递配置给JavaScript
+  window.allcoinTrendConfig = {
+    timeframes: {{ timeframes|safe }},
+    indicatorId: '{{ indicator_id }}'
+  };
+</script>
+{% endblock %}

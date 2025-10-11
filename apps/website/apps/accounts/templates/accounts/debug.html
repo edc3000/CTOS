@@ -1,0 +1,150 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block content %}
+<div class="debug-container">
+  <h2>数据格式调试页面</h2>
+  <p>这个页面用于调试仓位和订单数据的格式问题</p>
+  
+  <div class="debug-section">
+    <h3>测试账户</h3>
+    <div class="test-buttons">
+      <button onclick="testPositions('backpack', 0)" class="btn btn-primary">测试 Backpack 账户 0 仓位</button>
+      <button onclick="testPositions('okx', 0)" class="btn btn-primary">测试 OKX 账户 0 仓位</button>
+      <button onclick="testOrders('backpack', 0)" class="btn btn-primary">测试 Backpack 账户 0 订单</button>
+      <button onclick="testOrders('okx', 0)" class="btn btn-primary">测试 OKX 账户 0 订单</button>
+    </div>
+  </div>
+  
+  <div class="debug-section">
+    <h3>原始数据</h3>
+    <pre id="raw-data" class="debug-output">点击上方按钮测试数据...</pre>
+  </div>
+  
+  <div class="debug-section">
+    <h3>处理后的数据</h3>
+    <pre id="processed-data" class="debug-output">点击上方按钮测试数据...</pre>
+  </div>
+</div>
+
+<script>
+async function testPositions(exchange, accountId) {
+  const rawDataEl = document.getElementById('raw-data');
+  const processedDataEl = document.getElementById('processed-data');
+  
+  rawDataEl.textContent = '正在获取仓位数据...';
+  processedDataEl.textContent = '正在处理数据...';
+  
+  try {
+    const response = await fetch(`/accounts/${exchange}/${accountId}/api/positions/`, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        'X-CSRFToken': getCSRFToken()
+      }
+    });
+    
+    const data = await response.json();
+    
+    // 显示原始数据
+    rawDataEl.textContent = JSON.stringify(data, null, 2);
+    
+    // 显示处理后的数据
+    if (data.success && data.positions) {
+      processedDataEl.textContent = JSON.stringify(data.positions, null, 2);
+    } else {
+      processedDataEl.textContent = '获取数据失败: ' + (data.error || '未知错误');
+    }
+  } catch (error) {
+    rawDataEl.textContent = '请求失败: ' + error.message;
+    processedDataEl.textContent = '请求失败: ' + error.message;
+  }
+}
+
+async function testOrders(exchange, accountId) {
+  const rawDataEl = document.getElementById('raw-data');
+  const processedDataEl = document.getElementById('processed-data');
+  
+  rawDataEl.textContent = '正在获取订单数据...';
+  processedDataEl.textContent = '正在处理数据...';
+  
+  try {
+    const response = await fetch(`/accounts/${exchange}/${accountId}/api/orders/`, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        'X-CSRFToken': getCSRFToken()
+      }
+    });
+    
+    const data = await response.json();
+    
+    // 显示原始数据
+    rawDataEl.textContent = JSON.stringify(data, null, 2);
+    
+    // 显示处理后的数据
+    if (data.success && data.orders) {
+      processedDataEl.textContent = JSON.stringify(data.orders, null, 2);
+    } else {
+      processedDataEl.textContent = '获取数据失败: ' + (data.error || '未知错误');
+    }
+  } catch (error) {
+    rawDataEl.textContent = '请求失败: ' + error.message;
+    processedDataEl.textContent = '请求失败: ' + error.message;
+  }
+}
+
+function getCSRFToken() {
+  const cookies = document.cookie.split(';');
+  for (let cookie of cookies) {
+    const [name, value] = cookie.trim().split('=');
+    if (name === 'csrftoken') {
+      return value;
+    }
+  }
+  return '';
+}
+</script>
+
+<style>
+.debug-container {
+  max-width: 1200px;
+  margin: 2rem auto;
+  padding: 2rem;
+  background: white;
+  border-radius: 10px;
+  box-shadow: 0 4px 20px rgba(0,0,0,0.1);
+}
+
+.debug-section {
+  margin-bottom: 2rem;
+  padding-bottom: 1rem;
+  border-bottom: 1px solid #dee2e6;
+}
+
+.debug-section:last-child {
+  border-bottom: none;
+}
+
+.test-buttons {
+  display: flex;
+  gap: 1rem;
+  flex-wrap: wrap;
+  margin-bottom: 1rem;
+}
+
+.debug-output {
+  background: #f8f9fa;
+  border: 1px solid #dee2e6;
+  border-radius: 5px;
+  padding: 1rem;
+  font-family: 'Courier New', monospace;
+  font-size: 0.9rem;
+  line-height: 1.4;
+  max-height: 400px;
+  overflow-y: auto;
+  white-space: pre-wrap;
+  word-wrap: break-word;
+}
+</style>
+{% endblock %}
