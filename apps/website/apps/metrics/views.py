@@ -72,10 +72,8 @@ def get_chart_image(request, indicator_id):
         data = json.loads(request.body)
         timeframe = data.get('timeframe', '1m')
         coin = data.get('coin', 'btc')
-        
-        # 构建图片路径
-        chart_dir = Path("/home/zzb/Quantify/ctos/apps/indicatorVisualization/chart_for_group")
-        
+        # 构建图片路径（采用相对路径，确保在Django项目下可以准确定位）
+        chart_dir = Path(__file__).resolve().parent.parent.parent.parent / "indicatorVisualization" / "chart_for_group"
         if indicator_id == "topdogindex":
             # TOPDOGINDEX的comparison图片
             chart_name = f"all_coin-{['1m', '5m', '15m', '1h', '4h', '1d'].index(timeframe)}"
