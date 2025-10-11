@@ -11,14 +11,14 @@
 
 CTOS 系统仍将持续开源与更新，  
 未来将支持用户在框架内自由设计、运行、评测和分享自己的量化策略。  
-若你愿意分享自己的策略，欢迎在 [GitHub](https://github.com/) 提交你的代码。
+若你愿意分享自己的策略，欢迎在 [GitHub](https://github.com/CryptoFxxker/CTOS/) 提交你的代码PR。
 
 ---
 
 ## 💹 收益走势（TopDog Index 策略）
 
 ![策略收益走势1_等差](trend_balance_1.png)
-![策略收益走势2——等比](trend_balance_1.png)
+![策略收益走势2——等比](trend_balance_2.png)
 
 ---
 
