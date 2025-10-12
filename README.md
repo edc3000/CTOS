@@ -330,7 +330,7 @@ engine = ExecutionEngine(account=2, exchange_type='okx')
    cp configs/secrets.example.yaml configs/account.yaml
    ```
 
-   填入 **OKX / Backpack / Binance** 的 API Key
+   填入 **OKX / Backpack / （Binance）** 的 API Key
    > ⚠️ 请勿将该文件提交到 git
 
  ### 3.1 测试用例（可选）
@@ -343,11 +343,12 @@ engine = ExecutionEngine(account=2, exchange_type='okx')
 
    该脚本会自动对 OKX 和 Backpack 交易所的主流币种进行下单测试，并输出结果。建议首次部署时先运行，确保一切正常。
 
+
 4. **运行内置策略**
 
    ```bash
-   # 运行全币种网格策略
-   python apps/strategies/grid/Grid-All-Coin.py
+   # 运行全币种网格策略 (这个策略可以去看看，有介绍，只需要会打字就能跑了。)
+   python apps/strategies/grid/Grid_with_more_gap.py
    
    # 或运行其他策略
    python apps/strategies/examples/your_strategy.py
