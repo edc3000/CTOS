@@ -324,6 +324,11 @@ engine = ExecutionEngine(account=2, exchange_type='okx')
    pip install -r requirements.txt
    ```
 
+   windows环境下
+   ```bash
+   conda env create -f environment-win.yml --name ctos
+   ```
+
 3. **配置 API Key**
 
    ```bash
