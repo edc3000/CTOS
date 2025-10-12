@@ -256,7 +256,7 @@ def manage_grid_orders(engine, sym, data, open_orders, price_precision, size_pre
 
         # 更新初始价格
         price_now = engine.cex_driver.get_price_now(sym)
-        data["baseline_price"] = (baseline_price * config["buy_move_step"] + price_now) / 2 if price_now < baseline_price * config["buy_move_step"] else baseline_price * config["buy_move_step"]
+        data["baseline_price"] = baseline_price * config["buy_move_step"]
         new_baseline_price = data["baseline_price"]
 
         # 计算新价格
@@ -333,7 +333,7 @@ def manage_grid_orders(engine, sym, data, open_orders, price_precision, size_pre
 
         # 更新初始价格
         price_now = engine.cex_driver.get_price_now(sym)
-        data["baseline_price"] = (baseline_price * config["sell_move_step"] + price_now) / 2  if price_now > baseline_price * config["sell_move_step"] else baseline_price * config["sell_move_step"]
+        data["baseline_price"] = baseline_price * config["sell_move_step"]
         new_baseline_price = data["baseline_price"]
 
         # 计算新价格
