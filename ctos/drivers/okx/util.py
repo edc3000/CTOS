@@ -12,6 +12,44 @@ except Exception as e:
 
 base_url = "https://data.binance.vision/data/spot/daily/klines"
 
+def round_dynamic(x: float) -> float:
+    """
+    动态保留有效数字：
+    - x > 1000: 保留 6 位有效数字
+    - 100 <= x <= 1000: 保留 5 位有效数字
+    - x < 100: 保留 4 位有效数字
+    """
+    if x == 0:
+        return 0.0
+
+    # 确定保留位数
+    if abs(x) > 1000:
+        digits = 6
+    elif abs(x) >= 100:
+        digits = 5
+    else:
+        digits = 4
+
+    magnitude = math.floor(math.log10(abs(x)))
+    scale = 10 ** (magnitude - digits + 1)
+    result = round(x / scale) * scale
+
+    # 额外处理浮点误差，保留到合理小数位
+    return float(f"{result:.12g}")
+
+def round_to_two_digits(x: float) -> float:
+    """
+    从第一个非零数字开始，保留两位有效数字，四舍五入。
+    """
+    if x == 0:
+        return 0.0
+
+    magnitude = math.floor(math.log10(abs(x)))
+    scale = 10 ** (magnitude - 1)
+    result = round(x / scale) * scale
+
+    # 额外处理浮点误差，保留到合理小数位
+    return float(f"{result:.12g}")
 
 def who_called_me():
     # 获取当前调用栈的上一层
