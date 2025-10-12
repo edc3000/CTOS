@@ -1,33 +1,16 @@
 {
-  "timestamp": "2025-10-09T14:58:16.606442",
+  "timestamp": "2025-10-12T09:34:15.338696",
   "exchange": "backpack",
   "GridPositions": {
-    "XPL_USDC_PERP": {
-      "baseline_price": 0.7636037298451738,
-      "avg_cost": 0.9417470588235294,
-      "size": 102.0,
+    "ZORA_USDC_PERP": {
+      "baseline_price": 0.09437810262307267,
+      "avg_cost": 0.08372653037542852,
+      "size": 4890.0,
       "side": "short",
-      "pnlUnrealized": 0.250197,
-      "buy_order_id": "12556652194",
-      "sell_order_id": "12556654184"
-    },
-    "ASTER_USDC_PERP": {
-      "baseline_price": 1.6910164067798898,
-      "avg_cost": 2.0201613756392356,
-      "size": 93.0,
-      "side": "short",
-      "pnlUnrealized": -0.152477,
-      "buy_order_id": "12591322014",
-      "sell_order_id": "12591324015"
-    },
-    "IP_USDC_PERP": {
-      "baseline_price": 9.054903523703862,
-      "avg_cost": 9.543735779816513,
-      "size": 10.9,
-      "side": "short",
-      "pnlUnrealized": -5.925174,
-      "buy_order_id": "12543905836",
-      "sell_order_id": "12543913856"
+      "pnlUnrealized": 9.681834,
+      "buy_order_id": "13179981610",
+      "sell_order_id": "13179991212",
+      "init_price": 0.08138498
     }
   }
 }

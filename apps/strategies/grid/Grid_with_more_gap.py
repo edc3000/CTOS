@@ -145,9 +145,9 @@ def get_all_GridPositions(engine, exchange: str, use_cache: bool = True):
         print("get_all_GridPositions 异常:", e)
     return GridPositions
 
-def manage_grid_orders(engine, sym, data, open_orders, price_precision, size_precision, base_amount, config):
+def manage_grid_orders(engine, sym, data, open_orders, price_precision, size_precision, base_amount, base_quantity, config):
     """
-    管理网格订单逻辑
+    管理网格订单逻辑，并进行系统监控记录
     1. 检查买单和卖单是否在open_orders中
     2. 如果都不在，则下新订单
     3. 如果只有一个消失，则处理成交逻辑
@@ -156,83 +156,145 @@ def manage_grid_orders(engine, sym, data, open_orders, price_precision, size_pre
     buy_order_id = data.get("buy_order_id")
     sell_order_id = data.get("sell_order_id")
     baseline_price = data["baseline_price"]
+    if data.get("init_price") is None:
+        data["init_price"] = baseline_price
+    if data.get("baseline_price") / data.get("init_price") < 0.8:
+        print(f"{BeijingTime()} | [{sym}] 价格下跌超过20%，退出策略...")
+        engine.monitor.record_operation("StrategyExit", "Grid-Order-Management", {
+            "reason": "Price下跌超过20%",
+            "time": BeijingTime(),
+            "sym": sym
+        })
+        return False
+    if data.get("baseline_price") / data.get("init_price") > 1.33:
+        print(f"{BeijingTime()} | [{sym}] 价格上涨超过20%，退出策略...")
+        engine.monitor.record_operation("StrategyExit", "Grid-Order-Management", {
+            "reason": "Price上涨超过20%",
+            "time": BeijingTime(),
+            "sym": sym
+        })
+        return False
     # 检查订单是否存在
     buy_exists = buy_order_id and buy_order_id in open_orders
     sell_exists = sell_order_id and sell_order_id in open_orders
-    
+
     # 计算目标价格
     buy_price = align_decimal_places(price_precision, baseline_price * config["buy_grid_step"])
     sell_price = align_decimal_places(price_precision, baseline_price * config["sell_grid_step"])
-    
     # 情况1: 两个订单都不存在，下新订单
     if not buy_exists and not sell_exists:
         print(f"{BeijingTime()} | [{sym}] 两个订单都不存在，下新订单...")
-        
-        # 下买单
-        buy_qty = align_decimal_places(size_precision, base_amount / buy_price)
-        # 使用place_order直接下单，指定价格
-        buy_oid, buy_err = engine.cex_driver.place_order(
-            symbol=sym, 
-            side="buy", 
-            order_type="limit", 
-            size=buy_qty, 
+    
+        # 下买单 - 使用place_incremental_orders
+        buy_amount = base_amount if base_quantity == 0 else base_quantity * buy_price
+        buy_orders, buy_err = engine.place_incremental_orders(
+            usdt_amount=buy_amount,
+            coin=sym.split('-')[0].lower(),
+            direction="buy",
+            soft=True,
             price=buy_price
         )
         if buy_err:
             print(f"[{sym}] 买单失败: {buy_err}")
+            engine.monitor.record_operation("OrderPlaceFail", sym, {
+                "type": "buy",
+                "err": str(buy_err),
+                "amount": buy_amount,
+                "price": buy_price
+            })
         else:
+            # 获取订单ID（place_incremental_orders返回订单列表）
+            buy_oid = buy_orders[0] if buy_orders else None
             data["buy_order_id"] = buy_oid
-            print(f"[{sym}] 买单已下: {buy_qty} @ {buy_price}, id={buy_oid}")
-        
-        # 下卖单
-        sell_qty = align_decimal_places(size_precision, base_amount / sell_price)
-        # 使用place_order直接下单，指定价格
-        sell_oid, sell_err = engine.cex_driver.place_order(
-            symbol=sym, 
-            side="sell", 
-            order_type="limit", 
-            size=sell_qty, 
+            print(f"[{sym}] 买单已下: {buy_amount} USDT @ {buy_price}, id={buy_oid}")
+            engine.monitor.record_operation("OrderPlaced", sym, {
+                "type": "buy",
+                "order_id": buy_oid,
+                "amount": buy_amount,
+                "price": buy_price
+            })
+
+        # 下卖单 - 使用place_incremental_orders
+        sell_amount = base_amount if base_quantity == 0 else base_quantity * sell_price
+        sell_orders, sell_err = engine.place_incremental_orders(
+            usdt_amount=sell_amount,
+            coin=sym.split('-')[0].lower(),
+            direction="sell",
+            soft=True,
             price=sell_price
         )
         if sell_err:
             print(f"{BeijingTime()} | [{sym}] 卖单失败: {sell_err}")
+            engine.monitor.record_operation("OrderPlaceFail", sym, {
+                "type": "sell",
+                "err": str(sell_err),
+                "amount": sell_amount,
+                "price": sell_price
+            })
         else:
+            # 获取订单ID（place_incremental_orders返回订单列表）
+            sell_oid = sell_orders[0] if sell_orders else None
             data["sell_order_id"] = sell_oid
-            print(f"{BeijingTime()} | [{sym}] 卖单已下: {sell_qty} @ {sell_price}, id={sell_oid}")
-        
+            print(f"{BeijingTime()} | [{sym}] 卖单已下: {sell_amount} USDT @ {sell_price}, id={sell_oid}")
+            engine.monitor.record_operation("OrderPlaced", sym, {
+                "type": "sell",
+                "order_id": sell_oid,
+                "amount": sell_amount,
+                "price": sell_price
+            })
         return True
-    
+
     # 情况2: 买单成交，卖单还在
     elif not buy_exists and sell_exists:
         print(f"{BeijingTime()} | [{sym}] 买单成交！调整策略...")
-        
+        engine.monitor.record_operation("OrderFilled", sym, {
+            "type": "buy",
+            "order_id": buy_order_id,
+            "side_active": "sell",
+            "sell_order_id": sell_order_id
+        })
+
         # 更新初始价格
         price_now = engine.cex_driver.get_price_now(sym)
-        data["baseline_price"] = (baseline_price + price_now) / 2 * config["buy_move_step"] if price_now < baseline_price else baseline_price * config["buy_move_step"]
+        data["baseline_price"] = (baseline_price * config["buy_move_step"] + price_now) / 2 if price_now < baseline_price * config["buy_move_step"] else baseline_price * config["buy_move_step"]
         new_baseline_price = data["baseline_price"]
-        
+
         # 计算新价格
         new_buy_price = align_decimal_places(price_precision,  new_baseline_price * config["buy_grid_step"])
         new_sell_price = align_decimal_places(price_precision,  new_baseline_price * config["sell_grid_step"])
-        
-        # 下新买单
-        buy_qty = align_decimal_places(size_precision, base_amount / new_buy_price)
-        buy_oid, buy_err = engine.cex_driver.place_order(
-            symbol=sym, 
-            side="buy", 
-            order_type="limit", 
-            size=buy_qty, 
+
+        # 下新买单 - 使用place_incremental_orders
+        buy_amount = base_amount if base_quantity == 0 else base_quantity * new_buy_price
+        buy_orders, buy_err = engine.place_incremental_orders(
+            usdt_amount=buy_amount,
+            coin=sym.split('-')[0].lower(),
+            direction="buy",
+            soft=True,
             price=new_buy_price
         )
         if buy_err:
             print(f"{BeijingTime()} | [{sym}] 新买单失败: {buy_err}")
+            engine.monitor.record_operation("OrderPlaceFail", sym, {
+                "type": "buy",
+                "err": str(buy_err),
+                "amount": buy_amount,
+                "price": new_buy_price
+            })
         else:
+            # 获取订单ID（place_incremental_orders返回订单列表）
+            buy_oid = buy_orders[0] if buy_orders else None
             data["buy_order_id"] = buy_oid
-            print(f"{BeijingTime()} | [{sym}] 新买单已下: {buy_qty} @ {new_buy_price}, id={buy_oid}")
-        
+            print(f"{BeijingTime()} | [{sym}] 新买单已下: {buy_amount} USDT @ {new_buy_price}, id={buy_oid}")
+            engine.monitor.record_operation("OrderPlaced", sym, {
+                "type": "buy",
+                "order_id": buy_oid,
+                "amount": buy_amount,
+                "price": new_buy_price
+            })
+
         # 改单现有卖单
         if sell_order_id:
-            sell_qty = align_decimal_places(size_precision, base_amount / new_sell_price)
+            sell_qty = align_decimal_places(size_precision, base_amount / new_sell_price) if base_quantity == 0 else align_decimal_places(size_precision, base_quantity)
             new_sell_oid, amend_err = engine.cex_driver.amend_order(
                 order_id=sell_order_id,
                 symbol=sym,
@@ -241,28 +303,46 @@ def manage_grid_orders(engine, sym, data, open_orders, price_precision, size_pre
             )
             if amend_err:
                 print(f"{BeijingTime()} | [{sym}] 改单失败: {amend_err}")
+                engine.monitor.record_operation("OrderAmendFail", sym, {
+                    "type": "sell",
+                    "order_id": sell_order_id,
+                    "err": str(amend_err),
+                    "qty": sell_qty,
+                    "price": new_sell_price
+                })
             else:
                 data["sell_order_id"] = new_sell_oid
                 print(f"{BeijingTime()} | [{sym}] 卖单已改单: {sell_qty} @ {new_sell_price}, 新id={new_sell_oid}")
-        
+                engine.monitor.record_operation("OrderAmended", sym, {
+                    "type": "sell",
+                    "order_id": new_sell_oid,
+                    "qty": sell_qty,
+                    "price": new_sell_price
+                })
         return True
-    
+
     # 情况3: 卖单成交，买单还在
     elif buy_exists and not sell_exists:
         print(f"{BeijingTime()} | [{sym}] 卖单成交！调整策略...")
-        
+        engine.monitor.record_operation("OrderFilled", sym, {
+            "type": "sell",
+            "order_id": sell_order_id,
+            "side_active": "buy",
+            "buy_order_id": buy_order_id
+        })
+
         # 更新初始价格
         price_now = engine.cex_driver.get_price_now(sym)
-        data["baseline_price"] = (baseline_price + price_now) / 2 * config["sell_move_step"] if price_now > baseline_price else baseline_price * config["sell_move_step"]
+        data["baseline_price"] = (baseline_price * config["sell_move_step"] + price_now) / 2  if price_now > baseline_price * config["sell_move_step"] else baseline_price * config["sell_move_step"]
         new_baseline_price = data["baseline_price"]
-        
+
         # 计算新价格
         new_buy_price = align_decimal_places(price_precision,  new_baseline_price * config["buy_grid_step"])
         new_sell_price = align_decimal_places(price_precision,  new_baseline_price * config["sell_grid_step"])
-        
+
         # 改单现有买单
         if buy_order_id:
-            buy_qty = align_decimal_places(size_precision, base_amount / new_buy_price)
+            buy_qty = align_decimal_places(size_precision, base_amount / new_buy_price) if base_quantity == 0 else align_decimal_places(size_precision, base_quantity)
             new_buy_oid, amend_err = engine.cex_driver.amend_order(
                 order_id=buy_order_id,
                 symbol=sym,
@@ -271,27 +351,53 @@ def manage_grid_orders(engine, sym, data, open_orders, price_precision, size_pre
             )
             if amend_err:
                 print(f"{BeijingTime()} | [{sym}] 改单失败: {amend_err}")
+                engine.monitor.record_operation("OrderAmendFail", sym, {
+                    "type": "buy",
+                    "order_id": buy_order_id,
+                    "err": str(amend_err),
+                    "qty": buy_qty,
+                    "price": new_buy_price
+                })
             else:
                 data["buy_order_id"] = new_buy_oid
                 print(f"{BeijingTime()} | [{sym}] 买单已改单: {buy_qty} @ {new_buy_price}, 新id={new_buy_oid}")
-        
-        # 下新卖单
-        sell_qty = align_decimal_places(size_precision, base_amount / new_sell_price)
-        sell_oid, sell_err = engine.cex_driver.place_order(
-            symbol=sym, 
-            side="sell", 
-            order_type="limit", 
-            size=sell_qty, 
+                engine.monitor.record_operation("OrderAmended", sym, {
+                    "type": "buy",
+                    "order_id": new_buy_oid,
+                    "qty": buy_qty,
+                    "price": new_buy_price
+                })
+
+        # 下新卖单 - 使用place_incremental_orders
+        sell_amount = base_amount if base_quantity == 0 else base_quantity * new_sell_price
+        sell_orders, sell_err = engine.place_incremental_orders(
+            usdt_amount=sell_amount,
+            coin=sym.split('-')[0].lower(),
+            direction="sell",
+            soft=True,
             price=new_sell_price
         )
         if sell_err:
             print(f"{BeijingTime()} | [{sym}] 新卖单失败: {sell_err}")
+            engine.monitor.record_operation("OrderPlaceFail", sym, {
+                "type": "sell",
+                "err": str(sell_err),
+                "amount": sell_amount,
+                "price": new_sell_price
+            })
         else:
+            # 获取订单ID（place_incremental_orders返回订单列表）
+            sell_oid = sell_orders[0] if sell_orders else None
             data["sell_order_id"] = sell_oid
-            print(f"{BeijingTime()} | [{sym}] 新卖单已下: {sell_qty} @ {new_sell_price}, id={sell_oid}")
-        
+            print(f"{BeijingTime()} | [{sym}] 新卖单已下: {sell_amount} USDT @ {new_sell_price}, id={sell_oid}")
+            engine.monitor.record_operation("OrderPlaced", sym, {
+                "type": "sell",
+                "order_id": sell_oid,
+                "amount": sell_amount,
+                "price": new_sell_price
+            })
         return True
-    
+
     # 情况4: 两个订单都在，无事发生
     else:
         return False
@@ -305,11 +411,9 @@ def print_position(account, sym, pos, baseline_price, start_ts):
     :param start_ts: 启动时间戳
     """
     uptime = int(time.time() - start_ts)
-    hh = uptime // 3600
-    mm = (uptime % 3600) // 60
-    ss = uptime % 60
+    time_str = time.strftime("%Y-%m-%d %H:%M:%S", time.localtime(time.time()))
     if not pos:
-        output = f"=== [仓位监控] | Account {account} | 当前没有仓位： {sym} | Uptime {hh:02d}:{mm:02d}:{ss:02d} ==="
+        output = f"=== [仓位监控] | Account {account} | 当前没有仓位： {sym} | Uptime {uptime}s | Time {time_str} ==="
     else:
         # 从仓位数据里拿需要的字段
         price_now = float(pos.get("markPrice", 0) or 0)
@@ -320,7 +424,8 @@ def print_position(account, sym, pos, baseline_price, start_ts):
 
         change_pct = (price_now - baseline_price) / baseline_price * 100 if baseline_price else 0.0
 
-        header = f"[仓位监控] {sym} | Account {account} | Uptime {hh:02d}:{mm:02d}:{ss:02d}"
+        hh, mm, ss = uptime // 3600, (uptime % 3600) // 60, uptime % 60
+        header = f"[仓位监控] {sym} | Account {account} | Uptime {hh:02d}:{mm:02d}:{ss:02d} | "
         line = (
             f"现价={round_dynamic(price_now)} | "
             f"起步价={round_dynamic(baseline_price)} | "
@@ -346,6 +451,7 @@ def load_config():
         "exchange": "bp",
         "account": 0,
         "base_amount": 8.88,
+        "base_quantity": 0,
         "force_refresh": False,
         "buy_grid_step": 0.966,
         "sell_grid_step": 1.018,
@@ -507,7 +613,7 @@ def show_help():
   ✓ 独立配置管理
 """)
 
-def grid_with_more_gap(engines=None, exchs=None, force_refresh=None, base_amount=None, configs=None):
+def grid_with_more_gap(engines=None, exchs=None, force_refresh=None, base_amount=None, configs=None, base_quantity=None):
     print(f"使用交易所: {exchs}")
     if force_refresh is None:
         force_refresh = [False] * len(engines)
@@ -516,14 +622,17 @@ def grid_with_more_gap(engines=None, exchs=None, force_refresh=None, base_amount
             print(f"🔄 强制刷新模式：忽略本地缓存 {exch}-{engine.account}")
     if base_amount is None:
         base_amount = [8.88] * len(engines)
+    if base_quantity is None:
+        base_quantity = [0] * len(engines)
     # 记录策略启动
-    for engine, exch, fr, ba in zip(engines, exchs, force_refresh, base_amount):
+    for engine, exch, fr, ba, bq in zip(engines, exchs, force_refresh, base_amount, base_quantity):
         engine.monitor.record_operation("StrategyStart", "Grid-Order-Management", {
             "exchange": exch,
             "strategy": "Grid-Order-Management",
             "version": "3.0",
             "force_refresh": fr,
-            "base_amount": ba
+            "base_amount": ba,
+            "base_quantity": bq
         })
 
     # 获取持仓（支持缓存）
@@ -592,6 +701,7 @@ def grid_with_more_gap(engines=None, exchs=None, force_refresh=None, base_amount
                 GridPositions[sym] =  {
                         "baseline_price": price_now,
                         "avg_cost": price_now,
+                        "init_price": price_now,
                         "size": 0,
                         "side": 0,
                         'pnlUnrealized': 0,
@@ -624,17 +734,37 @@ def grid_with_more_gap(engines=None, exchs=None, force_refresh=None, base_amount
     need_to_update = False
     while True:
         try:
-            for engine, GridPositions, ba, config in zip(engines, GridPositions_all, base_amount, configs):
+            for engine, GridPositions, ba, bq, config in zip(engines, GridPositions_all, base_amount, base_quantity, configs):
             # 获取全局所有订单
-                open_orders, err = engine.cex_driver.get_open_orders(symbol=None, onlyOrderId=True, keep_origin=False)
-                if err:
-                    print(f"获取订单失败: {err}")
+                try:
+                    open_orders, err = engine.cex_driver.get_open_orders(symbol=None, onlyOrderId=True, keep_origin=False)
+                    if err:
+                        print(f"获取订单失败: {err}")
+                        time.sleep(sleep_time)
+                        continue
+                except Exception as e:
+                    print(f"获取订单失败: {e}")
+                    engine.monitor.record_operation("OrderGetFail", e, {
+                        "err": str(e),
+                        "time": BeijingTime(),
+                        "sym": sym
+                    })
                     time.sleep(sleep_time)
                     continue
-                
+              
                 if not isinstance(open_orders, list) or not open_orders:
                     open_orders = []
-                origin_pos, err = engine.cex_driver.get_position(symbol=None, keep_origin=False)
+                try:
+                    origin_pos, err = engine.cex_driver.get_position(symbol=None, keep_origin=False)
+                except Exception as e:
+                    engine.monitor.record_operation("PositionGetFail", e, {
+                        "err": str(e),
+                        "time": BeijingTime(),
+                        "sym": sym
+                    })
+                    print(f"获取持仓失败: {e}")
+                    time.sleep(sleep_time)
+                    continue
                 poses = {}
                 for pos in origin_pos:
                     poses[pos["symbol"]] = pos
@@ -661,7 +791,7 @@ def grid_with_more_gap(engines=None, exchs=None, force_refresh=None, base_amount
                         print_position(engine.account, sym, pos, baseline_price, start_ts)
                         
                         # 使用新的订单管理逻辑
-                        order_updated = manage_grid_orders(engine, sym, data, open_orders, price_precision, min_order_size, 6.66 if engine.account==-1 else ba, config)
+                        order_updated = manage_grid_orders(engine, sym, data, open_orders, price_precision, min_order_size, ba, bq, config)
                         
                         # 如果有订单更新，保存数据
                         if order_updated:
@@ -669,6 +799,11 @@ def grid_with_more_gap(engines=None, exchs=None, force_refresh=None, base_amount
 
                     except Exception as e:
                         print(f"[{sym}] 循环异常:", e)
+                        engine.monitor.record_operation("LoopException", e, {
+                            "err": str(e),
+                            "time": BeijingTime(),
+                            "sym": sym
+                        })
                         break
                 if need_to_update:
                     save_GridPositions(GridPositions, exch, engine.account)
