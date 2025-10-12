@@ -316,18 +316,18 @@ engine = ExecutionEngine(account=2, exchange_type='okx')
    ```
 
 2. **搭建环境**
-
+Linux 环境下：
    ```bash
    conda create -n ctos python=3.10 -y
    conda activate ctos
    pip install -U pip
    pip install -r requirements.txt
    ```
-
-   windows环境下
+ Windows环境下：
    ```bash
    conda env create -f environment-win.yml --name ctos
    ```
+
 
 3. **配置 API Key**
 

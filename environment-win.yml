@@ -35,4 +35,3 @@ dependencies:
       - six==1.17.0
       - tzdata==2025.2
       - urllib3==2.5.0
-prefix: C:\Users\admin\.conda\envs\ctos
