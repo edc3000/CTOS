@@ -765,11 +765,12 @@ def grid_with_more_gap(engines=None, exchs=None, force_refresh=None, base_amount
                     print(f"获取持仓失败: {e}")
                     time.sleep(sleep_time)
                     continue
+                if not origin_pos:
+                    time.sleep(sleep_time)
+                    continue
                 poses = {}
                 for pos in origin_pos:
                     poses[pos["symbol"]] = pos
-                if err or not poses:
-                    continue
                 for sym, data in GridPositions.items():
                     try:
                         time.sleep(sleep_time)
