@@ -68,7 +68,9 @@ ctos/
 │     ├─ backpack/             # Backpack exchange driver
 │     │  ├─ driver.py          # Backpack main driver
 │     │  └─ util.py            # Backpack utility functions
-│     └─ binance/              # Binance exchange driver
+│     ├─ binance/              # Binance exchange driver
+│     └─ base_uniswapv3/       # Base chain Uniswap V3 driver
+│        └─ driver.py          # Base Uniswap V3 main driver
 ├─ apps/                       # Application layer
 │  ├─ strategies/              # Trading strategies
 │  │  ├─ grid/                 # Grid strategies
@@ -94,6 +96,7 @@ ctos/
 - **`ctos/drivers/okx/driver.py`** - OKX exchange driver, supports dynamic account mapping
 - **`ctos/drivers/backpack/driver.py`** - Backpack exchange driver, supports dynamic account mapping
 - **`ctos/drivers/binance/driver.py`** - Binance exchange driver
+- **`ctos/drivers/base_uniswapv3/driver.py`** - Base chain Uniswap V3 driver, supports DeFi operations
 
 #### Configuration Management
 - **`configs/account.yaml`** - Account configuration file, stores API keys for each exchange
@@ -157,6 +160,7 @@ ctos/
 | **OKX** | `drivers/okx/driver.py` | Dynamic account mapping | Complete futures trading support |
 | **Backpack** | `drivers/backpack/driver.py` | Dynamic account mapping | Native perpetual contract support |
 | **Binance** | `drivers/binance/driver.py` | Basic support | World's largest exchange |
+| **Base Uniswap V3** | `drivers/base_uniswapv3/driver.py` | Wallet-based | DeFi liquidity provision and trading |
 
 ### 🎯 Dynamic Account Management
 
@@ -221,6 +225,10 @@ Account mapping is based on `configs/account.yaml` configuration file:
 │  │  │   OKX       │  │  Backpack   │  │  Binance    │    │ │
 │  │  │   Driver    │  │   Driver    │  │   Driver    │    │ │
 │  │  └─────────────┘  └─────────────┘  └─────────────┘    │ │
+│  │  ┌─────────────┐  ┌─────────────┐                      │ │
+│  │  │ Base Uniswap│  │   DeFi      │                      │ │
+│  │  │ V3 Driver   │  │ Protocols   │                      │ │
+│  │  └─────────────┘  └─────────────┘                      │ │
 │  └─────────────────────────────────────────────────────────┘ │
 ├─────────────────────────────────────────────────────────────┤
 │  ┌─────────────────────────────────────────────────────────┐ │
@@ -233,21 +241,23 @@ Account mapping is based on `configs/account.yaml` configuration file:
 ```
 
 ### 🔄 Data Flow
-1. **Strategy** → **Execution Engine** → **System Calls** → **Exchange Driver** → **Exchange API**
-2. **Exchange API** → **Exchange Driver** → **System Calls** → **Execution Engine** → **System Monitor**
+1. **Strategy** → **Execution Engine** → **System Calls** → **Exchange Driver** → **Exchange API/DeFi Protocol**
+2. **Exchange API/DeFi Protocol** → **Exchange Driver** → **System Calls** → **Execution Engine** → **System Monitor**
 3. **System Monitor** → **Anomaly Detection** → **Auto Correction** → **Execution Engine** → **Exchange Driver**
+4. **Cross-chain Operations** → **Base Uniswap V3** → **ETH-WETH Conversion** → **Liquidity Provision**
 
 ---
 
 ## 🌟 System Features
 
 ### 🔥 Core Functions
-- **Unified Trading Interface** - One API supports OKX, Backpack, Binance exchanges
+- **Unified Trading Interface** - One API supports OKX, Backpack, Binance exchanges and Base Uniswap V3 DeFi
 - **Dynamic Account Management** - Support multi-account switching, auto-mapping based on configuration
 - **Smart Position Monitoring** - Precise monitoring based on quantityUSD, supports auto-correction
 - **Multi-dimensional Anomaly Detection** - Comprehensive monitoring of price, position, profit, risk
 - **Auto-correction Mechanism** - Automatically place orders to correct anomalies when detected
 - **Complete Logging System** - Structured logs, operation records, anomaly reports
+- **DeFi Integration** - Support for Base chain Uniswap V3 liquidity provision and ETH-WETH conversion
 
 ### 🛡️ Security Features
 - **Risk Control** - Built-in risk management module, supports multiple risk indicator monitoring
@@ -256,10 +266,12 @@ Account mapping is based on `configs/account.yaml` configuration file:
 - **Auto Circuit Breaker** - Automatically stop trading in case of anomalies
 
 ### 🚀 Performance Features
-- **High Precision Calculation** - Unified handling of precision differences across exchanges
+- **High Precision Calculation** - Unified handling of precision differences across exchanges and DeFi protocols
 - **Smart Order Placement** - Automatic handling of price and quantity precision conversion
 - **Incremental Trading** - Support incremental order placement, avoiding duplicate operations
 - **Real-time Monitoring** - Support continuous monitoring and scheduled tasks
+- **Gas Optimization** - Dynamic gas price adjustment for optimal transaction execution
+- **Cross-chain Support** - Seamless integration between CEX and DeFi operations
 
 ---
 
@@ -300,9 +312,12 @@ Account mapping is based on `configs/account.yaml` configuration file:
 
 
 ## Quick Start (Practical Workflow)
+> ⚠️ If you encounter network connection issues, please ensure you have configured a VPN environment to smoothly access exchange APIs.
+
+> 💡 Network or API connectivity troubleshooting: Run `python scripts/net_probe.py` to automatically detect network connectivity, DNS, TLS, and driver availability from your local machine to OKX, Backpack, Binance and other exchanges, providing detailed diagnostics and repair suggestions.
 
 1. **Get the Code**
-   Clone the repository:
+   Clone the repository or download the template:
 
    ```bash
    git clone https://github.com/CryptoFxxker/CTOS.git
@@ -310,12 +325,18 @@ Account mapping is based on `configs/account.yaml` configuration file:
    ```
 
 2. **Set Up the Environment**
+   We recommend using [conda](https://docs.conda.io/projects/conda/en/latest/user-guide/install/index.html) for configuration, which doesn't affect your native environment and is convenient for adaptation. Full platform configuration tutorials will be available later. Currently supports Linux and Windows.
 
+* Linux environment:
    ```bash
    conda create -n ctos python=3.10 -y
    conda activate ctos
    pip install -U pip
    pip install -r requirements.txt
+   ```
+* Windows environment:
+   ```bash
+   conda env create -f environment-win.yml --name ctos
    ```
 
 3. **Configure API Keys**
@@ -324,24 +345,24 @@ Account mapping is based on `configs/account.yaml` configuration file:
    cp configs/secrets.example.yaml configs/account.yaml
    ```
 
-   Fill in **OKX / Backpack / Binance** API Keys
+   Fill in **OKX / Backpack / (Binance)** API Keys
+   > ⚠️ Do not commit this file to git
 
-   ### 3.1 Test Cases (Optional)
+   3.1 Test Cases (Optional)
 
    To verify environment and API Key configuration, run the built-in test script:
 
-     ```bash
+   ```bash
    python configs/example_usage.py
    ```
 
    This script will automatically test order placement on OKX and Backpack exchanges for mainstream coins and output results. Recommended to run first during initial deployment to ensure everything is working properly.
-   > ⚠️ Do not commit this file to git
 
 4. **Run Built-in Strategies**
 
    ```bash
-   # Run all-coin grid strategy
-   python apps/strategies/grid/Grid-All-Coin.py
+   # Run all-coin grid strategy (this strategy can be checked out, has introduction, just need to type to run)
+   python apps/strategies/grid/Grid_with_more_gap.py
    
    # Or run other strategies
    python apps/strategies/examples/your_strategy.py
@@ -350,11 +371,14 @@ Account mapping is based on `configs/account.yaml` configuration file:
    Strategies will automatically use ExecutionEngine and SystemMonitor for execution and monitoring.
 
 6. **Backtest/Replay@TODO** 
+
+   $Real men just do it! Screw backtesting!$
+
    Place historical data in `tools/backtest/`, then:
 
-     ```bash
-     ./scripts/backtest.sh
-     ```
+   ```bash
+   ./scripts/backtest.sh
+   ```
 
    Results will be written to `var/logs/` and stored in `var/data/`.
 
@@ -377,7 +401,7 @@ Account mapping is based on `configs/account.yaml` configuration file:
   🚀 Achieved a significant milestone today: **AI-driven, system-call-based grid strategy code** has been generated, fine-tuned, and officially deployed!
   🥂🎊 Cheers to this launch — onward to the next stage!
 
-* **🎉 Milestone 2 (2025.09.)**
+* **🎉 Milestone 2 (2025.09.23)**
   ✅ Completed precise position monitoring system based on quantityUSD
   ✅ Implemented multi-dimensional anomaly detection (price, position, profit, risk)
   ✅ Completed auto-correction mechanism, supports automatic position anomaly repair
@@ -385,6 +409,35 @@ Account mapping is based on `configs/account.yaml` configuration file:
   ✅ Supports OKX, Backpack, Binance three major exchanges
   🚀 System is ready for production environment deployment!
   🥂🎊 Cheers to this launch — onward to the next stage!
+
+* **🎉 Milestone 3 (2025.09.27)**
+  ✅ Completed comprehensive quantitative trading strategy system construction
+  ✅ Implemented multi-account, multi-strategy parallel execution architecture
+  ✅ Established three major strategy categories: index-based, auxiliary, and new coin flow
+  ✅ Supports dynamic parameter adjustment and real-time monitoring
+  🚀 Strategy system is fully deployed and operational!
+
+* **🎉 Milestone 4 (2025.10.11)**
+  ✅ TOPDOGINDEX-based main strategy achieved 30%+ profit across all positions during the major crypto market crash on 2025.10.11! Excellent real-world validation results!
+
+### 📊 Strategy System Overview
+
+| Strategy Category | Strategy Name | Running Accounts | Strategy Features | Status |
+|------------------|---------------|------------------|-------------------|--------|
+| **Index-based Strategies** | Main Strategy | 0, 3 | High volatility + frequent trades, leveraged progressive hedging grid | ✅ Running |
+| | Small Volatility Martin Strategy | 2, 4 | Low volatility + frequent trades, leveraged exponential explosion hedging grid | ✅ Running |
+| **Auxiliary Strategies** | Dynamic Grid Strategy | 0, 3 | ±3.88/1.88 orders for specified coins, dynamic adjustment | ✅ Running |
+| | Sniper Soaring Strategy | 0, 3, 4 | Sell 3U when exceeding BTC by 1%, buy BTC/BNB | ✅ Running |
+| | Rank Strategy | 2 | Long top 50% gainers, short bottom 50% | 🚧 Development |
+| **New Coin Flow Strategies** | Sniper Large Cap New Coins | 1 | Short new coins + dynamic grid, $10 stop loss | 🚧 Development |
+
+### 🎯 Core Strategy Features
+
+- **Multi-Account Management**: Supports 5 accounts running different strategies in parallel
+- **Dynamic Parameter Adjustment**: Real-time market monitoring with automatic strategy parameter adjustment
+- **Risk Control**: Independent risk management per strategy, supports circuit breakers and stop losses
+- **Real-time Monitoring**: Complete logging system and data persistence
+- **Strategy Rotation**: Automatic switching to optimal strategy combinations based on market conditions
 
 ---
 

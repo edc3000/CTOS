@@ -68,7 +68,9 @@ ctos/
 │     ├─ backpack/             # Backpack 거래소 드라이버
 │     │  ├─ driver.py          # Backpack 메인 드라이버
 │     │  └─ util.py            # Backpack 유틸리티 함수
-│     └─ binance/              # Binance 거래소 드라이버
+│     ├─ binance/              # Binance 거래소 드라이버
+│     └─ base_uniswapv3/       # Base 체인 Uniswap V3 드라이버
+│        └─ driver.py          # Base Uniswap V3 메인 드라이버
 ├─ apps/                       # 애플리케이션 계층
 │  ├─ strategies/              # 거래 전략
 │  │  ├─ grid/                 # 그리드 전략
@@ -94,6 +96,7 @@ ctos/
 - **`ctos/drivers/okx/driver.py`** - OKX 거래소 드라이버, 동적 계정 매핑 지원
 - **`ctos/drivers/backpack/driver.py`** - Backpack 거래소 드라이버, 동적 계정 매핑 지원
 - **`ctos/drivers/binance/driver.py`** - Binance 거래소 드라이버
+- **`ctos/drivers/base_uniswapv3/driver.py`** - Base 체인 Uniswap V3 드라이버, DeFi 작업 지원
 
 #### 설정 관리
 - **`configs/account.yaml`** - 계정 설정 파일, 각 거래소의 API 키를 저장
@@ -157,6 +160,7 @@ ctos/
 | **OKX** | `drivers/okx/driver.py` | 동적 계정 매핑 | 완전한 선물 거래 지원 |
 | **Backpack** | `drivers/backpack/driver.py` | 동적 계정 매핑 | 네이티브 영구 계약 지원 |
 | **Binance** | `drivers/binance/driver.py` | 기본 지원 | 세계 최대 거래소 |
+| **Base Uniswap V3** | `drivers/base_uniswapv3/driver.py` | 지갑 기반 | DeFi 유동성 제공과 거래 |
 
 ### 🎯 동적 계정 관리
 
@@ -221,6 +225,10 @@ engine = ExecutionEngine(account=2, exchange_type='okx')
 │  │  │   OKX       │  │  Backpack   │  │  Binance    │    │ │
 │  │  │   Driver    │  │   Driver    │  │   Driver    │    │ │
 │  │  └─────────────┘  └─────────────┘  └─────────────┘    │ │
+│  │  ┌─────────────┐  ┌─────────────┐                      │ │
+│  │  │ Base Uniswap│  │   DeFi      │                      │ │
+│  │  │ V3 Driver   │  │ Protocols   │                      │ │
+│  │  └─────────────┘  └─────────────┘                      │ │
 │  └─────────────────────────────────────────────────────────┘ │
 ├─────────────────────────────────────────────────────────────┤
 │  ┌─────────────────────────────────────────────────────────┐ │
@@ -233,21 +241,23 @@ engine = ExecutionEngine(account=2, exchange_type='okx')
 ```
 
 ### 🔄 데이터 플로우
-1. **전략** → **실행 엔진** → **시스템 콜** → **거래소 드라이버** → **거래소 API**
-2. **거래소 API** → **거래소 드라이버** → **시스템 콜** → **실행 엔진** → **시스템 모니터**
+1. **전략** → **실행 엔진** → **시스템 콜** → **거래소 드라이버** → **거래소 API/DeFi 프로토콜**
+2. **거래소 API/DeFi 프로토콜** → **거래소 드라이버** → **시스템 콜** → **실행 엔진** → **시스템 모니터**
 3. **시스템 모니터** → **이상 감지** → **자동 수정** → **실행 엔진** → **거래소 드라이버**
+4. **크로스체인 작업** → **Base Uniswap V3** → **ETH-WETH 변환** → **유동성 제공**
 
 ---
 
 ## 🌟 시스템 특성
 
 ### 🔥 핵심 기능
-- **통합 거래 인터페이스** - 하나의 API로 OKX, Backpack, Binance 3대 거래소 지원
+- **통합 거래 인터페이스** - 하나의 API로 OKX, Backpack, Binance 3대 거래소와 Base Uniswap V3 DeFi 지원
 - **동적 계정 관리** - 다중 계정 전환 지원, 설정 기반 자동 매핑
 - **스마트 포지션 모니터링** - quantityUSD 기반 정밀 모니터링, 자동 수정 지원
 - **다차원 이상 감지** - 가격, 포지션, 수익, 리스크의 포괄적 모니터링
 - **자동 수정 메커니즘** - 이상 감지 시 자동 주문 수정
 - **완전한 로그 시스템** - 구조화된 로그, 작업 기록, 이상 보고서
+- **DeFi 통합** - Base 체인 Uniswap V3 유동성 제공과 ETH-WETH 변환 지원
 
 ### 🛡️ 보안 특성
 - **리스크 컨트롤** - 내장 리스크 관리 모듈, 다중 리스크 지표 모니터링 지원
@@ -256,10 +266,12 @@ engine = ExecutionEngine(account=2, exchange_type='okx')
 - **자동 서킷 브레이커** - 이상 시 자동 거래 중단
 
 ### 🚀 성능 특성
-- **고정밀 계산** - 거래소 간 정밀도 차이를 통일 처리
+- **고정밀 계산** - 거래소 간과 DeFi 프로토콜 간의 정밀도 차이를 통일 처리
 - **스마트 주문** - 가격과 수량 정밀도 변환의 자동 처리
 - **증분 거래** - 증분 주문 지원, 중복 작업 방지
 - **실시간 모니터링** - 연속 모니터링과 스케줄 작업 지원
+- **Gas 최적화** - 최적의 트랜잭션 실행을 위한 동적 Gas 가격 조정
+- **크로스체인 지원** - CEX와 DeFi 작업의 원활한 통합
 
 ---
 
@@ -289,9 +301,12 @@ engine = ExecutionEngine(account=2, exchange_type='okx')
 ---
 
 ## 빠른 시작 (실무 플로우)
+> ⚠️ 네트워크 연결 문제가 발생하면 거래소 API에 원활하게 액세스할 수 있도록 VPN 환경을 구성했는지 확인하세요.
+
+> 💡 네트워크 또는 API 연결성 문제 해결: `python scripts/net_probe.py`를 실행하여 로컬 머신에서 OKX, Backpack, Binance 등의 거래소로의 네트워크 연결성, DNS, TLS, 드라이버 가용성을 자동으로 감지하고 상세한 진단 및 수정 제안을 제공합니다.
 
 1. **코드 가져오기**
-   저장소를 클론:
+   저장소를 클론하거나 템플릿을 다운로드:
 
    ```bash
    git clone https://github.com/CryptoFxxker/CTOS.git
@@ -299,12 +314,18 @@ engine = ExecutionEngine(account=2, exchange_type='okx')
    ```
 
 2. **환경 구축**
+   [conda](https://docs.conda.io/projects/conda/en/latest/user-guide/install/index.html)를 사용한 설정을 권장합니다. 네이티브 환경에 영향을 주지 않으며 적응도 편리합니다. 나중에 전체 플랫폼 설정 튜토리얼이 제공됩니다. 현재 Linux와 Windows를 지원합니다.
 
+* Linux 환경:
    ```bash
    conda create -n ctos python=3.10 -y
    conda activate ctos
    pip install -U pip
    pip install -r requirements.txt
+   ```
+* Windows 환경:
+   ```bash
+   conda env create -f environment-win.yml --name ctos
    ```
 
 3. **API 키 설정**
@@ -313,9 +334,10 @@ engine = ExecutionEngine(account=2, exchange_type='okx')
    cp configs/secrets.example.yaml configs/account.yaml
    ```
 
-   **OKX / Backpack / Binance** API 키를 입력
+   **OKX / Backpack / (Binance)** API 키를 입력
+   > ⚠️ 이 파일을 git에 커밋하지 마세요
 
-   ### 3.1 테스트 케이스 (선택사항)
+   3.1 테스트 케이스 (선택사항)
 
    환경과 API 키 설정이 올바른지 확인하려면 내장 테스트 스크립트를 실행:
 
@@ -324,13 +346,12 @@ engine = ExecutionEngine(account=2, exchange_type='okx')
    ```
 
    이 스크립트는 OKX와 Backpack 거래소의 주류 코인에 대해 자동으로 주문 테스트를 실행하고 결과를 출력합니다. 초기 배포 시 먼저 실행하여 모든 것이 정상인지 확인하는 것을 권장합니다.
-   > ⚠️ 이 파일을 git에 커밋하지 마세요
 
 4. **내장 전략 실행**
 
    ```bash
-   # 전체 코인 그리드 전략 실행
-   python apps/strategies/grid/Grid-All-Coin.py
+   # 전체 코인 그리드 전략 실행 (이 전략은 확인할 수 있고 소개가 있으며, 타이핑만 하면 실행됩니다)
+   python apps/strategies/grid/Grid_with_more_gap.py
    
    # 또는 다른 전략 실행
    python apps/strategies/examples/your_strategy.py
@@ -339,6 +360,9 @@ engine = ExecutionEngine(account=2, exchange_type='okx')
    전략은 자동으로 ExecutionEngine과 SystemMonitor를 사용하여 실행과 모니터링을 수행합니다.
 
 6. **백테스트/리플레이@TODO** 
+
+   $진짜 남자는 그냥 한다! 백테스트는 개뿔!$
+
    과거 데이터를 `tools/backtest/`에 배치한 후:
 
    ```bash
@@ -367,7 +391,7 @@ engine = ExecutionEngine(account=2, exchange_type='okx')
   🚀 오늘 중요한 마일스톤을 달성: **시스템 콜 기반 AI 자동 생성 그리드 전략 코드**가 완성되어 미세 조정 후 공식 출시!
   🥂🎊 출시 축하, 미래에 기대!
 
-* **🎉 마일스톤 2 (2025.09.)**
+* **🎉 마일스톤 2 (2025.09.23)**
   ✅ quantityUSD 기반의 정밀 포지션 모니터링 시스템을 완료
   ✅ 다차원 이상 감지 (가격, 포지션, 수익, 리스크)를 구현
   ✅ 자동 수정 메커니즘을 완료, 포지션 이상의 자동 수리를 지원
@@ -375,6 +399,37 @@ engine = ExecutionEngine(account=2, exchange_type='okx')
   ✅ OKX, Backpack, Binance 3대 거래소를 지원
   🚀 시스템이 프로덕션 환경 배포 능력을 갖추었습니다!
   🥂🎊 출시 축하, 미래에 기대!
+
+* **🎉 마일스톤 3 (2025.09.27)**
+  ✅ 포괄적인 정량 거래 전략 시스템 구축을 완료
+  ✅ 멀티 계정, 멀티 전략 병렬 실행 아키텍처를 구현
+  ✅ 지수면, 보조면, 신코인 플로우의 3대 전략 카테고리를 확립
+  ✅ 동적 매개변수 조정과 실시간 모니터링을 지원
+  🚀 전략 시스템이 완전히 배포되어 운영 중!
+
+* **🎉 마일스톤 4 (2025.10.11)**
+  ✅ TOPDOGINDEX 기반 주력 전략이 2025.10.11 암호화폐 대폭락에서 전체 포지션 30% 이상의 수익을 달성! 실거래 검증 결과가 우수!
+
+### 📊 전략 시스템 개요
+
+| 전략 카테고리 | 전략명 | 실행 계정 | 전략 특징 | 상태 |
+|-------------|--------|----------|----------|------|
+| **지수면 전략** | 주력 전략 | 0, 3 | 고변동성+빈번한 거래, 레버리지 누진 헤지 그리드 | ✅ 실행 중 |
+| | 소변동성 마틴 전략 | 2, 4 | 저변동성+빈번한 거래, 레버리지 지수 폭발 헤지 그리드 | ✅ 실행 중 |
+| **보조면 전략** | 동적 그리드 전략 | 0, 3 | 지정 코인 ±3.88/1.88 주문, 동적 조정 | ✅ 실행 중 |
+| | 스나이퍼 상승 전략 | 0, 3, 4 | BTC 1% 초과 시 3U 매도, BTC/BNB 매수 | ✅ 실행 중 |
+| | Rank 전략 | 2 | 상위 50% 상승 시 롱, 하위 50% 시 숏 | 🚧 개발 중 |
+| **신코인 플로우 전략** | 스나이퍼 대시총 신코인 | 1 | 신코인 숏+동적 그리드, 10달러 손절 | 🚧 개발 중 |
+
+### 🎯 핵심 전략 특징
+
+- **멀티 계정 관리**: 5개 계정에서 서로 다른 전략을 병렬 실행
+- **동적 매개변수 조정**: 실시간 시장 모니터링으로 전략 매개변수를 자동 조정
+- **리스크 컨트롤**: 전략별 독립적인 리스크 관리, 서킷 브레이커와 손절을 지원
+- **실시간 모니터링**: 완전한 로그 시스템과 데이터 영속성
+- **전략 로테이션**: 시장 상황에 따라 최적의 전략 조합으로 자동 전환
+
+---
 
 ---
 

@@ -316,14 +316,16 @@ engine = ExecutionEngine(account=2, exchange_type='okx')
    ```
 
 2. **搭建环境**
-Linux 环境下：
+   建议使用[conda](https://docs.conda.io/projects/conda/en/latest/user-guide/install/index.html)配置，不影响原生环境的情况下，也方便适配，后续会上全平台的配置教程。当前支持Linux和windows
+
+* Linux 环境下：
    ```bash
    conda create -n ctos python=3.10 -y
    conda activate ctos
    pip install -U pip
    pip install -r requirements.txt
    ```
- Windows环境下：
+* Windows环境下：
    ```bash
    conda env create -f environment-win.yml --name ctos
    ```
@@ -338,7 +340,7 @@ Linux 环境下：
    填入 **OKX / Backpack / （Binance）** 的 API Key
    > ⚠️ 请勿将该文件提交到 git
 
- ### 3.1 测试用例（可选）
+    3.1 测试用例（可选）
 
    如需验证环境和 API Key 配置是否正确，可运行内置测试脚本：
 
@@ -362,6 +364,9 @@ Linux 环境下：
    策略会自动使用 ExecutionEngine 和 SystemMonitor 进行执行和监控。
 
 6. **回测/重放@TODO** 
+
+   $真男人就是干！回测个P!$
+   
    将历史数据放入 `tools/backtest/`，然后：
 
    ```bash
@@ -401,12 +406,16 @@ Linux 环境下：
   * 🚀 系统已具备生产环境部署能力！
   * 🥂🎊 恭喜上线，未来可期！
 
-* **🎉 里程碑 3（2025.01.20）**
+* **🎉 里程碑 3（2025.09.27）**
   * ✅ 完成了完整的量化交易策略体系构建
   * ✅ 实现了多账户、多策略的并行运行架构
   * ✅ 建立了指数面、辅助面、新币流三大策略分类
   * ✅ 支持动态参数调整和实时监控
   * 🚀 策略体系已全面上线运行！
+
+
+* **🎉 里程碑 4（2025.10.11）**
+  * ✅ 基于TOPDOGINDEX的主力策略在20251011币圈大血洗中获利全仓位30%以上！实盘验证效果上佳！
 
 ### 📊 策略体系总览
 
