@@ -1,36 +1,36 @@
 {
-  "timestamp": "2025-10-13T03:55:09.335291",
+  "timestamp": "2025-10-15T06:25:12.492530",
   "exchange": "backpack",
   "GridPositions": {
     "LINK_USDC_PERP": {
-      "baseline_price": 19.00405295,
-      "avg_cost": 18.151028571428572,
-      "size": 10.5,
+      "baseline_price": 18.9213453,
+      "avg_cost": 18.884143525797416,
+      "size": 23.8,
       "side": "long",
-      "pnlUnrealized": 9.562879,
-      "buy_order_id": "13339890048",
-      "sell_order_id": "13339893082",
-      "init_price": 19.00405295
+      "pnlUnrealized": 9.22639,
+      "buy_order_id": "13725871568",
+      "sell_order_id": "13725874625",
+      "init_price": 19.11247
     },
     "HYPE_USDC_PERP": {
-      "baseline_price": 39.15271802,
-      "avg_cost": 38.99368162083936,
-      "size": 5.95,
+      "baseline_price": 39.06350874,
+      "avg_cost": 39.28427272187815,
+      "size": 12.85,
       "side": "long",
-      "pnlUnrealized": 3.080741,
-      "buy_order_id": "13339897905",
-      "sell_order_id": "13339900378",
-      "init_price": 39.15271802
+      "pnlUnrealized": 5.302123,
+      "buy_order_id": "13717004923",
+      "sell_order_id": "13717007911",
+      "init_price": 39.06350874
     },
     "AAVE_USDC_PERP": {
-      "baseline_price": 248.09113062,
-      "avg_cost": 237.35974110032362,
-      "size": 0.88,
+      "baseline_price": 255.93993915,
+      "avg_cost": 248.57601307603036,
+      "size": 1.81,
       "side": "long",
-      "pnlUnrealized": 11.735484,
-      "buy_order_id": "13339904252",
-      "sell_order_id": "13339906309",
-      "init_price": 248.09113062
+      "pnlUnrealized": 18.777517,
+      "buy_order_id": "13717017068",
+      "sell_order_id": "13717019350",
+      "init_price": 255.93993915
     }
   }
 }

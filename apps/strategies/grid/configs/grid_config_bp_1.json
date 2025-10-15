@@ -2,7 +2,7 @@
   "exchange": "bp",
   "account": 1,
   "base_amount": 12.88,
-  "base_quantity": 1,
+  "base_quantity": 0,
   "force_refresh": false,
   "buy_grid_step": 0.988,
   "sell_grid_step": 1.038,
