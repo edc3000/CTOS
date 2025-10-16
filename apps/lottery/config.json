@@ -1,0 +1,32 @@
+{
+  "version": 1,
+  "draw": {
+    "num_winners": 3,
+    "seed_mode": "system",
+    "manual_seed": "your-event-seed",
+    "external_entropy": ""
+  },
+  "factors": {
+    "follow": 10,
+    "repost": 10,
+    "like": 2,
+    "reply": 5
+  },
+"participants": [
+  {"id": "Mark_XZ",       "factors": ["like", "follow"]},
+  {"id": "0xWag",         "factors": ["like", "follow", "repost", "reply"]},
+  {"id": "kuk47733741",   "factors": ["like", "follow", "repost", "reply"]},      
+  {"id": "dying641558",   "factors": ["like", "follow", "repost", "reply"]},       
+  {"id": "Cryptovse",     "factors": ["like"]},                
+  {"id": "spicycandy01",  "factors": ["like", "follow", "repost", "reply"]},      
+  {"id": "steepbrooo",    "factors": ["like", "reply"]},                
+  {"id": "5357347667",    "factors": ["like", "follow", "repost", "reply"]},      
+  {"id": "Airdrop_Gen_Z", "factors": ["like", "reply"]},                 
+  {"id": "Web3guagua",    "factors": ["like", "follow", "reply"]},      
+  {"id": "norhanautap",   "factors": ["like"]},
+  {"id": "Evan_ice001",   "factors": ["reply"]},
+  {"id": "cheuk_baby",    "factors": ["reply"]},
+  {"id": "lingyo16437",    "factors": ["reply"]},
+  {"id": "jett_sol1009",    "factors": ["reply"]}
+]
+}
