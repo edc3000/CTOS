@@ -14,10 +14,22 @@ performance*.png
 *.log
 .first_run_flag
 account.yaml
+good_group*.txt
+*GridPositions.json
 # OS
 .DS_Store
 
 # Data & Logs
 data/
 logs/
+ctos/core/io/logging/
 tmp/
+ctos/core/io/storage/
+apps/indicatorVisualization/hedge_optimization/
+apps/strategies/hedge/
+apps/strategies/grid/symbols/
+apps/strategies/grid/GridPositions/
+apps/strategies/grid/configs/
+apps/indicatorVisualization/*.txt
+apps/indicatorVisualization/chart_for_group/
+apps/indicatorVisualization/bollinger_analysis/

@@ -1,15 +1,15 @@
 {
-  "timestamp": "2025-10-16T03:14:52.949733",
+  "timestamp": "2025-10-16T05:00:20.740526",
   "exchange": "backpack",
   "GridPositions": {
     "ZORA_USDC_PERP": {
-      "baseline_price": 0.0921195625800619,
+      "baseline_price": 0.09119836695426128,
       "avg_cost": 0.08372653037542852,
       "size": 4890.0,
       "side": "short",
       "pnlUnrealized": 9.681834,
-      "buy_order_id": "13874260236",
-      "sell_order_id": "13874263154",
+      "buy_order_id": "13883215458",
+      "sell_order_id": "13883219347",
       "init_price": 0.08138498
     }
   }

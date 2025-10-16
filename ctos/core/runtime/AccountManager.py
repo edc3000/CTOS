@@ -72,6 +72,7 @@ class DriverInfo:
         self.last_used = time.time()
         self.error_count = 0
         self.last_error = None
+        
 
     def update_usage(self):
         """更新使用时间"""
@@ -89,8 +90,8 @@ class DriverInfo:
         self.error_count = 0
         self.last_error = None
 
-    def is_healthy(self, max_error_count: int = 5, timeout_seconds: int = 300) -> bool:
-        """检查Driver是否健康"""
+    def is_healthy(self, max_error_count: int = 50, timeout_seconds: int = 7200) -> bool:
+        """检查Driver是否健康 - 放宽参数"""
         if self.status == DriverStatus.ERROR and self.error_count >= max_error_count:
             return False
         if time.time() - self.last_used > timeout_seconds:
@@ -257,6 +258,7 @@ class AccountManager:
             
             return None
 
+
     def create_driver(self, exchange_type: Union[ExchangeType, str], account_id: int = 0) -> bool:
         """
         显式创建Driver实例
@@ -359,8 +361,8 @@ class AccountManager:
                 return True
             return False
 
-    def cleanup_unhealthy_drivers(self, max_error_count: int = 5, timeout_seconds: int = 300):
-        """清理不健康的Driver"""
+    def cleanup_unhealthy_drivers(self, max_error_count: int = 50, timeout_seconds: int = 7200):
+        """清理不健康的Driver - 放宽参数"""
         with self._lock:
             to_remove = []
             for driver_key, driver_info in self._drivers.items():
@@ -370,6 +372,7 @@ class AccountManager:
             for driver_key in to_remove:
                 del self._drivers[driver_key]
                 self.logger.info(f"Removed unhealthy driver: {driver_key}")
+    
 
     def get_stats(self) -> Dict[str, Any]:
         """获取统计信息"""
@@ -399,7 +402,7 @@ class AccountManager:
                     stats['unhealthy_drivers'] += 1
             
             return stats
-
+            
     def shutdown(self):
         """关闭AccountManager，清理所有Driver"""
         with self._lock:
@@ -426,7 +429,7 @@ def get_account_manager(config: Optional[Dict[str, Any]] = None) -> AccountManag
     
     if _global_account_manager is None:
         _global_account_manager = AccountManager(config)
-    
+        # 启动维护任务
     return _global_account_manager
 
 

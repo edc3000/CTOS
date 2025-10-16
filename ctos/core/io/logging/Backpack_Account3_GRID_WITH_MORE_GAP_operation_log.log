@@ -24,3 +24,431 @@
 {"ts": "2025-10-09 20:32:41", "op": "StrategyStart", "src": "Grid-Order-Management", "det": {"exchange": "backpack", "strategy": "Grid-Order-Management", "version": "3.0", "force_refresh": false, "base_amount": 8.88}}
 {"ts": "2025-10-09 20:47:23", "op": "StrategyExit", "src": "Grid-Order-Management", "det": {"reason": "Manual interrupt", "uptime": 881.9269435405731}}
 {"ts": "2025-10-09 20:47:28", "op": "StrategyStart", "src": "Grid-Order-Management", "det": {"exchange": "backpack", "strategy": "Grid-Order-Management", "version": "3.0", "force_refresh": false, "base_amount": 8.88}}
+{"ts": "2025-10-10 00:28:26", "op": "StrategyStart", "src": "Grid-Order-Management", "det": {"exchange": "backpack", "strategy": "Grid-Order-Management", "version": "3.0", "force_refresh": false, "base_amount": 8.88}}
+{"ts": "2025-10-10 14:19:03", "op": "StrategyStart", "src": "Grid-Order-Management", "det": {"exchange": "backpack", "strategy": "Grid-Order-Management", "version": "3.0", "force_refresh": false, "base_amount": 8.88}}
+{"ts": "2025-10-10 14:19:43", "op": "StrategyStart", "src": "Grid-Order-Management", "det": {"exchange": "backpack", "strategy": "Grid-Order-Management", "version": "3.0", "force_refresh": false, "base_amount": 8.88}}
+{"ts": "2025-10-10 20:44:40", "op": "StrategyStart", "src": "Grid-Order-Management", "det": {"exchange": "backpack", "strategy": "Grid-Order-Management", "version": "3.0", "force_refresh": false, "base_amount": 8.88}}
+{"ts": "2025-10-10 23:31:20", "op": "StrategyStart", "src": "Grid-Order-Management", "det": {"exchange": "backpack", "strategy": "Grid-Order-Management", "version": "3.0", "force_refresh": false, "base_amount": 8.88}}
+{"ts": "2025-10-10 23:33:11", "op": "OrderFilled", "src": "SUI_USDC_PERP", "det": {"type": "buy", "order_id": "12661345660", "side_active": "sell", "sell_order_id": "12661347791"}}
+{"ts": "2025-10-10 23:33:14", "op": "OrderPlaced", "src": "SUI_USDC_PERP", "det": {"type": "buy", "order_id": "12779674487", "qty": 2.76, "price": 3.2175}}
+{"ts": "2025-10-10 23:33:17", "op": "OrderAmended", "src": "SUI_USDC_PERP", "det": {"type": "sell", "order_id": "12779688218", "qty": 2.62, "price": 3.3907}}
+{"ts": "2025-10-10 23:33:19", "op": "OrderFilled", "src": "HYPE_USDC_PERP", "det": {"type": "buy", "order_id": "12776901517", "side_active": "sell", "sell_order_id": "12776914418"}}
+{"ts": "2025-10-10 23:33:22", "op": "OrderPlaced", "src": "HYPE_USDC_PERP", "det": {"type": "buy", "order_id": "12779704373", "qty": 0.21, "price": 41.449}}
+{"ts": "2025-10-10 23:33:25", "op": "OrderAmended", "src": "HYPE_USDC_PERP", "det": {"type": "sell", "order_id": "12779719937", "qty": 0.2, "price": 43.68}}
+{"ts": "2025-10-10 23:33:27", "op": "OrderFilled", "src": "OP_USDC_PERP", "det": {"type": "buy", "order_id": "12773090051", "side_active": "sell", "sell_order_id": "12773104694"}}
+{"ts": "2025-10-10 23:33:30", "op": "OrderPlaced", "src": "OP_USDC_PERP", "det": {"type": "buy", "order_id": "12779737233", "qty": 13, "price": 0.6691}}
+{"ts": "2025-10-10 23:33:33", "op": "OrderAmended", "src": "OP_USDC_PERP", "det": {"type": "sell", "order_id": "12779751676", "qty": 12, "price": 0.7051}}
+{"ts": "2025-10-10 23:33:37", "op": "OrderFilled", "src": "ETH_USDC_PERP", "det": {"type": "buy", "order_id": "12776428146", "side_active": "sell", "sell_order_id": "12776441952"}}
+{"ts": "2025-10-10 23:33:40", "op": "OrderPlaced", "src": "ETH_USDC_PERP", "det": {"type": "buy", "order_id": "12779777908", "qty": 0.0022, "price": 4004.98}}
+{"ts": "2025-10-10 23:33:44", "op": "OrderAmended", "src": "ETH_USDC_PERP", "det": {"type": "sell", "order_id": "12779792423", "qty": 0.0021, "price": 4220.57}}
+{"ts": "2025-10-10 23:33:49", "op": "OrderFilled", "src": "WLD_USDC_PERP", "det": {"type": "buy", "order_id": "12778442504", "side_active": "sell", "sell_order_id": "12778454130"}}
+{"ts": "2025-10-10 23:33:51", "op": "OrderPlaced", "src": "WLD_USDC_PERP", "det": {"type": "buy", "order_id": "12779823920", "qty": 7, "price": 1.1641}}
+{"ts": "2025-10-10 23:33:55", "op": "OrderAmended", "src": "WLD_USDC_PERP", "det": {"type": "sell", "order_id": "12779836370", "qty": 7, "price": 1.2268}}
+{"ts": "2025-10-10 23:33:57", "op": "OrderFilled", "src": "JUP_USDC_PERP", "det": {"type": "buy", "order_id": "12773738675", "side_active": "sell", "sell_order_id": "12773757077"}}
+{"ts": "2025-10-10 23:34:00", "op": "OrderPlaced", "src": "JUP_USDC_PERP", "det": {"type": "buy", "order_id": "12779854339", "qty": 22, "price": 0.4026}}
+{"ts": "2025-10-10 23:34:03", "op": "OrderAmended", "src": "JUP_USDC_PERP", "det": {"type": "sell", "order_id": "12779869983", "qty": 20, "price": 0.4243}}
+{"ts": "2025-10-10 23:34:07", "op": "OrderFilled", "src": "HBAR_USDC_PERP", "det": {"type": "buy", "order_id": "12557901529", "side_active": "sell", "sell_order_id": "12557903503"}}
+{"ts": "2025-10-10 23:34:09", "op": "OrderPlaced", "src": "HBAR_USDC_PERP", "det": {"type": "buy", "order_id": "12779893246", "qty": 44, "price": 0.20107}}
+{"ts": "2025-10-10 23:34:15", "op": "OrderAmended", "src": "HBAR_USDC_PERP", "det": {"type": "sell", "order_id": "12779913321", "qty": 41, "price": 0.21189}}
+{"ts": "2025-10-10 23:34:17", "op": "OrderFilled", "src": "TON_USDC_PERP", "det": {"type": "buy", "order_id": "12683371398", "side_active": "sell", "sell_order_id": "12683374855"}}
+{"ts": "2025-10-10 23:34:19", "op": "OrderPlaced", "src": "TON_USDC_PERP", "det": {"type": "buy", "order_id": "12779929589", "qty": 3.4, "price": 2.5812}}
+{"ts": "2025-10-10 23:34:23", "op": "OrderAmended", "src": "TON_USDC_PERP", "det": {"type": "sell", "order_id": "12779943661", "qty": 3.3, "price": 2.7201}}
+{"ts": "2025-10-10 23:34:26", "op": "OrderFilled", "src": "TIA_USDC_PERP", "det": {"type": "buy", "order_id": "12773803145", "side_active": "sell", "sell_order_id": "12773819917"}}
+{"ts": "2025-10-10 23:34:29", "op": "OrderPlaced", "src": "TIA_USDC_PERP", "det": {"type": "buy", "order_id": "12779970458", "qty": 6, "price": 1.3534}}
+{"ts": "2025-10-10 23:34:32", "op": "OrderAmended", "src": "TIA_USDC_PERP", "det": {"type": "sell", "order_id": "12779984571", "qty": 6, "price": 1.4262}}
+{"ts": "2025-10-10 23:34:36", "op": "OrderFilled", "src": "BNB_USDC_PERP", "det": {"type": "buy", "order_id": "12581393356", "side_active": "sell", "sell_order_id": "12581400525"}}
+{"ts": "2025-10-10 23:34:38", "op": "OrderPlaced", "src": "BNB_USDC_PERP", "det": {"type": "buy", "order_id": "12780008652", "qty": 0.007, "price": 1185.5}}
+{"ts": "2025-10-10 23:34:43", "op": "OrderAmended", "src": "BNB_USDC_PERP", "det": {"type": "sell", "order_id": "12780026921", "qty": 0.007, "price": 1249.32}}
+{"ts": "2025-10-10 23:34:45", "op": "OrderFilled", "src": "ONDO_USDC_PERP", "det": {"type": "buy", "order_id": "12773850809", "side_active": "sell", "sell_order_id": "12773865410"}}
+{"ts": "2025-10-10 23:34:47", "op": "OrderPlaced", "src": "ONDO_USDC_PERP", "det": {"type": "buy", "order_id": "12780043206", "qty": 10.8, "price": 0.825}}
+{"ts": "2025-10-10 23:34:52", "op": "OrderAmended", "src": "ONDO_USDC_PERP", "det": {"type": "sell", "order_id": "12780060913", "qty": 10.2, "price": 0.87}}
+{"ts": "2025-10-10 23:34:57", "op": "OrderFilled", "src": "PENGU_USDC_PERP", "det": {"type": "buy", "order_id": "12772661114", "side_active": "sell", "sell_order_id": "12772688342"}}
+{"ts": "2025-10-10 23:35:04", "op": "OrderPlaced", "src": "PENGU_USDC_PERP", "det": {"type": "buy", "order_id": "12780113817", "qty": 311, "price": 0.028496}}
+{"ts": "2025-10-10 23:35:12", "op": "OrderAmended", "src": "PENGU_USDC_PERP", "det": {"type": "sell", "order_id": "12780143292", "qty": 295, "price": 0.03003}}
+{"ts": "2025-10-10 23:35:14", "op": "OrderFilled", "src": "SOL_USDC_PERP", "det": {"type": "buy", "order_id": "12777056353", "side_active": "sell", "sell_order_id": "12777071405"}}
+{"ts": "2025-10-10 23:35:16", "op": "OrderPlaced", "src": "SOL_USDC_PERP", "det": {"type": "buy", "order_id": "12780158309", "qty": 0.04, "price": 205.13}}
+{"ts": "2025-10-10 23:35:19", "op": "OrderAmended", "src": "SOL_USDC_PERP", "det": {"type": "sell", "order_id": "12780172282", "qty": 0.04, "price": 216.17}}
+{"ts": "2025-10-10 23:35:21", "op": "OrderFilled", "src": "AVAX_USDC_PERP", "det": {"type": "buy", "order_id": "12777855817", "side_active": "sell", "sell_order_id": "12777869298"}}
+{"ts": "2025-10-10 23:35:24", "op": "OrderPlaced", "src": "AVAX_USDC_PERP", "det": {"type": "buy", "order_id": "12780189959", "qty": 0.34, "price": 26.048}}
+{"ts": "2025-10-10 23:35:27", "op": "OrderAmended", "src": "AVAX_USDC_PERP", "det": {"type": "sell", "order_id": "12780203530", "qty": 0.32, "price": 27.45}}
+{"ts": "2025-10-10 23:35:33", "op": "OrderFilled", "src": "ARB_USDC_PERP", "det": {"type": "buy", "order_id": "12777899773", "side_active": "sell", "sell_order_id": "12777915985"}}
+{"ts": "2025-10-10 23:35:35", "op": "OrderPlaced", "src": "ARB_USDC_PERP", "det": {"type": "buy", "order_id": "12780236500", "qty": 22, "price": 0.392}}
+{"ts": "2025-10-10 23:35:39", "op": "OrderAmended", "src": "ARB_USDC_PERP", "det": {"type": "sell", "order_id": "12780250799", "qty": 21, "price": 0.4131}}
+{"ts": "2025-10-10 23:35:41", "op": "OrderFilled", "src": "XLM_USDC_PERP", "det": {"type": "buy", "order_id": "12533150649", "side_active": "sell", "sell_order_id": "12533159271"}}
+{"ts": "2025-10-10 23:35:44", "op": "OrderPlaced", "src": "XLM_USDC_PERP", "det": {"type": "buy", "order_id": "12780266494", "qty": 24, "price": 0.3577}}
+{"ts": "2025-10-10 23:35:47", "op": "OrderAmended", "src": "XLM_USDC_PERP", "det": {"type": "sell", "order_id": "12780280934", "qty": 23, "price": 0.37695}}
+{"ts": "2025-10-10 23:35:49", "op": "OrderFilled", "src": "CRV_USDC_PERP", "det": {"type": "buy", "order_id": "12773948065", "side_active": "sell", "sell_order_id": "12773960946"}}
+{"ts": "2025-10-10 23:35:52", "op": "OrderPlaced", "src": "CRV_USDC_PERP", "det": {"type": "buy", "order_id": "12780297551", "qty": 13, "price": 0.683}}
+{"ts": "2025-10-10 23:35:55", "op": "OrderAmended", "src": "CRV_USDC_PERP", "det": {"type": "sell", "order_id": "12780310678", "qty": 12, "price": 0.7198}}
+{"ts": "2025-10-10 23:35:57", "op": "OrderFilled", "src": "TRUMP_USDC_PERP", "det": {"type": "buy", "order_id": "12777945432", "side_active": "sell", "sell_order_id": "12777959115"}}
+{"ts": "2025-10-10 23:35:59", "op": "OrderPlaced", "src": "TRUMP_USDC_PERP", "det": {"type": "buy", "order_id": "12780326302", "qty": 1.28, "price": 6.962}}
+{"ts": "2025-10-10 23:36:04", "op": "OrderAmended", "src": "TRUMP_USDC_PERP", "det": {"type": "sell", "order_id": "12780342100", "qty": 1.21, "price": 7.337}}
+{"ts": "2025-10-10 23:36:08", "op": "OrderFilled", "src": "UNI_USDC_PERP", "det": {"type": "buy", "order_id": "12772248583", "side_active": "sell", "sell_order_id": "12772262799"}}
+{"ts": "2025-10-10 23:36:10", "op": "OrderPlaced", "src": "UNI_USDC_PERP", "det": {"type": "buy", "order_id": "12780366338", "qty": 1, "price": 7.585}}
+{"ts": "2025-10-10 23:36:14", "op": "OrderAmended", "src": "UNI_USDC_PERP", "det": {"type": "sell", "order_id": "12780382144", "qty": 1, "price": 7.994}}
+{"ts": "2025-10-10 23:47:30", "op": "StrategyExit", "src": "Grid-Order-Management", "det": {"reason": "Manual interrupt", "uptime": 969.7504785060883}}
+{"ts": "2025-10-10 23:48:08", "op": "StrategyStart", "src": "Grid-Order-Management", "det": {"exchange": "backpack", "strategy": "Grid-Order-Management", "version": "3.0", "force_refresh": false, "base_amount": 8.88}}
+{"ts": "2025-10-11 00:16:04", "op": "StrategyStart", "src": "Grid-Order-Management", "det": {"exchange": "backpack", "strategy": "Grid-Order-Management", "version": "3.0", "force_refresh": false, "base_amount": 8.88}}
+{"ts": "2025-10-11 00:16:29", "op": "StrategyStart", "src": "Grid-Order-Management", "det": {"exchange": "backpack", "strategy": "Grid-Order-Management", "version": "3.0", "force_refresh": false, "base_amount": 8.88}}
+{"ts": "2025-10-11 00:33:24", "op": "OrderFilled", "src": "TON_USDC_PERP", "det": {"type": "sell", "order_id": "12779943661", "side_active": "buy", "buy_order_id": "12779929589"}}
+{"ts": "2025-10-11 00:33:29", "op": "OrderAmended", "src": "TON_USDC_PERP", "det": {"type": "buy", "order_id": "12791710964", "qty": 3.4, "price": 2.6304}}
+{"ts": "2025-10-11 00:33:30", "op": "OrderPlaced", "src": "TON_USDC_PERP", "det": {"type": "sell", "order_id": "12791715255", "qty": 3.2, "price": 2.772}}
+{"ts": "2025-10-11 00:58:02", "op": "OrderFilled", "src": "IP_USDC_PERP", "det": {"type": "buy", "order_id": "12778636711", "side_active": "sell", "sell_order_id": "12778648847"}}
+{"ts": "2025-10-11 00:58:04", "op": "OrderPlaced", "src": "IP_USDC_PERP", "det": {"type": "buy", "order_id": "12795590396", "qty": 1.1, "price": 8.0502}}
+{"ts": "2025-10-11 00:58:08", "op": "OrderAmended", "src": "IP_USDC_PERP", "det": {"type": "sell", "order_id": "12795601434", "qty": 1.0, "price": 8.4835}}
+{"ts": "2025-10-11 01:01:19", "op": "StrategyStart", "src": "Grid-Order-Management", "det": {"exchange": "backpack", "strategy": "Grid-Order-Management", "version": "3.0", "force_refresh": false, "base_amount": 8.88}}
+{"ts": "2025-10-11 01:07:09", "op": "OrderFilled", "src": "DOGE_USDC_PERP", "det": {"type": "buy", "order_id": "12777698541", "side_active": "sell", "sell_order_id": "12777712205"}}
+{"ts": "2025-10-11 01:07:12", "op": "OrderPlaced", "src": "DOGE_USDC_PERP", "det": {"type": "buy", "order_id": "12797019271", "qty": 38.6, "price": 0.22995}}
+{"ts": "2025-10-11 01:07:15", "op": "OrderAmended", "src": "DOGE_USDC_PERP", "det": {"type": "sell", "order_id": "12797026719", "qty": 36.6, "price": 0.24233}}
+{"ts": "2025-10-11 01:07:40", "op": "OrderFilled", "src": "PENGU_USDC_PERP", "det": {"type": "buy", "order_id": "12780113817", "side_active": "sell", "sell_order_id": "12780143292"}}
+{"ts": "2025-10-11 01:07:44", "op": "OrderPlaced", "src": "PENGU_USDC_PERP", "det": {"type": "buy", "order_id": "12797103653", "qty": 320, "price": 0.027695}}
+{"ts": "2025-10-11 01:07:49", "op": "OrderAmended", "src": "PENGU_USDC_PERP", "det": {"type": "sell", "order_id": "12797120926", "qty": 304, "price": 0.029186}}
+{"ts": "2025-10-11 01:46:56", "op": "OrderFilled", "src": "WLD_USDC_PERP", "det": {"type": "buy", "order_id": "12779823920", "side_active": "sell", "sell_order_id": "12779836370"}}
+{"ts": "2025-10-11 01:46:58", "op": "OrderPlaced", "src": "WLD_USDC_PERP", "det": {"type": "buy", "order_id": "12803126621", "qty": 7, "price": 1.1317}}
+{"ts": "2025-10-11 01:47:01", "op": "OrderAmended", "src": "WLD_USDC_PERP", "det": {"type": "sell", "order_id": "12803139764", "qty": 7, "price": 1.1926}}
+{"ts": "2025-10-11 01:47:12", "op": "OrderFilled", "src": "TIA_USDC_PERP", "det": {"type": "buy", "order_id": "12779970458", "side_active": "sell", "sell_order_id": "12779984571"}}
+{"ts": "2025-10-11 01:47:15", "op": "OrderPlaced", "src": "TIA_USDC_PERP", "det": {"type": "buy", "order_id": "12803187677", "qty": 6, "price": 1.3189}}
+{"ts": "2025-10-11 01:47:18", "op": "OrderAmended", "src": "TIA_USDC_PERP", "det": {"type": "sell", "order_id": "12803195904", "qty": 6, "price": 1.3899}}
+{"ts": "2025-10-11 01:47:35", "op": "OrderFilled", "src": "DOT_USDC_PERP", "det": {"type": "buy", "order_id": "12779120596", "side_active": "sell", "sell_order_id": "12779136462"}}
+{"ts": "2025-10-11 01:47:37", "op": "OrderPlaced", "src": "DOT_USDC_PERP", "det": {"type": "buy", "order_id": "12803242875", "qty": 2.3, "price": 3.879}}
+{"ts": "2025-10-11 01:47:40", "op": "OrderAmended", "src": "DOT_USDC_PERP", "det": {"type": "sell", "order_id": "12803249936", "qty": 2.2, "price": 4.088}}
+{"ts": "2025-10-11 01:47:52", "op": "OrderFilled", "src": "LINK_USDC_PERP", "det": {"type": "buy", "order_id": "12778688755", "side_active": "sell", "sell_order_id": "12778702375"}}
+{"ts": "2025-10-11 01:47:54", "op": "OrderPlaced", "src": "LINK_USDC_PERP", "det": {"type": "buy", "order_id": "12803282819", "qty": 0.4, "price": 20.563}}
+{"ts": "2025-10-11 01:47:57", "op": "OrderAmended", "src": "LINK_USDC_PERP", "det": {"type": "sell", "order_id": "12803288630", "qty": 0.4, "price": 21.67}}
+{"ts": "2025-10-12 00:07:01", "op": "StrategyStart", "src": "Grid-Order-Management", "det": {"exchange": "backpack", "strategy": "Grid-Order-Management", "version": "3.0", "force_refresh": false, "base_amount": 18.88}}
+{"ts": "2025-10-12 00:07:27", "op": "OrderPlaced", "src": "LINK_USDC_PERP", "det": {"type": "buy", "order_id": "13026414036", "qty": 1.1, "price": 17.784}}
+{"ts": "2025-10-12 00:07:28", "op": "OrderPlaced", "src": "LINK_USDC_PERP", "det": {"type": "sell", "order_id": "13026417485", "qty": 1.0, "price": 19.584}}
+{"ts": "2025-10-12 00:07:31", "op": "OrderPlaced", "src": "HYPE_USDC_PERP", "det": {"type": "buy", "order_id": "13026428326", "qty": 0.5, "price": 37.719}}
+{"ts": "2025-10-12 00:07:32", "op": "OrderPlaced", "src": "HYPE_USDC_PERP", "det": {"type": "sell", "order_id": "13026430442", "qty": 0.45, "price": 41.537}}
+{"ts": "2025-10-12 00:07:36", "op": "OrderPlaced", "src": "AAVE_USDC_PERP", "det": {"type": "buy", "order_id": "13026438087", "qty": 0.08, "price": 236.02}}
+{"ts": "2025-10-12 00:07:37", "op": "OrderPlaced", "src": "AAVE_USDC_PERP", "det": {"type": "sell", "order_id": "13026440806", "qty": 0.07, "price": 259.91}}
+{"ts": "2025-10-12 00:12:25", "op": "StrategyStart", "src": "Grid-Order-Management", "det": {"exchange": "backpack", "strategy": "Grid-Order-Management", "version": "3.0", "force_refresh": false, "base_amount": 18.88}}
+{"ts": "2025-10-12 00:37:02", "op": "OrderFilled", "src": "HYPE_USDC_PERP", "det": {"type": "buy", "order_id": "13026428326", "side_active": "sell", "sell_order_id": "13026430442"}}
+{"ts": "2025-10-12 00:37:05", "op": "OrderPlaced", "src": "HYPE_USDC_PERP", "det": {"type": "buy", "order_id": "13030545561", "qty": 0.51, "price": 37.125}}
+{"ts": "2025-10-12 00:37:08", "op": "OrderAmended", "src": "HYPE_USDC_PERP", "det": {"type": "sell", "order_id": "13030557436", "qty": 0.46, "price": 40.882}}
+{"ts": "2025-10-12 02:19:59", "op": "StrategyStart", "src": "Grid-Order-Management", "det": {"exchange": "backpack", "strategy": "Grid-Order-Management", "version": "3.0", "force_refresh": false, "base_amount": 18.88}}
+{"ts": "2025-10-12 02:59:46", "op": "OrderFilled", "src": "LINK_USDC_PERP", "det": {"type": "buy", "order_id": "13026414036", "side_active": "sell", "sell_order_id": "13026417485"}}
+{"ts": "2025-10-12 02:59:49", "op": "OrderPlaced", "src": "LINK_USDC_PERP", "det": {"type": "buy", "order_id": "13050355631", "qty": 1.1, "price": 17.504}}
+{"ts": "2025-10-12 02:59:52", "op": "OrderAmended", "src": "LINK_USDC_PERP", "det": {"type": "sell", "order_id": "13050362172", "qty": 1.0, "price": 19.276}}
+{"ts": "2025-10-12 03:04:31", "op": "OrderFilled", "src": "AAVE_USDC_PERP", "det": {"type": "buy", "order_id": "13026438087", "side_active": "sell", "sell_order_id": "13026440806"}}
+{"ts": "2025-10-12 03:04:33", "op": "OrderPlaced", "src": "AAVE_USDC_PERP", "det": {"type": "buy", "order_id": "13051112064", "qty": 0.08, "price": 232.48}}
+{"ts": "2025-10-12 03:04:36", "op": "OrderAmended", "src": "AAVE_USDC_PERP", "det": {"type": "sell", "order_id": "13051117648", "qty": 0.07, "price": 256.01}}
+{"ts": "2025-10-12 03:17:31", "op": "OrderFilled", "src": "LINK_USDC_PERP", "det": {"type": "buy", "order_id": "13050355631", "side_active": "sell", "sell_order_id": "13050362172"}}
+{"ts": "2025-10-12 03:17:33", "op": "OrderPlaced", "src": "LINK_USDC_PERP", "det": {"type": "buy", "order_id": "13053240045", "qty": 1.1, "price": 17.244}}
+{"ts": "2025-10-12 03:17:36", "op": "OrderAmended", "src": "LINK_USDC_PERP", "det": {"type": "sell", "order_id": "13053247423", "qty": 1.0, "price": 18.989}}
+{"ts": "2025-10-12 03:17:38", "op": "OrderFilled", "src": "HYPE_USDC_PERP", "det": {"type": "buy", "order_id": "13030545561", "side_active": "sell", "sell_order_id": "13030557436"}}
+{"ts": "2025-10-12 03:17:40", "op": "OrderPlaced", "src": "HYPE_USDC_PERP", "det": {"type": "buy", "order_id": "13053260488", "qty": 0.52, "price": 36.534}}
+{"ts": "2025-10-12 03:17:43", "op": "OrderAmended", "src": "HYPE_USDC_PERP", "det": {"type": "sell", "order_id": "13053271793", "qty": 0.47, "price": 40.232}}
+{"ts": "2025-10-12 03:22:29", "op": "OrderFilled", "src": "AAVE_USDC_PERP", "det": {"type": "buy", "order_id": "13051112064", "side_active": "sell", "sell_order_id": "13051117648"}}
+{"ts": "2025-10-12 03:22:31", "op": "OrderPlaced", "src": "AAVE_USDC_PERP", "det": {"type": "buy", "order_id": "13054272072", "qty": 0.08, "price": 228.97}}
+{"ts": "2025-10-12 03:22:34", "op": "OrderAmended", "src": "AAVE_USDC_PERP", "det": {"type": "sell", "order_id": "13054282684", "qty": 0.07, "price": 252.14}}
+{"ts": "2025-10-12 03:53:09", "op": "OrderFilled", "src": "LINK_USDC_PERP", "det": {"type": "buy", "order_id": "13053240045", "side_active": "sell", "sell_order_id": "13053247423"}}
+{"ts": "2025-10-12 03:53:12", "op": "OrderPlaced", "src": "LINK_USDC_PERP", "det": {"type": "buy", "order_id": "13059724763", "qty": 1.1, "price": 17.019}}
+{"ts": "2025-10-12 03:53:15", "op": "OrderAmended", "src": "LINK_USDC_PERP", "det": {"type": "sell", "order_id": "13059735831", "qty": 1.0, "price": 18.741}}
+{"ts": "2025-10-12 03:55:49", "op": "OrderFilled", "src": "HYPE_USDC_PERP", "det": {"type": "buy", "order_id": "13053260488", "side_active": "sell", "sell_order_id": "13053271793"}}
+{"ts": "2025-10-12 03:55:51", "op": "OrderPlaced", "src": "HYPE_USDC_PERP", "det": {"type": "buy", "order_id": "13060306046", "qty": 0.53, "price": 35.948}}
+{"ts": "2025-10-12 03:55:54", "op": "OrderAmended", "src": "HYPE_USDC_PERP", "det": {"type": "sell", "order_id": "13060316936", "qty": 0.48, "price": 39.587}}
+{"ts": "2025-10-12 04:05:20", "op": "OrderFilled", "src": "HYPE_USDC_PERP", "det": {"type": "buy", "order_id": "13060306046", "side_active": "sell", "sell_order_id": "13060316936"}}
+{"ts": "2025-10-12 04:05:22", "op": "OrderPlaced", "src": "HYPE_USDC_PERP", "det": {"type": "buy", "order_id": "13062112271", "qty": 0.53, "price": 35.427}}
+{"ts": "2025-10-12 04:05:26", "op": "OrderAmended", "src": "HYPE_USDC_PERP", "det": {"type": "sell", "order_id": "13062123124", "qty": 0.48, "price": 39.012}}
+{"ts": "2025-10-12 04:27:13", "op": "OrderFilled", "src": "LINK_USDC_PERP", "det": {"type": "buy", "order_id": "13059724763", "side_active": "sell", "sell_order_id": "13059735831"}}
+{"ts": "2025-10-12 04:27:15", "op": "OrderPlaced", "src": "LINK_USDC_PERP", "det": {"type": "buy", "order_id": "13066033129", "qty": 1.1, "price": 16.79}}
+{"ts": "2025-10-12 04:27:18", "op": "OrderAmended", "src": "LINK_USDC_PERP", "det": {"type": "sell", "order_id": "13066041477", "qty": 1.0, "price": 18.489}}
+{"ts": "2025-10-12 04:28:01", "op": "OrderFilled", "src": "AAVE_USDC_PERP", "det": {"type": "buy", "order_id": "13054272072", "side_active": "sell", "sell_order_id": "13054282684"}}
+{"ts": "2025-10-12 04:28:03", "op": "OrderPlaced", "src": "AAVE_USDC_PERP", "det": {"type": "buy", "order_id": "13066191576", "qty": 0.08, "price": 225.43}}
+{"ts": "2025-10-12 04:28:07", "op": "OrderAmended", "src": "AAVE_USDC_PERP", "det": {"type": "sell", "order_id": "13066208210", "qty": 0.08, "price": 248.25}}
+{"ts": "2025-10-12 04:36:06", "op": "OrderFilled", "src": "HYPE_USDC_PERP", "det": {"type": "buy", "order_id": "13062112271", "side_active": "sell", "sell_order_id": "13062123124"}}
+{"ts": "2025-10-12 04:36:09", "op": "OrderPlaced", "src": "HYPE_USDC_PERP", "det": {"type": "buy", "order_id": "13067845822", "qty": 0.54, "price": 34.803}}
+{"ts": "2025-10-12 04:36:12", "op": "OrderAmended", "src": "HYPE_USDC_PERP", "det": {"type": "sell", "order_id": "13067857022", "qty": 0.49, "price": 38.326}}
+{"ts": "2025-10-12 04:37:24", "op": "OrderFilled", "src": "AAVE_USDC_PERP", "det": {"type": "buy", "order_id": "13066191576", "side_active": "sell", "sell_order_id": "13066208210"}}
+{"ts": "2025-10-12 04:37:26", "op": "OrderPlaced", "src": "AAVE_USDC_PERP", "det": {"type": "buy", "order_id": "13068117861", "qty": 0.08, "price": 222.12}}
+{"ts": "2025-10-12 04:37:30", "op": "OrderAmended", "src": "AAVE_USDC_PERP", "det": {"type": "sell", "order_id": "13068129163", "qty": 0.08, "price": 244.6}}
+{"ts": "2025-10-12 04:57:02", "op": "OrderFilled", "src": "LINK_USDC_PERP", "det": {"type": "buy", "order_id": "13066033129", "side_active": "sell", "sell_order_id": "13066041477"}}
+{"ts": "2025-10-12 04:57:04", "op": "OrderPlaced", "src": "LINK_USDC_PERP", "det": {"type": "buy", "order_id": "13071706887", "qty": 1.1, "price": 16.524}}
+{"ts": "2025-10-12 04:57:08", "op": "OrderAmended", "src": "LINK_USDC_PERP", "det": {"type": "sell", "order_id": "13071722708", "qty": 1.0, "price": 18.196}}
+{"ts": "2025-10-12 11:53:45", "op": "StrategyStart", "src": "Grid-Order-Management", "det": {"exchange": "backpack", "strategy": "Grid-Order-Management", "version": "3.0", "force_refresh": false, "base_amount": 18.88}}
+{"ts": "2025-10-12 11:55:10", "op": "StrategyStart", "src": "Grid-Order-Management", "det": {"exchange": "backpack", "strategy": "Grid-Order-Management", "version": "3.0", "force_refresh": false, "base_amount": 18.88}}
+{"ts": "2025-10-12 11:55:38", "op": "OrderPlaced", "src": "LINK_USDC_PERP", "det": {"type": "buy", "order_id": "13133536776", "qty": 1.1, "price": 16.89}}
+{"ts": "2025-10-12 11:55:39", "op": "OrderPlaced", "src": "LINK_USDC_PERP", "det": {"type": "sell", "order_id": "13133537989", "qty": 1.0, "price": 18.6}}
+{"ts": "2025-10-12 11:55:42", "op": "OrderPlaced", "src": "HYPE_USDC_PERP", "det": {"type": "buy", "order_id": "13133543363", "qty": 0.51, "price": 36.716}}
+{"ts": "2025-10-12 11:55:43", "op": "OrderPlaced", "src": "HYPE_USDC_PERP", "det": {"type": "sell", "order_id": "13133546313", "qty": 0.47, "price": 40.432}}
+{"ts": "2025-10-12 11:55:46", "op": "OrderPlaced", "src": "AAVE_USDC_PERP", "det": {"type": "buy", "order_id": "13133550405", "qty": 0.08, "price": 226.93}}
+{"ts": "2025-10-12 11:55:47", "op": "OrderPlaced", "src": "AAVE_USDC_PERP", "det": {"type": "sell", "order_id": "13133552722", "qty": 0.08, "price": 249.9}}
+{"ts": "2025-10-12 11:57:16", "op": "OrderPlaced", "src": "LINK_USDC_PERP", "det": {"type": "buy", "order_id": "13133702733", "qty": 1.1, "price": 16.89}}
+{"ts": "2025-10-12 11:57:17", "op": "OrderPlaced", "src": "LINK_USDC_PERP", "det": {"type": "sell", "order_id": "13133704237", "qty": 1.0, "price": 18.6}}
+{"ts": "2025-10-12 11:57:20", "op": "OrderPlaced", "src": "HYPE_USDC_PERP", "det": {"type": "buy", "order_id": "13133708352", "qty": 0.51, "price": 36.716}}
+{"ts": "2025-10-12 11:57:21", "op": "OrderPlaced", "src": "HYPE_USDC_PERP", "det": {"type": "sell", "order_id": "13133710107", "qty": 0.47, "price": 40.432}}
+{"ts": "2025-10-12 11:57:24", "op": "OrderPlaced", "src": "AAVE_USDC_PERP", "det": {"type": "buy", "order_id": "13133714748", "qty": 0.08, "price": 226.93}}
+{"ts": "2025-10-12 11:57:25", "op": "OrderPlaced", "src": "AAVE_USDC_PERP", "det": {"type": "sell", "order_id": "13133717668", "qty": 0.08, "price": 249.9}}
+{"ts": "2025-10-12 12:52:37", "op": "StrategyStart", "src": "Grid-Order-Management", "det": {"exchange": "backpack", "strategy": "Grid-Order-Management", "version": "3.0", "force_refresh": false, "base_amount": 18.88}}
+{"ts": "2025-10-12 14:37:38", "op": "StrategyStart", "src": "Grid-Order-Management", "det": {"exchange": "backpack", "strategy": "Grid-Order-Management", "version": "3.0", "force_refresh": false, "base_amount": 18.88}}
+{"ts": "2025-10-12 16:31:32", "op": "StrategyStart", "src": "Grid-Order-Management", "det": {"exchange": "backpack", "strategy": "Grid-Order-Management", "version": "3.0", "force_refresh": false, "base_amount": 18.88, "base_quantity": 0}}
+{"ts": "2025-10-12 17:03:34", "op": "OrderFilled", "src": "HYPE_USDC_PERP", "det": {"type": "buy", "order_id": "13133708352", "side_active": "sell", "sell_order_id": "13133710107"}}
+{"ts": "2025-10-12 17:03:36", "op": "OrderPlaced", "src": "HYPE_USDC_PERP", "det": {"type": "buy", "order_id": "13175649712", "qty": 0.52, "price": 36.346}}
+{"ts": "2025-10-12 17:03:40", "op": "OrderAmended", "src": "HYPE_USDC_PERP", "det": {"type": "sell", "order_id": "13175657663", "qty": 0.47, "price": 40.025}}
+{"ts": "2025-10-12 20:51:53", "op": "StrategyStart", "src": "Grid-Order-Management", "det": {"exchange": "backpack", "strategy": "Grid-Order-Management", "version": "3.0", "force_refresh": false, "base_amount": 18.88, "base_quantity": 0}}
+{"ts": "2025-10-12 23:01:03", "op": "OrderFilled", "src": "HYPE_USDC_PERP", "det": {"type": "sell", "order_id": "13175657663", "side_active": "buy", "buy_order_id": "13175649712"}}
+{"ts": "2025-10-12 23:01:08", "op": "OrderAmended", "src": "HYPE_USDC_PERP", "det": {"type": "buy", "order_id": "13230463898", "qty": 0.51, "price": 36.709}}
+{"ts": "2025-10-12 23:01:09", "op": "PlaceIncrementalOrders", "src": "COMMON", "det": {"symbol": "HYPE_USDC_PERP", "action": "sell", "price": 40.425, "sizes": 0.47, "order_id": "13230469195"}}
+{"ts": "2025-10-12 23:01:09", "op": "OrderPlaced", "src": "HYPE_USDC_PERP", "det": {"type": "sell", "order_id": "13230469195", "amount": 18.88, "price": 40.425}}
+{"ts": "2025-10-12 23:18:53", "op": "OrderFilled", "src": "LINK_USDC_PERP", "det": {"type": "sell", "order_id": "13133704237", "side_active": "buy", "buy_order_id": "13133702733"}}
+{"ts": "2025-10-12 23:18:57", "op": "OrderAmended", "src": "LINK_USDC_PERP", "det": {"type": "buy", "order_id": "13234701204", "qty": 1.1, "price": 17.059}}
+{"ts": "2025-10-12 23:18:58", "op": "PlaceIncrementalOrders", "src": "COMMON", "det": {"symbol": "LINK_USDC_PERP", "action": "sell", "price": 18.786, "sizes": 1.0, "order_id": "13234705574"}}
+{"ts": "2025-10-12 23:18:58", "op": "OrderPlaced", "src": "LINK_USDC_PERP", "det": {"type": "sell", "order_id": "13234705574", "amount": 18.88, "price": 18.786}}
+{"ts": "2025-10-12 23:57:42", "op": "OrderFilled", "src": "LINK_USDC_PERP", "det": {"type": "sell", "order_id": "13234705574", "side_active": "buy", "buy_order_id": "13234701204"}}
+{"ts": "2025-10-12 23:57:46", "op": "OrderAmended", "src": "LINK_USDC_PERP", "det": {"type": "buy", "order_id": "13242327252", "qty": 1.1, "price": 17.23}}
+{"ts": "2025-10-12 23:57:46", "op": "PlaceIncrementalOrders", "src": "COMMON", "det": {"symbol": "LINK_USDC_PERP", "action": "sell", "price": 18.974, "sizes": 1.0, "order_id": "13242330299"}}
+{"ts": "2025-10-12 23:57:46", "op": "OrderPlaced", "src": "LINK_USDC_PERP", "det": {"type": "sell", "order_id": "13242330299", "amount": 18.88, "price": 18.974}}
+{"ts": "2025-10-13 00:05:30", "op": "OrderFilled", "src": "LINK_USDC_PERP", "det": {"type": "sell", "order_id": "13242330299", "side_active": "buy", "buy_order_id": "13242327252"}}
+{"ts": "2025-10-13 00:05:34", "op": "OrderAmended", "src": "LINK_USDC_PERP", "det": {"type": "buy", "order_id": "13243831852", "qty": 1.1, "price": 17.402}}
+{"ts": "2025-10-13 00:05:35", "op": "PlaceIncrementalOrders", "src": "COMMON", "det": {"symbol": "LINK_USDC_PERP", "action": "sell", "price": 19.164, "sizes": 1.0, "order_id": "13243835783"}}
+{"ts": "2025-10-13 00:05:35", "op": "OrderPlaced", "src": "LINK_USDC_PERP", "det": {"type": "sell", "order_id": "13243835783", "amount": 18.88, "price": 19.164}}
+{"ts": "2025-10-13 00:44:54", "op": "OrderFilled", "src": "LINK_USDC_PERP", "det": {"type": "sell", "order_id": "13243835783", "side_active": "buy", "buy_order_id": "13243831852"}}
+{"ts": "2025-10-13 00:44:58", "op": "OrderAmended", "src": "LINK_USDC_PERP", "det": {"type": "buy", "order_id": "13251571114", "qty": 1.1, "price": 17.576}}
+{"ts": "2025-10-13 00:44:59", "op": "PlaceIncrementalOrders", "src": "COMMON", "det": {"symbol": "LINK_USDC_PERP", "action": "sell", "price": 19.355, "sizes": 1.0, "order_id": "13251576255"}}
+{"ts": "2025-10-13 00:44:59", "op": "OrderPlaced", "src": "LINK_USDC_PERP", "det": {"type": "sell", "order_id": "13251576255", "amount": 18.88, "price": 19.355}}
+{"ts": "2025-10-13 00:45:02", "op": "OrderFilled", "src": "AAVE_USDC_PERP", "det": {"type": "sell", "order_id": "13133717668", "side_active": "buy", "buy_order_id": "13133714748"}}
+{"ts": "2025-10-13 00:45:07", "op": "OrderAmended", "src": "AAVE_USDC_PERP", "det": {"type": "buy", "order_id": "13251612691", "qty": 0.08, "price": 229.2}}
+{"ts": "2025-10-13 00:45:08", "op": "PlaceIncrementalOrders", "src": "COMMON", "det": {"symbol": "AAVE_USDC_PERP", "action": "sell", "price": 252.4, "sizes": 0.07, "order_id": "13251618488"}}
+{"ts": "2025-10-13 00:45:08", "op": "OrderPlaced", "src": "AAVE_USDC_PERP", "det": {"type": "sell", "order_id": "13251618488", "amount": 18.88, "price": 252.4}}
+{"ts": "2025-10-13 00:46:25", "op": "OrderFilled", "src": "HYPE_USDC_PERP", "det": {"type": "sell", "order_id": "13230469195", "side_active": "buy", "buy_order_id": "13230463898"}}
+{"ts": "2025-10-13 00:46:29", "op": "OrderAmended", "src": "HYPE_USDC_PERP", "det": {"type": "buy", "order_id": "13251989465", "qty": 0.51, "price": 37.077}}
+{"ts": "2025-10-13 00:46:30", "op": "PlaceIncrementalOrders", "src": "COMMON", "det": {"symbol": "HYPE_USDC_PERP", "action": "sell", "price": 40.829, "sizes": 0.46, "order_id": "13251994487"}}
+{"ts": "2025-10-13 00:46:30", "op": "OrderPlaced", "src": "HYPE_USDC_PERP", "det": {"type": "sell", "order_id": "13251994487", "amount": 18.88, "price": 40.829}}
+{"ts": "2025-10-13 01:14:44", "op": "OrderFilled", "src": "LINK_USDC_PERP", "det": {"type": "sell", "order_id": "13251576255", "side_active": "buy", "buy_order_id": "13251571114"}}
+{"ts": "2025-10-13 01:14:47", "op": "OrderAmended", "src": "LINK_USDC_PERP", "det": {"type": "buy", "order_id": "13257414706", "qty": 1.1, "price": 17.752}}
+{"ts": "2025-10-13 01:14:48", "op": "PlaceIncrementalOrders", "src": "COMMON", "det": {"symbol": "LINK_USDC_PERP", "action": "sell", "price": 19.549, "sizes": 1.0, "order_id": "13257416292"}}
+{"ts": "2025-10-13 01:14:48", "op": "OrderPlaced", "src": "LINK_USDC_PERP", "det": {"type": "sell", "order_id": "13257416292", "amount": 18.88, "price": 19.549}}
+{"ts": "2025-10-13 01:14:52", "op": "OrderFilled", "src": "AAVE_USDC_PERP", "det": {"type": "sell", "order_id": "13251618488", "side_active": "buy", "buy_order_id": "13251612691"}}
+{"ts": "2025-10-13 01:14:56", "op": "OrderAmended", "src": "AAVE_USDC_PERP", "det": {"type": "buy", "order_id": "13257437235", "qty": 0.08, "price": 231.49}}
+{"ts": "2025-10-13 01:14:57", "op": "PlaceIncrementalOrders", "src": "COMMON", "det": {"symbol": "AAVE_USDC_PERP", "action": "sell", "price": 254.92, "sizes": 0.07, "order_id": "13257440483"}}
+{"ts": "2025-10-13 01:14:57", "op": "OrderPlaced", "src": "AAVE_USDC_PERP", "det": {"type": "sell", "order_id": "13257440483", "amount": 18.88, "price": 254.92}}
+{"ts": "2025-10-13 03:17:53", "op": "OrderFilled", "src": "AAVE_USDC_PERP", "det": {"type": "sell", "order_id": "13257440483", "side_active": "buy", "buy_order_id": "13257437235"}}
+{"ts": "2025-10-13 03:17:57", "op": "OrderAmended", "src": "AAVE_USDC_PERP", "det": {"type": "buy", "order_id": "13273495131", "qty": 0.08, "price": 233.8}}
+{"ts": "2025-10-13 03:17:59", "op": "PlaceIncrementalOrders", "src": "COMMON", "det": {"symbol": "AAVE_USDC_PERP", "action": "sell", "price": 257.47, "sizes": 0.07, "order_id": "13273496659"}}
+{"ts": "2025-10-13 03:17:59", "op": "OrderPlaced", "src": "AAVE_USDC_PERP", "det": {"type": "sell", "order_id": "13273496659", "amount": 18.88, "price": 257.47}}
+{"ts": "2025-10-13 04:50:55", "op": "OrderFilled", "src": "HYPE_USDC_PERP", "det": {"type": "sell", "order_id": "13251994487", "side_active": "buy", "buy_order_id": "13251989465"}}
+{"ts": "2025-10-13 04:50:59", "op": "OrderAmended", "src": "HYPE_USDC_PERP", "det": {"type": "buy", "order_id": "13284660882", "qty": 0.5, "price": 37.447}}
+{"ts": "2025-10-13 04:51:00", "op": "PlaceIncrementalOrders", "src": "COMMON", "det": {"symbol": "HYPE_USDC_PERP", "action": "sell", "price": 41.238, "sizes": 0.46, "order_id": "13284663836"}}
+{"ts": "2025-10-13 04:51:00", "op": "OrderPlaced", "src": "HYPE_USDC_PERP", "det": {"type": "sell", "order_id": "13284663836", "amount": 18.88, "price": 41.238}}
+{"ts": "2025-10-13 11:54:08", "op": "StrategyStart", "src": "Grid-Order-Management", "det": {"exchange": "backpack", "strategy": "Grid-Order-Management", "version": "3.0", "force_refresh": false, "base_amount": 18.88, "base_quantity": 0}}
+{"ts": "2025-10-13 11:54:44", "op": "PlaceIncrementalOrders", "src": "COMMON", "det": {"symbol": "LINK_USDC_PERP", "action": "buy", "price": 18.776, "sizes": 1.0, "order_id": "13339857389"}}
+{"ts": "2025-10-13 11:54:44", "op": "OrderPlaced", "src": "LINK_USDC_PERP", "det": {"type": "buy", "order_id": "13339857389", "amount": 18.88, "price": 18.776}}
+{"ts": "2025-10-13 11:54:45", "op": "PlaceIncrementalOrders", "src": "COMMON", "det": {"symbol": "LINK_USDC_PERP", "action": "sell", "price": 20.676, "sizes": 0.9, "order_id": "13339862577"}}
+{"ts": "2025-10-13 11:54:45", "op": "OrderPlaced", "src": "LINK_USDC_PERP", "det": {"type": "sell", "order_id": "13339862577", "amount": 18.88, "price": 20.676}}
+{"ts": "2025-10-13 11:54:48", "op": "PlaceIncrementalOrders", "src": "COMMON", "det": {"symbol": "HYPE_USDC_PERP", "action": "buy", "price": 38.683, "sizes": 0.49, "order_id": "13339868293"}}
+{"ts": "2025-10-13 11:54:48", "op": "OrderPlaced", "src": "HYPE_USDC_PERP", "det": {"type": "buy", "order_id": "13339868293", "amount": 18.88, "price": 38.683}}
+{"ts": "2025-10-13 11:54:49", "op": "PlaceIncrementalOrders", "src": "COMMON", "det": {"symbol": "HYPE_USDC_PERP", "action": "sell", "price": 42.599, "sizes": 0.44, "order_id": "13339871342"}}
+{"ts": "2025-10-13 11:54:49", "op": "OrderPlaced", "src": "HYPE_USDC_PERP", "det": {"type": "sell", "order_id": "13339871342", "amount": 18.88, "price": 42.599}}
+{"ts": "2025-10-13 11:54:52", "op": "PlaceIncrementalOrders", "src": "COMMON", "det": {"symbol": "AAVE_USDC_PERP", "action": "buy", "price": 245.11, "sizes": 0.08, "order_id": "13339878451"}}
+{"ts": "2025-10-13 11:54:52", "op": "OrderPlaced", "src": "AAVE_USDC_PERP", "det": {"type": "buy", "order_id": "13339878451", "amount": 18.88, "price": 245.11}}
+{"ts": "2025-10-13 11:54:53", "op": "PlaceIncrementalOrders", "src": "COMMON", "det": {"symbol": "AAVE_USDC_PERP", "action": "sell", "price": 269.92, "sizes": 0.07, "order_id": "13339880103"}}
+{"ts": "2025-10-13 11:54:53", "op": "OrderPlaced", "src": "AAVE_USDC_PERP", "det": {"type": "sell", "order_id": "13339880103", "amount": 18.88, "price": 269.92}}
+{"ts": "2025-10-13 12:37:53", "op": "OrderFilled", "src": "HYPE_USDC_PERP", "det": {"type": "buy", "order_id": "13339868293", "side_active": "sell", "sell_order_id": "13339871342"}}
+{"ts": "2025-10-13 12:37:56", "op": "PlaceIncrementalOrders", "src": "COMMON", "det": {"symbol": "HYPE_USDC_PERP", "action": "buy", "price": 38.297, "sizes": 0.49, "order_id": "13344333148"}}
+{"ts": "2025-10-13 12:37:56", "op": "OrderPlaced", "src": "HYPE_USDC_PERP", "det": {"type": "buy", "order_id": "13344333148", "amount": 18.88, "price": 38.297}}
+{"ts": "2025-10-13 12:37:59", "op": "OrderAmended", "src": "HYPE_USDC_PERP", "det": {"type": "sell", "order_id": "13344340365", "qty": 0.45, "price": 42.173}}
+{"ts": "2025-10-13 13:46:15", "op": "OrderFilled", "src": "HYPE_USDC_PERP", "det": {"type": "buy", "order_id": "13344333148", "side_active": "sell", "sell_order_id": "13344340365"}}
+{"ts": "2025-10-13 13:46:17", "op": "PlaceIncrementalOrders", "src": "COMMON", "det": {"symbol": "HYPE_USDC_PERP", "action": "buy", "price": 37.914, "sizes": 0.5, "order_id": "13351648002"}}
+{"ts": "2025-10-13 13:46:17", "op": "OrderPlaced", "src": "HYPE_USDC_PERP", "det": {"type": "buy", "order_id": "13351648002", "amount": 18.88, "price": 37.914}}
+{"ts": "2025-10-13 13:46:20", "op": "OrderAmended", "src": "HYPE_USDC_PERP", "det": {"type": "sell", "order_id": "13351651968", "qty": 0.45, "price": 41.751}}
+{"ts": "2025-10-13 14:55:35", "op": "OrderFilled", "src": "HYPE_USDC_PERP", "det": {"type": "sell", "order_id": "13351651968", "side_active": "buy", "buy_order_id": "13351648002"}}
+{"ts": "2025-10-13 14:55:39", "op": "OrderAmended", "src": "HYPE_USDC_PERP", "det": {"type": "buy", "order_id": "13359749441", "qty": 0.49, "price": 38.293}}
+{"ts": "2025-10-13 14:55:40", "op": "PlaceIncrementalOrders", "src": "COMMON", "det": {"symbol": "HYPE_USDC_PERP", "action": "sell", "price": 42.168, "sizes": 0.45, "order_id": "13359751071"}}
+{"ts": "2025-10-13 14:55:40", "op": "OrderPlaced", "src": "HYPE_USDC_PERP", "det": {"type": "sell", "order_id": "13359751071", "amount": 18.88, "price": 42.168}}
+{"ts": "2025-10-13 15:26:22", "op": "OrderFilled", "src": "HYPE_USDC_PERP", "det": {"type": "sell", "order_id": "13359751071", "side_active": "buy", "buy_order_id": "13359749441"}}
+{"ts": "2025-10-13 15:26:25", "op": "OrderAmended", "src": "HYPE_USDC_PERP", "det": {"type": "buy", "order_id": "13363697292", "qty": 0.49, "price": 38.676}}
+{"ts": "2025-10-13 15:26:26", "op": "PlaceIncrementalOrders", "src": "COMMON", "det": {"symbol": "HYPE_USDC_PERP", "action": "sell", "price": 42.59, "sizes": 0.44, "order_id": "13363698442"}}
+{"ts": "2025-10-13 15:26:26", "op": "OrderPlaced", "src": "HYPE_USDC_PERP", "det": {"type": "sell", "order_id": "13363698442", "amount": 18.88, "price": 42.59}}
+{"ts": "2025-10-13 16:02:23", "op": "OrderFilled", "src": "HYPE_USDC_PERP", "det": {"type": "sell", "order_id": "13363698442", "side_active": "buy", "buy_order_id": "13363697292"}}
+{"ts": "2025-10-13 16:02:27", "op": "OrderAmended", "src": "HYPE_USDC_PERP", "det": {"type": "buy", "order_id": "13368399900", "qty": 0.48, "price": 39.062}}
+{"ts": "2025-10-13 16:02:28", "op": "PlaceIncrementalOrders", "src": "COMMON", "det": {"symbol": "HYPE_USDC_PERP", "action": "sell", "price": 43.016, "sizes": 0.44, "order_id": "13368401153"}}
+{"ts": "2025-10-13 16:02:28", "op": "OrderPlaced", "src": "HYPE_USDC_PERP", "det": {"type": "sell", "order_id": "13368401153", "amount": 18.88, "price": 43.016}}
+{"ts": "2025-10-13 19:30:43", "op": "OrderFilled", "src": "AAVE_USDC_PERP", "det": {"type": "buy", "order_id": "13339878451", "side_active": "sell", "sell_order_id": "13339880103"}}
+{"ts": "2025-10-13 19:30:45", "op": "PlaceIncrementalOrders", "src": "COMMON", "det": {"symbol": "AAVE_USDC_PERP", "action": "buy", "price": 242.66, "sizes": 0.08, "order_id": "13394983004"}}
+{"ts": "2025-10-13 19:30:45", "op": "OrderPlaced", "src": "AAVE_USDC_PERP", "det": {"type": "buy", "order_id": "13394983004", "amount": 18.88, "price": 242.66}}
+{"ts": "2025-10-13 19:30:48", "op": "OrderAmended", "src": "AAVE_USDC_PERP", "det": {"type": "sell", "order_id": "13394993988", "qty": 0.07, "price": 267.22}}
+{"ts": "2025-10-14 04:53:26", "op": "OrderFilled", "src": "HYPE_USDC_PERP", "det": {"type": "sell", "order_id": "13368401153", "side_active": "buy", "buy_order_id": "13368399900"}}
+{"ts": "2025-10-14 04:53:30", "op": "OrderAmended", "src": "HYPE_USDC_PERP", "det": {"type": "buy", "order_id": "13483091660", "qty": 0.48, "price": 39.453}}
+{"ts": "2025-10-14 04:53:31", "op": "PlaceIncrementalOrders", "src": "COMMON", "det": {"symbol": "HYPE_USDC_PERP", "action": "sell", "price": 43.446, "sizes": 0.43, "order_id": "13483092841"}}
+{"ts": "2025-10-14 04:53:31", "op": "OrderPlaced", "src": "HYPE_USDC_PERP", "det": {"type": "sell", "order_id": "13483092841", "amount": 18.88, "price": 43.446}}
+{"ts": "2025-10-14 07:17:34", "op": "OrderFilled", "src": "HYPE_USDC_PERP", "det": {"type": "sell", "order_id": "13483092841", "side_active": "buy", "buy_order_id": "13483091660"}}
+{"ts": "2025-10-14 07:17:38", "op": "OrderAmended", "src": "HYPE_USDC_PERP", "det": {"type": "buy", "order_id": "13494363591", "qty": 0.47, "price": 39.848}}
+{"ts": "2025-10-14 07:17:39", "op": "PlaceIncrementalOrders", "src": "COMMON", "det": {"symbol": "HYPE_USDC_PERP", "action": "sell", "price": 43.881, "sizes": 0.43, "order_id": "13494365891"}}
+{"ts": "2025-10-14 07:17:39", "op": "OrderPlaced", "src": "HYPE_USDC_PERP", "det": {"type": "sell", "order_id": "13494365891", "amount": 18.88, "price": 43.881}}
+{"ts": "2025-10-14 13:57:44", "op": "OrderFilled", "src": "HYPE_USDC_PERP", "det": {"type": "buy", "order_id": "13494363591", "side_active": "sell", "sell_order_id": "13494365891"}}
+{"ts": "2025-10-14 13:57:46", "op": "PlaceIncrementalOrders", "src": "COMMON", "det": {"symbol": "HYPE_USDC_PERP", "action": "buy", "price": 39.449, "sizes": 0.48, "order_id": "13539713260"}}
+{"ts": "2025-10-14 13:57:46", "op": "OrderPlaced", "src": "HYPE_USDC_PERP", "det": {"type": "buy", "order_id": "13539713260", "amount": 18.88, "price": 39.449}}
+{"ts": "2025-10-14 13:57:49", "op": "OrderAmended", "src": "HYPE_USDC_PERP", "det": {"type": "sell", "order_id": "13539718282", "qty": 0.43, "price": 43.442}}
+{"ts": "2025-10-14 14:34:35", "op": "OrderFilled", "src": "LINK_USDC_PERP", "det": {"type": "buy", "order_id": "13339857389", "side_active": "sell", "sell_order_id": "13339862577"}}
+{"ts": "2025-10-14 14:34:37", "op": "PlaceIncrementalOrders", "src": "COMMON", "det": {"symbol": "LINK_USDC_PERP", "action": "buy", "price": 18.588, "sizes": 1.0, "order_id": "13544983208"}}
+{"ts": "2025-10-14 14:34:37", "op": "OrderPlaced", "src": "LINK_USDC_PERP", "det": {"type": "buy", "order_id": "13544983208", "amount": 18.88, "price": 18.588}}
+{"ts": "2025-10-14 14:34:40", "op": "OrderAmended", "src": "LINK_USDC_PERP", "det": {"type": "sell", "order_id": "13544993750", "qty": 0.9, "price": 20.47}}
+{"ts": "2025-10-14 14:35:34", "op": "OrderFilled", "src": "HYPE_USDC_PERP", "det": {"type": "buy", "order_id": "13539713260", "side_active": "sell", "sell_order_id": "13539718282"}}
+{"ts": "2025-10-14 14:35:36", "op": "PlaceIncrementalOrders", "src": "COMMON", "det": {"symbol": "HYPE_USDC_PERP", "action": "buy", "price": 39.055, "sizes": 0.48, "order_id": "13545212680"}}
+{"ts": "2025-10-14 14:35:36", "op": "OrderPlaced", "src": "HYPE_USDC_PERP", "det": {"type": "buy", "order_id": "13545212680", "amount": 18.88, "price": 39.055}}
+{"ts": "2025-10-14 14:35:39", "op": "OrderAmended", "src": "HYPE_USDC_PERP", "det": {"type": "sell", "order_id": "13545223659", "qty": 0.44, "price": 43.007}}
+{"ts": "2025-10-14 14:44:10", "op": "OrderFilled", "src": "HYPE_USDC_PERP", "det": {"type": "buy", "order_id": "13545212680", "side_active": "sell", "sell_order_id": "13545223659"}}
+{"ts": "2025-10-14 14:44:12", "op": "PlaceIncrementalOrders", "src": "COMMON", "det": {"symbol": "HYPE_USDC_PERP", "action": "buy", "price": 38.664, "sizes": 0.49, "order_id": "13546867039"}}
+{"ts": "2025-10-14 14:44:12", "op": "OrderPlaced", "src": "HYPE_USDC_PERP", "det": {"type": "buy", "order_id": "13546867039", "amount": 18.88, "price": 38.664}}
+{"ts": "2025-10-14 14:44:15", "op": "OrderAmended", "src": "HYPE_USDC_PERP", "det": {"type": "sell", "order_id": "13546875682", "qty": 0.44, "price": 42.577}}
+{"ts": "2025-10-14 14:44:49", "op": "OrderFilled", "src": "LINK_USDC_PERP", "det": {"type": "buy", "order_id": "13544983208", "side_active": "sell", "sell_order_id": "13544993750"}}
+{"ts": "2025-10-14 14:44:52", "op": "PlaceIncrementalOrders", "src": "COMMON", "det": {"symbol": "LINK_USDC_PERP", "action": "buy", "price": 18.402, "sizes": 1.0, "order_id": "13547018238"}}
+{"ts": "2025-10-14 14:44:52", "op": "OrderPlaced", "src": "LINK_USDC_PERP", "det": {"type": "buy", "order_id": "13547018238", "amount": 18.88, "price": 18.402}}
+{"ts": "2025-10-14 14:44:55", "op": "OrderAmended", "src": "LINK_USDC_PERP", "det": {"type": "sell", "order_id": "13547032305", "qty": 0.9, "price": 20.265}}
+{"ts": "2025-10-14 14:47:10", "op": "OrderFilled", "src": "HYPE_USDC_PERP", "det": {"type": "buy", "order_id": "13546867039", "side_active": "sell", "sell_order_id": "13546875682"}}
+{"ts": "2025-10-14 14:47:12", "op": "PlaceIncrementalOrders", "src": "COMMON", "det": {"symbol": "HYPE_USDC_PERP", "action": "buy", "price": 38.277, "sizes": 0.49, "order_id": "13547566486"}}
+{"ts": "2025-10-14 14:47:12", "op": "OrderPlaced", "src": "HYPE_USDC_PERP", "det": {"type": "buy", "order_id": "13547566486", "amount": 18.88, "price": 38.277}}
+{"ts": "2025-10-14 14:47:16", "op": "OrderAmended", "src": "HYPE_USDC_PERP", "det": {"type": "sell", "order_id": "13547580371", "qty": 0.45, "price": 42.152}}
+{"ts": "2025-10-14 14:47:18", "op": "OrderFilled", "src": "AAVE_USDC_PERP", "det": {"type": "buy", "order_id": "13394983004", "side_active": "sell", "sell_order_id": "13394993988"}}
+{"ts": "2025-10-14 14:47:20", "op": "PlaceIncrementalOrders", "src": "COMMON", "det": {"symbol": "AAVE_USDC_PERP", "action": "buy", "price": 240.24, "sizes": 0.08, "order_id": "13547599056"}}
+{"ts": "2025-10-14 14:47:20", "op": "OrderPlaced", "src": "AAVE_USDC_PERP", "det": {"type": "buy", "order_id": "13547599056", "amount": 18.88, "price": 240.24}}
+{"ts": "2025-10-14 14:47:24", "op": "OrderAmended", "src": "AAVE_USDC_PERP", "det": {"type": "sell", "order_id": "13547613117", "qty": 0.07, "price": 264.55}}
+{"ts": "2025-10-14 14:48:40", "op": "OrderFilled", "src": "LINK_USDC_PERP", "det": {"type": "buy", "order_id": "13547018238", "side_active": "sell", "sell_order_id": "13547032305"}}
+{"ts": "2025-10-14 14:48:42", "op": "PlaceIncrementalOrders", "src": "COMMON", "det": {"symbol": "LINK_USDC_PERP", "action": "buy", "price": 18.218, "sizes": 1.0, "order_id": "13547930402"}}
+{"ts": "2025-10-14 14:48:42", "op": "OrderPlaced", "src": "LINK_USDC_PERP", "det": {"type": "buy", "order_id": "13547930402", "amount": 18.88, "price": 18.218}}
+{"ts": "2025-10-14 14:48:46", "op": "OrderAmended", "src": "LINK_USDC_PERP", "det": {"type": "sell", "order_id": "13547944735", "qty": 0.9, "price": 20.062}}
+{"ts": "2025-10-14 14:48:49", "op": "OrderFilled", "src": "AAVE_USDC_PERP", "det": {"type": "buy", "order_id": "13547599056", "side_active": "sell", "sell_order_id": "13547613117"}}
+{"ts": "2025-10-14 14:48:52", "op": "PlaceIncrementalOrders", "src": "COMMON", "det": {"symbol": "AAVE_USDC_PERP", "action": "buy", "price": 237.83, "sizes": 0.08, "order_id": "13547969011"}}
+{"ts": "2025-10-14 14:48:52", "op": "OrderPlaced", "src": "AAVE_USDC_PERP", "det": {"type": "buy", "order_id": "13547969011", "amount": 18.88, "price": 237.83}}
+{"ts": "2025-10-14 14:48:55", "op": "OrderAmended", "src": "AAVE_USDC_PERP", "det": {"type": "sell", "order_id": "13547981703", "qty": 0.07, "price": 261.91}}
+{"ts": "2025-10-14 18:14:12", "op": "OrderFilled", "src": "HYPE_USDC_PERP", "det": {"type": "buy", "order_id": "13547566486", "side_active": "sell", "sell_order_id": "13547580371"}}
+{"ts": "2025-10-14 18:14:14", "op": "PlaceIncrementalOrders", "src": "COMMON", "det": {"symbol": "HYPE_USDC_PERP", "action": "buy", "price": 37.895, "sizes": 0.5, "order_id": "13578737851"}}
+{"ts": "2025-10-14 18:14:14", "op": "OrderPlaced", "src": "HYPE_USDC_PERP", "det": {"type": "buy", "order_id": "13578737851", "amount": 18.88, "price": 37.895}}
+{"ts": "2025-10-14 18:14:18", "op": "OrderAmended", "src": "HYPE_USDC_PERP", "det": {"type": "sell", "order_id": "13578750688", "qty": 0.45, "price": 41.73}}
+{"ts": "2025-10-14 18:32:51", "op": "OrderFilled", "src": "LINK_USDC_PERP", "det": {"type": "buy", "order_id": "13547930402", "side_active": "sell", "sell_order_id": "13547944735"}}
+{"ts": "2025-10-14 18:32:53", "op": "PlaceIncrementalOrders", "src": "COMMON", "det": {"symbol": "LINK_USDC_PERP", "action": "buy", "price": 18.036, "sizes": 1.0, "order_id": "13582096925"}}
+{"ts": "2025-10-14 18:32:53", "op": "OrderPlaced", "src": "LINK_USDC_PERP", "det": {"type": "buy", "order_id": "13582096925", "amount": 18.88, "price": 18.036}}
+{"ts": "2025-10-14 18:32:57", "op": "OrderAmended", "src": "LINK_USDC_PERP", "det": {"type": "sell", "order_id": "13582113622", "qty": 1.0, "price": 19.862}}
+{"ts": "2025-10-14 18:34:09", "op": "OrderFilled", "src": "HYPE_USDC_PERP", "det": {"type": "buy", "order_id": "13578737851", "side_active": "sell", "sell_order_id": "13578750688"}}
+{"ts": "2025-10-14 18:34:11", "op": "PlaceIncrementalOrders", "src": "COMMON", "det": {"symbol": "HYPE_USDC_PERP", "action": "buy", "price": 37.516, "sizes": 0.5, "order_id": "13582394746"}}
+{"ts": "2025-10-14 18:34:11", "op": "OrderPlaced", "src": "HYPE_USDC_PERP", "det": {"type": "buy", "order_id": "13582394746", "amount": 18.88, "price": 37.516}}
+{"ts": "2025-10-14 18:34:15", "op": "OrderAmended", "src": "HYPE_USDC_PERP", "det": {"type": "sell", "order_id": "13582407967", "qty": 0.46, "price": 41.313}}
+{"ts": "2025-10-14 21:38:22", "op": "OrderFilled", "src": "HYPE_USDC_PERP", "det": {"type": "buy", "order_id": "13582394746", "side_active": "sell", "sell_order_id": "13582407967"}}
+{"ts": "2025-10-14 21:38:24", "op": "PlaceIncrementalOrders", "src": "COMMON", "det": {"symbol": "HYPE_USDC_PERP", "action": "buy", "price": 37.141, "sizes": 0.51, "order_id": "13608593517"}}
+{"ts": "2025-10-14 21:38:24", "op": "OrderPlaced", "src": "HYPE_USDC_PERP", "det": {"type": "buy", "order_id": "13608593517", "amount": 18.88, "price": 37.141}}
+{"ts": "2025-10-14 21:38:28", "op": "OrderAmended", "src": "HYPE_USDC_PERP", "det": {"type": "sell", "order_id": "13608607550", "qty": 0.46, "price": 40.9}}
+{"ts": "2025-10-15 12:53:08", "op": "StrategyStart", "src": "Grid-Order-Management", "det": {"exchange": "backpack", "strategy": "Grid-Order-Management", "version": "3.0", "force_refresh": false}}
+{"ts": "2025-10-15 12:53:44", "op": "PlaceIncrementalOrders", "src": "COMMON", "det": {"symbol": "LINK_USDC_PERP", "action": "buy", "price": 18.885, "sizes": 1.0, "order_id": "13716986159"}}
+{"ts": "2025-10-15 12:53:44", "op": "OrderPlaced", "src": "LINK_USDC_PERP", "det": {"type": "buy", "order_id": "13716986159", "amount": 18.88, "price": 18.885}}
+{"ts": "2025-10-15 12:53:45", "op": "PlaceIncrementalOrders", "src": "COMMON", "det": {"symbol": "LINK_USDC_PERP", "action": "sell", "price": 20.796, "sizes": 0.9, "order_id": "13716987751"}}
+{"ts": "2025-10-15 12:53:45", "op": "OrderPlaced", "src": "LINK_USDC_PERP", "det": {"type": "sell", "order_id": "13716987751", "amount": 18.88, "price": 20.796}}
+{"ts": "2025-10-15 12:53:48", "op": "PlaceIncrementalOrders", "src": "COMMON", "det": {"symbol": "HYPE_USDC_PERP", "action": "buy", "price": 38.599, "sizes": 0.49, "order_id": "13716990845"}}
+{"ts": "2025-10-15 12:53:48", "op": "OrderPlaced", "src": "HYPE_USDC_PERP", "det": {"type": "buy", "order_id": "13716990845", "amount": 18.88, "price": 38.599}}
+{"ts": "2025-10-15 12:53:49", "op": "PlaceIncrementalOrders", "src": "COMMON", "det": {"symbol": "HYPE_USDC_PERP", "action": "sell", "price": 42.505, "sizes": 0.44, "order_id": "13716991620"}}
+{"ts": "2025-10-15 12:53:49", "op": "OrderPlaced", "src": "HYPE_USDC_PERP", "det": {"type": "sell", "order_id": "13716991620", "amount": 18.88, "price": 42.505}}
+{"ts": "2025-10-15 12:53:51", "op": "PlaceIncrementalOrders", "src": "COMMON", "det": {"symbol": "AAVE_USDC_PERP", "action": "buy", "price": 252.89, "sizes": 0.07, "order_id": "13716994252"}}
+{"ts": "2025-10-15 12:53:51", "op": "OrderPlaced", "src": "AAVE_USDC_PERP", "det": {"type": "buy", "order_id": "13716994252", "amount": 18.88, "price": 252.89}}
+{"ts": "2025-10-15 12:53:52", "op": "PlaceIncrementalOrders", "src": "COMMON", "det": {"symbol": "AAVE_USDC_PERP", "action": "sell", "price": 278.49, "sizes": 0.07, "order_id": "13716995181"}}
+{"ts": "2025-10-15 12:53:52", "op": "OrderPlaced", "src": "AAVE_USDC_PERP", "det": {"type": "sell", "order_id": "13716995181", "amount": 18.88, "price": 278.49}}
+{"ts": "2025-10-15 12:56:51", "op": "StrategyStart", "src": "Grid-Order-Management", "det": {"exchange": "backpack", "strategy": "Grid-Order-Management", "version": "3.0", "force_refresh": false}}
+{"ts": "2025-10-15 13:41:55", "op": "StrategyStart", "src": "Grid-Order-Management", "det": {"exchange": "backpack", "strategy": "Grid-Order-Management", "version": "3.0", "force_refresh": false}}
+{"ts": "2025-10-15 13:50:11", "op": "StrategyStart", "src": "Grid-Order-Management", "det": {"exchange": "backpack", "strategy": "Grid-Order-Management", "version": "3.0", "force_refresh": false}}
+{"ts": "2025-10-15 14:06:11", "op": "StrategyStart", "src": "Grid-Order-Management", "det": {"exchange": "backpack", "strategy": "Grid-Order-Management", "version": "3.0", "force_refresh": false}}
+{"ts": "2025-10-15 14:24:55", "op": "OrderFilled", "src": "LINK_USDC_PERP", "det": {"type": "buy", "order_id": "13716986159", "side_active": "sell", "sell_order_id": "13716987751"}}
+{"ts": "2025-10-15 14:24:56", "op": "PlaceIncrementalOrders", "src": "COMMON", "det": {"symbol": "LINK_USDC_PERP", "action": "buy", "price": 18.696, "sizes": 1.0, "order_id": "13725851194"}}
+{"ts": "2025-10-15 14:24:56", "op": "OrderPlaced", "src": "LINK_USDC_PERP", "det": {"type": "buy", "order_id": "13725851194", "amount": 18.88, "price": 18.696}}
+{"ts": "2025-10-15 14:24:57", "op": "PlaceIncrementalOrders", "src": "COMMON", "det": {"symbol": "LINK_USDC_PERP", "action": "sell", "price": 20.588, "sizes": 0.9, "order_id": "13725853717"}}
+{"ts": "2025-10-15 14:24:57", "op": "OrderAmended", "src": "LINK_USDC_PERP", "det": {"type": "sell", "order_id": "13725853717", "amount": 18.88, "price": 20.588}}
+{"ts": "2025-10-15 19:18:16", "op": "OrderFilled", "src": "LINK_USDC_PERP", "det": {"type": "buy", "order_id": "13725851194", "side_active": "sell", "sell_order_id": "13725853717"}}
+{"ts": "2025-10-15 19:18:17", "op": "PlaceIncrementalOrders", "src": "COMMON", "det": {"symbol": "LINK_USDC_PERP", "action": "buy", "price": 18.509, "sizes": 1.0, "order_id": "13757308268"}}
+{"ts": "2025-10-15 19:18:17", "op": "OrderPlaced", "src": "LINK_USDC_PERP", "det": {"type": "buy", "order_id": "13757308268", "amount": 18.88, "price": 18.509}}
+{"ts": "2025-10-15 19:18:19", "op": "PlaceIncrementalOrders", "src": "COMMON", "det": {"symbol": "LINK_USDC_PERP", "action": "sell", "price": 20.382, "sizes": 0.9, "order_id": "13757314398"}}
+{"ts": "2025-10-15 19:18:19", "op": "OrderAmended", "src": "LINK_USDC_PERP", "det": {"type": "sell", "order_id": "13757314398", "amount": 18.88, "price": 20.382}}
+{"ts": "2025-10-15 19:18:23", "op": "OrderFilled", "src": "AAVE_USDC_PERP", "det": {"type": "buy", "order_id": "13716994252", "side_active": "sell", "sell_order_id": "13716995181"}}
+{"ts": "2025-10-15 19:18:24", "op": "PlaceIncrementalOrders", "src": "COMMON", "det": {"symbol": "AAVE_USDC_PERP", "action": "buy", "price": 250.36, "sizes": 0.08, "order_id": "13757326824"}}
+{"ts": "2025-10-15 19:18:24", "op": "OrderPlaced", "src": "AAVE_USDC_PERP", "det": {"type": "buy", "order_id": "13757326824", "amount": 18.88, "price": 250.36}}
+{"ts": "2025-10-15 19:18:26", "op": "PlaceIncrementalOrders", "src": "COMMON", "det": {"symbol": "AAVE_USDC_PERP", "action": "sell", "price": 275.7, "sizes": 0.07, "order_id": "13757335410"}}
+{"ts": "2025-10-15 19:18:26", "op": "OrderAmended", "src": "AAVE_USDC_PERP", "det": {"type": "sell", "order_id": "13757335410", "amount": 18.88, "price": 275.7}}
+{"ts": "2025-10-15 20:32:44", "op": "OrderFilled", "src": "AAVE_USDC_PERP", "det": {"type": "buy", "order_id": "13757326824", "side_active": "sell", "sell_order_id": "13757335410"}}
+{"ts": "2025-10-15 20:32:45", "op": "PlaceIncrementalOrders", "src": "COMMON", "det": {"symbol": "AAVE_USDC_PERP", "action": "buy", "price": 247.86, "sizes": 0.08, "order_id": "13764355833"}}
+{"ts": "2025-10-15 20:32:45", "op": "OrderPlaced", "src": "AAVE_USDC_PERP", "det": {"type": "buy", "order_id": "13764355833", "amount": 18.88, "price": 247.86}}
+{"ts": "2025-10-15 20:32:47", "op": "PlaceIncrementalOrders", "src": "COMMON", "det": {"symbol": "AAVE_USDC_PERP", "action": "sell", "price": 272.95, "sizes": 0.07, "order_id": "13764360219"}}
+{"ts": "2025-10-15 20:32:47", "op": "OrderAmended", "src": "AAVE_USDC_PERP", "det": {"type": "sell", "order_id": "13764360219", "amount": 18.88, "price": 272.95}}
+{"ts": "2025-10-15 21:08:38", "op": "OrderFilled", "src": "LINK_USDC_PERP", "det": {"type": "buy", "order_id": "13757308268", "side_active": "sell", "sell_order_id": "13757314398"}}
+{"ts": "2025-10-15 21:08:40", "op": "PlaceIncrementalOrders", "src": "COMMON", "det": {"symbol": "LINK_USDC_PERP", "action": "buy", "price": 18.324, "sizes": 1.0, "order_id": "13768474747"}}
+{"ts": "2025-10-15 21:08:40", "op": "OrderPlaced", "src": "LINK_USDC_PERP", "det": {"type": "buy", "order_id": "13768474747", "amount": 18.88, "price": 18.324}}
+{"ts": "2025-10-15 21:08:42", "op": "PlaceIncrementalOrders", "src": "COMMON", "det": {"symbol": "LINK_USDC_PERP", "action": "sell", "price": 20.178, "sizes": 0.9, "order_id": "13768478605"}}
+{"ts": "2025-10-15 21:08:42", "op": "OrderAmended", "src": "LINK_USDC_PERP", "det": {"type": "sell", "order_id": "13768478605", "amount": 18.88, "price": 20.178}}
+{"ts": "2025-10-15 21:48:14", "op": "OrderFilled", "src": "LINK_USDC_PERP", "det": {"type": "buy", "order_id": "13768474747", "side_active": "sell", "sell_order_id": "13768478605"}}
+{"ts": "2025-10-15 21:48:15", "op": "PlaceIncrementalOrders", "src": "COMMON", "det": {"symbol": "LINK_USDC_PERP", "action": "buy", "price": 18.14, "sizes": 1.0, "order_id": "13774434618"}}
+{"ts": "2025-10-15 21:48:15", "op": "OrderPlaced", "src": "LINK_USDC_PERP", "det": {"type": "buy", "order_id": "13774434618", "amount": 18.88, "price": 18.14}}
+{"ts": "2025-10-15 21:48:18", "op": "PlaceIncrementalOrders", "src": "COMMON", "det": {"symbol": "LINK_USDC_PERP", "action": "sell", "price": 19.977, "sizes": 0.9, "order_id": "13774446200"}}
+{"ts": "2025-10-15 21:48:18", "op": "OrderAmended", "src": "LINK_USDC_PERP", "det": {"type": "sell", "order_id": "13774446200", "amount": 18.88, "price": 19.977}}
+{"ts": "2025-10-15 21:48:22", "op": "OrderFilled", "src": "AAVE_USDC_PERP", "det": {"type": "buy", "order_id": "13764355833", "side_active": "sell", "sell_order_id": "13764360219"}}
+{"ts": "2025-10-15 21:48:23", "op": "PlaceIncrementalOrders", "src": "COMMON", "det": {"symbol": "AAVE_USDC_PERP", "action": "buy", "price": 245.38, "sizes": 0.08, "order_id": "13774467379"}}
+{"ts": "2025-10-15 21:48:23", "op": "OrderPlaced", "src": "AAVE_USDC_PERP", "det": {"type": "buy", "order_id": "13774467379", "amount": 18.88, "price": 245.38}}
+{"ts": "2025-10-15 21:48:26", "op": "PlaceIncrementalOrders", "src": "COMMON", "det": {"symbol": "AAVE_USDC_PERP", "action": "sell", "price": 270.22, "sizes": 0.07, "order_id": "13774480016"}}
+{"ts": "2025-10-15 21:48:26", "op": "OrderAmended", "src": "AAVE_USDC_PERP", "det": {"type": "sell", "order_id": "13774480016", "amount": 18.88, "price": 270.22}}
+{"ts": "2025-10-15 21:49:30", "op": "OrderFilled", "src": "AAVE_USDC_PERP", "det": {"type": "buy", "order_id": "13774467379", "side_active": "sell", "sell_order_id": "13774480016"}}
+{"ts": "2025-10-15 21:49:31", "op": "PlaceIncrementalOrders", "src": "COMMON", "det": {"symbol": "AAVE_USDC_PERP", "action": "buy", "price": 242.93, "sizes": 0.08, "order_id": "13774747783"}}
+{"ts": "2025-10-15 21:49:31", "op": "OrderPlaced", "src": "AAVE_USDC_PERP", "det": {"type": "buy", "order_id": "13774747783", "amount": 18.88, "price": 242.93}}
+{"ts": "2025-10-15 21:49:33", "op": "PlaceIncrementalOrders", "src": "COMMON", "det": {"symbol": "AAVE_USDC_PERP", "action": "sell", "price": 267.51, "sizes": 0.07, "order_id": "13774757379"}}
+{"ts": "2025-10-15 21:49:33", "op": "OrderAmended", "src": "AAVE_USDC_PERP", "det": {"type": "sell", "order_id": "13774757379", "amount": 18.88, "price": 267.51}}
+{"ts": "2025-10-15 23:44:27", "op": "OrderFilled", "src": "LINK_USDC_PERP", "det": {"type": "buy", "order_id": "13774434618", "side_active": "sell", "sell_order_id": "13774446200"}}
+{"ts": "2025-10-15 23:44:28", "op": "PlaceIncrementalOrders", "src": "COMMON", "det": {"symbol": "LINK_USDC_PERP", "action": "buy", "price": 17.959, "sizes": 1.1, "order_id": "13795189693"}}
+{"ts": "2025-10-15 23:44:28", "op": "OrderPlaced", "src": "LINK_USDC_PERP", "det": {"type": "buy", "order_id": "13795189693", "amount": 18.88, "price": 17.959}}
+{"ts": "2025-10-15 23:44:31", "op": "PlaceIncrementalOrders", "src": "COMMON", "det": {"symbol": "LINK_USDC_PERP", "action": "sell", "price": 19.777, "sizes": 1.0, "order_id": "13795198752"}}
+{"ts": "2025-10-15 23:44:31", "op": "OrderAmended", "src": "LINK_USDC_PERP", "det": {"type": "sell", "order_id": "13795198752", "amount": 18.88, "price": 19.777}}
+{"ts": "2025-10-15 23:47:00", "op": "OrderFilled", "src": "AAVE_USDC_PERP", "det": {"type": "buy", "order_id": "13774747783", "side_active": "sell", "sell_order_id": "13774757379"}}
+{"ts": "2025-10-15 23:47:01", "op": "PlaceIncrementalOrders", "src": "COMMON", "det": {"symbol": "AAVE_USDC_PERP", "action": "buy", "price": 240.5, "sizes": 0.08, "order_id": "13795639793"}}
+{"ts": "2025-10-15 23:47:01", "op": "OrderPlaced", "src": "AAVE_USDC_PERP", "det": {"type": "buy", "order_id": "13795639793", "amount": 18.88, "price": 240.5}}
+{"ts": "2025-10-15 23:47:04", "op": "PlaceIncrementalOrders", "src": "COMMON", "det": {"symbol": "AAVE_USDC_PERP", "action": "sell", "price": 264.84, "sizes": 0.07, "order_id": "13795648803"}}
+{"ts": "2025-10-15 23:47:04", "op": "OrderAmended", "src": "AAVE_USDC_PERP", "det": {"type": "sell", "order_id": "13795648803", "amount": 18.88, "price": 264.84}}
+{"ts": "2025-10-16 00:06:21", "op": "PlaceIncrementalOrders", "src": "COMMON", "det": {"symbol": "LINK_USDC_PERP", "action": "buy", "price": 17.959, "sizes": 1.1, "order_id": "13799109863"}}
+{"ts": "2025-10-16 00:06:21", "op": "OrderPlaced", "src": "LINK_USDC_PERP", "det": {"type": "buy", "order_id": "13799109863", "amount": 18.88, "price": 17.959}}
+{"ts": "2025-10-16 00:06:22", "op": "PlaceIncrementalOrders", "src": "COMMON", "det": {"symbol": "LINK_USDC_PERP", "action": "sell", "price": 19.777, "sizes": 1.0, "order_id": "13799113132"}}
+{"ts": "2025-10-16 00:06:22", "op": "OrderPlaced", "src": "LINK_USDC_PERP", "det": {"type": "sell", "order_id": "13799113132", "amount": 18.88, "price": 19.777}}
+{"ts": "2025-10-16 00:06:24", "op": "PlaceIncrementalOrders", "src": "COMMON", "det": {"symbol": "HYPE_USDC_PERP", "action": "buy", "price": 38.599, "sizes": 0.49, "order_id": "13799120548"}}
+{"ts": "2025-10-16 00:06:24", "op": "OrderPlaced", "src": "HYPE_USDC_PERP", "det": {"type": "buy", "order_id": "13799120548", "amount": 18.88, "price": 38.599}}
+{"ts": "2025-10-16 00:06:25", "op": "PlaceIncrementalOrders", "src": "COMMON", "det": {"symbol": "HYPE_USDC_PERP", "action": "sell", "price": 42.505, "sizes": 0.44, "order_id": "13799123069"}}
+{"ts": "2025-10-16 00:06:25", "op": "OrderPlaced", "src": "HYPE_USDC_PERP", "det": {"type": "sell", "order_id": "13799123069", "amount": 18.88, "price": 42.505}}
+{"ts": "2025-10-16 00:06:28", "op": "PlaceIncrementalOrders", "src": "COMMON", "det": {"symbol": "AAVE_USDC_PERP", "action": "buy", "price": 240.5, "sizes": 0.08, "order_id": "13799131799"}}
+{"ts": "2025-10-16 00:06:28", "op": "OrderPlaced", "src": "AAVE_USDC_PERP", "det": {"type": "buy", "order_id": "13799131799", "amount": 18.88, "price": 240.5}}
+{"ts": "2025-10-16 00:06:30", "op": "PlaceIncrementalOrders", "src": "COMMON", "det": {"symbol": "AAVE_USDC_PERP", "action": "sell", "price": 264.84, "sizes": 0.07, "order_id": "13799137492"}}
+{"ts": "2025-10-16 00:06:30", "op": "OrderPlaced", "src": "AAVE_USDC_PERP", "det": {"type": "sell", "order_id": "13799137492", "amount": 18.88, "price": 264.84}}
+{"ts": "2025-10-16 01:01:11", "op": "OrderFilled", "src": "HYPE_USDC_PERP", "det": {"type": "buy", "order_id": "13799120548", "side_active": "sell", "sell_order_id": "13799123069"}}
+{"ts": "2025-10-16 01:01:12", "op": "PlaceIncrementalOrders", "src": "COMMON", "det": {"symbol": "HYPE_USDC_PERP", "action": "buy", "price": 38.213, "sizes": 0.49, "order_id": "13807157666"}}
+{"ts": "2025-10-16 01:01:12", "op": "OrderPlaced", "src": "HYPE_USDC_PERP", "det": {"type": "buy", "order_id": "13807157666", "amount": 18.88, "price": 38.213}}
+{"ts": "2025-10-16 01:01:14", "op": "PlaceIncrementalOrders", "src": "COMMON", "det": {"symbol": "HYPE_USDC_PERP", "action": "sell", "price": 42.08, "sizes": 0.45, "order_id": "13807165446"}}
+{"ts": "2025-10-16 01:01:14", "op": "OrderAmended", "src": "HYPE_USDC_PERP", "det": {"type": "sell", "order_id": "13807165446", "amount": 18.88, "price": 42.08}}
+{"ts": "2025-10-16 01:12:06", "op": "OrderFilled", "src": "LINK_USDC_PERP", "det": {"type": "buy", "order_id": "13799109863", "side_active": "sell", "sell_order_id": "13799113132"}}
+{"ts": "2025-10-16 01:12:07", "op": "PlaceIncrementalOrders", "src": "COMMON", "det": {"symbol": "LINK_USDC_PERP", "action": "buy", "price": 17.779, "sizes": 1.1, "order_id": "13808999520"}}
+{"ts": "2025-10-16 01:12:07", "op": "OrderPlaced", "src": "LINK_USDC_PERP", "det": {"type": "buy", "order_id": "13808999520", "amount": 18.88, "price": 17.779}}
+{"ts": "2025-10-16 01:12:10", "op": "PlaceIncrementalOrders", "src": "COMMON", "det": {"symbol": "LINK_USDC_PERP", "action": "sell", "price": 19.579, "sizes": 1.0, "order_id": "13809008461"}}
+{"ts": "2025-10-16 01:12:10", "op": "OrderAmended", "src": "LINK_USDC_PERP", "det": {"type": "sell", "order_id": "13809008461", "amount": 18.88, "price": 19.579}}
+{"ts": "2025-10-16 01:15:57", "op": "OrderFilled", "src": "AAVE_USDC_PERP", "det": {"type": "buy", "order_id": "13799131799", "side_active": "sell", "sell_order_id": "13799137492"}}
+{"ts": "2025-10-16 01:15:58", "op": "PlaceIncrementalOrders", "src": "COMMON", "det": {"symbol": "AAVE_USDC_PERP", "action": "buy", "price": 238.09, "sizes": 0.08, "order_id": "13809749226"}}
+{"ts": "2025-10-16 01:15:58", "op": "OrderPlaced", "src": "AAVE_USDC_PERP", "det": {"type": "buy", "order_id": "13809749226", "amount": 18.88, "price": 238.09}}
+{"ts": "2025-10-16 01:16:00", "op": "PlaceIncrementalOrders", "src": "COMMON", "det": {"symbol": "AAVE_USDC_PERP", "action": "sell", "price": 262.19, "sizes": 0.07, "order_id": "13809754634"}}
+{"ts": "2025-10-16 01:16:00", "op": "OrderAmended", "src": "AAVE_USDC_PERP", "det": {"type": "sell", "order_id": "13809754634", "amount": 18.88, "price": 262.19}}
+{"ts": "2025-10-16 04:30:45", "op": "OrderFilled", "src": "HYPE_USDC_PERP", "det": {"type": "buy", "order_id": "13807157666", "side_active": "sell", "sell_order_id": "13807165446"}}
+{"ts": "2025-10-16 04:30:46", "op": "PlaceIncrementalOrders", "src": "COMMON", "det": {"symbol": "HYPE_USDC_PERP", "action": "buy", "price": 37.83, "sizes": 0.5, "order_id": "13831764267"}}
+{"ts": "2025-10-16 04:30:46", "op": "OrderPlaced", "src": "HYPE_USDC_PERP", "det": {"type": "buy", "order_id": "13831764267", "amount": 18.88, "price": 37.83}}
+{"ts": "2025-10-16 04:30:49", "op": "PlaceIncrementalOrders", "src": "COMMON", "det": {"symbol": "HYPE_USDC_PERP", "action": "sell", "price": 41.659, "sizes": 0.45, "order_id": "13831773103"}}
+{"ts": "2025-10-16 04:30:49", "op": "OrderAmended", "src": "HYPE_USDC_PERP", "det": {"type": "sell", "order_id": "13831773103", "amount": 18.88, "price": 41.659}}
+{"ts": "2025-10-16 04:31:41", "op": "OrderFilled", "src": "AAVE_USDC_PERP", "det": {"type": "buy", "order_id": "13809749226", "side_active": "sell", "sell_order_id": "13809754634"}}
+{"ts": "2025-10-16 04:31:42", "op": "PlaceIncrementalOrders", "src": "COMMON", "det": {"symbol": "AAVE_USDC_PERP", "action": "buy", "price": 235.71, "sizes": 0.08, "order_id": "13831988484"}}
+{"ts": "2025-10-16 04:31:42", "op": "OrderPlaced", "src": "AAVE_USDC_PERP", "det": {"type": "buy", "order_id": "13831988484", "amount": 18.88, "price": 235.71}}
+{"ts": "2025-10-16 04:31:45", "op": "PlaceIncrementalOrders", "src": "COMMON", "det": {"symbol": "AAVE_USDC_PERP", "action": "sell", "price": 259.57, "sizes": 0.07, "order_id": "13831998896"}}
+{"ts": "2025-10-16 04:31:45", "op": "OrderAmended", "src": "AAVE_USDC_PERP", "det": {"type": "sell", "order_id": "13831998896", "amount": 18.88, "price": 259.57}}
+{"ts": "2025-10-16 04:35:21", "op": "OrderFilled", "src": "LINK_USDC_PERP", "det": {"type": "buy", "order_id": "13808999520", "side_active": "sell", "sell_order_id": "13809008461"}}
+{"ts": "2025-10-16 04:35:23", "op": "PlaceIncrementalOrders", "src": "COMMON", "det": {"symbol": "LINK_USDC_PERP", "action": "buy", "price": 17.602, "sizes": 1.1, "order_id": "13832734573"}}
+{"ts": "2025-10-16 04:35:23", "op": "OrderPlaced", "src": "LINK_USDC_PERP", "det": {"type": "buy", "order_id": "13832734573", "amount": 18.88, "price": 17.602}}
+{"ts": "2025-10-16 04:35:25", "op": "PlaceIncrementalOrders", "src": "COMMON", "det": {"symbol": "LINK_USDC_PERP", "action": "sell", "price": 19.383, "sizes": 1.0, "order_id": "13832743638"}}
+{"ts": "2025-10-16 04:35:25", "op": "OrderAmended", "src": "LINK_USDC_PERP", "det": {"type": "sell", "order_id": "13832743638", "amount": 18.88, "price": 19.383}}
+{"ts": "2025-10-16 05:19:38", "op": "OrderFilled", "src": "HYPE_USDC_PERP", "det": {"type": "buy", "order_id": "13831764267", "side_active": "sell", "sell_order_id": "13831773103"}}
+{"ts": "2025-10-16 05:19:39", "op": "PlaceIncrementalOrders", "src": "COMMON", "det": {"symbol": "HYPE_USDC_PERP", "action": "buy", "price": 37.452, "sizes": 0.5, "order_id": "13838910761"}}
+{"ts": "2025-10-16 05:19:39", "op": "OrderPlaced", "src": "HYPE_USDC_PERP", "det": {"type": "buy", "order_id": "13838910761", "amount": 18.88, "price": 37.452}}
+{"ts": "2025-10-16 05:19:42", "op": "PlaceIncrementalOrders", "src": "COMMON", "det": {"symbol": "HYPE_USDC_PERP", "action": "sell", "price": 41.243, "sizes": 0.46, "order_id": "13838915180"}}
+{"ts": "2025-10-16 05:19:42", "op": "OrderAmended", "src": "HYPE_USDC_PERP", "det": {"type": "sell", "order_id": "13838915180", "amount": 18.88, "price": 41.243}}
+{"ts": "2025-10-16 06:45:00", "op": "OrderFilled", "src": "HYPE_USDC_PERP", "det": {"type": "buy", "order_id": "13838910761", "side_active": "sell", "sell_order_id": "13838915180"}}
+{"ts": "2025-10-16 06:45:01", "op": "PlaceIncrementalOrders", "src": "COMMON", "det": {"symbol": "HYPE_USDC_PERP", "action": "buy", "price": 37.078, "sizes": 0.51, "order_id": "13846788464"}}
+{"ts": "2025-10-16 06:45:01", "op": "OrderPlaced", "src": "HYPE_USDC_PERP", "det": {"type": "buy", "order_id": "13846788464", "amount": 18.88, "price": 37.078}}
+{"ts": "2025-10-16 06:45:03", "op": "PlaceIncrementalOrders", "src": "COMMON", "det": {"symbol": "HYPE_USDC_PERP", "action": "sell", "price": 40.83, "sizes": 0.46, "order_id": "13846790810"}}
+{"ts": "2025-10-16 06:45:03", "op": "OrderAmended", "src": "HYPE_USDC_PERP", "det": {"type": "sell", "order_id": "13846790810", "amount": 18.88, "price": 40.83}}
+{"ts": "2025-10-16 06:54:47", "op": "OrderFilled", "src": "HYPE_USDC_PERP", "det": {"type": "buy", "order_id": "13846788464", "side_active": "sell", "sell_order_id": "13846790810"}}
+{"ts": "2025-10-16 06:54:48", "op": "PlaceIncrementalOrders", "src": "COMMON", "det": {"symbol": "HYPE_USDC_PERP", "action": "buy", "price": 36.707, "sizes": 0.51, "order_id": "13847890900"}}
+{"ts": "2025-10-16 06:54:48", "op": "OrderPlaced", "src": "HYPE_USDC_PERP", "det": {"type": "buy", "order_id": "13847890900", "amount": 18.88, "price": 36.707}}
+{"ts": "2025-10-16 06:54:50", "op": "PlaceIncrementalOrders", "src": "COMMON", "det": {"symbol": "HYPE_USDC_PERP", "action": "sell", "price": 40.422, "sizes": 0.47, "order_id": "13847897191"}}
+{"ts": "2025-10-16 06:54:50", "op": "OrderAmended", "src": "HYPE_USDC_PERP", "det": {"type": "sell", "order_id": "13847897191", "amount": 18.88, "price": 40.422}}

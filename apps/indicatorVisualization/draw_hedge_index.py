@@ -90,13 +90,13 @@ try:
     print(get_current_dir() + '/' + 'good_group_plot.txt')
     with open(get_current_dir() + '/' + 'good_group_plot.txt', 'r', encoding='utf8') as f:
         data = f.readlines()
-        good_group = data[0].strip().split(',')
-        all_rate = [float(x) for x in data[1].strip().split(',')]
+        good_group = data[0].replace('，', ',').strip().split(',')
+        all_rate = [float(x) for x in data[1].replace('，', ',').strip().split(',')]
         if len(good_group) != len(all_rate):
             print('TMD不对啊')
         btc_rate = all_rate[0] / sum(all_rate)
         if len(data) >= 3:
-            bad_coins = [x for x  in data[2].replace(' ', '').strip().split(',') if x not in good_group]
+            bad_coins = [x for x  in data[2].replace(' ', '').replace('，', ',').strip().split(',') if x not in good_group]
         else:
             bad_coins = []
 except Exception as e:
@@ -641,49 +641,12 @@ def draw_allcoin_trend(time_gap, coins):
                         fontweight='bold' if is_best else 'normal',
                         ha='left', va='center')
 
-        # 标记点收集
-        up_ma10_x, up_ma10_y = [], []
-        down_ma10_x, down_ma10_y = [], []
-        up_boll_x, up_boll_y = [], []
-        down_boll_x, down_boll_y = [], []
-
-        for i in range(1, len(close_df)):
-            prev_val = ma5_df[col].iloc[i-1]
-            cur_val = ma5_df[col].iloc[i]
-            prev_ma10 = ma10_df[col].iloc[i-1]
-            cur_ma10 = ma10_df[col].iloc[i]
-            prev_boll = bollinger_lower[col].iloc[i-1]
-            cur_boll = bollinger_lower[col].iloc[i]
-
-            idx = trend_df.index[i]
-
-            # 上穿ma10
-            if prev_val < prev_ma10 and cur_val >= cur_ma10:
-                up_ma10_x.append(idx)
-                up_ma10_y.append(trend_df[col].iloc[i])
-            # 下穿ma10
-            if prev_val > prev_ma10 and cur_val <= cur_ma10:
-                down_ma10_x.append(idx)
-                down_ma10_y.append(trend_df[col].iloc[i])
-            # 上穿布林带
-            if prev_val < prev_boll and cur_val >= cur_boll:
-                up_boll_x.append(idx)
-                up_boll_y.append(trend_df[col].iloc[i])
-            # 下穿布林带
-            if prev_val > prev_boll and cur_val <= cur_boll:
-                down_boll_x.append(idx)
-                down_boll_y.append(trend_df[col].iloc[i])
-
-        # 批量画点
-        # ax_price.scatter(up_ma10_x, up_ma10_y, marker='^', color='red', s=20, zorder=5, label=None)
-        # ax_price.scatter(down_ma10_x, down_ma10_y, marker='v', color='blue', s=20, zorder=5, label=None)
-        ax_price.scatter(up_boll_x, up_boll_y, marker='*', color='red', s=20, zorder=5, label=None)
-        ax_price.scatter(down_boll_x, down_boll_y, marker='o', color='blue', s=20, zorder=5, label=None)
-
-        # 统计当前状态
+        # 只获取最新时间与指标的相对位置
         cur_val = close_df[col].iloc[-1]
         cur_ma10 = ma10_df[col].iloc[-1]
         cur_boll = bollinger_lower[col].iloc[-1]
+        
+        # 统计当前状态
         ma10_status.append(cur_val > cur_ma10)
         boll_status.append(cur_val > cur_boll)
 
@@ -1218,14 +1181,14 @@ def optimize_hedge_configuration(
         print(get_current_dir() + '/' + 'good_group_plot.txt')
         with open(get_current_dir() + '/' + 'good_group_plot.txt', 'r', encoding='utf8') as f:
             data = f.readlines()
-            good_group = data[0].strip().split(',')
-            all_rate = [float(x) for x in data[1].strip().split(',')]
+            good_group = data[0].replace('，', ',').strip().split(',')
+            all_rate = [float(x) for x in data[1].replace('，', ',').strip().split(',')]
             if len(good_group) != len(all_rate):
                 print('TMD不对啊')
                 return None
             btc_rate = all_rate[0] / sum(all_rate)
             if len(data) >= 3:
-                bad_coins = [x for x  in data[2].replace(' ', '').strip().split(',') if x not in good_group]
+                bad_coins = [x for x  in data[2].replace(' ', '').replace('，', ',').strip().split(',') if x not in good_group]
             else:
                 bad_coins = []
     except Exception as e:
@@ -1439,22 +1402,44 @@ def main1(top10_coins=['btc', 'eth', 'xrp', 'bnb', 'sol', 'ada', 'doge', 'trx', 
     #      'uni', 'hbar', 'ton', 'sui', 'avax', 'fil', 'ip', 'gala', 'sand']
     if len(good_group) == 0:
         try:
-            print(get_current_dir() + '/' + 'good_group_plot.txt')
-            with open(get_current_dir() + '/' + 'good_group_plot.txt', 'r', encoding='utf8') as f:
+            config_path = get_current_dir() + '/' + 'good_group_plot.txt'
+            print(config_path)
+            with open(config_path, 'r', encoding='utf8') as f:
                 data = f.readlines()
-                good_group = data[0].strip().split(',')
-                all_rate = [float(x) for x in data[1].strip().split(',')]
-                if len(good_group) != len(all_rate):
-                    print('TMD不对啊')
-                    return None
-                btc_rate = all_rate[0] / sum(all_rate)
-                if len(data) == 3:
-                    bad_coins = [x for x  in data[2].replace(' ', '').strip().split(',') if x not in good_group]
+                configs = []
+                # 以三行为一组读取多组配置
+                for i in range(0, len(data), 3):
+                    group = data[i].strip().replace('，', ',').split(',') if i < len(data) else []
+                    rate = [float(x) for x in data[i+1].strip().replace('，', ',').split(',')] if i+1 < len(data) else []
+                    if group and rate and len(group) == len(rate):
+                        # 尝试读取bad_coins，如果没有则空
+                        if i+2 < len(data):
+                            bad_line = data[i+2].strip().replace(' ', '').replace('，', ',')
+                            bad_coins_group = [x for x in bad_line.split(',') if x not in group]
+                        else:
+                            bad_coins_group = []
+                        configs.append({
+                            'good_group': group,
+                            'all_rate': rate,
+                            'bad_coins': bad_coins_group
+                        })
+                    else:
+                        print(f'第{i//3+1}组配置有误，跳过')
+                
+                # 默认使用第一个配置，你可自定义切换
+                if len(configs) > 0:
+                    good_group = configs[0]['good_group']
+                    all_rate = configs[0]['all_rate']
+                    bad_coins = configs[0]['bad_coins']
                 else:
+                    # 没有合法配置 fallback
+                    good_group = ['btc', 'sol']
+                    all_rate = [1, 1]
                     bad_coins = []
         except Exception as e:
             print('我草拟吗 他么出什么傻逼问题了？！', e)
             good_group = ['btc', 'sol']
+            all_rate = [1, 1]
             bad_coins = []
     if len(bad_coins) > 0:
         top10_coins = bad_coins
@@ -1470,27 +1455,46 @@ def main1(top10_coins=['btc', 'eth', 'xrp', 'bnb', 'sol', 'ada', 'doge', 'trx', 
     # ⭐ ---------- 布林带市场情绪分析 ------------------------------------
     # bollinger_sentiment = calculate_bollinger_market_sentiment(data_frames, time_gap)
     
-    # ① ---------- 构造权重向量（归一化到 1）------------------------------
-    total = sum(all_rate)
-    weights = {c: r / total for c, r in zip(good_group, all_rate)}  # {'btc':0.45, 'doge':0.30, …}
-    # ② ---------- 拼接 good_group 的收益列 -------------------------------
-    good_df = pd.concat(
-        [data_frames[c]['daily_return'].rename(c)  # 列名=币名
-         for c in good_group if c in data_frames],
-        axis=1
-    )
+    # 针对前面得到的多组configs，配置使用前N个，然后得到其stack_profile，用于后续绘制多条曲线
+    N_CONFIGS_TO_USE = min(3, len(configs))  # 例如最多取3组
+    stack_profiles = []
+    goodGroup_returns = []
+    bad_average_returns = []
+    configs_used = configs[:N_CONFIGS_TO_USE] if len(configs) > 0 else [{
+        'good_group': good_group, 'all_rate': all_rate, 'bad_coins': bad_coins
+    }]
 
-    # ③ ---------- 加权求和 ---------------------------------------------
-    w_series = pd.Series(weights).reindex(good_df.columns, fill_value=0)  # 对齐列顺序
-    goodGroup_returns = (good_df.mul(w_series, axis=1)).sum(axis=1)  # 行向量∙权重
 
-    # ④ ---------- 其余非 good_group 仍然计算等权均值 --------------------
-    average_returns = pd.concat(
-        [data_frames[coin]['daily_return']
-         for coin in top10_coins if coin not in good_group and coin in data_frames],
-        axis=1
-    ).mean(axis=1)
+    for cfg in configs_used:
+        group = cfg['good_group']
+        rate = cfg['all_rate']
+        bad_coins = cfg['bad_coins']
+        # 归一化权重
+        total = sum(rate)
+        weights = {c: r / total for c, r in zip(group, rate)}
+        # 拼接 group 的收益列
+        good_df = pd.concat(
+            [data_frames[c]['daily_return'].rename(c)
+             for c in group if c in data_frames],
+            axis=1
+        )
+        bad_average_return = pd.concat([data_frames[coin]['daily_return']
+            for coin in top10_coins if coin not in group and coin in data_frames and coin in bad_coins], axis=1).mean(axis=1)
 
+        # 加权求和
+        w_series = pd.Series(weights).reindex(good_df.columns, fill_value=0)
+        goodGroup_return = (good_df.mul(w_series, axis=1)).sum(axis=1)
+        goodGroup_returns.append(goodGroup_return)
+        bad_average_returns.append(bad_average_return)
+        # 计算 diff 和累积
+        diff_returns = goodGroup_return - bad_average_return
+        cur_stack = diff_returns.cumsum()
+        stack_profiles.append(cur_stack)
+
+    # 兼容性变量，保留默认行为（第一个配置组的 stack_profile 用于后续绘图/统计等）
+    stack_profile = stack_profiles[0] if len(stack_profiles) > 0 else pd.Series([0])
+    goodGroup_return = goodGroup_returns[0] if len(goodGroup_returns) > 0 else pd.Series([0])
+    bad_average_return = bad_average_returns[0] if len(bad_average_returns) > 0 else pd.Series([0])
 
 
     upper_band_name = 'bollinger_upper'
@@ -1517,10 +1521,7 @@ def main1(top10_coins=['btc', 'eth', 'xrp', 'bnb', 'sol', 'ada', 'doge', 'trx', 
     btc_close_price = data_frames['btc']['close']
     btc_high_price = data_frames['btc']['high']
     btc_low_price = data_frames['btc']['low']
-    sum_profile = 0
-    # Calculate the difference and cumulative sum
-    diff_returns = goodGroup_returns - average_returns
-    stack_profile = diff_returns.cumsum()
+    # sum_profile = 0
 
     WINDOW  = 20          # 滚动窗口
     N_STD   = 2           # n × 标准差
@@ -1564,12 +1565,12 @@ def main1(top10_coins=['btc', 'eth', 'xrp', 'bnb', 'sol', 'ada', 'doge', 'trx', 
         upper = pd.Series(upper, index=idx)
         lower = pd.Series(lower, index=idx)
 
-    for i in range(len(goodGroup_returns)):
-        sum_profile += (float(goodGroup_returns[i]) - float(average_returns[i]))
+    # for i in range(len(goodGroup_return)):
+    #     sum_profile += (float(goodGroup_return[i]) - float(bad_average_return[i]))
 
-    reduce_part = goodGroup_returns - average_returns
+    reduce_part = goodGroup_return - bad_average_return
 
-    date_range = goodGroup_returns.index
+    date_range = goodGroup_return.index
     btc_trend = (btc_close_price / btc_close_price[0] - 1) * 100
     high_trend = (btc_high_price / btc_close_price[0] - 1) * 100
     low_trend = (btc_low_price / btc_close_price[0] - 1) * 100
@@ -1787,9 +1788,10 @@ def main1(top10_coins=['btc', 'eth', 'xrp', 'bnb', 'sol', 'ada', 'doge', 'trx', 
              label='lower bollinger', color='black', alpha=0.6)
     
     # ---------- 2. 其它币（含缩放后 BTC）-------------------------------
+    # 收集所有币种的缩放数据用于计算布林带位置
+    
     for coin, df in data_frames.items():
         scaled = (df['close'] / df['close'].iloc[0] - 1) * 100
-
         if coin == 'btc':
             # 缩放后 BTC : 深橘粗虚线
             ax_trend.plot(date_range, scaled,
@@ -1799,6 +1801,75 @@ def main1(top10_coins=['btc', 'eth', 'xrp', 'bnb', 'sol', 'ada', 'doge', 'trx', 
                     color=next(color_iter),
                     ls=next(ls_iter),
                     lw=1.0, alpha=.5)        # label 省略避免图例过长
+
+    # ---------- 3. 计算布林带位置变化并标记 --------------------------------
+    if len(data_frames) > 0:
+        # 为每个币种计算各自的布林带
+        coin_bollinger_data = {}
+        for coin, df in data_frames.items():
+            if 'close' in df.columns and len(df) >= 20:
+                # 计算每个币种的布林带
+                close_prices = df['close']
+                ma20 = close_prices.rolling(window=20).mean()
+
+                # 填充NaN值
+                ma20 = ma20.fillna(method='bfill', limit=19)
+
+                coin_bollinger_data[coin] = {
+                    'close': close_prices,
+                    'middle': ma20,
+                }
+        
+        # 计算每个时间点高于和低于各自布林带中轨的币种比例
+        above_bollinger_ratio = []
+        below_bollinger_ratio = []
+        
+        for i in range(len(date_range)):
+            above_count = 0
+            below_count = 0
+            total_count = 0
+            
+            for coin, boll_data in coin_bollinger_data.items():
+                if i < len(boll_data['close']) and not pd.isna(boll_data['close'].iloc[i]):
+                    total_count += 1
+                    # 使用各自币种的布林带中轨作为参考
+                    if i < len(boll_data['middle']) and not pd.isna(boll_data['middle'].iloc[i]):
+                        if boll_data['close'].iloc[i] > boll_data['middle'].iloc[i]:
+                            above_count += 1
+                        elif boll_data['close'].iloc[i] < boll_data['middle'].iloc[i]:
+                            below_count += 1
+            
+            if total_count > 0:
+                above_bollinger_ratio.append(above_count / total_count)
+                below_bollinger_ratio.append(below_count / total_count)
+            else:
+                above_bollinger_ratio.append(0)
+                below_bollinger_ratio.append(0)
+        
+        # 寻找阈值交叉点
+        upper_threshold = 0.85  # 高于中轨的75%阈值
+        lower_threshold = 0.85  # 低于中轨的75%阈值
+        
+        for i in range(1, len(above_bollinger_ratio)):
+            # 检查高于中轨的比例变化
+            prev_above_ratio = above_bollinger_ratio[i-1]
+            cur_above_ratio = above_bollinger_ratio[i]
+            
+            # 从75%以上跌到75%以下 - 画向上箭头
+            if prev_above_ratio >= upper_threshold and cur_above_ratio < upper_threshold:
+                ax_trend.axvline(x=date_range[i], color='green', linestyle='--', alpha=0.7, linewidth=1.5)
+                ax_trend.annotate('↑', xy=(date_range[i], ax_trend.get_ylim()[1] * 0.95), 
+                                ha='center', va='top', fontsize=16, color='green', fontweight='bold')
+            
+            # 检查低于中轨的比例变化
+            prev_below_ratio = below_bollinger_ratio[i-1]
+            cur_below_ratio = below_bollinger_ratio[i]
+            
+            # 突破25% - 画向下箭头
+            if prev_below_ratio < lower_threshold and cur_below_ratio >= lower_threshold:
+                ax_trend.axvline(x=date_range[i], color='red', linestyle='--', alpha=0.7, linewidth=1.5)
+                ax_trend.annotate('↓', xy=(date_range[i], ax_trend.get_ylim()[1] * 0.95), 
+                                ha='center', va='top', fontsize=16, color='red', fontweight='bold')
 
 
     # -------- 美化 trend 面板 -------------------------------------------
@@ -1892,8 +1963,35 @@ def main1(top10_coins=['btc', 'eth', 'xrp', 'bnb', 'sol', 'ada', 'doge', 'trx', 
     # 画水平线
     ax1.axhline(y=y_last, color='purple', linestyle='--', linewidth=0.8, label=f'Last stack_profile = {y_last:.2f}')
 
-    ax1.plot(date_range, stack_profile, label='BTC/Others Trend', color='green', linewidth=2)
-    
+    ax1.plot(date_range, stack_profile, label='TOPDOGINDEX', color='green', linewidth=2)
+    # 定义独特的颜色和统一线型（虚线）
+    unique_colors = [
+        '#FF6F61',  # 柔和红
+        '#6B5B95',  # 静谧紫
+        '#88B04B',  # 清新绿
+        '#F7CAC9',  # 浅粉
+        '#92A8D1',  # 温柔蓝
+        '#955251',  # 棕紫
+        '#B565A7',  # 淡紫
+        '#009B77',  # 石绿
+        '#DD4124',  # 鲜橙
+        '#D65076',  # 玫紫
+        '#45B8AC',  # 青绿
+        '#EFC050',  # 金色
+    ]
+    unique_linestyle = (0, (5, 2))  # 自定义为虚线线型
+
+    for stack_profile_idx in range(len(stack_profiles) - 1):
+        color = unique_colors[stack_profile_idx % len(unique_colors)]
+        ax1.plot(
+            date_range,
+            stack_profiles[stack_profile_idx + 1],
+            label=f'TOPDOGINDEX {stack_profile_idx+1}',
+            color=color,
+            linewidth=2.5,
+            linestyle=unique_linestyle
+        )
+
     if time_gap.find('h') != -1:
         # —— 3) 绘制黑色小圆点（不进图例）——
         ax1.scatter(sp.index[cross_idx], sp.iloc[cross_idx], marker='o', color='black', s=28, zorder=8)
@@ -1929,9 +2027,9 @@ def main1(top10_coins=['btc', 'eth', 'xrp', 'bnb', 'sol', 'ada', 'doge', 'trx', 
     plt.close('all')  # 关闭所有图形
     gc.collect()  # 强制垃圾回收
 
-    print(len([x for x in goodGroup_returns - average_returns if x >= 0]),
-          len([x for x in goodGroup_returns if x >= 0]),
-          len([x for x in goodGroup_returns - average_returns if x < 0])
+    print(len([x for x in goodGroup_return - bad_average_return if x >= 0]),
+          len([x for x in goodGroup_return if x >= 0]),
+          len([x for x in goodGroup_return - bad_average_return if x < 0])
           )
 
 
@@ -2207,42 +2305,49 @@ if __name__ == '__main__':
         #         print(f"Cluster {cid}: {members}")
     # ---------------------------------------------------------------
     while True:
-        try:
-        # if 1>0:
-            now = time.time()
-            for idx, gap in enumerate(['1m','5m','15m','1h','4h','1d']):
-                if now - last_run[gap] < update_interval[gap]:
-                    continue                      # 未到刷新点
-                if idx == 1:
-                    for xx in ['1m', '5m', '15m']:
+        debug_mode = False
+        now = time.time()
+        for idx, gap in enumerate(['1m','5m','15m','1h','4h','1d']):
+            if now - last_run[gap] < update_interval[gap]:
+                continue                      # 未到刷新点
+            if idx == 1:
+                for xx in ['1m', '5m', '15m']:
+                    if debug_mode:  
                         draw_allcoin_trend(xx, COINS)        # COINS 是你的币种列表
-                
-                # ---------- 生成并发送主图 ----------
-                chart_name = f'all_coin-{idx}'
-                good_group = list(set(['btc'] + best_performance_coins))
-                good_group = []
-                main1(COINS, prex=chart_name, time_gap=gap, good_group=good_group, all_rate= [1/len(good_group) for coinx in good_group] )
-                out_dir = Path(get_current_dir()) / 'chart_for_group'
-                out_dir.mkdir(parents=True, exist_ok=True)
-                local = str(out_dir / f'comparison_chart_{chart_name}_{gap}.png')
-                remote = timegap_to_filename[gap]
-                if HOST_IP.find(SERVER_IP) != -1:
-                    os.system(f'cp {local} ~/mysite/static/images/{remote}')
-                else:
-                    os.system(f'scp {local} root@{SERVER_IP}:/root/mysite/static/images/{remote}')
+                    else:
+                        try:
+                            draw_allcoin_trend(xx, COINS)        # COINS 是你的币种列表
+                        except Exception as e:
+                            print("主循环 draw_allcoin_trend异常:", e)
+            # ---------- 生成并发送主图 ----------
+            chart_name = f'all_coin-{idx}'
+            good_group = []
+            if not debug_mode:
+                try:
+                    main1(COINS, prex=chart_name, time_gap=gap, good_group=good_group, all_rate=[])
+                except Exception as e:
+                    print("主循环main1异常:", e)
+            else:
+                main1(COINS, prex=chart_name, time_gap=gap, good_group=good_group, all_rate=[])
+            out_dir = Path(get_current_dir()) / 'chart_for_group'
+            out_dir.mkdir(parents=True, exist_ok=True)
+            local = str(out_dir / f'comparison_chart_{chart_name}_{gap}.png')
+            remote = timegap_to_filename[gap]
+            if HOST_IP.find(SERVER_IP) != -1:
+                os.system(f'cp {local} ~/mysite/static/images/{remote}')
+            else:
+                os.system(f'scp {local} root@{SERVER_IP}:/root/mysite/static/images/{remote}')
 
-                last_run[gap] = now              # 更新时间戳
-                print(f"[{gap}] 更新完成，用时 {round(time.time()-now,2)} 秒")
-                        # ---------- 调用 ----------
+            last_run[gap] = now              # 更新时间戳
+            print(f"[{gap}] 更新完成，用时 {round(time.time()-now,2)} 秒")
+                    # ---------- 调用 ----------
 
-            # 每日刷新一次 best / worst 组合
-            if int(now//3600) != int((now-10)//3600):
-                worst_performance_coins, best_performance_coins = get_good_bad_coin_group(18)
+        # 每日刷新一次 best / worst 组合
+        if int(now//3600) != int((now-10)//3600):
+            worst_performance_coins, best_performance_coins = get_good_bad_coin_group(18)
 
-            if (now - start_time) % 600 == 0:
-                log_asset()
-                plot_asset_trend()
-        except Exception as e:
-            print("主循环异常:", e)
+        if (now - start_time) % 600 == 0:
+            log_asset()
+            plot_asset_trend()
 
         time.sleep(2)        # 轻量轮询

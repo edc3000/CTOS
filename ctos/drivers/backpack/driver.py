@@ -214,6 +214,7 @@ class BackpackDriver(TradingSyscalls):
         self.default_quote = default_quote or "USDC"
         self.symbol = 'ETH_USDC_PERP'
         self.load_exchange_trade_info()
+        self.order_id_to_symbol = {}
 
 
     def save_exchange_trade_info(self):
@@ -1127,7 +1128,7 @@ class BackpackDriver(TradingSyscalls):
                 return e
         raise NotImplementedError("Account.get_balances unavailable")
 
-    def get_position(self, symbol=None, window=None, keep_origin=True):
+    def get_position(self, symbol=None, window=None, keep_origin=False):
         """
         获取当前仓位。
         - symbol 为空: 返回全部仓位

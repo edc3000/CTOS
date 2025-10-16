@@ -176,6 +176,7 @@ class OkxDriver(TradingSyscalls):
         self.price_scale = price_scale
         self.size_scale = size_scale
         self.load_exchange_trade_info()
+        self.order_id_to_symbol = {}
 
     def save_exchange_trade_info(self):
         with open(os.path.dirname(os.path.abspath(__file__)) + '/exchange_trade_info.json', 'w') as f:

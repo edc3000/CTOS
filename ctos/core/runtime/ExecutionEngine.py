@@ -9,12 +9,6 @@ import time
 def _add_bpx_path():
     """添加bpx包路径到sys.path，支持多种运行方式"""
     current_dir = os.path.dirname(os.path.abspath(__file__))
-    bpx_path = os.path.join(current_dir, 'bpx')
-    
-    # 添加当前目录的bpx路径
-    if bpx_path not in sys.path:
-        sys.path.insert(0, bpx_path)
-    
     # 添加项目根目录的bpx路径（如果存在）
     project_root = os.path.abspath(os.path.join(current_dir, '../../..'))
     root_bpx_path = os.path.join(project_root, 'bpx')
@@ -82,7 +76,6 @@ class ExecutionEngine:
         self.account = account
         self.exchange_type = exchange_type.lower()
         self.strategy_detail = strategy_detail
-        self.order_id_to_coin = {}
         # 获取AccountManager
         if account_manager is None:
             self.account_manager = get_account_manager()
@@ -99,7 +92,8 @@ class ExecutionEngine:
         
         if self.cex_driver is None:
             raise RuntimeError(f"Failed to get {self.exchange_type} driver for account {account}")
-        
+        self.cex_driver.order_id_to_symbol = {}
+
         # 初始化监控和日志
         self.monitor = SystemMonitor(self, strategy)
         self.logger = self.monitor.logger
@@ -300,9 +294,9 @@ class ExecutionEngine:
             print('❌ 获取未完成订单失败: {err}')
             return
         for order_id in open_orders:
-            if order_id in self.order_id_to_coin.keys():
-                self.cex_driver.revoke_order(order_id, self.order_id_to_coin[order_id])
-        self.order_id_to_coin = {}
+            if order_id in self.cex_driver.order_id_to_symbol.keys():
+                self.cex_driver.revoke_order(order_id, self.cex_driver.order_id_to_symbol[order_id])
+        self.cex_driver.order_id_to_symbol = {}
 
     def place_incremental_orders(self, usdt_amount, coin, direction, soft=False, price=None):
         """
@@ -347,7 +341,7 @@ class ExecutionEngine:
             if not soft:
                 order_id, err_msg = self.cex_driver.place_order(symbol_full, 'buy', 'MARKET', order_amount)
                 if order_id:
-                    self.order_id_to_coin[order_id] = coin
+                    self.cex_driver.order_id_to_symbol[order_id] = coin
                     soft_orders_to_focus.append(order_id)
             else:
                 if price:
@@ -357,7 +351,7 @@ class ExecutionEngine:
                 print(f"limit_price: {limit_price}, order_amount:{order_amount}")
                 order_id, err_msg = self.cex_driver.place_order(symbol_full, 'buy', 'limit', order_amount, limit_price)
                 if order_id:
-                    self.order_id_to_coin[order_id] = coin
+                    self.cex_driver.order_id_to_symbol[order_id] = coin
                     soft_orders_to_focus.append(order_id)
             if order_id:
                 print(f"\r**BUY** order for {order_amount if order_id else 0} units of 【{coin.upper()}】 at price {price}")
@@ -381,10 +375,10 @@ class ExecutionEngine:
                 print(f"limit_price: {limit_price}, order_amount:{order_amount}")
                 order_id, err_msg = self.cex_driver.place_order(symbol_full, 'sell', 'limit', order_amount, limit_price)
                 if order_id:
-                    self.order_id_to_coin[order_id] = coin
+                    self.cex_driver.order_id_to_symbol[order_id] = coin
                     soft_orders_to_focus.append(order_id)
                 else:
-                    self.order_id_to_coin[order_id] = coin
+                    self.cex_driver.order_id_to_symbol[order_id] = coin
             if order_id:
                 print(f"\r **SELL**  order for {order_amount if order_id else 0} units of 【{coin.upper()}】 at price {price}")
                 self.monitor.record_operation("PlaceIncrementalOrders", self.strategy_detail, {

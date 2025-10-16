@@ -1,6 +1,6 @@
-🌐 Languages: [English](README_EN.md) | [中文](README.md) | [日本語](scripts/README_JP.md) | [한국어](scripts/README_KR.md)
-![](ctoslogo.png)
-![](balance_trend.png)
+🌐 Languages: [English](./docs/README_EN.md) | [中文](README.md) | [日本語](./docs/README_JP.md) | [한국어](./docs/README_KR.md)
+![](./docs/ctoslogo.png)
+![](./docs/balance_trend.png)
 ## CTOS：加密交易操作系统（借鉴 Linux 设计理念）
 
 **范围：** 面向中心化交易所（CEX）的量化交易（初期支持 OKX、Backpack、Binance）。
@@ -304,6 +304,7 @@ engine = ExecutionEngine(account=2, exchange_type='okx')
 
 ## 快速开始（实践流程）
 > ⚠️ 如遇网络连接问题，请确保已配置科学上网环境以顺利访问交易所API。
+
 > 💡 网络或API连通性排查建议：可运行 `python scripts/net_probe.py`，自动检测本地到 OKX、Backpack、Binance 等交易所的网络连通性、DNS、TLS 及驱动可用性，并给出详细诊断和修复建议。
 
 
@@ -366,7 +367,7 @@ engine = ExecutionEngine(account=2, exchange_type='okx')
 6. **回测/重放@TODO** 
 
    $真男人就是干！回测个P!$
-   
+
    将历史数据放入 `tools/backtest/`，然后：
 
    ```bash

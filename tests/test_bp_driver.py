@@ -11,7 +11,7 @@ _PROJECT_ROOT = _THIS_FILE.parents[1]
 if str(_PROJECT_ROOT) not in sys.path:
     sys.path.insert(0, str(_PROJECT_ROOT))
 
-from ctos.drivers.backpack.driver import BackpackDriver
+from ctos.drivers.backpack.driver_ccxt import BackpackDriver
 from ctos.drivers.okx.util import align_decimal_places
 
 
