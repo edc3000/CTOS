@@ -21,7 +21,7 @@
 ---
 
 ## 特性
-- **权重可配置**：例如 `follow/repost/like/reply` 分别赋予 3/4/1/2 权重；同一因子可重复出现（权重累加）。  
+- **权重可配置**：例如 `follow/repost/like/reply` 分别赋予 10/10/2/5 权重；同一因子可重复出现（权重累加）。  
 - **公平抽样**：采用 *Efraimidis–Spirakis* 的**加权无放回抽样**算法。  
 - **可复现/可追溯**：
   - `deterministic` 模式：同配置 + 种子 → 结果可完全复现；
@@ -80,10 +80,10 @@ python3 lottery.py --audit-chain audit_chain.jsonl --verify-config config.json
 ### 2) `factors` —— 因子→权重
 ```json
 "factors": {
-  "follow": 3,
-  "repost": 4,
-  "like": 1,
-  "reply": 2
+  "follow": 10,
+  "repost": 10,
+  "like": 2,
+  "reply": 5
 }
 ```
 - 可自行扩展与修改；**未知因子将被忽略（权重按 0 计）**。
@@ -213,10 +213,10 @@ A：可以，直接在 `factors` 中增加键值并在参与者 `factors` 序列
     "external_entropy": "OPTIONAL: e.g., eth block hash of #21938123"
   },
   "factors": {
-    "follow": 3,
-    "repost": 4,
-    "like": 1,
-    "reply": 2
+    "follow": 10,
+    "repost": 10,
+    "like": 2,
+    "reply": 5
   },
   "participants": [
     {"id": "alice", "factors": ["follow", "repost", "like"]},
