@@ -3,7 +3,8 @@ import os
 import re
 import decimal
 import time 
-
+from concurrent.futures import ThreadPoolExecutor, as_completed
+import multiprocessing
 
 # 动态添加bpx包路径到sys.path
 def _add_bpx_path():
@@ -11,9 +12,6 @@ def _add_bpx_path():
     current_dir = os.path.dirname(os.path.abspath(__file__))
     # 添加项目根目录的bpx路径（如果存在）
     project_root = os.path.abspath(os.path.join(current_dir, '../../..'))
-    root_bpx_path = os.path.join(project_root, 'bpx')
-    if os.path.exists(root_bpx_path) and root_bpx_path not in sys.path:
-        sys.path.insert(0, root_bpx_path)
     if os.path.exists(project_root) and project_root not in sys.path:
         sys.path.insert(0, project_root)
     return project_root
@@ -113,7 +111,7 @@ class ExecutionEngine:
         self.logger.info(f"ExecutionEngine initialized for {self.exchange_type} account {account}")
 
 
-    def set_coin_position_to_target(self, usdt_amounts=[10], coins=['eth'], soft=False):
+    def set_coin_position_to_target(self, usdt_amounts=[10], coins=['eth'], soft=False, async_mode=False, max_workers= multiprocessing.cpu_count()):
         start_time = time.time()
         position_infos, err = self.cex_driver.get_position(keep_origin=False)
         if err:
@@ -124,6 +122,38 @@ class ExecutionEngine:
             if float(x['quantity']) != 0:
                 all_pos_info[x['symbol']] = x
         print('all_pos_info.keys: ', all_pos_info.keys())
+        
+        # 如果启用异步模式，使用并发处理
+        if async_mode:
+            if max_workers is None:
+                max_workers = 5  # 默认5个并发线程
+            print(f"🚀 启动异步模式，最大并发数: {max_workers}")
+            
+            # 准备任务数据
+            tasks = []
+            for coin, usdt_amount in zip(coins, usdt_amounts):
+                tasks.append((coin, usdt_amount, soft, all_pos_info))
+            
+            # 使用线程池并发执行
+            with ThreadPoolExecutor(max_workers=max_workers) as executor:
+                futures = []
+                for coin, usdt_amount, soft, all_pos_info in tasks:
+                    future = executor.submit(self._process_single_coin_async, coin, usdt_amount, soft, all_pos_info)
+                    futures.append(future)
+                
+                # 等待所有任务完成
+                for future in as_completed(futures):
+                    try:
+                        result = future.result(timeout=60)
+                        if result:
+                            print(f"✅ {result['coin'].upper()} 处理完成")
+                    except Exception as e:
+                        print(f"❌ 任务执行异常: {e}")
+            
+            print(f'本次异步初始化耗时: {round(time.time() - start_time)}')
+            return self.soft_orders_to_focus
+        
+        # 原有同步逻辑
         for coin, usdt_amount in zip(coins, usdt_amounts):
             try:
                 symbol_full, _, _ = self.cex_driver._norm_symbol(coin)
@@ -298,7 +328,7 @@ class ExecutionEngine:
                 self.cex_driver.revoke_order(order_id, self.cex_driver.order_id_to_symbol[order_id])
         self.cex_driver.order_id_to_symbol = {}
 
-    def place_incremental_orders(self, usdt_amount, coin, direction, soft=False, price=None):
+    def place_incremental_orders(self, usdt_amount, coin, direction, soft=False, price=None, async_mode=False):
         """
         根据usdt_amount下分步订单，并通过 SystemMonitor 记录审核信息
         操作中调用内部封装的买卖接口（本版本建议使用 HTTP 接口下单的方式）。
@@ -354,7 +384,7 @@ class ExecutionEngine:
                     self.cex_driver.order_id_to_symbol[order_id] = coin
                     soft_orders_to_focus.append(order_id)
             if order_id:
-                print(f"\r**BUY** order for {order_amount if order_id else 0} units of 【{coin.upper()}】 at price {price}")
+                print(f"\r {self.cex_driver.cex.upper()}-{self.account} **BUY** order for {order_amount if order_id else 0} units of 【{coin.upper()}】 at price {price}")
                 self.monitor.record_operation("PlaceIncrementalOrders", self.strategy_detail, {
                     "symbol": symbol_full, "action": "buy", "price": price, "sizes": order_amount, 'order_id': order_id})
             else:
@@ -380,7 +410,7 @@ class ExecutionEngine:
                 else:
                     self.cex_driver.order_id_to_symbol[order_id] = coin
             if order_id:
-                print(f"\r **SELL**  order for {order_amount if order_id else 0} units of 【{coin.upper()}】 at price {price}")
+                print(f"\r {self.cex_driver.cex.upper()}-{self.account} **SELL**  order for {order_amount if order_id else 0} units of 【{coin.upper()}】 at price {price} for $ {usdt_amount}")
                 self.monitor.record_operation("PlaceIncrementalOrders", self.strategy_detail, {
                     "symbol": symbol_full, "action": "sell", "price": price, "sizes": order_amount, 'order_id': order_id})
             else:
@@ -395,6 +425,45 @@ class ExecutionEngine:
         if soft:
             self.soft_orders_to_focus += soft_orders_to_focus
         return soft_orders_to_focus, None
+
+    def _process_single_coin_async(self, coin, usdt_amount, soft, all_pos_info):
+        """
+        异步处理单个币种的持仓调整
+        """
+        try:
+            symbol_full, _, _ = self.cex_driver._norm_symbol(coin)
+            data = all_pos_info.get(symbol_full, None)
+            
+            if not data:
+                print(f'🆕 {coin.upper()} 还没开仓呢哥！')
+                try:
+                    _, err = self.place_incremental_orders(abs(usdt_amount), coin, 'sell' if usdt_amount < 0 else 'buy',
+                                                    soft=soft if coin.lower().find('xaut') == -1 or coin.lower().find('trx') == -1 else False)
+                    if err:
+                        return {'coin': coin, 'success': False, 'error': err}
+                except Exception as ex:
+                    print(f'❌ {coin.upper()} 开仓失败: {ex}')
+                    return {'coin': coin, 'success': False, 'error': str(ex)}
+            else:
+                side = data['side']
+                open_position = float(data['quantityUSD']) if side == 'long' else -float(data['quantityUSD'])
+                diff = open_position - usdt_amount
+                
+                if abs(diff) < 1:
+                    return {'coin': coin, 'success': True, 'message': '差额太小，跳过'}
+                
+                print(f"📊 【{coin.upper()}】需要补齐差额: {round(diff, 2)} = 现有:{round(open_position, 2)} - Target:{round(usdt_amount)}")
+                
+                oid, err = self.place_incremental_orders(abs(diff), coin, 'sell' if diff > 0 else 'buy', 
+                                                        soft=soft if coin.lower().find('xaut') == -1 or coin.lower().find('trx') == -1 else False)
+                if oid:
+                    return {'coin': coin, 'success': True, 'order_id': oid}
+                else:
+                    return {'coin': coin, 'success': False, 'error': err}
+                    
+        except Exception as e:
+            print(f'❌ {coin.upper()} 处理异常: {e}')
+            return {'coin': coin, 'success': False, 'error': str(e)}
 
 
 def init_all_thing(exchange_type='okx', account=0):
