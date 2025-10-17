@@ -111,7 +111,7 @@ class ExecutionEngine:
         self.logger.info(f"ExecutionEngine initialized for {self.exchange_type} account {account}")
 
 
-    def set_coin_position_to_target(self, usdt_amounts=[10], coins=['eth'], soft=False, async_mode=False, max_workers= multiprocessing.cpu_count()):
+    def set_coin_position_to_target(self, usdt_amounts=[10], coins=['eth'], soft=False, async_mode=False, max_workers= multiprocessing.cpu_count(), stack_mode=False):
         start_time = time.time()
         position_infos, err = self.cex_driver.get_position(keep_origin=False)
         if err:
@@ -132,13 +132,13 @@ class ExecutionEngine:
             # 准备任务数据
             tasks = []
             for coin, usdt_amount in zip(coins, usdt_amounts):
-                tasks.append((coin, usdt_amount, soft, all_pos_info))
+                tasks.append((coin, usdt_amount, soft, all_pos_info, stack_mode))
             
             # 使用线程池并发执行
             with ThreadPoolExecutor(max_workers=max_workers) as executor:
                 futures = []
-                for coin, usdt_amount, soft, all_pos_info in tasks:
-                    future = executor.submit(self._process_single_coin_async, coin, usdt_amount, soft, all_pos_info)
+                for coin, usdt_amount, soft, all_pos_info, stack_mode in tasks:
+                    future = executor.submit(self._process_single_coin_async, coin, usdt_amount, soft, all_pos_info, stack_mode)
                     futures.append(future)
                 
                 # 等待所有任务完成
@@ -158,14 +158,18 @@ class ExecutionEngine:
             try:
                 symbol_full, _, _ = self.cex_driver._norm_symbol(coin)
                 # exchange = init_CexClient(coin)
-                data = all_pos_info.get(symbol_full, None)
+                if stack_mode:
+                    data = None
+                else:
+                    data = all_pos_info.get(symbol_full, None)
                 if not data:
-                    print('！！！！！！！！！！还没开仓呢哥！')
-                    self.monitor.record_operation("SetCoinPosition  OpenPosition", self.strategy_detail,
-                                                  {"symbol": symbol_full, "error": "无法获取持仓信息"})
+                    if not stack_mode:
+                        print('！！！！！！！！！！还没开仓呢哥！')
+                        self.monitor.record_operation("SetCoinPosition  OpenPosition", self.strategy_detail,
+                                                    {"symbol": symbol_full, "error": "无法获取持仓信息"})
                     try:
                         # if 1>0:
-                        _, err = self.place_incremental_orders(abs(usdt_amount), coin, 'sell' if usdt_amount < 0 else 'buy',
+                        _, err = self.place_incremental_orders(abs(usdt_amount), coin, 'sell' if usdt_amount < 0 else 'buy', async_mode=async_mode,
                                                         soft=soft if coin.lower().find(
                                                             'xaut') == -1 or coin.lower().find(
                                                             'trx') == -1 else False)
@@ -351,7 +355,7 @@ class ExecutionEngine:
         price = exchange.get_price_now(coin) if price is None else price
         if price is None:
             self.monitor.record_operation("PlaceIncrementalOrders", self.strategy_detail,
-                                          {"symbol": symbol_full, "error": "获取当前价格失败"})
+                                          {"symbol": symbol_full, "error": "获取当前价格失败", "async_mode":async_mode})
             return None, "获取当前价格失败"
         base_order_money = price * contract_value
         
@@ -363,7 +367,7 @@ class ExecutionEngine:
             order_amount = round_like(min_order_size , usdt_amount * pow(1.25, add_amount_times) / base_order_money)
         if order_amount == 0:
             self.monitor.record_operation("PlaceIncrementalOrders", self.strategy_detail,
-                                          {"symbol": symbol_full, "error": "订单金额过小，无法下单"})
+                                          {"symbol": symbol_full, "error": "订单金额过小，无法下单", "async_mode":async_mode})
             print('订单金额过小，无法下单')
             return None, "订单金额过小，无法下单"
         order_id = None
@@ -384,13 +388,13 @@ class ExecutionEngine:
                     self.cex_driver.order_id_to_symbol[order_id] = coin
                     soft_orders_to_focus.append(order_id)
             if order_id:
-                print(f"\r {self.cex_driver.cex.upper()}-{self.account} **BUY** order for {order_amount if order_id else 0} units of 【{coin.upper()}】 at price {price}")
+                print(f"\r{BeijingTime()} {self.cex_driver.cex.upper()}-{self.account} **BUY** order for {order_amount if order_id else 0} units of 【{coin.upper()}】 at price {price}")
                 self.monitor.record_operation("PlaceIncrementalOrders", self.strategy_detail, {
                     "symbol": symbol_full, "action": "buy", "price": price, "sizes": order_amount, 'order_id': order_id})
             else:
                 print(f"❌ 订单创建失败: {err_msg}")
                 self.monitor.record_operation("Failed PlaceIncrementalOrders", self.strategy_detail, {
-                    "symbol": symbol_full, "action": "buy", "price": price, "sizes": order_amount, "error": err_msg})
+                    "symbol": symbol_full, "action": "buy", "price": price, "sizes": order_amount, "error": err_msg, "async_mode":async_mode})
 
         elif direction.lower() == 'sell':
             if not soft:
@@ -410,13 +414,13 @@ class ExecutionEngine:
                 else:
                     self.cex_driver.order_id_to_symbol[order_id] = coin
             if order_id:
-                print(f"\r {self.cex_driver.cex.upper()}-{self.account} **SELL**  order for {order_amount if order_id else 0} units of 【{coin.upper()}】 at price {price} for $ {usdt_amount}")
+                print(f"\r {BeijingTime()} {self.cex_driver.cex.upper()}-{self.account} **SELL**  order for {order_amount if order_id else 0} units of 【{coin.upper()}】 at price {price} for $ {usdt_amount}")
                 self.monitor.record_operation("PlaceIncrementalOrders", self.strategy_detail, {
-                    "symbol": symbol_full, "action": "sell", "price": price, "sizes": order_amount, 'order_id': order_id})
+                    "symbol": symbol_full, "action": "sell", "price": price, "sizes": order_amount, 'order_id': order_id, "async_mode":async_mode})
             else:
                 print(f"❌ 订单创建失败: {err_msg}")
                 self.monitor.record_operation("Failed PlaceIncrementalOrders", self.strategy_detail, {
-                    "symbol": symbol_full, "action": "sell", "price": price, "sizes": order_amount, "error": err_msg})
+                    "symbol": symbol_full, "action": "sell", "price": price, "sizes": order_amount, "error": err_msg, "async_mode":async_mode})
 
         remaining_usdt = usdt_amount - (base_order_money * order_amount)
         # 任何剩余的资金如果无法形成更多订单，结束流程
@@ -426,16 +430,20 @@ class ExecutionEngine:
             self.soft_orders_to_focus += soft_orders_to_focus
         return soft_orders_to_focus, None
 
-    def _process_single_coin_async(self, coin, usdt_amount, soft, all_pos_info):
+    def _process_single_coin_async(self, coin, usdt_amount, soft, all_pos_info, stack_mode=False):
         """
         异步处理单个币种的持仓调整
         """
         try:
             symbol_full, _, _ = self.cex_driver._norm_symbol(coin)
-            data = all_pos_info.get(symbol_full, None)
+            if stack_mode:
+                data = None
+            else:
+                data = all_pos_info.get(symbol_full, None)
             
             if not data:
-                print(f'🆕 {coin.upper()} 还没开仓呢哥！')
+                if not stack_mode:
+                    print(f'🆕 {coin.upper()} 还没开仓呢哥！')
                 try:
                     _, err = self.place_incremental_orders(abs(usdt_amount), coin, 'sell' if usdt_amount < 0 else 'buy',
                                                     soft=soft if coin.lower().find('xaut') == -1 or coin.lower().find('trx') == -1 else False)
