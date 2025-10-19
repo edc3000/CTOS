@@ -1,0 +1,39 @@
+{
+  "strategies": [
+    {
+      "coin": "ETH",
+      "exchange": "bp",
+      "account_id": 0,
+      "base_amount": 50.0,
+      "martin_multiplier": 1.5,
+      "max_positions": 8,
+      "add_position_rate": 0.05,
+      "reduce_position_rate": 0.1,
+      "stop_loss_rate": 0.3,
+      "enabled": true,
+      "positions": [],
+      "total_pnl": 0.0,
+      "last_price": 0.0
+    },
+    {
+      "coin": "BTC",
+      "exchange": "okx",
+      "account_id": 1,
+      "base_amount": 100.0,
+      "martin_multiplier": 1.3,
+      "max_positions": 6,
+      "add_position_rate": 0.03,
+      "reduce_position_rate": 0.08,
+      "stop_loss_rate": 0.25,
+      "enabled": true,
+      "positions": [],
+      "total_pnl": 0.0,
+      "last_price": 0.0
+    }
+  ],
+  "global_settings": {
+    "monitor_interval": 30,
+    "emergency_stop": false,
+    "log_level": "INFO"
+  }
+}
