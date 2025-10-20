@@ -376,7 +376,7 @@ class OkexSpot:
             return None, error
         return success["data"][0]["ordId"], error
 
-    def place_order(self, price, quantity, order_type='limit', tdMode='cross', side=None, symbol=None, ccy=None):
+    def place_order(self, price, quantity, order_type='limit', tdMode='cross', side=None, symbol=None, ccy=None, posSide=None):
         """
        Open buy order.
        :param price:order price
@@ -385,16 +385,11 @@ class OkexSpot:
        :return:order id and None, otherwise None and error information
        """
         symbol = symbol if symbol else self.symbol
-        poside_mapping = {
-            'buy': 'long',
-            'sell': 'short'
-        }
-        poside = poside_mapping.get(side, 'long')
         uri = "/api/v5/trade/order"
         if symbol.find('USDT') != -1:
-            data = {"instId": symbol, "tdMode": tdMode, "side": side if side else 'buy', "posSide": poside, "ccy": 'USDT'}
+            data = {"instId": symbol, "tdMode": tdMode, "side": side if side else 'buy', "posSide": posSide, "ccy": 'USDT'} if posSide else {"instId": symbol, "tdMode": tdMode, "side": side if side else 'buy', "ccy": 'USDT'}
         else:
-            data = {"instId": symbol, "tdMode": tdMode, "side": side if side else 'buy', "posSide": poside}
+            data = {"instId": symbol, "tdMode": tdMode, "side": side if side else 'buy', "posSide": posSide} if posSide else {"instId": symbol, "tdMode": tdMode, "side": side if side else 'buy'}
         if symbol.find('SWAP') != -1:
             quantity = quantity
         if ccy:
