@@ -502,9 +502,9 @@ class OkxDriver(TradingSyscalls):
             return order_id, err
         raise NotImplementedError("okex.py client lacks amend_order/modify_order")
 
-    def revoke_order(self, order_id):
+    def revoke_order(self, order_id, symbol=None):
         if hasattr(self.okx, "revoke_order"):
-            success, error = self.okx.revoke_order(order_id=order_id)
+            success, error = self.okx.revoke_order(order_id=order_id, symbol=symbol)
             return success, error
         raise NotImplementedError("okex.py client lacks cancel_order(order_id=...)")
 

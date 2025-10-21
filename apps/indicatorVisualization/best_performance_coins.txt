@@ -1,1 +1,1 @@
-arb,ldo,s,op,pyth,wld,bonk,w,tia,jto,pengu,virtual,crv,wif,bera,tao,fartcoin,ip
+arb,ldo,s,op,pyth,wld,bonk,w,tia,jto,pengu,virtual,wif,crv,tao,bera,fartcoin,ip

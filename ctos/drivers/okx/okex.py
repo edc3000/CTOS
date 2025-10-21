@@ -444,12 +444,12 @@ class OkexSpot:
             return None, error
         return success["data"][0]["ordId"], error
 
-    def revoke_order(self, order_id):
+    def revoke_order(self, order_id, symbol=None):
         """Cancel an order.
        @param order_id: order id
        """
         uri = "/api/v5/trade/cancel-order"
-        data = {"instId": self.symbol, "ordId": order_id}
+        data = {"instId": self.symbol if not symbol else symbol, "ordId": order_id}
         _, error = self.request(method="POST", uri=uri, body=data, auth=True)
         if error:
             return order_id, error
