@@ -500,7 +500,6 @@ class OkexSpot:
        @param order_ids :order list
        """
 
-        symbol = self.symbol if not symbol else symbol
         success, error = [], []
         if not order_ids and symbol:
             order_ids = self.get_open_orders(symbol=symbol, onlyOrderId=True)[0]
@@ -517,9 +516,11 @@ class OkexSpot:
         """Get all unfilled orders.
        * NOTE: up to 100 orders
        """
-        symbol = self.symbol if not symbol else symbol
         uri = "/api/v5/trade/orders-pending"
-        params = {"instType": instType, "instId": symbol}
+        if symbol:
+            params = {"instType": instType, "instId": symbol}
+        else:
+            params = {"instType": instType}
         success, error = self.request(method="GET", uri=uri, params=params, auth=True)
         if error:
             return None, error

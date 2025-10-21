@@ -9,5 +9,5 @@
   "buy_move_step": 0.99,
   "sell_move_step": 1.01,
   "description": "网格策略配置 - 请根据实际情况修改参数",
-  "MODE": "ACTIVATED"
+  "MODE": "DEACTIVATED"
 }

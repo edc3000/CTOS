@@ -8,6 +8,6 @@
   "sell_grid_step": 1.088,
   "buy_move_step": 0.99,
   "sell_move_step": 1.01,
-  "MODE": "ACTIVATED",
+  "MODE": "DEACTIVATED",
   "description": "Backpack账户3 - 辅助交易账户，使用较小金额进行测试"
 }

@@ -1450,7 +1450,7 @@ def main1(top10_coins=['btc', 'eth', 'xrp', 'bnb', 'sol', 'ada', 'doge', 'trx', 
         df = fetch_and_process(coin, time_gap)
         data_frames[coin] = df
     
-    market_idx_1 = market_strength_index(data_frame, lookback=30)
+    # market_idx_1 = market_strength_index(data_frame, lookback=30)
     
     # ⭐ ---------- 布林带市场情绪分析 ------------------------------------
     # bollinger_sentiment = calculate_bollinger_market_sentiment(data_frames, time_gap)
@@ -1638,18 +1638,18 @@ def main1(top10_coins=['btc', 'eth', 'xrp', 'bnb', 'sol', 'ada', 'doge', 'trx', 
     vol_btc    = vol_df['btc']                     # BTC 成交量
     # ② 成交量栏 (ax_vol)  ────────────────────────────────────
 
-    if time_gap.find('h') != -1:
-        # —— 1) 确保为按相同索引对齐的 Series —— 
-        sp  = pd.Series(stack_profile, index=date_range)              # stack_profile
-        mid = pd.Series(stack_mid,   index=date_range)                # 布林中轨(均线)
-        ix  = sp.index.intersection(mid.index)
-        sp, mid = sp.loc[ix], mid.loc[ix]
+    # if time_gap.find('h') != -1:
+    #     # —— 1) 确保为按相同索引对齐的 Series —— 
+    #     sp  = pd.Series(stack_profile, index=date_range)              # stack_profile
+    #     mid = pd.Series(stack_mid,   index=date_range)                # 布林中轨(均线)
+    #     ix  = sp.index.intersection(mid.index)
+    #     sp, mid = sp.loc[ix], mid.loc[ix]
 
-        # —— 2) 计算穿越点：差值符号发生改变（严格穿过）——
-        diff = sp - mid
-        s    = np.sign(diff.to_numpy())                               # -1/0/1
-        valid = ~np.isnan(s[1:]) & ~np.isnan(s[:-1])
-        cross_idx = np.where((s[1:] * s[:-1] < 0) & valid)[0] + 1     # 对应 sp 的索引位置
+    #     # —— 2) 计算穿越点：差值符号发生改变（严格穿过）——
+    #     diff = sp - mid
+    #     s    = np.sign(diff.to_numpy())                               # -1/0/1
+    #     valid = ~np.isnan(s[1:]) & ~np.isnan(s[:-1])
+    #     cross_idx = np.where((s[1:] * s[:-1] < 0) & valid)[0] + 1     # 对应 sp 的索引位置
 
                 
     # -------- 可视化示例 --------------------------------------------
@@ -1811,65 +1811,83 @@ def main1(top10_coins=['btc', 'eth', 'xrp', 'bnb', 'sol', 'ada', 'doge', 'trx', 
                 # 计算每个币种的布林带
                 close_prices = df['close']
                 ma20 = close_prices.rolling(window=20).mean()
+                std20 = close_prices.rolling(window=20).std()
+                
+                # 计算布林带上轨和下轨
+                upper_band = ma20 + (std20 * 2.0)  # 2倍标准差
+                lower_band = ma20 - (std20 * 2.0)  # 2倍标准差
 
                 # 填充NaN值
                 ma20 = ma20.fillna(method='bfill', limit=19)
+                upper_band = upper_band.fillna(method='bfill', limit=19)
+                lower_band = lower_band.fillna(method='bfill', limit=19)
 
                 coin_bollinger_data[coin] = {
                     'close': close_prices,
+                    'high': df['high'] if 'high' in df.columns else close_prices,
+                    'low': df['low'] if 'low' in df.columns else close_prices,
                     'middle': ma20,
+                    'upper': upper_band,
+                    'lower': lower_band,
                 }
         
-        # 计算每个时间点高于和低于各自布林带中轨的币种比例
-        above_bollinger_ratio = []
-        below_bollinger_ratio = []
+        # 计算每个时间点最高价格在上布林带之上和最低价格在下布林带之下的币种比例
+        above_upper_band_ratio = []
+        below_lower_band_ratio = []
         
         for i in range(len(date_range)):
-            above_count = 0
-            below_count = 0
+            above_upper_count = 0
+            below_lower_count = 0
             total_count = 0
             
             for coin, boll_data in coin_bollinger_data.items():
                 if i < len(boll_data['close']) and not pd.isna(boll_data['close'].iloc[i]):
                     total_count += 1
-                    # 使用各自币种的布林带中轨作为参考
-                    if i < len(boll_data['middle']) and not pd.isna(boll_data['middle'].iloc[i]):
-                        if boll_data['close'].iloc[i] > boll_data['middle'].iloc[i]:
-                            above_count += 1
-                        elif boll_data['close'].iloc[i] < boll_data['middle'].iloc[i]:
-                            below_count += 1
+                    # 检查最高价格是否在上布林带之上
+                    if (i < len(boll_data['high']) and not pd.isna(boll_data['high'].iloc[i]) and
+                        i < len(boll_data['upper']) and not pd.isna(boll_data['upper'].iloc[i])):
+                        if boll_data['high'].iloc[i] > boll_data['upper'].iloc[i]:
+                            above_upper_count += 1
+                    
+                    # 检查最低价格是否在下布林带之下
+                    if (i < len(boll_data['low']) and not pd.isna(boll_data['low'].iloc[i]) and
+                        i < len(boll_data['lower']) and not pd.isna(boll_data['lower'].iloc[i])):
+                        if boll_data['low'].iloc[i] < boll_data['lower'].iloc[i]:
+                            below_lower_count += 1
             
             if total_count > 0:
-                above_bollinger_ratio.append(above_count / total_count)
-                below_bollinger_ratio.append(below_count / total_count)
+                above_upper_band_ratio.append(above_upper_count / total_count)
+                below_lower_band_ratio.append(below_lower_count / total_count)
             else:
-                above_bollinger_ratio.append(0)
-                below_bollinger_ratio.append(0)
+                above_upper_band_ratio.append(0)
+                below_lower_band_ratio.append(0)
         
-        # 寻找阈值交叉点
-        upper_threshold = 0.85  # 高于中轨的75%阈值
-        lower_threshold = 0.85  # 低于中轨的75%阈值
+        # 为布林带比例线创建独立的坐标系
+        ax_bollinger = ax_trend.twinx()  # 创建共享x轴但独立y轴的坐标系
         
-        for i in range(1, len(above_bollinger_ratio)):
-            # 检查高于中轨的比例变化
-            prev_above_ratio = above_bollinger_ratio[i-1]
-            cur_above_ratio = above_bollinger_ratio[i]
-            
-            # 从75%以上跌到75%以下 - 画向上箭头
-            if prev_above_ratio >= upper_threshold and cur_above_ratio < upper_threshold:
-                ax_trend.axvline(x=date_range[i], color='green', linestyle='--', alpha=0.7, linewidth=1.5)
-                ax_trend.annotate('↑', xy=(date_range[i], ax_trend.get_ylim()[1] * 0.95), 
-                                ha='center', va='top', fontsize=16, color='green', fontweight='bold')
-            
-            # 检查低于中轨的比例变化
-            prev_below_ratio = below_bollinger_ratio[i-1]
-            cur_below_ratio = below_bollinger_ratio[i]
-            
-            # 突破25% - 画向下箭头
-            if prev_below_ratio < lower_threshold and cur_below_ratio >= lower_threshold:
-                ax_trend.axvline(x=date_range[i], color='red', linestyle='--', alpha=0.7, linewidth=1.5)
-                ax_trend.annotate('↓', xy=(date_range[i], ax_trend.get_ylim()[1] * 0.95), 
-                                ha='center', va='top', fontsize=16, color='red', fontweight='bold')
+        # 将比例数据转换为百分比并绘制
+        above_upper_percent = [ratio * 100 for ratio in above_upper_band_ratio]
+        below_lower_percent = [ratio * 100 for ratio in below_lower_band_ratio]
+        
+        # 绘制最高价格在上布林带之上的比例（绿色细线，点线样式）
+        ax_bollinger.plot(date_range, above_upper_percent, 
+                         color='green', linewidth=1.5, alpha=0.7, 
+                         linestyle=':', marker='o', markersize=2,
+                         label='↑')
+        
+        # 绘制最低价格在下布林带之下的比例（红色细线，虚线样式）
+        ax_bollinger.plot(date_range, below_lower_percent, 
+                         color='red', linewidth=1.5, alpha=0.7, 
+                         linestyle='--', marker='s', markersize=2,
+                         label='↓')
+        
+        # 设置布林带比例坐标轴的标签和范围
+        ax_bollinger.set_ylabel('布林带突破比例 (%)', fontsize=10)
+        ax_bollinger.set_ylim(0, 100)
+        ax_bollinger.grid(alpha=0.2)
+        
+        # 添加图例
+        ax_bollinger.legend(loc='upper left', fontsize=8)
 
 
     # -------- 美化 trend 面板 -------------------------------------------
@@ -1992,9 +2010,9 @@ def main1(top10_coins=['btc', 'eth', 'xrp', 'bnb', 'sol', 'ada', 'doge', 'trx', 
             linestyle=unique_linestyle
         )
 
-    if time_gap.find('h') != -1:
-        # —— 3) 绘制黑色小圆点（不进图例）——
-        ax1.scatter(sp.index[cross_idx], sp.iloc[cross_idx], marker='o', color='black', s=28, zorder=8)
+    # if time_gap.find('h') != -1:
+    #     # —— 3) 绘制黑色小圆点（不进图例）——
+    #     ax1.scatter(sp.index[cross_idx], sp.iloc[cross_idx], marker='o', color='black', s=28, zorder=8)
 
 
     # ax1.set_xlabel('Date')
@@ -2013,7 +2031,7 @@ def main1(top10_coins=['btc', 'eth', 'xrp', 'bnb', 'sol', 'ada', 'doge', 'trx', 
     # ax1.legend(h1 + h2, l1 + l2, loc='upper left')
 
     plt.title(
-        f'goodGroup {",".join(good_group)} vs. Top {len(top10_coins)} Coins at {BeijingTime(format="%H:%M:%S")}, BTC: {round(exchange.get_price_now("btc"))}, T:{time_gap.upper()}, MC:{round(market_idx_1,4)}')
+        f'goodGroup {",".join(good_group)} vs. Top {len(top10_coins)} Coins at {BeijingTime(format="%H:%M:%S")}, BTC: {round(exchange.get_price_now("btc"))}, T:{time_gap.upper()}')
 
     plt.tight_layout()
     plt.ylabel('Daily Returns (%)', fontsize=16)
@@ -2283,18 +2301,18 @@ if __name__ == '__main__':
     last_run = {g: 0 for g in update_interval}   # 初始化
     worst_performance_coins, best_performance_coins = get_good_bad_coin_group(18)
     threading.Thread(target=scan_loop, daemon=True).start()
-    threading.Thread(target=hedge_optimization_worker, daemon=True).start()
-    for idx, gap in enumerate(['1m','5m','15m','1h','4h','1d']):
-        data_frame = {c: fetch_and_process(c, gap) for c in COINS}
-        score, ranks, weight = factor_strength_ranking(
-            data_frames=data_frame,
-            lookback = 60,   # 60 根×5 min ≈ 5 h
-        )
+    # threading.Thread(target=hedge_optimization_worker, daemon=True).start()
+    # for idx, gap in enumerate(['1m','5m','15m','1h','4h','1d']):
+    #     data_frame = {c: fetch_and_process(c, gap) for c in COINS}
+    #     score, ranks, weight = factor_strength_ranking(
+    #         data_frames=data_frame,
+    #         lookback = 60,   # 60 根×5 min ≈ 5 h
+    #     )
 
-        print(f"{idx}, {gap} 综合得分:\n", score)
+    #     print(f"{idx}, {gap} 综合得分:\n", score)
 
-        market_idx = market_strength_index(data_frame, lookback=60)
-        print(f"当前市场强弱指数：{market_idx:.4f}")
+    #     market_idx = market_strength_index(data_frame, lookback=60)
+    #     print(f"当前市场强弱指数：{market_idx:.4f}")
         # if idx == 5:
         #     clusters = cluster_kline_graph(
         #         data_frame,

@@ -510,6 +510,8 @@ class OkxDriver(TradingSyscalls):
 
     def get_order_status(self, order_id, symbol=None, keep_origin=False):
         if hasattr(self.okx, "get_order_status"):
+            if not symbol:
+                symbol = self.order_id_to_symbol.get(order_id, None)
             success, error = self.okx.get_order_status(order_id=order_id, symbol=symbol)
             if keep_origin:
                 return success, error

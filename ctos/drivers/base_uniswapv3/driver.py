@@ -1,6 +1,25 @@
 # -*- coding: utf-8 -*-
 # ctos/drivers/base_uniswapv3/driver.py
 # Base-chain Uniswap V3 driver (CTOS-style, with liquidity tracking)
+#
+# 使用示例:
+#   base = BaseDriver(private_key="your_key")
+#   
+#   # 支持多种币种格式
+#   price = base.get_price_now("USDC-WETH")  # 标准格式
+#   price = base.get_price_now("usdc")       # 单个币种，自动推断交易对
+#   price = base.get_price_now("weth-usdc")  # 反向格式
+#   
+#   # 余额查询
+#   balance = base.fetch_balance("USDC")     # 通过币种名称
+#   balance = base.fetch_balance("0x...")    # 通过合约地址
+#   
+#   # 交易
+#   tx_hash, error = base.buy("usdc", 100)   # 买入100 USDC的WETH
+#   tx_hash, error = base.sell("weth", 0.1)  # 卖出0.1 WETH
+#   
+#   # 添加流动性
+#   tx_hash = base.add_liquidity(100, 0.05, symbol="USDC-WETH")
 
 from web3 import Web3
 from eth_account import Account
@@ -47,6 +66,47 @@ class BaseDriver:
         self.positions = {}  # tokenId -> {symbol, liquidity, tokens}
 
         self._load_abi()
+
+    def _norm_symbol(self, symbol):
+        """
+        格式化币种名称，支持多种输入格式
+        支持格式: 'USDC-WETH', 'USDC/WETH', 'usdc-weth', 'usdc', 'WETH'
+        返回: (formatted_symbol, base_token, quote_token, base_address, quote_address)
+        """
+        if not symbol:
+            return None, None, None, None, None
+            
+        s = str(symbol).replace("/", "-").upper()
+        
+        # 处理不同的输入格式
+        if "-" in s:
+            parts = s.split("-")
+            base = parts[0]
+            quote = parts[1] if len(parts) > 1 else None
+        else:
+            # 单个币种，需要推断交易对
+            if s in ['USDC', 'WETH']:
+                base = s
+                quote = 'WETH' if s == 'USDC' else 'USDC'
+            else:
+                # 默认作为base，quote为USDC
+                base = s
+                quote = 'USDC'
+        
+        # 构建标准格式
+        formatted_symbol = f"{base}-{quote}"
+        
+        # 映射到合约地址
+        token_addresses = {
+            'USDC': self.USDC,
+            'WETH': self.WETH,
+            'ETH': self.WETH  # ETH映射到WETH
+        }
+        
+        base_address = token_addresses.get(base)
+        quote_address = token_addresses.get(quote)
+        
+        return formatted_symbol, base, quote, base_address, quote_address
 
     def _load_abi(self):
         """载入 ABI"""
@@ -193,40 +253,86 @@ class BaseDriver:
         """获取代币余额"""
         if not self.address:
             print("❌ 未设置钱包地址")
-            return {}
+            if token:
+                return 0.0
+            else:
+                return {}
+        
+        # 单 token 查询
+        if token:
+            # 支持通过币种名称查询
+            if isinstance(token, str) and not token.startswith('0x'):
+                # 通过币种名称查询
+                formatted_symbol, base, quote, base_address, quote_address = self._norm_symbol(token)
+                if base_address:
+                    token_address = base_address
+                    token_name = base
+                else:
+                    print(f"❌ 不支持的币种: {token}")
+                    return 0.0
+            else:
+                # 直接使用合约地址
+                token_address = token
+                token_name = "Unknown"
             
-        tokens = [self.USDC, self.WETH] if not token else [token]
-        result = {}
-        
-        for t in tokens:
             try:
-                erc20 = self.w3.eth.contract(address=t, abi=self.ABI_ERC20)
-                dec = 6 if t == self.USDC else 18
+                erc20 = self.w3.eth.contract(address=token_address, abi=self.ABI_ERC20)
+                dec = 6 if token_address == self.USDC else 18
                 balance = erc20.functions.balanceOf(self.address).call()
-                result[t] = balance / (10 ** dec)
+                return float(balance) / (10 ** dec)
             except Exception as e:
-                print(f"❌ 获取代币 {t} 余额失败: {e}")
-                result[t] = 0
-        
-        return result
+                print(f"❌ 获取代币 {token_name} 余额失败: {e}")
+                return 0.0
+        # 多 token 查询
+        else:
+            tokens = [self.USDC, self.WETH]
+            result = {}
+            for t in tokens:
+                try:
+                    erc20 = self.w3.eth.contract(address=t, abi=self.ABI_ERC20)
+                    dec = 6 if t == self.USDC else 18
+                    balance = erc20.functions.balanceOf(self.address).call()
+                    result[t] = float(balance) / (10 ** dec)
+                except Exception as e:
+                    print(f"❌ 获取代币 {t} 余额失败: {e}")
+                    result[t] = 0.0
+            return result
 
     def get_price_now(self, symbol="USDC-WETH", amount_in=100):
         """获取当前价格"""
         try:
+            # 格式化币种名称
+            formatted_symbol, base, quote, base_address, quote_address = self._norm_symbol(symbol)
+            if not base_address or not quote_address:
+                return None, f"不支持的币种对: {symbol}"
+            
             quoter = self.w3.eth.contract(address=self.QUOTER_V2, abi=self.ABI_QUOTER)
-            # 构建交易路径: USDC -> WETH
-            path = Web3.to_bytes(hexstr=self.USDC[2:] + f"{self.FEE:06x}" + self.WETH[2:])
-            amount_in_wei = int(amount_in * 1e6)  # USDC 6位小数
+            # 构建交易路径: base -> quote
+            path = Web3.to_bytes(hexstr=base_address[2:] + f"{self.FEE:06x}" + quote_address[2:])
+            
+            # 根据币种确定精度
+            if base == 'USDC':
+                amount_in_wei = int(amount_in * 1e6)  # USDC 6位小数
+                decimals_in = 6
+            else:
+                amount_in_wei = int(amount_in * 1e18)  # WETH 18位小数
+                decimals_in = 18
             
             out = quoter.functions.quoteExactInput(path, amount_in_wei).call()
-            price = out / 1e18 / (amount_in_wei / 1e6)  # WETH 18位小数
+            
+            # 计算价格
+            if quote == 'USDC':
+                price = out / 1e6 / (amount_in_wei / (10 ** decimals_in))  # quote是USDC
+            else:
+                price = out / 1e18 / (amount_in_wei / (10 ** decimals_in))  # quote是WETH
+                
             return price, None
         except Exception as e:
             print(f"❌ 获取价格失败: {e}")
             return None, str(e)
 
     # === 增加流动性 ===
-    def add_liquidity(self, amount0=100, amount1=0.05,
+    def add_liquidity(self, amount0=100, amount1=0.05, symbol="USDC-WETH",
                       tick_lower=-887220, tick_upper=887220):
         """添加流动性"""
         if not self.account:
@@ -234,21 +340,31 @@ class BaseDriver:
             return None
             
         try:
+            # 格式化币种名称
+            formatted_symbol, base, quote, base_address, quote_address = self._norm_symbol(symbol)
+            if not base_address or not quote_address:
+                print(f"❌ 不支持的币种对: {symbol}")
+                return None
+            
             pm = self.w3.eth.contract(address=self.POSITION_MANAGER, abi=self.ABI_POSITION_MANAGER)
             
             # 检查余额
             balance = self.fetch_balance()
-            if balance.get(self.USDC, 0) < amount0:
-                print(f"❌ USDC余额不足: {balance.get(self.USDC, 0)} < {amount0}")
+            if balance.get(base_address, 0) < amount0:
+                print(f"❌ {base}余额不足: {balance.get(base_address, 0)} < {amount0}")
                 return None
-            if balance.get(self.WETH, 0) < amount1:
-                print(f"❌ WETH余额不足: {balance.get(self.WETH, 0)} < {amount1}")
+            if balance.get(quote_address, 0) < amount1:
+                print(f"❌ {quote}余额不足: {balance.get(quote_address, 0)} < {amount1}")
                 return None
+            
+            # 根据币种确定精度
+            decimals0 = 6 if base == 'USDC' else 18
+            decimals1 = 6 if quote == 'USDC' else 18
             
             # 构建mint参数
             params = (
-                self.USDC, self.WETH, self.FEE, tick_lower, tick_upper,
-                int(amount0 * 1e6), int(amount1 * 1e18),
+                base_address, quote_address, self.FEE, tick_lower, tick_upper,
+                int(amount0 * (10 ** decimals0)), int(amount1 * (10 ** decimals1)),
                 0, 0, self.address, int(time.time()) + 600
             )
             
@@ -265,7 +381,7 @@ class BaseDriver:
             
             signed = self.w3.eth.account.sign_transaction(tx, self.account.key)
             tx_hash = self.w3.eth.send_raw_transaction(signed.raw_transaction)
-            print("📥 add_liquidity tx:", tx_hash.hex())
+            print(f"📥 add_liquidity tx ({formatted_symbol}): {tx_hash.hex()}")
             return tx_hash.hex()
             
         except Exception as e:
@@ -315,14 +431,30 @@ class BaseDriver:
     def place_order(self, symbol, side, order_type, size, price=None, **kwargs):
         """
         模拟 CEX 下单接口，底层调用 Uniswap Router。
-        side: 'buy' -> USDC->WETH, 'sell' -> WETH->USDC
+        side: 'buy' -> base->quote, 'sell' -> quote->base
         """
         if not self.account:
             raise ValueError("未设置私钥，无法签名交易")
 
-        token_in = self.USDC if side.lower() == "buy" else self.WETH
-        token_out = self.WETH if side.lower() == "buy" else self.USDC
-        decimals_in = 6 if token_in == self.USDC else 18
+        # 格式化币种名称
+        formatted_symbol, base, quote, base_address, quote_address = self._norm_symbol(symbol)
+        if not base_address or not quote_address:
+            return None, f"不支持的币种对: {symbol}"
+
+        # 根据买卖方向确定输入输出代币
+        if side.lower() == "buy":
+            token_in = base_address
+            token_out = quote_address
+            token_in_name = base
+            token_out_name = quote
+        else:  # sell
+            token_in = quote_address
+            token_out = base_address
+            token_in_name = quote
+            token_out_name = base
+
+        # 根据代币确定精度
+        decimals_in = 6 if token_in_name == 'USDC' else 18
         amount_in = int(size * (10 ** decimals_in))
 
         try:
@@ -330,7 +462,7 @@ class BaseDriver:
             balance = self.fetch_balance()
             token_balance = balance.get(token_in, 0)
             if token_balance < size:
-                return None, f"代币余额不足: {token_balance} < {size}"
+                return None, f"{token_in_name}余额不足: {token_balance} < {size}"
             
             # Approve router
             erc20 = self.w3.eth.contract(address=token_in, abi=self.ABI_ERC20)
@@ -350,7 +482,7 @@ class BaseDriver:
             })
             signed = self.w3.eth.account.sign_transaction(approve_tx, self.account.key)
             approve_tx_hash = self.w3.eth.send_raw_transaction(signed.raw_transaction)
-            print(f"✅ Approve sent: {approve_tx_hash.hex()}")
+            print(f"✅ Approve sent ({token_in_name}): {approve_tx_hash.hex()}")
             
             # 等待approve交易确认
             print("⏳ 等待approve交易确认...")
@@ -374,13 +506,48 @@ class BaseDriver:
             })
             signed_swap = self.w3.eth.account.sign_transaction(swap_tx, self.account.key)
             swap_tx_hash = self.w3.eth.send_raw_transaction(signed_swap.raw_transaction)
-            print(f"✅ Swap sent: {swap_tx_hash.hex()}")
+            print(f"✅ Swap sent ({formatted_symbol} {side}): {swap_tx_hash.hex()}")
             return swap_tx_hash.hex(), None
             
         except Exception as e:
             print(f"❌ 交易失败: {e}")
             return None, str(e)
 
+    def buy(self, symbol, size, price=None, order_type="market", **kwargs):
+        """
+        便利的买入函数
+        :param symbol: 交易对符号，如 'USDC-WETH' 或 'usdc'
+        :param size: 买入数量
+        :param price: 价格（对于limit订单）
+        :param order_type: 订单类型，'market' 或 'limit'
+        :return: (tx_hash, error)
+        """
+        return self.place_order(
+            symbol=symbol,
+            side="buy",
+            order_type=order_type,
+            size=float(size),
+            price=price,
+            **kwargs,
+        )
+
+    def sell(self, symbol, size, price=None, order_type="market", **kwargs):
+        """
+        便利的卖出函数
+        :param symbol: 交易对符号，如 'USDC-WETH' 或 'weth'
+        :param size: 卖出数量
+        :param price: 价格（对于limit订单）
+        :param order_type: 订单类型，'market' 或 'limit'
+        :return: (tx_hash, error)
+        """
+        return self.place_order(
+            symbol=symbol,
+            side="sell",
+            order_type=order_type,
+            size=float(size),
+            price=price,
+            **kwargs,
+        )
     
     def _wait_for_transaction(self, tx_hash, timeout=60):
         """等待交易确认"""
@@ -558,15 +725,23 @@ if __name__ == "__main__":
         except Exception as e:
             print(f"⚠️  获取Gas价格失败: {e}")
         
-        # 获取价格
-        price, error = base.get_price_now()
-        if price:
-            print(f"🪙USDC-WETH价格: {price:.6f}")
-        else:
-            print(f"❌ 获取价格失败: {error}")
+        # 获取价格 - 展示多种格式支持
+        print("🪙 价格查询测试:")
+        for symbol in ["USDC-WETH", "usdc", "WETH", "weth-usdc"]:
+            price, error = base.get_price_now(symbol)
+            if price:
+                print(f"   {symbol} -> {price:.6f}")
+            else:
+                print(f"   {symbol} -> 失败: {error}")
+        
+        # 展示余额查询的通用性
+        print("💰 余额查询测试:")
+        for token in ["USDC", "WETH", "usdc", "weth"]:
+            balance = base.fetch_balance(token)
+            print(f"   {token}: {balance:.6f}")
         
         # 示例：添加流动性（注释掉，避免意外执行）
-        # base.add_liquidity(amount0=100, amount1=0.05)
+        # base.add_liquidity(amount0=100, amount1=0.05, symbol="USDC-WETH")
         
         # 示例：查询仓位（需要有效的token_id）
         # print(base.get_position(1234))
@@ -580,13 +755,16 @@ if __name__ == "__main__":
             if tx_hash:
                 print(f"✅ ETH->WETH转换成功: {tx_hash}")
                 
-                # 转换成功后，尝试WETH->USDC交易
-                print("🔄 尝试WETH->USDC交易...")
-                tx_hash, error = base.place_order("USDC-WETH", "sell", "market", 0.001)  # 卖出0.001 WETH
-                if tx_hash:
-                    print(f"✅ 交易成功: {tx_hash}")
-                else:
-                    print(f"❌ 交易失败: {error}")
+                # 转换成功后，尝试多种格式的交易
+                print("🔄 尝试多种格式的交易...")
+                for symbol in ["USDC-WETH", "usdc", "WETH"]:
+                    print(f"   测试交易对: {symbol}")
+                    tx_hash, error = base.sell(symbol, 0.001)  # 卖出0.001
+                    if tx_hash:
+                        print(f"   ✅ 交易成功: {tx_hash}")
+                        break  # 成功一次就够了
+                    else:
+                        print(f"   ❌ 交易失败: {error}")
             else:
                 print("❌ ETH->WETH转换失败")
         else:

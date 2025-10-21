@@ -726,3 +726,861 @@
 2025-10-09 19:29:08,354 - INFO - OP StrategyStart | {'exchange': 'backpack', 'strategy': 'Grid-Order-Management', 'version': '3.0', 'force_refresh': False}
 2025-10-09 19:29:08,354 - INFO - OP StrategyStart | {'exchange': 'backpack', 'strategy': 'Grid-Order-Management', 'version': '3.0', 'force_refresh': False}
 2025-10-09 20:32:37,621 - INFO - OP StrategyExit | {'reason': 'Manual interrupt', 'uptime': 3809.2636330127716}
+2025-10-17 15:55:33,234 - INFO - ExecutionEngine initialized for backpack account 1
+2025-10-17 15:55:34,209 - INFO - ExecutionEngine initialized for backpack account 4
+2025-10-17 15:55:34,210 - INFO - OP StrategyStart | {'exchange': 'backpack', 'strategy': 'Grid-Order-Management', 'version': '3.0', 'force_refresh': False}
+2025-10-17 15:55:34,210 - INFO - OP StrategyStart | {'exchange': 'backpack', 'strategy': 'Grid-Order-Management', 'version': '3.0', 'force_refresh': False}
+2025-10-17 15:55:36,320 - INFO - OP StrategyExit | {'reason': 'Manual interrupt', 'uptime': 2.1083803176879883}
+2025-10-17 15:55:47,717 - INFO - ExecutionEngine initialized for backpack account 1
+2025-10-17 15:55:47,718 - INFO - OP StrategyStart | {'exchange': 'backpack', 'strategy': 'Grid-Order-Management', 'version': '3.0', 'force_refresh': False}
+2025-10-17 16:03:16,340 - INFO - OP OrderFilled | {'type': 'buy', 'order_id': '14084435924', 'side_active': 'sell', 'sell_order_id': '14084444022'}
+2025-10-17 16:03:17,611 - INFO - OP PlaceIncrementalOrders | {'symbol': 'ZORA_USDC_PERP', 'action': 'buy', 'price': 0.09343, 'sizes': 100.0, 'order_id': '14087270760'}
+2025-10-17 16:03:17,612 - INFO - OP OrderPlaced | {'type': 'buy', 'order_id': '14087270760', 'amount': 12.88, 'price': 0.09343}
+2025-10-17 16:03:19,753 - INFO - OP PlaceIncrementalOrders | {'symbol': 'ZORA_USDC_PERP', 'action': 'sell', 'price': 0.09815, 'sizes': 100.0, 'order_id': '14087279791'}
+2025-10-17 16:03:19,754 - INFO - OP OrderAmended | {'type': 'sell', 'order_id': '14087279791', 'amount': 12.88, 'price': 0.09815}
+2025-10-17 16:04:54,763 - INFO - OP OrderFilled | {'type': 'buy', 'order_id': '14087270760', 'side_active': 'sell', 'sell_order_id': '14087279791'}
+2025-10-17 16:04:55,972 - INFO - OP PlaceIncrementalOrders | {'symbol': 'ZORA_USDC_PERP', 'action': 'buy', 'price': 0.09249, 'sizes': 100.0, 'order_id': '14087652386'}
+2025-10-17 16:04:55,972 - INFO - OP OrderPlaced | {'type': 'buy', 'order_id': '14087652386', 'amount': 12.88, 'price': 0.09249}
+2025-10-17 16:04:58,186 - INFO - OP PlaceIncrementalOrders | {'symbol': 'ZORA_USDC_PERP', 'action': 'sell', 'price': 0.09717, 'sizes': 100.0, 'order_id': '14087661693'}
+2025-10-17 16:04:58,187 - INFO - OP OrderAmended | {'type': 'sell', 'order_id': '14087661693', 'amount': 12.88, 'price': 0.09717}
+2025-10-17 16:12:10,324 - INFO - OP OrderFilled | {'type': 'buy', 'order_id': '14087652386', 'side_active': 'sell', 'sell_order_id': '14087661693'}
+2025-10-17 16:12:11,374 - INFO - OP PlaceIncrementalOrders | {'symbol': 'ZORA_USDC_PERP', 'action': 'buy', 'price': 0.09157, 'sizes': 100.0, 'order_id': '14089241123'}
+2025-10-17 16:12:11,375 - INFO - OP OrderPlaced | {'type': 'buy', 'order_id': '14089241123', 'amount': 12.88, 'price': 0.09157}
+2025-10-17 16:12:13,730 - INFO - OP PlaceIncrementalOrders | {'symbol': 'ZORA_USDC_PERP', 'action': 'sell', 'price': 0.0962, 'sizes': 100.0, 'order_id': '14089249584'}
+2025-10-17 16:12:13,731 - INFO - OP OrderAmended | {'type': 'sell', 'order_id': '14089249584', 'amount': 12.88, 'price': 0.0962}
+2025-10-17 16:13:08,448 - INFO - OP OrderFilled | {'type': 'buy', 'order_id': '14089241123', 'side_active': 'sell', 'sell_order_id': '14089249584'}
+2025-10-17 16:13:09,522 - INFO - OP PlaceIncrementalOrders | {'symbol': 'ZORA_USDC_PERP', 'action': 'buy', 'price': 0.09065, 'sizes': 100.0, 'order_id': '14089417334'}
+2025-10-17 16:13:09,523 - INFO - OP OrderPlaced | {'type': 'buy', 'order_id': '14089417334', 'amount': 12.88, 'price': 0.09065}
+2025-10-17 16:13:11,585 - INFO - OP PlaceIncrementalOrders | {'symbol': 'ZORA_USDC_PERP', 'action': 'sell', 'price': 0.09524, 'sizes': 100.0, 'order_id': '14089423453'}
+2025-10-17 16:13:11,586 - INFO - OP OrderAmended | {'type': 'sell', 'order_id': '14089423453', 'amount': 12.88, 'price': 0.09524}
+2025-10-17 16:15:32,892 - INFO - OP OrderFilled | {'type': 'buy', 'order_id': '14089417334', 'side_active': 'sell', 'sell_order_id': '14089423453'}
+2025-10-17 16:15:34,045 - INFO - OP PlaceIncrementalOrders | {'symbol': 'ZORA_USDC_PERP', 'action': 'buy', 'price': 0.08974, 'sizes': 100.0, 'order_id': '14089879269'}
+2025-10-17 16:15:34,045 - INFO - OP OrderPlaced | {'type': 'buy', 'order_id': '14089879269', 'amount': 12.88, 'price': 0.08974}
+2025-10-17 16:15:36,262 - INFO - OP PlaceIncrementalOrders | {'symbol': 'ZORA_USDC_PERP', 'action': 'sell', 'price': 0.09429, 'sizes': 100.0, 'order_id': '14089888736'}
+2025-10-17 16:15:36,262 - INFO - OP OrderAmended | {'type': 'sell', 'order_id': '14089888736', 'amount': 12.88, 'price': 0.09429}
+2025-10-17 16:52:53,497 - INFO - OP OrderFilled | {'type': 'buy', 'order_id': '14089879269', 'side_active': 'sell', 'sell_order_id': '14089888736'}
+2025-10-17 16:52:54,622 - INFO - OP PlaceIncrementalOrders | {'symbol': 'ZORA_USDC_PERP', 'action': 'buy', 'price': 0.08885, 'sizes': 100.0, 'order_id': '14097623959'}
+2025-10-17 16:52:54,623 - INFO - OP OrderPlaced | {'type': 'buy', 'order_id': '14097623959', 'amount': 12.88, 'price': 0.08885}
+2025-10-17 16:52:56,691 - INFO - OP PlaceIncrementalOrders | {'symbol': 'ZORA_USDC_PERP', 'action': 'sell', 'price': 0.09334, 'sizes': 100.0, 'order_id': '14097629986'}
+2025-10-17 16:52:56,691 - INFO - OP OrderAmended | {'type': 'sell', 'order_id': '14097629986', 'amount': 12.88, 'price': 0.09334}
+2025-10-17 17:00:55,876 - INFO - OP OrderFilled | {'type': 'buy', 'order_id': '14097623959', 'side_active': 'sell', 'sell_order_id': '14097629986'}
+2025-10-17 17:00:56,929 - INFO - OP PlaceIncrementalOrders | {'symbol': 'ZORA_USDC_PERP', 'action': 'buy', 'price': 0.08796, 'sizes': 100.0, 'order_id': '14098910424'}
+2025-10-17 17:00:56,930 - INFO - OP OrderPlaced | {'type': 'buy', 'order_id': '14098910424', 'amount': 12.88, 'price': 0.08796}
+2025-10-17 17:00:58,984 - INFO - OP PlaceIncrementalOrders | {'symbol': 'ZORA_USDC_PERP', 'action': 'sell', 'price': 0.09241, 'sizes': 100.0, 'order_id': '14098916381'}
+2025-10-17 17:00:58,985 - INFO - OP OrderAmended | {'type': 'sell', 'order_id': '14098916381', 'amount': 12.88, 'price': 0.09241}
+2025-10-17 17:12:58,256 - INFO - OP OrderFilled | {'type': 'buy', 'order_id': '14098910424', 'side_active': 'sell', 'sell_order_id': '14098916381'}
+2025-10-17 17:12:59,277 - INFO - OP PlaceIncrementalOrders | {'symbol': 'ZORA_USDC_PERP', 'action': 'buy', 'price': 0.08708, 'sizes': 100.0, 'order_id': '14101144887'}
+2025-10-17 17:12:59,277 - INFO - OP OrderPlaced | {'type': 'buy', 'order_id': '14101144887', 'amount': 12.88, 'price': 0.08708}
+2025-10-17 17:13:01,259 - INFO - OP PlaceIncrementalOrders | {'symbol': 'ZORA_USDC_PERP', 'action': 'sell', 'price': 0.09149, 'sizes': 100.0, 'order_id': '14101149582'}
+2025-10-17 17:13:01,259 - INFO - OP OrderAmended | {'type': 'sell', 'order_id': '14101149582', 'amount': 12.88, 'price': 0.09149}
+2025-10-17 17:34:30,432 - INFO - OP OrderFilled | {'type': 'sell', 'order_id': '14101149582', 'side_active': 'buy', 'buy_order_id': '14101144887'}
+2025-10-17 17:34:32,571 - INFO - OP PlaceIncrementalOrders | {'symbol': 'ZORA_USDC_PERP', 'action': 'buy', 'price': 0.08795, 'sizes': 100.0, 'order_id': '14104440744'}
+2025-10-17 17:34:32,572 - INFO - OP OrderAmended | {'type': 'buy', 'order_id': '14104440744', 'amount': 12.88, 'price': 0.08795}
+2025-10-17 17:34:33,589 - INFO - OP PlaceIncrementalOrders | {'symbol': 'ZORA_USDC_PERP', 'action': 'sell', 'price': 0.0924, 'sizes': 100.0, 'order_id': '14104444555'}
+2025-10-17 17:34:33,590 - INFO - OP OrderPlaced | {'type': 'sell', 'order_id': '14104444555', 'amount': 12.88, 'price': 0.0924}
+2025-10-17 18:22:36,396 - INFO - OP OrderFilled | {'type': 'sell', 'order_id': '14104444555', 'side_active': 'buy', 'buy_order_id': '14104440744'}
+2025-10-17 18:22:38,653 - INFO - OP PlaceIncrementalOrders | {'symbol': 'ZORA_USDC_PERP', 'action': 'buy', 'price': 0.08883, 'sizes': 100.0, 'order_id': '14111883173'}
+2025-10-17 18:22:38,653 - INFO - OP OrderAmended | {'type': 'buy', 'order_id': '14111883173', 'amount': 12.88, 'price': 0.08883}
+2025-10-17 18:22:39,946 - INFO - OP PlaceIncrementalOrders | {'symbol': 'ZORA_USDC_PERP', 'action': 'sell', 'price': 0.09332, 'sizes': 100.0, 'order_id': '14111888337'}
+2025-10-17 18:22:39,947 - INFO - OP OrderPlaced | {'type': 'sell', 'order_id': '14111888337', 'amount': 12.88, 'price': 0.09332}
+2025-10-17 18:27:10,008 - INFO - OP OrderFilled | {'type': 'sell', 'order_id': '14111888337', 'side_active': 'buy', 'buy_order_id': '14111883173'}
+2025-10-17 18:27:12,362 - INFO - OP PlaceIncrementalOrders | {'symbol': 'ZORA_USDC_PERP', 'action': 'buy', 'price': 0.08972, 'sizes': 100.0, 'order_id': '14112919660'}
+2025-10-17 18:27:12,363 - INFO - OP OrderAmended | {'type': 'buy', 'order_id': '14112919660', 'amount': 12.88, 'price': 0.08972}
+2025-10-17 18:27:13,676 - INFO - OP PlaceIncrementalOrders | {'symbol': 'ZORA_USDC_PERP', 'action': 'sell', 'price': 0.09426, 'sizes': 100.0, 'order_id': '14112925119'}
+2025-10-17 18:27:13,677 - INFO - OP OrderPlaced | {'type': 'sell', 'order_id': '14112925119', 'amount': 12.88, 'price': 0.09426}
+2025-10-17 19:14:33,584 - INFO - OP OrderFilled | {'type': 'sell', 'order_id': '14112925119', 'side_active': 'buy', 'buy_order_id': '14112919660'}
+2025-10-17 19:14:36,543 - INFO - OP PlaceIncrementalOrders | {'symbol': 'ZORA_USDC_PERP', 'action': 'buy', 'price': 0.09061, 'sizes': 100.0, 'order_id': '14121068820'}
+2025-10-17 19:14:36,543 - INFO - OP OrderAmended | {'type': 'buy', 'order_id': '14121068820', 'amount': 12.88, 'price': 0.09061}
+2025-10-17 19:14:37,920 - INFO - OP PlaceIncrementalOrders | {'symbol': 'ZORA_USDC_PERP', 'action': 'sell', 'price': 0.0952, 'sizes': 100.0, 'order_id': '14121074673'}
+2025-10-17 19:14:37,921 - INFO - OP OrderPlaced | {'type': 'sell', 'order_id': '14121074673', 'amount': 12.88, 'price': 0.0952}
+2025-10-17 19:15:26,236 - INFO - OP OrderFilled | {'type': 'sell', 'order_id': '14121074673', 'side_active': 'buy', 'buy_order_id': '14121068820'}
+2025-10-17 19:15:28,886 - INFO - OP PlaceIncrementalOrders | {'symbol': 'ZORA_USDC_PERP', 'action': 'buy', 'price': 0.09152, 'sizes': 100.0, 'order_id': '14121294224'}
+2025-10-17 19:15:28,886 - INFO - OP OrderAmended | {'type': 'buy', 'order_id': '14121294224', 'amount': 12.88, 'price': 0.09152}
+2025-10-17 19:15:30,175 - INFO - OP PlaceIncrementalOrders | {'symbol': 'ZORA_USDC_PERP', 'action': 'sell', 'price': 0.09615, 'sizes': 100.0, 'order_id': '14121299904'}
+2025-10-17 19:15:30,175 - INFO - OP OrderPlaced | {'type': 'sell', 'order_id': '14121299904', 'amount': 12.88, 'price': 0.09615}
+2025-10-17 19:17:34,332 - INFO - OP OrderFilled | {'type': 'sell', 'order_id': '14121299904', 'side_active': 'buy', 'buy_order_id': '14121294224'}
+2025-10-17 19:17:36,900 - INFO - OP PlaceIncrementalOrders | {'symbol': 'ZORA_USDC_PERP', 'action': 'buy', 'price': 0.09244, 'sizes': 100.0, 'order_id': '14121832462'}
+2025-10-17 19:17:36,900 - INFO - OP OrderAmended | {'type': 'buy', 'order_id': '14121832462', 'amount': 12.88, 'price': 0.09244}
+2025-10-17 19:17:38,368 - INFO - OP PlaceIncrementalOrders | {'symbol': 'ZORA_USDC_PERP', 'action': 'sell', 'price': 0.09711, 'sizes': 100.0, 'order_id': '14121838639'}
+2025-10-17 19:17:38,369 - INFO - OP OrderPlaced | {'type': 'sell', 'order_id': '14121838639', 'amount': 12.88, 'price': 0.09711}
+2025-10-17 19:27:32,532 - INFO - OP OrderFilled | {'type': 'sell', 'order_id': '14121838639', 'side_active': 'buy', 'buy_order_id': '14121832462'}
+2025-10-17 19:27:34,586 - INFO - OP PlaceIncrementalOrders | {'symbol': 'ZORA_USDC_PERP', 'action': 'buy', 'price': 0.09336, 'sizes': 100.0, 'order_id': '14123980302'}
+2025-10-17 19:27:34,587 - INFO - OP OrderAmended | {'type': 'buy', 'order_id': '14123980302', 'amount': 12.88, 'price': 0.09336}
+2025-10-17 19:27:35,597 - INFO - OP PlaceIncrementalOrders | {'symbol': 'ZORA_USDC_PERP', 'action': 'sell', 'price': 0.09808, 'sizes': 100.0, 'order_id': '14123982943'}
+2025-10-17 19:27:35,598 - INFO - OP OrderPlaced | {'type': 'sell', 'order_id': '14123982943', 'amount': 12.88, 'price': 0.09808}
+2025-10-17 19:32:26,273 - INFO - OP StrategyException | {'err': "local variable 'e' referenced before assignment", 'time': '2025-10-17 19:32:26', 'sym': 'ZORA_USDC_PERP'}
+2025-10-17 19:33:03,178 - INFO - OP PlaceIncrementalOrders | {'symbol': 'ZORA_USDC_PERP', 'action': 'buy', 'price': 0.09336, 'sizes': 100.0, 'order_id': '14124906419'}
+2025-10-17 19:33:03,178 - INFO - OP OrderPlaced | {'type': 'buy', 'order_id': '14124906419', 'amount': 12.88, 'price': 0.09336}
+2025-10-17 19:33:04,226 - INFO - OP PlaceIncrementalOrders | {'symbol': 'ZORA_USDC_PERP', 'action': 'sell', 'price': 0.09808, 'sizes': 100.0, 'order_id': '14124909513'}
+2025-10-17 19:33:04,227 - INFO - OP OrderPlaced | {'type': 'sell', 'order_id': '14124909513', 'amount': 12.88, 'price': 0.09808}
+2025-10-17 19:33:38,672 - INFO - OP OrderFilled | {'type': 'sell', 'order_id': '14124909513', 'side_active': 'buy', 'buy_order_id': '14124906419'}
+2025-10-17 19:33:40,817 - INFO - OP PlaceIncrementalOrders | {'symbol': 'ZORA_USDC_PERP', 'action': 'buy', 'price': 0.09429, 'sizes': 100.0, 'order_id': '14125014584'}
+2025-10-17 19:33:40,818 - INFO - OP OrderAmended | {'type': 'buy', 'order_id': '14125014584', 'amount': 12.88, 'price': 0.09429}
+2025-10-17 19:33:41,900 - INFO - OP PlaceIncrementalOrders | {'symbol': 'ZORA_USDC_PERP', 'action': 'sell', 'price': 0.09907, 'sizes': 100.0, 'order_id': '14125017510'}
+2025-10-17 19:33:41,900 - INFO - OP OrderPlaced | {'type': 'sell', 'order_id': '14125017510', 'amount': 12.88, 'price': 0.09907}
+2025-10-17 19:34:28,379 - INFO - OP OrderFilled | {'type': 'sell', 'order_id': '14125017510', 'side_active': 'buy', 'buy_order_id': '14125014584'}
+2025-10-17 19:34:30,366 - INFO - OP PlaceIncrementalOrders | {'symbol': 'ZORA_USDC_PERP', 'action': 'buy', 'price': 0.09524, 'sizes': 100.0, 'order_id': '14125149065'}
+2025-10-17 19:34:30,366 - INFO - OP OrderAmended | {'type': 'buy', 'order_id': '14125149065', 'amount': 12.88, 'price': 0.09524}
+2025-10-17 19:34:31,378 - INFO - OP PlaceIncrementalOrders | {'symbol': 'ZORA_USDC_PERP', 'action': 'sell', 'price': 0.10006, 'sizes': 100.0, 'order_id': '14125150484'}
+2025-10-17 19:34:31,379 - INFO - OP OrderPlaced | {'type': 'sell', 'order_id': '14125150484', 'amount': 12.88, 'price': 0.10006}
+2025-10-17 19:37:17,120 - INFO - OP OrderFilled | {'type': 'sell', 'order_id': '14125150484', 'side_active': 'buy', 'buy_order_id': '14125149065'}
+2025-10-17 19:37:19,105 - INFO - OP PlaceIncrementalOrders | {'symbol': 'ZORA_USDC_PERP', 'action': 'buy', 'price': 0.09619, 'sizes': 100.0, 'order_id': '14125614073'}
+2025-10-17 19:37:19,106 - INFO - OP OrderAmended | {'type': 'buy', 'order_id': '14125614073', 'amount': 12.88, 'price': 0.09619}
+2025-10-17 19:37:20,115 - INFO - OP PlaceIncrementalOrders | {'symbol': 'ZORA_USDC_PERP', 'action': 'sell', 'price': 0.10106, 'sizes': 100.0, 'order_id': '14125617030'}
+2025-10-17 19:37:20,116 - INFO - OP OrderPlaced | {'type': 'sell', 'order_id': '14125617030', 'amount': 12.88, 'price': 0.10106}
+2025-10-17 19:41:42,564 - INFO - OP OrderFilled | {'type': 'sell', 'order_id': '14125617030', 'side_active': 'buy', 'buy_order_id': '14125614073'}
+2025-10-17 19:41:44,547 - INFO - OP PlaceIncrementalOrders | {'symbol': 'ZORA_USDC_PERP', 'action': 'buy', 'price': 0.09715, 'sizes': 100.0, 'order_id': '14126421675'}
+2025-10-17 19:41:44,547 - INFO - OP OrderAmended | {'type': 'buy', 'order_id': '14126421675', 'amount': 12.88, 'price': 0.09715}
+2025-10-17 19:41:45,557 - INFO - OP PlaceIncrementalOrders | {'symbol': 'ZORA_USDC_PERP', 'action': 'sell', 'price': 0.10207, 'sizes': 100.0, 'order_id': '14126423076'}
+2025-10-17 19:41:45,558 - INFO - OP OrderPlaced | {'type': 'sell', 'order_id': '14126423076', 'amount': 12.88, 'price': 0.10207}
+2025-10-17 19:42:01,140 - INFO - OP OrderFilled | {'type': 'sell', 'order_id': '14126423076', 'side_active': 'buy', 'buy_order_id': '14126421675'}
+2025-10-17 19:42:03,570 - INFO - OP PlaceIncrementalOrders | {'symbol': 'ZORA_USDC_PERP', 'action': 'buy', 'price': 0.09812, 'sizes': 100.0, 'order_id': '14126467324'}
+2025-10-17 19:42:03,571 - INFO - OP OrderAmended | {'type': 'buy', 'order_id': '14126467324', 'amount': 12.88, 'price': 0.09812}
+2025-10-17 19:42:04,799 - INFO - OP PlaceIncrementalOrders | {'symbol': 'ZORA_USDC_PERP', 'action': 'sell', 'price': 0.10309, 'sizes': 100.0, 'order_id': '14126469046'}
+2025-10-17 19:42:04,800 - INFO - OP OrderPlaced | {'type': 'sell', 'order_id': '14126469046', 'amount': 12.88, 'price': 0.10309}
+2025-10-17 19:43:06,375 - INFO - OP OrderFilled | {'type': 'sell', 'order_id': '14126469046', 'side_active': 'buy', 'buy_order_id': '14126467324'}
+2025-10-17 19:43:08,364 - INFO - OP PlaceIncrementalOrders | {'symbol': 'ZORA_USDC_PERP', 'action': 'buy', 'price': 0.0991, 'sizes': 100.0, 'order_id': '14126584653'}
+2025-10-17 19:43:08,365 - INFO - OP OrderAmended | {'type': 'buy', 'order_id': '14126584653', 'amount': 12.88, 'price': 0.0991}
+2025-10-17 19:43:09,386 - INFO - OP PlaceIncrementalOrders | {'symbol': 'ZORA_USDC_PERP', 'action': 'sell', 'price': 0.10412, 'sizes': 100.0, 'order_id': '14126586159'}
+2025-10-17 19:43:09,387 - INFO - OP OrderPlaced | {'type': 'sell', 'order_id': '14126586159', 'amount': 12.88, 'price': 0.10412}
+2025-10-17 19:44:53,160 - INFO - OP OrderFilled | {'type': 'sell', 'order_id': '14126586159', 'side_active': 'buy', 'buy_order_id': '14126584653'}
+2025-10-17 19:44:55,196 - INFO - OP PlaceIncrementalOrders | {'symbol': 'ZORA_USDC_PERP', 'action': 'buy', 'price': 0.10009, 'sizes': 100.0, 'order_id': '14126833656'}
+2025-10-17 19:44:55,196 - INFO - OP OrderAmended | {'type': 'buy', 'order_id': '14126833656', 'amount': 12.88, 'price': 0.10009}
+2025-10-17 19:44:56,205 - INFO - OP PlaceIncrementalOrders | {'symbol': 'ZORA_USDC_PERP', 'action': 'sell', 'price': 0.10516, 'sizes': 100.0, 'order_id': '14126835666'}
+2025-10-17 19:44:56,206 - INFO - OP OrderPlaced | {'type': 'sell', 'order_id': '14126835666', 'amount': 12.88, 'price': 0.10516}
+2025-10-17 19:45:53,656 - INFO - OP OrderFilled | {'type': 'sell', 'order_id': '14126835666', 'side_active': 'buy', 'buy_order_id': '14126833656'}
+2025-10-17 19:45:55,648 - INFO - OP PlaceIncrementalOrders | {'symbol': 'ZORA_USDC_PERP', 'action': 'buy', 'price': 0.1011, 'sizes': 100.0, 'order_id': '14127016519'}
+2025-10-17 19:45:55,649 - INFO - OP OrderAmended | {'type': 'buy', 'order_id': '14127016519', 'amount': 12.88, 'price': 0.1011}
+2025-10-17 19:45:56,663 - INFO - OP PlaceIncrementalOrders | {'symbol': 'ZORA_USDC_PERP', 'action': 'sell', 'price': 0.10621, 'sizes': 100.0, 'order_id': '14127019039'}
+2025-10-17 19:45:56,663 - INFO - OP OrderPlaced | {'type': 'sell', 'order_id': '14127019039', 'amount': 12.88, 'price': 0.10621}
+2025-10-17 19:51:32,096 - INFO - OP OrderFilled | {'type': 'buy', 'order_id': '14127016519', 'side_active': 'sell', 'sell_order_id': '14127019039'}
+2025-10-17 19:51:33,105 - INFO - OP PlaceIncrementalOrders | {'symbol': 'ZORA_USDC_PERP', 'action': 'buy', 'price': 0.10008, 'sizes': 100.0, 'order_id': '14127903998'}
+2025-10-17 19:51:33,106 - INFO - OP OrderPlaced | {'type': 'buy', 'order_id': '14127903998', 'amount': 12.88, 'price': 0.10008}
+2025-10-17 19:51:35,088 - INFO - OP PlaceIncrementalOrders | {'symbol': 'ZORA_USDC_PERP', 'action': 'sell', 'price': 0.10515, 'sizes': 100.0, 'order_id': '14127907141'}
+2025-10-17 19:51:35,088 - INFO - OP OrderAmended | {'type': 'sell', 'order_id': '14127907141', 'amount': 12.88, 'price': 0.10515}
+2025-10-17 19:54:58,611 - INFO - OP OrderFilled | {'type': 'sell', 'order_id': '14127907141', 'side_active': 'buy', 'buy_order_id': '14127903998'}
+2025-10-17 19:55:00,924 - INFO - OP PlaceIncrementalOrders | {'symbol': 'ZORA_USDC_PERP', 'action': 'buy', 'price': 0.10109, 'sizes': 100.0, 'order_id': '14128368022'}
+2025-10-17 19:55:00,925 - INFO - OP OrderAmended | {'type': 'buy', 'order_id': '14128368022', 'amount': 12.88, 'price': 0.10109}
+2025-10-17 19:55:02,008 - INFO - OP PlaceIncrementalOrders | {'symbol': 'ZORA_USDC_PERP', 'action': 'sell', 'price': 0.1062, 'sizes': 100.0, 'order_id': '14128371858'}
+2025-10-17 19:55:02,009 - INFO - OP OrderPlaced | {'type': 'sell', 'order_id': '14128371858', 'amount': 12.88, 'price': 0.1062}
+2025-10-17 19:56:46,211 - INFO - OP OrderFilled | {'type': 'buy', 'order_id': '14128368022', 'side_active': 'sell', 'sell_order_id': '14128371858'}
+2025-10-17 19:56:47,072 - INFO - OP PlaceIncrementalOrders | {'symbol': 'ZORA_USDC_PERP', 'action': 'buy', 'price': 0.10007, 'sizes': 100.0, 'order_id': '14128617800'}
+2025-10-17 19:56:47,073 - INFO - OP OrderPlaced | {'type': 'buy', 'order_id': '14128617800', 'amount': 12.88, 'price': 0.10007}
+2025-10-17 19:56:49,058 - INFO - OP PlaceIncrementalOrders | {'symbol': 'ZORA_USDC_PERP', 'action': 'sell', 'price': 0.10514, 'sizes': 100.0, 'order_id': '14128619697'}
+2025-10-17 19:56:49,058 - INFO - OP OrderAmended | {'type': 'sell', 'order_id': '14128619697', 'amount': 12.88, 'price': 0.10514}
+2025-10-17 20:07:45,932 - INFO - OP OrderFilled | {'type': 'buy', 'order_id': '14128617800', 'side_active': 'sell', 'sell_order_id': '14128619697'}
+2025-10-17 20:07:46,954 - INFO - OP PlaceIncrementalOrders | {'symbol': 'ZORA_USDC_PERP', 'action': 'buy', 'price': 0.09907, 'sizes': 100.0, 'order_id': '14130196664'}
+2025-10-17 20:07:46,955 - INFO - OP OrderPlaced | {'type': 'buy', 'order_id': '14130196664', 'amount': 12.88, 'price': 0.09907}
+2025-10-17 20:07:49,047 - INFO - OP PlaceIncrementalOrders | {'symbol': 'ZORA_USDC_PERP', 'action': 'sell', 'price': 0.10409, 'sizes': 100.0, 'order_id': '14130203342'}
+2025-10-17 20:07:49,048 - INFO - OP OrderAmended | {'type': 'sell', 'order_id': '14130203342', 'amount': 12.88, 'price': 0.10409}
+2025-10-17 20:11:52,096 - INFO - OP OrderFilled | {'type': 'buy', 'order_id': '14130196664', 'side_active': 'sell', 'sell_order_id': '14130203342'}
+2025-10-17 20:11:53,108 - INFO - OP PlaceIncrementalOrders | {'symbol': 'ZORA_USDC_PERP', 'action': 'buy', 'price': 0.09808, 'sizes': 100.0, 'order_id': '14130738907'}
+2025-10-17 20:11:53,108 - INFO - OP OrderPlaced | {'type': 'buy', 'order_id': '14130738907', 'amount': 12.88, 'price': 0.09808}
+2025-10-17 20:11:55,092 - INFO - OP PlaceIncrementalOrders | {'symbol': 'ZORA_USDC_PERP', 'action': 'sell', 'price': 0.10305, 'sizes': 100.0, 'order_id': '14130742442'}
+2025-10-17 20:11:55,093 - INFO - OP OrderAmended | {'type': 'sell', 'order_id': '14130742442', 'amount': 12.88, 'price': 0.10305}
+2025-10-17 20:26:57,548 - INFO - OP OrderFilled | {'type': 'buy', 'order_id': '14130738907', 'side_active': 'sell', 'sell_order_id': '14130742442'}
+2025-10-17 20:26:58,563 - INFO - OP PlaceIncrementalOrders | {'symbol': 'ZORA_USDC_PERP', 'action': 'buy', 'price': 0.0971, 'sizes': 100.0, 'order_id': '14132667023'}
+2025-10-17 20:26:58,564 - INFO - OP OrderPlaced | {'type': 'buy', 'order_id': '14132667023', 'amount': 12.88, 'price': 0.0971}
+2025-10-17 20:27:00,549 - INFO - OP PlaceIncrementalOrders | {'symbol': 'ZORA_USDC_PERP', 'action': 'sell', 'price': 0.10202, 'sizes': 100.0, 'order_id': '14132670643'}
+2025-10-17 20:27:00,549 - INFO - OP OrderAmended | {'type': 'sell', 'order_id': '14132670643', 'amount': 12.88, 'price': 0.10202}
+2025-10-17 20:34:04,968 - INFO - OP OrderFilled | {'type': 'buy', 'order_id': '14132667023', 'side_active': 'sell', 'sell_order_id': '14132670643'}
+2025-10-17 20:34:06,069 - INFO - OP PlaceIncrementalOrders | {'symbol': 'ZORA_USDC_PERP', 'action': 'buy', 'price': 0.09613, 'sizes': 100.0, 'order_id': '14133525407'}
+2025-10-17 20:34:06,070 - INFO - OP OrderPlaced | {'type': 'buy', 'order_id': '14133525407', 'amount': 12.88, 'price': 0.09613}
+2025-10-17 20:34:08,280 - INFO - OP PlaceIncrementalOrders | {'symbol': 'ZORA_USDC_PERP', 'action': 'sell', 'price': 0.101, 'sizes': 100.0, 'order_id': '14133532255'}
+2025-10-17 20:34:08,280 - INFO - OP OrderAmended | {'type': 'sell', 'order_id': '14133532255', 'amount': 12.88, 'price': 0.101}
+2025-10-17 20:43:02,156 - INFO - OP OrderFilled | {'type': 'buy', 'order_id': '14133525407', 'side_active': 'sell', 'sell_order_id': '14133532255'}
+2025-10-17 20:43:03,417 - INFO - OP PlaceIncrementalOrders | {'symbol': 'ZORA_USDC_PERP', 'action': 'buy', 'price': 0.09517, 'sizes': 100.0, 'order_id': '14134536635'}
+2025-10-17 20:43:03,418 - INFO - OP OrderPlaced | {'type': 'buy', 'order_id': '14134536635', 'amount': 12.88, 'price': 0.09517}
+2025-10-17 20:43:05,411 - INFO - OP PlaceIncrementalOrders | {'symbol': 'ZORA_USDC_PERP', 'action': 'sell', 'price': 0.09999, 'sizes': 100.0, 'order_id': '14134540975'}
+2025-10-17 20:43:05,412 - INFO - OP OrderAmended | {'type': 'sell', 'order_id': '14134540975', 'amount': 12.88, 'price': 0.09999}
+2025-10-17 21:25:36,484 - INFO - OP OrderFilled | {'type': 'buy', 'order_id': '14134536635', 'side_active': 'sell', 'sell_order_id': '14134540975'}
+2025-10-17 21:25:37,506 - INFO - OP PlaceIncrementalOrders | {'symbol': 'ZORA_USDC_PERP', 'action': 'buy', 'price': 0.09422, 'sizes': 100.0, 'order_id': '14139403076'}
+2025-10-17 21:25:37,507 - INFO - OP OrderPlaced | {'type': 'buy', 'order_id': '14139403076', 'amount': 12.88, 'price': 0.09422}
+2025-10-17 21:25:39,712 - INFO - OP PlaceIncrementalOrders | {'symbol': 'ZORA_USDC_PERP', 'action': 'sell', 'price': 0.09899, 'sizes': 100.0, 'order_id': '14139406146'}
+2025-10-17 21:25:39,713 - INFO - OP OrderAmended | {'type': 'sell', 'order_id': '14139406146', 'amount': 12.88, 'price': 0.09899}
+2025-10-17 21:26:21,908 - INFO - OP OrderFilled | {'type': 'buy', 'order_id': '14139403076', 'side_active': 'sell', 'sell_order_id': '14139406146'}
+2025-10-17 21:26:22,922 - INFO - OP PlaceIncrementalOrders | {'symbol': 'ZORA_USDC_PERP', 'action': 'buy', 'price': 0.09328, 'sizes': 100.0, 'order_id': '14139510485'}
+2025-10-17 21:26:22,923 - INFO - OP OrderPlaced | {'type': 'buy', 'order_id': '14139510485', 'amount': 12.88, 'price': 0.09328}
+2025-10-17 21:26:24,907 - INFO - OP PlaceIncrementalOrders | {'symbol': 'ZORA_USDC_PERP', 'action': 'sell', 'price': 0.098, 'sizes': 100.0, 'order_id': '14139513580'}
+2025-10-17 21:26:24,907 - INFO - OP OrderAmended | {'type': 'sell', 'order_id': '14139513580', 'amount': 12.88, 'price': 0.098}
+2025-10-17 21:36:56,828 - INFO - OP OrderFilled | {'type': 'buy', 'order_id': '14139510485', 'side_active': 'sell', 'sell_order_id': '14139513580'}
+2025-10-17 21:36:58,054 - INFO - OP PlaceIncrementalOrders | {'symbol': 'ZORA_USDC_PERP', 'action': 'buy', 'price': 0.09234, 'sizes': 100.0, 'order_id': '14141641118'}
+2025-10-17 21:36:58,054 - INFO - OP OrderPlaced | {'type': 'buy', 'order_id': '14141641118', 'amount': 12.88, 'price': 0.09234}
+2025-10-17 21:37:00,042 - INFO - OP PlaceIncrementalOrders | {'symbol': 'ZORA_USDC_PERP', 'action': 'sell', 'price': 0.09702, 'sizes': 100.0, 'order_id': '14141647141'}
+2025-10-17 21:37:00,042 - INFO - OP OrderAmended | {'type': 'sell', 'order_id': '14141647141', 'amount': 12.88, 'price': 0.09702}
+2025-10-17 21:41:31,868 - INFO - OP OrderFilled | {'type': 'buy', 'order_id': '14141641118', 'side_active': 'sell', 'sell_order_id': '14141647141'}
+2025-10-17 21:41:32,892 - INFO - OP PlaceIncrementalOrders | {'symbol': 'ZORA_USDC_PERP', 'action': 'buy', 'price': 0.09142, 'sizes': 100.0, 'order_id': '14142681875'}
+2025-10-17 21:41:32,892 - INFO - OP OrderPlaced | {'type': 'buy', 'order_id': '14142681875', 'amount': 12.88, 'price': 0.09142}
+2025-10-17 21:41:34,877 - INFO - OP PlaceIncrementalOrders | {'symbol': 'ZORA_USDC_PERP', 'action': 'sell', 'price': 0.09605, 'sizes': 100.0, 'order_id': '14142687219'}
+2025-10-17 21:41:34,878 - INFO - OP OrderAmended | {'type': 'sell', 'order_id': '14142687219', 'amount': 12.88, 'price': 0.09605}
+2025-10-17 21:43:17,240 - INFO - OP OrderFilled | {'type': 'buy', 'order_id': '14142681875', 'side_active': 'sell', 'sell_order_id': '14142687219'}
+2025-10-17 21:43:19,548 - INFO - OP PlaceIncrementalOrders | {'symbol': 'ZORA_USDC_PERP', 'action': 'buy', 'price': 0.09051, 'sizes': 100.0, 'order_id': '14143055306'}
+2025-10-17 21:43:19,549 - INFO - OP OrderPlaced | {'type': 'buy', 'order_id': '14143055306', 'amount': 12.88, 'price': 0.09051}
+2025-10-17 21:43:21,812 - INFO - OP PlaceIncrementalOrders | {'symbol': 'ZORA_USDC_PERP', 'action': 'sell', 'price': 0.09509, 'sizes': 100.0, 'order_id': '14143063715'}
+2025-10-17 21:43:21,813 - INFO - OP OrderAmended | {'type': 'sell', 'order_id': '14143063715', 'amount': 12.88, 'price': 0.09509}
+2025-10-17 21:55:18,392 - INFO - OP OrderFilled | {'type': 'sell', 'order_id': '14143063715', 'side_active': 'buy', 'buy_order_id': '14143055306'}
+2025-10-17 21:55:20,620 - INFO - OP PlaceIncrementalOrders | {'symbol': 'ZORA_USDC_PERP', 'action': 'buy', 'price': 0.09141, 'sizes': 100.0, 'order_id': '14145754809'}
+2025-10-17 21:55:20,620 - INFO - OP OrderAmended | {'type': 'buy', 'order_id': '14145754809', 'amount': 12.88, 'price': 0.09141}
+2025-10-17 21:55:21,854 - INFO - OP PlaceIncrementalOrders | {'symbol': 'ZORA_USDC_PERP', 'action': 'sell', 'price': 0.09604, 'sizes': 100.0, 'order_id': '14145759679'}
+2025-10-17 21:55:21,854 - INFO - OP OrderPlaced | {'type': 'sell', 'order_id': '14145759679', 'amount': 12.88, 'price': 0.09604}
+2025-10-17 22:31:00,840 - INFO - OP OrderFilled | {'type': 'buy', 'order_id': '14145754809', 'side_active': 'sell', 'sell_order_id': '14145759679'}
+2025-10-17 22:31:01,902 - INFO - OP PlaceIncrementalOrders | {'symbol': 'ZORA_USDC_PERP', 'action': 'buy', 'price': 0.0905, 'sizes': 100.0, 'order_id': '14151993974'}
+2025-10-17 22:31:01,903 - INFO - OP OrderPlaced | {'type': 'buy', 'order_id': '14151993974', 'amount': 12.88, 'price': 0.0905}
+2025-10-17 22:31:04,285 - INFO - OP PlaceIncrementalOrders | {'symbol': 'ZORA_USDC_PERP', 'action': 'sell', 'price': 0.09508, 'sizes': 100.0, 'order_id': '14152004221'}
+2025-10-17 22:31:04,285 - INFO - OP OrderAmended | {'type': 'sell', 'order_id': '14152004221', 'amount': 12.88, 'price': 0.09508}
+2025-10-17 22:37:07,416 - INFO - OP OrderFilled | {'type': 'buy', 'order_id': '14151993974', 'side_active': 'sell', 'sell_order_id': '14152004221'}
+2025-10-17 22:37:08,497 - INFO - OP PlaceIncrementalOrders | {'symbol': 'ZORA_USDC_PERP', 'action': 'buy', 'price': 0.08959, 'sizes': 100.0, 'order_id': '14153235936'}
+2025-10-17 22:37:08,497 - INFO - OP OrderPlaced | {'type': 'buy', 'order_id': '14153235936', 'amount': 12.88, 'price': 0.08959}
+2025-10-17 22:37:10,796 - INFO - OP PlaceIncrementalOrders | {'symbol': 'ZORA_USDC_PERP', 'action': 'sell', 'price': 0.09413, 'sizes': 100.0, 'order_id': '14153244220'}
+2025-10-17 22:37:10,796 - INFO - OP OrderAmended | {'type': 'sell', 'order_id': '14153244220', 'amount': 12.88, 'price': 0.09413}
+2025-10-17 22:41:57,444 - INFO - OP OrderFilled | {'type': 'buy', 'order_id': '14153235936', 'side_active': 'sell', 'sell_order_id': '14153244220'}
+2025-10-17 22:41:58,430 - INFO - OP PlaceIncrementalOrders | {'symbol': 'ZORA_USDC_PERP', 'action': 'buy', 'price': 0.0887, 'sizes': 100.0, 'order_id': '14154158839'}
+2025-10-17 22:41:58,430 - INFO - OP OrderPlaced | {'type': 'buy', 'order_id': '14154158839', 'amount': 12.88, 'price': 0.0887}
+2025-10-17 22:42:00,475 - INFO - OP PlaceIncrementalOrders | {'symbol': 'ZORA_USDC_PERP', 'action': 'sell', 'price': 0.09318, 'sizes': 100.0, 'order_id': '14154164648'}
+2025-10-17 22:42:00,476 - INFO - OP OrderAmended | {'type': 'sell', 'order_id': '14154164648', 'amount': 12.88, 'price': 0.09318}
+2025-10-17 22:56:26,100 - INFO - OP OrderFilled | {'type': 'sell', 'order_id': '14154164648', 'side_active': 'buy', 'buy_order_id': '14154158839'}
+2025-10-17 22:56:28,091 - INFO - OP PlaceIncrementalOrders | {'symbol': 'ZORA_USDC_PERP', 'action': 'buy', 'price': 0.08958, 'sizes': 100.0, 'order_id': '14156981095'}
+2025-10-17 22:56:28,092 - INFO - OP OrderAmended | {'type': 'buy', 'order_id': '14156981095', 'amount': 12.88, 'price': 0.08958}
+2025-10-17 22:56:29,121 - INFO - OP PlaceIncrementalOrders | {'symbol': 'ZORA_USDC_PERP', 'action': 'sell', 'price': 0.09412, 'sizes': 100.0, 'order_id': '14156983168'}
+2025-10-17 22:56:29,122 - INFO - OP OrderPlaced | {'type': 'sell', 'order_id': '14156983168', 'amount': 12.88, 'price': 0.09412}
+2025-10-17 23:07:49,180 - INFO - OP OrderFilled | {'type': 'sell', 'order_id': '14156983168', 'side_active': 'buy', 'buy_order_id': '14156981095'}
+2025-10-17 23:07:51,165 - INFO - OP PlaceIncrementalOrders | {'symbol': 'ZORA_USDC_PERP', 'action': 'buy', 'price': 0.09048, 'sizes': 100.0, 'order_id': '14158837105'}
+2025-10-17 23:07:51,165 - INFO - OP OrderAmended | {'type': 'buy', 'order_id': '14158837105', 'amount': 12.88, 'price': 0.09048}
+2025-10-17 23:07:52,225 - INFO - OP PlaceIncrementalOrders | {'symbol': 'ZORA_USDC_PERP', 'action': 'sell', 'price': 0.09506, 'sizes': 100.0, 'order_id': '14158840372'}
+2025-10-17 23:07:52,226 - INFO - OP OrderPlaced | {'type': 'sell', 'order_id': '14158840372', 'amount': 12.88, 'price': 0.09506}
+2025-10-17 23:26:46,636 - INFO - OP OrderFilled | {'type': 'sell', 'order_id': '14158840372', 'side_active': 'buy', 'buy_order_id': '14158837105'}
+2025-10-17 23:26:48,629 - INFO - OP PlaceIncrementalOrders | {'symbol': 'ZORA_USDC_PERP', 'action': 'buy', 'price': 0.09138, 'sizes': 100.0, 'order_id': '14161908247'}
+2025-10-17 23:26:48,630 - INFO - OP OrderAmended | {'type': 'buy', 'order_id': '14161908247', 'amount': 12.88, 'price': 0.09138}
+2025-10-17 23:26:49,612 - INFO - OP PlaceIncrementalOrders | {'symbol': 'ZORA_USDC_PERP', 'action': 'sell', 'price': 0.09601, 'sizes': 100.0, 'order_id': '14161911760'}
+2025-10-17 23:26:49,612 - INFO - OP OrderPlaced | {'type': 'sell', 'order_id': '14161911760', 'amount': 12.88, 'price': 0.09601}
+2025-10-17 23:49:53,448 - INFO - OP OrderFilled | {'type': 'sell', 'order_id': '14161911760', 'side_active': 'buy', 'buy_order_id': '14161908247'}
+2025-10-17 23:49:55,352 - INFO - OP PlaceIncrementalOrders | {'symbol': 'ZORA_USDC_PERP', 'action': 'buy', 'price': 0.0923, 'sizes': 100.0, 'order_id': '14165689178'}
+2025-10-17 23:49:55,353 - INFO - OP OrderAmended | {'type': 'buy', 'order_id': '14165689178', 'amount': 12.88, 'price': 0.0923}
+2025-10-17 23:49:56,315 - INFO - OP PlaceIncrementalOrders | {'symbol': 'ZORA_USDC_PERP', 'action': 'sell', 'price': 0.09697, 'sizes': 100.0, 'order_id': '14165691091'}
+2025-10-17 23:49:56,315 - INFO - OP OrderPlaced | {'type': 'sell', 'order_id': '14165691091', 'amount': 12.88, 'price': 0.09697}
+2025-10-18 00:03:57,672 - INFO - OP OrderFilled | {'type': 'sell', 'order_id': '14165691091', 'side_active': 'buy', 'buy_order_id': '14165689178'}
+2025-10-18 00:03:59,720 - INFO - OP PlaceIncrementalOrders | {'symbol': 'ZORA_USDC_PERP', 'action': 'buy', 'price': 0.09322, 'sizes': 100.0, 'order_id': '14167983767'}
+2025-10-18 00:03:59,721 - INFO - OP OrderAmended | {'type': 'buy', 'order_id': '14167983767', 'amount': 12.88, 'price': 0.09322}
+2025-10-18 00:04:00,876 - INFO - OP PlaceIncrementalOrders | {'symbol': 'ZORA_USDC_PERP', 'action': 'sell', 'price': 0.09794, 'sizes': 100.0, 'order_id': '14167987749'}
+2025-10-18 00:04:00,877 - INFO - OP OrderPlaced | {'type': 'sell', 'order_id': '14167987749', 'amount': 12.88, 'price': 0.09794}
+2025-10-18 00:10:02,164 - INFO - OP OrderFilled | {'type': 'sell', 'order_id': '14167987749', 'side_active': 'buy', 'buy_order_id': '14167983767'}
+2025-10-18 00:10:04,398 - INFO - OP PlaceIncrementalOrders | {'symbol': 'ZORA_USDC_PERP', 'action': 'buy', 'price': 0.09415, 'sizes': 100.0, 'order_id': '14169163714'}
+2025-10-18 00:10:04,398 - INFO - OP OrderAmended | {'type': 'buy', 'order_id': '14169163714', 'amount': 12.88, 'price': 0.09415}
+2025-10-18 00:10:05,396 - INFO - OP PlaceIncrementalOrders | {'symbol': 'ZORA_USDC_PERP', 'action': 'sell', 'price': 0.09892, 'sizes': 100.0, 'order_id': '14169167728'}
+2025-10-18 00:10:05,397 - INFO - OP OrderPlaced | {'type': 'sell', 'order_id': '14169167728', 'amount': 12.88, 'price': 0.09892}
+2025-10-18 00:13:09,680 - INFO - OP OrderFilled | {'type': 'sell', 'order_id': '14169167728', 'side_active': 'buy', 'buy_order_id': '14169163714'}
+2025-10-18 00:13:11,560 - INFO - OP PlaceIncrementalOrders | {'symbol': 'ZORA_USDC_PERP', 'action': 'buy', 'price': 0.09509, 'sizes': 100.0, 'order_id': '14169736628'}
+2025-10-18 00:13:11,561 - INFO - OP OrderAmended | {'type': 'buy', 'order_id': '14169736628', 'amount': 12.88, 'price': 0.09509}
+2025-10-18 00:13:12,554 - INFO - OP PlaceIncrementalOrders | {'symbol': 'ZORA_USDC_PERP', 'action': 'sell', 'price': 0.09991, 'sizes': 100.0, 'order_id': '14169738492'}
+2025-10-18 00:13:12,554 - INFO - OP OrderPlaced | {'type': 'sell', 'order_id': '14169738492', 'amount': 12.88, 'price': 0.09991}
+2025-10-18 00:38:28,848 - INFO - OP OrderFilled | {'type': 'buy', 'order_id': '14169736628', 'side_active': 'sell', 'sell_order_id': '14169738492'}
+2025-10-18 00:38:29,851 - INFO - OP PlaceIncrementalOrders | {'symbol': 'ZORA_USDC_PERP', 'action': 'buy', 'price': 0.09414, 'sizes': 100.0, 'order_id': '14173594421'}
+2025-10-18 00:38:29,851 - INFO - OP OrderPlaced | {'type': 'buy', 'order_id': '14173594421', 'amount': 12.88, 'price': 0.09414}
+2025-10-18 00:38:31,835 - INFO - OP PlaceIncrementalOrders | {'symbol': 'ZORA_USDC_PERP', 'action': 'sell', 'price': 0.09891, 'sizes': 100.0, 'order_id': '14173597242'}
+2025-10-18 00:38:31,835 - INFO - OP OrderAmended | {'type': 'sell', 'order_id': '14173597242', 'amount': 12.88, 'price': 0.09891}
+2025-10-18 00:50:36,244 - INFO - OP OrderFilled | {'type': 'sell', 'order_id': '14173597242', 'side_active': 'buy', 'buy_order_id': '14173594421'}
+2025-10-18 00:50:38,499 - INFO - OP PlaceIncrementalOrders | {'symbol': 'ZORA_USDC_PERP', 'action': 'buy', 'price': 0.09508, 'sizes': 100.0, 'order_id': '14175198912'}
+2025-10-18 00:50:38,500 - INFO - OP OrderAmended | {'type': 'buy', 'order_id': '14175198912', 'amount': 12.88, 'price': 0.09508}
+2025-10-18 00:50:39,514 - INFO - OP PlaceIncrementalOrders | {'symbol': 'ZORA_USDC_PERP', 'action': 'sell', 'price': 0.0999, 'sizes': 100.0, 'order_id': '14175200140'}
+2025-10-18 00:50:39,515 - INFO - OP OrderPlaced | {'type': 'sell', 'order_id': '14175200140', 'amount': 12.88, 'price': 0.0999}
+2025-10-18 01:00:41,524 - INFO - OP OrderFilled | {'type': 'sell', 'order_id': '14175200140', 'side_active': 'buy', 'buy_order_id': '14175198912'}
+2025-10-18 01:00:43,518 - INFO - OP PlaceIncrementalOrders | {'symbol': 'ZORA_USDC_PERP', 'action': 'buy', 'price': 0.09604, 'sizes': 100.0, 'order_id': '14176509356'}
+2025-10-18 01:00:43,518 - INFO - OP OrderAmended | {'type': 'buy', 'order_id': '14176509356', 'amount': 12.88, 'price': 0.09604}
+2025-10-18 01:00:44,548 - INFO - OP PlaceIncrementalOrders | {'symbol': 'ZORA_USDC_PERP', 'action': 'sell', 'price': 0.1009, 'sizes': 100.0, 'order_id': '14176511372'}
+2025-10-18 01:00:44,548 - INFO - OP OrderPlaced | {'type': 'sell', 'order_id': '14176511372', 'amount': 12.88, 'price': 0.1009}
+2025-10-18 01:09:10,209 - INFO - OP OrderFilled | {'type': 'sell', 'order_id': '14176511372', 'side_active': 'buy', 'buy_order_id': '14176509356'}
+2025-10-18 01:09:12,325 - INFO - OP PlaceIncrementalOrders | {'symbol': 'ZORA_USDC_PERP', 'action': 'buy', 'price': 0.097, 'sizes': 100.0, 'order_id': '14177686323'}
+2025-10-18 01:09:12,325 - INFO - OP OrderAmended | {'type': 'buy', 'order_id': '14177686323', 'amount': 12.88, 'price': 0.097}
+2025-10-18 01:09:13,348 - INFO - OP PlaceIncrementalOrders | {'symbol': 'ZORA_USDC_PERP', 'action': 'sell', 'price': 0.1019, 'sizes': 100.0, 'order_id': '14177688292'}
+2025-10-18 01:09:13,349 - INFO - OP OrderPlaced | {'type': 'sell', 'order_id': '14177688292', 'amount': 12.88, 'price': 0.1019}
+2025-10-18 01:09:40,709 - INFO - OP OrderFilled | {'type': 'sell', 'order_id': '14177688292', 'side_active': 'buy', 'buy_order_id': '14177686323'}
+2025-10-18 01:09:42,698 - INFO - OP PlaceIncrementalOrders | {'symbol': 'ZORA_USDC_PERP', 'action': 'buy', 'price': 0.09797, 'sizes': 100.0, 'order_id': '14177747948'}
+2025-10-18 01:09:42,698 - INFO - OP OrderAmended | {'type': 'buy', 'order_id': '14177747948', 'amount': 12.88, 'price': 0.09797}
+2025-10-18 01:09:43,727 - INFO - OP PlaceIncrementalOrders | {'symbol': 'ZORA_USDC_PERP', 'action': 'sell', 'price': 0.10292, 'sizes': 100.0, 'order_id': '14177749355'}
+2025-10-18 01:09:43,727 - INFO - OP OrderPlaced | {'type': 'sell', 'order_id': '14177749355', 'amount': 12.88, 'price': 0.10292}
+2025-10-18 01:21:56,796 - INFO - OP OrderFilled | {'type': 'buy', 'order_id': '14177747948', 'side_active': 'sell', 'sell_order_id': '14177749355'}
+2025-10-18 01:21:57,805 - INFO - OP PlaceIncrementalOrders | {'symbol': 'ZORA_USDC_PERP', 'action': 'buy', 'price': 0.09699, 'sizes': 100.0, 'order_id': '14179202174'}
+2025-10-18 01:21:57,806 - INFO - OP OrderPlaced | {'type': 'buy', 'order_id': '14179202174', 'amount': 12.88, 'price': 0.09699}
+2025-10-18 01:21:59,803 - INFO - OP PlaceIncrementalOrders | {'symbol': 'ZORA_USDC_PERP', 'action': 'sell', 'price': 0.10189, 'sizes': 100.0, 'order_id': '14179208592'}
+2025-10-18 01:21:59,803 - INFO - OP OrderAmended | {'type': 'sell', 'order_id': '14179208592', 'amount': 12.88, 'price': 0.10189}
+2025-10-18 01:34:25,800 - INFO - OP OrderFilled | {'type': 'sell', 'order_id': '14179208592', 'side_active': 'buy', 'buy_order_id': '14179202174'}
+2025-10-18 01:34:27,780 - INFO - OP PlaceIncrementalOrders | {'symbol': 'ZORA_USDC_PERP', 'action': 'buy', 'price': 0.09796, 'sizes': 100.0, 'order_id': '14180562669'}
+2025-10-18 01:34:27,780 - INFO - OP OrderAmended | {'type': 'buy', 'order_id': '14180562669', 'amount': 12.88, 'price': 0.09796}
+2025-10-18 01:34:28,791 - INFO - OP PlaceIncrementalOrders | {'symbol': 'ZORA_USDC_PERP', 'action': 'sell', 'price': 0.10291, 'sizes': 100.0, 'order_id': '14180563855'}
+2025-10-18 01:34:28,792 - INFO - OP OrderPlaced | {'type': 'sell', 'order_id': '14180563855', 'amount': 12.88, 'price': 0.10291}
+2025-10-18 01:35:53,276 - INFO - OP OrderFilled | {'type': 'sell', 'order_id': '14180563855', 'side_active': 'buy', 'buy_order_id': '14180562669'}
+2025-10-18 01:35:55,271 - INFO - OP PlaceIncrementalOrders | {'symbol': 'ZORA_USDC_PERP', 'action': 'buy', 'price': 0.09894, 'sizes': 100.0, 'order_id': '14180742239'}
+2025-10-18 01:35:55,272 - INFO - OP OrderAmended | {'type': 'buy', 'order_id': '14180742239', 'amount': 12.88, 'price': 0.09894}
+2025-10-18 01:35:56,270 - INFO - OP PlaceIncrementalOrders | {'symbol': 'ZORA_USDC_PERP', 'action': 'sell', 'price': 0.10394, 'sizes': 100.0, 'order_id': '14180744561'}
+2025-10-18 01:35:56,271 - INFO - OP OrderPlaced | {'type': 'sell', 'order_id': '14180744561', 'amount': 12.88, 'price': 0.10394}
+2025-10-18 01:48:15,324 - INFO - OP OrderFilled | {'type': 'buy', 'order_id': '14180742239', 'side_active': 'sell', 'sell_order_id': '14180744561'}
+2025-10-18 01:48:16,335 - INFO - OP PlaceIncrementalOrders | {'symbol': 'ZORA_USDC_PERP', 'action': 'buy', 'price': 0.09795, 'sizes': 100.0, 'order_id': '14182234750'}
+2025-10-18 01:48:16,336 - INFO - OP OrderPlaced | {'type': 'buy', 'order_id': '14182234750', 'amount': 12.88, 'price': 0.09795}
+2025-10-18 01:48:18,327 - INFO - OP PlaceIncrementalOrders | {'symbol': 'ZORA_USDC_PERP', 'action': 'sell', 'price': 0.1029, 'sizes': 100.0, 'order_id': '14182238478'}
+2025-10-18 01:48:18,328 - INFO - OP OrderAmended | {'type': 'sell', 'order_id': '14182238478', 'amount': 12.88, 'price': 0.1029}
+2025-10-18 02:20:35,920 - INFO - OP OrderFilled | {'type': 'buy', 'order_id': '14182234750', 'side_active': 'sell', 'sell_order_id': '14182238478'}
+2025-10-18 02:20:36,877 - INFO - OP PlaceIncrementalOrders | {'symbol': 'ZORA_USDC_PERP', 'action': 'buy', 'price': 0.09697, 'sizes': 100.0, 'order_id': '14185944269'}
+2025-10-18 02:20:36,877 - INFO - OP OrderPlaced | {'type': 'buy', 'order_id': '14185944269', 'amount': 12.88, 'price': 0.09697}
+2025-10-18 02:20:38,719 - INFO - OP PlaceIncrementalOrders | {'symbol': 'ZORA_USDC_PERP', 'action': 'sell', 'price': 0.10187, 'sizes': 100.0, 'order_id': '14185946610'}
+2025-10-18 02:20:38,720 - INFO - OP OrderAmended | {'type': 'sell', 'order_id': '14185946610', 'amount': 12.88, 'price': 0.10187}
+2025-10-18 03:25:36,012 - INFO - OP OrderFilled | {'type': 'buy', 'order_id': '14185944269', 'side_active': 'sell', 'sell_order_id': '14185946610'}
+2025-10-18 03:25:36,936 - INFO - OP PlaceIncrementalOrders | {'symbol': 'ZORA_USDC_PERP', 'action': 'buy', 'price': 0.096, 'sizes': 100.0, 'order_id': '14192215313'}
+2025-10-18 03:25:36,937 - INFO - OP OrderPlaced | {'type': 'buy', 'order_id': '14192215313', 'amount': 12.88, 'price': 0.096}
+2025-10-18 03:25:38,775 - INFO - OP PlaceIncrementalOrders | {'symbol': 'ZORA_USDC_PERP', 'action': 'sell', 'price': 0.10086, 'sizes': 100.0, 'order_id': '14192218599'}
+2025-10-18 03:25:38,776 - INFO - OP OrderAmended | {'type': 'sell', 'order_id': '14192218599', 'amount': 12.88, 'price': 0.10086}
+2025-10-18 03:39:06,498 - INFO - OP OrderFilled | {'type': 'buy', 'order_id': '14192215313', 'side_active': 'sell', 'sell_order_id': '14192218599'}
+2025-10-18 03:39:07,425 - INFO - OP PlaceIncrementalOrders | {'symbol': 'ZORA_USDC_PERP', 'action': 'buy', 'price': 0.09504, 'sizes': 100.0, 'order_id': '14193504067'}
+2025-10-18 03:39:07,426 - INFO - OP OrderPlaced | {'type': 'buy', 'order_id': '14193504067', 'amount': 12.88, 'price': 0.09504}
+2025-10-18 03:39:09,267 - INFO - OP PlaceIncrementalOrders | {'symbol': 'ZORA_USDC_PERP', 'action': 'sell', 'price': 0.09985, 'sizes': 100.0, 'order_id': '14193505784'}
+2025-10-18 03:39:09,267 - INFO - OP OrderAmended | {'type': 'sell', 'order_id': '14193505784', 'amount': 12.88, 'price': 0.09985}
+2025-10-18 04:01:51,220 - INFO - OP OrderFilled | {'type': 'buy', 'order_id': '14193504067', 'side_active': 'sell', 'sell_order_id': '14193505784'}
+2025-10-18 04:01:52,151 - INFO - OP PlaceIncrementalOrders | {'symbol': 'ZORA_USDC_PERP', 'action': 'buy', 'price': 0.09409, 'sizes': 100.0, 'order_id': '14195563284'}
+2025-10-18 04:01:52,151 - INFO - OP OrderPlaced | {'type': 'buy', 'order_id': '14195563284', 'amount': 12.88, 'price': 0.09409}
+2025-10-18 04:01:53,991 - INFO - OP PlaceIncrementalOrders | {'symbol': 'ZORA_USDC_PERP', 'action': 'sell', 'price': 0.09885, 'sizes': 100.0, 'order_id': '14195564700'}
+2025-10-18 04:01:53,991 - INFO - OP OrderAmended | {'type': 'sell', 'order_id': '14195564700', 'amount': 12.88, 'price': 0.09885}
+2025-10-18 04:25:16,472 - INFO - OP OrderFilled | {'type': 'sell', 'order_id': '14195564700', 'side_active': 'buy', 'buy_order_id': '14195563284'}
+2025-10-18 04:25:18,325 - INFO - OP PlaceIncrementalOrders | {'symbol': 'ZORA_USDC_PERP', 'action': 'buy', 'price': 0.09503, 'sizes': 100.0, 'order_id': '14197399002'}
+2025-10-18 04:25:18,326 - INFO - OP OrderAmended | {'type': 'buy', 'order_id': '14197399002', 'amount': 12.88, 'price': 0.09503}
+2025-10-18 04:25:19,253 - INFO - OP PlaceIncrementalOrders | {'symbol': 'ZORA_USDC_PERP', 'action': 'sell', 'price': 0.09984, 'sizes': 100.0, 'order_id': '14197399546'}
+2025-10-18 04:25:19,254 - INFO - OP OrderPlaced | {'type': 'sell', 'order_id': '14197399546', 'amount': 12.88, 'price': 0.09984}
+2025-10-18 05:19:22,936 - INFO - OP OrderFilled | {'type': 'sell', 'order_id': '14197399546', 'side_active': 'buy', 'buy_order_id': '14197399002'}
+2025-10-18 05:19:24,947 - INFO - OP PlaceIncrementalOrders | {'symbol': 'ZORA_USDC_PERP', 'action': 'buy', 'price': 0.09598, 'sizes': 100.0, 'order_id': '14201595845'}
+2025-10-18 05:19:24,948 - INFO - OP OrderAmended | {'type': 'buy', 'order_id': '14201595845', 'amount': 12.88, 'price': 0.09598}
+2025-10-18 05:19:25,974 - INFO - OP PlaceIncrementalOrders | {'symbol': 'ZORA_USDC_PERP', 'action': 'sell', 'price': 0.10083, 'sizes': 100.0, 'order_id': '14201597567'}
+2025-10-18 05:19:25,975 - INFO - OP OrderPlaced | {'type': 'sell', 'order_id': '14201597567', 'amount': 12.88, 'price': 0.10083}
+2025-10-18 07:16:55,992 - INFO - OP OrderFilled | {'type': 'buy', 'order_id': '14201595845', 'side_active': 'sell', 'sell_order_id': '14201597567'}
+2025-10-18 07:16:57,002 - INFO - OP PlaceIncrementalOrders | {'symbol': 'ZORA_USDC_PERP', 'action': 'buy', 'price': 0.09502, 'sizes': 100.0, 'order_id': '14208716286'}
+2025-10-18 07:16:57,003 - INFO - OP OrderPlaced | {'type': 'buy', 'order_id': '14208716286', 'amount': 12.88, 'price': 0.09502}
+2025-10-18 07:16:58,985 - INFO - OP PlaceIncrementalOrders | {'symbol': 'ZORA_USDC_PERP', 'action': 'sell', 'price': 0.09983, 'sizes': 100.0, 'order_id': '14208718563'}
+2025-10-18 07:16:58,985 - INFO - OP OrderAmended | {'type': 'sell', 'order_id': '14208718563', 'amount': 12.88, 'price': 0.09983}
+2025-10-18 07:37:00,046 - INFO - OP StrategyException | {'err': "local variable 'e' referenced before assignment", 'time': '2025-10-18 07:37:00', 'sym': 'ZORA_USDC_PERP'}
+2025-10-18 08:00:30,436 - INFO - OP OrderFilled | {'type': 'buy', 'order_id': '14208716286', 'side_active': 'sell', 'sell_order_id': '14208718563'}
+2025-10-18 08:00:31,445 - INFO - OP PlaceIncrementalOrders | {'symbol': 'ZORA_USDC_PERP', 'action': 'buy', 'price': 0.09407, 'sizes': 100.0, 'order_id': '14211290461'}
+2025-10-18 08:00:31,446 - INFO - OP OrderPlaced | {'type': 'buy', 'order_id': '14211290461', 'amount': 12.88, 'price': 0.09407}
+2025-10-18 08:00:33,425 - INFO - OP PlaceIncrementalOrders | {'symbol': 'ZORA_USDC_PERP', 'action': 'sell', 'price': 0.09883, 'sizes': 100.0, 'order_id': '14211292234'}
+2025-10-18 08:00:33,426 - INFO - OP OrderAmended | {'type': 'sell', 'order_id': '14211292234', 'amount': 12.88, 'price': 0.09883}
+2025-10-18 08:03:20,400 - INFO - OP OrderFilled | {'type': 'buy', 'order_id': '14211290461', 'side_active': 'sell', 'sell_order_id': '14211292234'}
+2025-10-18 08:03:21,413 - INFO - OP PlaceIncrementalOrders | {'symbol': 'ZORA_USDC_PERP', 'action': 'buy', 'price': 0.09313, 'sizes': 100.0, 'order_id': '14211505598'}
+2025-10-18 08:03:21,414 - INFO - OP OrderPlaced | {'type': 'buy', 'order_id': '14211505598', 'amount': 12.88, 'price': 0.09313}
+2025-10-18 08:03:23,637 - INFO - OP PlaceIncrementalOrders | {'symbol': 'ZORA_USDC_PERP', 'action': 'sell', 'price': 0.09784, 'sizes': 100.0, 'order_id': '14211511428'}
+2025-10-18 08:03:23,637 - INFO - OP OrderAmended | {'type': 'sell', 'order_id': '14211511428', 'amount': 12.88, 'price': 0.09784}
+2025-10-18 08:34:21,087 - INFO - OP OrderFilled | {'type': 'buy', 'order_id': '14211505598', 'side_active': 'sell', 'sell_order_id': '14211511428'}
+2025-10-18 08:34:22,100 - INFO - OP PlaceIncrementalOrders | {'symbol': 'ZORA_USDC_PERP', 'action': 'buy', 'price': 0.0922, 'sizes': 100.0, 'order_id': '14213922149'}
+2025-10-18 08:34:22,100 - INFO - OP OrderPlaced | {'type': 'buy', 'order_id': '14213922149', 'amount': 12.88, 'price': 0.0922}
+2025-10-18 08:34:24,085 - INFO - OP PlaceIncrementalOrders | {'symbol': 'ZORA_USDC_PERP', 'action': 'sell', 'price': 0.09686, 'sizes': 100.0, 'order_id': '14213925323'}
+2025-10-18 08:34:24,085 - INFO - OP OrderAmended | {'type': 'sell', 'order_id': '14213925323', 'amount': 12.88, 'price': 0.09686}
+2025-10-18 09:42:07,136 - INFO - OP OrderFilled | {'type': 'sell', 'order_id': '14213925323', 'side_active': 'buy', 'buy_order_id': '14213922149'}
+2025-10-18 09:42:09,124 - INFO - OP PlaceIncrementalOrders | {'symbol': 'ZORA_USDC_PERP', 'action': 'buy', 'price': 0.09312, 'sizes': 100.0, 'order_id': '14218569569'}
+2025-10-18 09:42:09,124 - INFO - OP OrderAmended | {'type': 'buy', 'order_id': '14218569569', 'amount': 12.88, 'price': 0.09312}
+2025-10-18 09:42:10,161 - INFO - OP PlaceIncrementalOrders | {'symbol': 'ZORA_USDC_PERP', 'action': 'sell', 'price': 0.09783, 'sizes': 100.0, 'order_id': '14218570623'}
+2025-10-18 09:42:10,162 - INFO - OP OrderPlaced | {'type': 'sell', 'order_id': '14218570623', 'amount': 12.88, 'price': 0.09783}
+2025-10-18 10:20:58,028 - INFO - OP OrderFilled | {'type': 'buy', 'order_id': '14218569569', 'side_active': 'sell', 'sell_order_id': '14218570623'}
+2025-10-18 10:20:59,045 - INFO - OP PlaceIncrementalOrders | {'symbol': 'ZORA_USDC_PERP', 'action': 'buy', 'price': 0.09219, 'sizes': 100.0, 'order_id': '14221199302'}
+2025-10-18 10:20:59,046 - INFO - OP OrderPlaced | {'type': 'buy', 'order_id': '14221199302', 'amount': 12.88, 'price': 0.09219}
+2025-10-18 10:21:02,481 - INFO - OP PlaceIncrementalOrders | {'symbol': 'ZORA_USDC_PERP', 'action': 'sell', 'price': 0.09685, 'sizes': 100.0, 'order_id': '14221204670'}
+2025-10-18 10:21:02,481 - INFO - OP OrderAmended | {'type': 'sell', 'order_id': '14221204670', 'amount': 12.88, 'price': 0.09685}
+2025-10-18 10:50:17,518 - INFO - OP StrategyException | {'err': "local variable 'e' referenced before assignment", 'time': '2025-10-18 10:50:17', 'sym': 'ZORA_USDC_PERP'}
+2025-10-18 10:56:59,244 - INFO - OP OrderFilled | {'type': 'buy', 'order_id': '14221199302', 'side_active': 'sell', 'sell_order_id': '14221204670'}
+2025-10-18 10:57:00,264 - INFO - OP PlaceIncrementalOrders | {'symbol': 'ZORA_USDC_PERP', 'action': 'buy', 'price': 0.09126, 'sizes': 100.0, 'order_id': '14223718677'}
+2025-10-18 10:57:00,264 - INFO - OP OrderPlaced | {'type': 'buy', 'order_id': '14223718677', 'amount': 12.88, 'price': 0.09126}
+2025-10-18 10:57:02,358 - INFO - OP PlaceIncrementalOrders | {'symbol': 'ZORA_USDC_PERP', 'action': 'sell', 'price': 0.09588, 'sizes': 100.0, 'order_id': '14223723003'}
+2025-10-18 10:57:02,358 - INFO - OP OrderAmended | {'type': 'sell', 'order_id': '14223723003', 'amount': 12.88, 'price': 0.09588}
+2025-10-18 11:05:05,992 - INFO - OP StrategyException | {'err': "local variable 'e' referenced before assignment", 'time': '2025-10-18 11:05:05', 'sym': 'ZORA_USDC_PERP'}
+2025-10-18 11:10:15,368 - INFO - OP StrategyException | {'err': "local variable 'e' referenced before assignment", 'time': '2025-10-18 11:10:15', 'sym': 'ZORA_USDC_PERP'}
+2025-10-18 11:24:00,896 - INFO - OP StrategyException | {'err': "local variable 'e' referenced before assignment", 'time': '2025-10-18 11:24:00', 'sym': 'ZORA_USDC_PERP'}
+2025-10-18 11:29:38,871 - INFO - OP StrategyException | {'err': "local variable 'e' referenced before assignment", 'time': '2025-10-18 11:29:38', 'sym': 'ZORA_USDC_PERP'}
+2025-10-18 11:30:17,158 - INFO - OP StrategyException | {'err': "local variable 'e' referenced before assignment", 'time': '2025-10-18 11:30:17', 'sym': 'ZORA_USDC_PERP'}
+2025-10-18 11:32:01,082 - INFO - OP StrategyException | {'err': "local variable 'e' referenced before assignment", 'time': '2025-10-18 11:32:01', 'sym': 'ZORA_USDC_PERP'}
+2025-10-18 15:38:18,137 - INFO - OP StrategyException | {'err': "local variable 'e' referenced before assignment", 'time': '2025-10-18 15:38:18', 'sym': 'ZORA_USDC_PERP'}
+2025-10-18 16:37:15,807 - INFO - OP StrategyException | {'err': "local variable 'e' referenced before assignment", 'time': '2025-10-18 16:37:15', 'sym': 'ZORA_USDC_PERP'}
+2025-10-18 17:20:57,579 - INFO - OP PlaceIncrementalOrders | {'symbol': 'ZORA_USDC_PERP', 'action': 'buy', 'price': 0.09126, 'sizes': 100.0, 'order_id': '14250871663'}
+2025-10-18 17:20:57,580 - INFO - OP OrderPlaced | {'type': 'buy', 'order_id': '14250871663', 'amount': 12.88, 'price': 0.09126}
+2025-10-18 17:20:58,591 - INFO - OP PlaceIncrementalOrders | {'symbol': 'ZORA_USDC_PERP', 'action': 'sell', 'price': 0.09588, 'sizes': 100.0, 'order_id': '14250873541'}
+2025-10-18 17:20:58,592 - INFO - OP OrderPlaced | {'type': 'sell', 'order_id': '14250873541', 'amount': 12.88, 'price': 0.09588}
+2025-10-18 19:32:23,685 - INFO - OP PlaceIncrementalOrders | {'symbol': 'ZORA_USDC_PERP', 'action': 'buy', 'price': 0.09126, 'sizes': 100.0, 'order_id': '14259774982'}
+2025-10-18 19:32:23,687 - INFO - OP OrderPlaced | {'type': 'buy', 'order_id': '14259774982', 'amount': 12.88, 'price': 0.09126}
+2025-10-18 19:32:24,696 - INFO - OP PlaceIncrementalOrders | {'symbol': 'ZORA_USDC_PERP', 'action': 'sell', 'price': 0.09588, 'sizes': 100.0, 'order_id': '14259776071'}
+2025-10-18 19:32:24,697 - INFO - OP OrderPlaced | {'type': 'sell', 'order_id': '14259776071', 'amount': 12.88, 'price': 0.09588}
+2025-10-18 20:13:19,324 - INFO - OP OrderFilled | {'type': 'sell', 'order_id': '14259776071', 'side_active': 'buy', 'buy_order_id': '14259774982'}
+2025-10-18 20:13:21,332 - INFO - OP PlaceIncrementalOrders | {'symbol': 'ZORA_USDC_PERP', 'action': 'buy', 'price': 0.09218, 'sizes': 100.0, 'order_id': '14262457679'}
+2025-10-18 20:13:21,333 - INFO - OP OrderAmended | {'type': 'buy', 'order_id': '14262457679', 'amount': 12.88, 'price': 0.09218}
+2025-10-18 20:13:22,351 - INFO - OP PlaceIncrementalOrders | {'symbol': 'ZORA_USDC_PERP', 'action': 'sell', 'price': 0.09684, 'sizes': 100.0, 'order_id': '14262458385'}
+2025-10-18 20:13:22,352 - INFO - OP OrderPlaced | {'type': 'sell', 'order_id': '14262458385', 'amount': 12.88, 'price': 0.09684}
+2025-10-18 20:29:13,045 - INFO - OP OrderFilled | {'type': 'sell', 'order_id': '14262458385', 'side_active': 'buy', 'buy_order_id': '14262457679'}
+2025-10-18 20:29:15,070 - INFO - OP PlaceIncrementalOrders | {'symbol': 'ZORA_USDC_PERP', 'action': 'buy', 'price': 0.0931, 'sizes': 100.0, 'order_id': '14263610051'}
+2025-10-18 20:29:15,071 - INFO - OP OrderAmended | {'type': 'buy', 'order_id': '14263610051', 'amount': 12.88, 'price': 0.0931}
+2025-10-18 20:29:16,081 - INFO - OP PlaceIncrementalOrders | {'symbol': 'ZORA_USDC_PERP', 'action': 'sell', 'price': 0.09781, 'sizes': 100.0, 'order_id': '14263611069'}
+2025-10-18 20:29:16,081 - INFO - OP OrderPlaced | {'type': 'sell', 'order_id': '14263611069', 'amount': 12.88, 'price': 0.09781}
+2025-10-18 21:07:12,928 - INFO - OP OrderFilled | {'type': 'buy', 'order_id': '14263610051', 'side_active': 'sell', 'sell_order_id': '14263611069'}
+2025-10-18 21:07:13,913 - INFO - OP PlaceIncrementalOrders | {'symbol': 'ZORA_USDC_PERP', 'action': 'buy', 'price': 0.09217, 'sizes': 100.0, 'order_id': '14266223689'}
+2025-10-18 21:07:13,914 - INFO - OP OrderPlaced | {'type': 'buy', 'order_id': '14266223689', 'amount': 12.88, 'price': 0.09217}
+2025-10-18 21:07:15,893 - INFO - OP PlaceIncrementalOrders | {'symbol': 'ZORA_USDC_PERP', 'action': 'sell', 'price': 0.09683, 'sizes': 100.0, 'order_id': '14266228135'}
+2025-10-18 21:07:15,893 - INFO - OP OrderAmended | {'type': 'sell', 'order_id': '14266228135', 'amount': 12.88, 'price': 0.09683}
+2025-10-18 21:44:31,236 - INFO - OP OrderFilled | {'type': 'buy', 'order_id': '14266223689', 'side_active': 'sell', 'sell_order_id': '14266228135'}
+2025-10-18 21:44:32,694 - INFO - OP PlaceIncrementalOrders | {'symbol': 'ZORA_USDC_PERP', 'action': 'buy', 'price': 0.09125, 'sizes': 100.0, 'order_id': '14269375565'}
+2025-10-18 21:44:32,695 - INFO - OP OrderPlaced | {'type': 'buy', 'order_id': '14269375565', 'amount': 12.88, 'price': 0.09125}
+2025-10-18 21:44:34,804 - INFO - OP PlaceIncrementalOrders | {'symbol': 'ZORA_USDC_PERP', 'action': 'sell', 'price': 0.09586, 'sizes': 100.0, 'order_id': '14269377870'}
+2025-10-18 21:44:34,805 - INFO - OP OrderAmended | {'type': 'sell', 'order_id': '14269377870', 'amount': 12.88, 'price': 0.09586}
+2025-10-18 23:00:33,116 - INFO - OP OrderFilled | {'type': 'sell', 'order_id': '14269377870', 'side_active': 'buy', 'buy_order_id': '14269375565'}
+2025-10-18 23:00:35,100 - INFO - OP PlaceIncrementalOrders | {'symbol': 'ZORA_USDC_PERP', 'action': 'buy', 'price': 0.09216, 'sizes': 100.0, 'order_id': '14275640351'}
+2025-10-18 23:00:35,101 - INFO - OP OrderAmended | {'type': 'buy', 'order_id': '14275640351', 'amount': 12.88, 'price': 0.09216}
+2025-10-18 23:00:36,112 - INFO - OP PlaceIncrementalOrders | {'symbol': 'ZORA_USDC_PERP', 'action': 'sell', 'price': 0.09682, 'sizes': 100.0, 'order_id': '14275641084'}
+2025-10-18 23:00:36,112 - INFO - OP OrderPlaced | {'type': 'sell', 'order_id': '14275641084', 'amount': 12.88, 'price': 0.09682}
+2025-10-18 23:05:11,076 - INFO - OP OrderFilled | {'type': 'sell', 'order_id': '14275641084', 'side_active': 'buy', 'buy_order_id': '14275640351'}
+2025-10-18 23:05:13,230 - INFO - OP PlaceIncrementalOrders | {'symbol': 'ZORA_USDC_PERP', 'action': 'buy', 'price': 0.09308, 'sizes': 100.0, 'order_id': '14276019925'}
+2025-10-18 23:05:13,230 - INFO - OP OrderAmended | {'type': 'buy', 'order_id': '14276019925', 'amount': 12.88, 'price': 0.09308}
+2025-10-18 23:05:14,244 - INFO - OP PlaceIncrementalOrders | {'symbol': 'ZORA_USDC_PERP', 'action': 'sell', 'price': 0.09779, 'sizes': 100.0, 'order_id': '14276020977'}
+2025-10-18 23:05:14,245 - INFO - OP OrderPlaced | {'type': 'sell', 'order_id': '14276020977', 'amount': 12.88, 'price': 0.09779}
+2025-10-18 23:39:16,184 - INFO - OP OrderFilled | {'type': 'sell', 'order_id': '14276020977', 'side_active': 'buy', 'buy_order_id': '14276019925'}
+2025-10-18 23:39:18,052 - INFO - OP PlaceIncrementalOrders | {'symbol': 'ZORA_USDC_PERP', 'action': 'buy', 'price': 0.09401, 'sizes': 100.0, 'order_id': '14278618435'}
+2025-10-18 23:39:18,052 - INFO - OP OrderAmended | {'type': 'buy', 'order_id': '14278618435', 'amount': 12.88, 'price': 0.09401}
+2025-10-18 23:39:18,983 - INFO - OP PlaceIncrementalOrders | {'symbol': 'ZORA_USDC_PERP', 'action': 'sell', 'price': 0.09877, 'sizes': 100.0, 'order_id': '14278619886'}
+2025-10-18 23:39:18,984 - INFO - OP OrderPlaced | {'type': 'sell', 'order_id': '14278619886', 'amount': 12.88, 'price': 0.09877}
+2025-10-18 23:45:27,380 - INFO - OP OrderFilled | {'type': 'sell', 'order_id': '14278619886', 'side_active': 'buy', 'buy_order_id': '14278618435'}
+2025-10-18 23:45:29,223 - INFO - OP PlaceIncrementalOrders | {'symbol': 'ZORA_USDC_PERP', 'action': 'buy', 'price': 0.09495, 'sizes': 100.0, 'order_id': '14279058262'}
+2025-10-18 23:45:29,224 - INFO - OP OrderAmended | {'type': 'buy', 'order_id': '14279058262', 'amount': 12.88, 'price': 0.09495}
+2025-10-18 23:45:30,148 - INFO - OP PlaceIncrementalOrders | {'symbol': 'ZORA_USDC_PERP', 'action': 'sell', 'price': 0.09976, 'sizes': 100.0, 'order_id': '14279058847'}
+2025-10-18 23:45:30,149 - INFO - OP OrderPlaced | {'type': 'sell', 'order_id': '14279058847', 'amount': 12.88, 'price': 0.09976}
+2025-10-18 23:48:21,324 - INFO - OP OrderFilled | {'type': 'sell', 'order_id': '14279058847', 'side_active': 'buy', 'buy_order_id': '14279058262'}
+2025-10-18 23:48:23,170 - INFO - OP PlaceIncrementalOrders | {'symbol': 'ZORA_USDC_PERP', 'action': 'buy', 'price': 0.0959, 'sizes': 100.0, 'order_id': '14279292849'}
+2025-10-18 23:48:23,170 - INFO - OP OrderAmended | {'type': 'buy', 'order_id': '14279292849', 'amount': 12.88, 'price': 0.0959}
+2025-10-18 23:48:24,105 - INFO - OP PlaceIncrementalOrders | {'symbol': 'ZORA_USDC_PERP', 'action': 'sell', 'price': 0.10075, 'sizes': 100.0, 'order_id': '14279293960'}
+2025-10-18 23:48:24,105 - INFO - OP OrderPlaced | {'type': 'sell', 'order_id': '14279293960', 'amount': 12.88, 'price': 0.10075}
+2025-10-19 00:02:48,406 - INFO - OP PlaceIncrementalOrders | {'symbol': 'ZORA_USDC_PERP', 'action': 'buy', 'price': 0.0959, 'sizes': 100.0, 'order_id': '14280169318'}
+2025-10-19 00:02:48,406 - INFO - OP OrderPlaced | {'type': 'buy', 'order_id': '14280169318', 'amount': 12.88, 'price': 0.0959}
+2025-10-19 00:02:49,495 - INFO - OP PlaceIncrementalOrders | {'symbol': 'ZORA_USDC_PERP', 'action': 'sell', 'price': 0.10075, 'sizes': 100.0, 'order_id': '14280170671'}
+2025-10-19 00:02:49,496 - INFO - OP OrderPlaced | {'type': 'sell', 'order_id': '14280170671', 'amount': 12.88, 'price': 0.10075}
+2025-10-19 00:41:19,840 - INFO - OP PlaceIncrementalOrders | {'symbol': 'ZORA_USDC_PERP', 'action': 'buy', 'price': 0.0959, 'sizes': 100.0, 'order_id': '14283411899'}
+2025-10-19 00:41:19,841 - INFO - OP OrderPlaced | {'type': 'buy', 'order_id': '14283411899', 'amount': 12.88, 'price': 0.0959}
+2025-10-19 00:41:20,810 - INFO - OP PlaceIncrementalOrders | {'symbol': 'ZORA_USDC_PERP', 'action': 'sell', 'price': 0.10075, 'sizes': 100.0, 'order_id': '14283412560'}
+2025-10-19 00:41:20,811 - INFO - OP OrderPlaced | {'type': 'sell', 'order_id': '14283412560', 'amount': 12.88, 'price': 0.10075}
+2025-10-19 00:47:25,256 - INFO - OP OrderFilled | {'type': 'buy', 'order_id': '14283411899', 'side_active': 'sell', 'sell_order_id': '14283412560'}
+2025-10-19 00:47:26,236 - INFO - OP PlaceIncrementalOrders | {'symbol': 'ZORA_USDC_PERP', 'action': 'buy', 'price': 0.09494, 'sizes': 100.0, 'order_id': '14283936445'}
+2025-10-19 00:47:26,237 - INFO - OP OrderPlaced | {'type': 'buy', 'order_id': '14283936445', 'amount': 12.88, 'price': 0.09494}
+2025-10-19 00:47:28,142 - INFO - OP PlaceIncrementalOrders | {'symbol': 'ZORA_USDC_PERP', 'action': 'sell', 'price': 0.09975, 'sizes': 100.0, 'order_id': '14283937893'}
+2025-10-19 00:47:28,143 - INFO - OP OrderAmended | {'type': 'sell', 'order_id': '14283937893', 'amount': 12.88, 'price': 0.09975}
+2025-10-19 01:35:53,623 - INFO - OP StrategyException | {'err': "local variable 'e' referenced before assignment", 'time': '2025-10-19 01:35:53', 'sym': 'ZORA_USDC_PERP'}
+2025-10-19 01:36:34,786 - INFO - OP StrategyException | {'err': "local variable 'e' referenced before assignment", 'time': '2025-10-19 01:36:34', 'sym': 'ZORA_USDC_PERP'}
+2025-10-19 01:37:04,210 - INFO - OP PlaceIncrementalOrders | {'symbol': 'ZORA_USDC_PERP', 'action': 'buy', 'price': 0.09494, 'sizes': 100.0, 'order_id': '14287559224'}
+2025-10-19 01:37:04,211 - INFO - OP OrderPlaced | {'type': 'buy', 'order_id': '14287559224', 'amount': 12.88, 'price': 0.09494}
+2025-10-19 01:37:05,205 - INFO - OP PlaceIncrementalOrders | {'symbol': 'ZORA_USDC_PERP', 'action': 'sell', 'price': 0.09975, 'sizes': 100.0, 'order_id': '14287560843'}
+2025-10-19 01:37:05,205 - INFO - OP OrderPlaced | {'type': 'sell', 'order_id': '14287560843', 'amount': 12.88, 'price': 0.09975}
+2025-10-19 01:46:56,674 - INFO - OP StrategyException | {'err': "local variable 'e' referenced before assignment", 'time': '2025-10-19 01:46:56', 'sym': 'ZORA_USDC_PERP'}
+2025-10-19 01:47:15,534 - INFO - OP StrategyException | {'err': "local variable 'e' referenced before assignment", 'time': '2025-10-19 01:47:15', 'sym': 'ZORA_USDC_PERP'}
+2025-10-19 03:20:19,971 - INFO - OP StrategyException | {'err': "local variable 'e' referenced before assignment", 'time': '2025-10-19 03:20:19', 'sym': 'ZORA_USDC_PERP'}
+2025-10-19 03:36:29,222 - INFO - OP StrategyException | {'err': "local variable 'e' referenced before assignment", 'time': '2025-10-19 03:36:29', 'sym': 'ZORA_USDC_PERP'}
+2025-10-19 06:12:46,456 - INFO - OP OrderFilled | {'type': 'buy', 'order_id': '14287559224', 'side_active': 'sell', 'sell_order_id': '14287560843'}
+2025-10-19 06:12:47,408 - INFO - OP PlaceIncrementalOrders | {'symbol': 'ZORA_USDC_PERP', 'action': 'buy', 'price': 0.09399, 'sizes': 100.0, 'order_id': '14304146236'}
+2025-10-19 06:12:47,409 - INFO - OP OrderPlaced | {'type': 'buy', 'order_id': '14304146236', 'amount': 12.88, 'price': 0.09399}
+2025-10-19 06:12:49,301 - INFO - OP PlaceIncrementalOrders | {'symbol': 'ZORA_USDC_PERP', 'action': 'sell', 'price': 0.09875, 'sizes': 100.0, 'order_id': '14304147386'}
+2025-10-19 06:12:49,302 - INFO - OP OrderAmended | {'type': 'sell', 'order_id': '14304147386', 'amount': 12.88, 'price': 0.09875}
+2025-10-19 06:49:23,344 - INFO - OP OrderFilled | {'type': 'buy', 'order_id': '14304146236', 'side_active': 'sell', 'sell_order_id': '14304147386'}
+2025-10-19 06:49:24,293 - INFO - OP PlaceIncrementalOrders | {'symbol': 'ZORA_USDC_PERP', 'action': 'buy', 'price': 0.09305, 'sizes': 100.0, 'order_id': '14306006898'}
+2025-10-19 06:49:24,294 - INFO - OP OrderPlaced | {'type': 'buy', 'order_id': '14306006898', 'amount': 12.88, 'price': 0.09305}
+2025-10-19 06:49:26,193 - INFO - OP PlaceIncrementalOrders | {'symbol': 'ZORA_USDC_PERP', 'action': 'sell', 'price': 0.09776, 'sizes': 100.0, 'order_id': '14306009043'}
+2025-10-19 06:49:26,193 - INFO - OP OrderAmended | {'type': 'sell', 'order_id': '14306009043', 'amount': 12.88, 'price': 0.09776}
+2025-10-19 08:03:37,307 - INFO - OP OrderFilled | {'type': 'buy', 'order_id': '14306006898', 'side_active': 'sell', 'sell_order_id': '14306009043'}
+2025-10-19 08:03:38,458 - INFO - OP PlaceIncrementalOrders | {'symbol': 'ZORA_USDC_PERP', 'action': 'buy', 'price': 0.09212, 'sizes': 100.0, 'order_id': '14309596524'}
+2025-10-19 08:03:38,458 - INFO - OP OrderPlaced | {'type': 'buy', 'order_id': '14309596524', 'amount': 12.88, 'price': 0.09212}
+2025-10-19 08:03:40,356 - INFO - OP PlaceIncrementalOrders | {'symbol': 'ZORA_USDC_PERP', 'action': 'sell', 'price': 0.09678, 'sizes': 100.0, 'order_id': '14309600088'}
+2025-10-19 08:03:40,356 - INFO - OP OrderAmended | {'type': 'sell', 'order_id': '14309600088', 'amount': 12.88, 'price': 0.09678}
+2025-10-19 08:05:18,260 - INFO - OP OrderFilled | {'type': 'buy', 'order_id': '14309596524', 'side_active': 'sell', 'sell_order_id': '14309600088'}
+2025-10-19 08:05:19,212 - INFO - OP PlaceIncrementalOrders | {'symbol': 'ZORA_USDC_PERP', 'action': 'buy', 'price': 0.0912, 'sizes': 100.0, 'order_id': '14309731551'}
+2025-10-19 08:05:19,213 - INFO - OP OrderPlaced | {'type': 'buy', 'order_id': '14309731551', 'amount': 12.88, 'price': 0.0912}
+2025-10-19 08:05:21,119 - INFO - OP PlaceIncrementalOrders | {'symbol': 'ZORA_USDC_PERP', 'action': 'sell', 'price': 0.09582, 'sizes': 100.0, 'order_id': '14309734465'}
+2025-10-19 08:05:21,120 - INFO - OP OrderAmended | {'type': 'sell', 'order_id': '14309734465', 'amount': 12.88, 'price': 0.09582}
+2025-10-19 09:31:51,642 - INFO - OP StrategyException | {'err': "local variable 'e' referenced before assignment", 'time': '2025-10-19 09:31:51', 'sym': 'ZORA_USDC_PERP'}
+2025-10-19 09:43:32,653 - INFO - OP StrategyException | {'err': "local variable 'e' referenced before assignment", 'time': '2025-10-19 09:43:32', 'sym': 'ZORA_USDC_PERP'}
+2025-10-19 10:01:13,004 - INFO - OP OrderFilled | {'type': 'buy', 'order_id': '14309731551', 'side_active': 'sell', 'sell_order_id': '14309734465'}
+2025-10-19 10:01:13,985 - INFO - OP PlaceIncrementalOrders | {'symbol': 'ZORA_USDC_PERP', 'action': 'buy', 'price': 0.09029, 'sizes': 100.0, 'order_id': '14316753887'}
+2025-10-19 10:01:13,986 - INFO - OP OrderPlaced | {'type': 'buy', 'order_id': '14316753887', 'amount': 12.88, 'price': 0.09029}
+2025-10-19 10:01:15,914 - INFO - OP PlaceIncrementalOrders | {'symbol': 'ZORA_USDC_PERP', 'action': 'sell', 'price': 0.09486, 'sizes': 100.0, 'order_id': '14316755316'}
+2025-10-19 10:01:15,914 - INFO - OP OrderAmended | {'type': 'sell', 'order_id': '14316755316', 'amount': 12.88, 'price': 0.09486}
+2025-10-19 10:46:04,835 - INFO - OP OrderFilled | {'type': 'buy', 'order_id': '14316753887', 'side_active': 'sell', 'sell_order_id': '14316755316'}
+2025-10-19 10:46:05,795 - INFO - OP PlaceIncrementalOrders | {'symbol': 'ZORA_USDC_PERP', 'action': 'buy', 'price': 0.08939, 'sizes': 100.0, 'order_id': '14319103843'}
+2025-10-19 10:46:05,795 - INFO - OP OrderPlaced | {'type': 'buy', 'order_id': '14319103843', 'amount': 12.88, 'price': 0.08939}
+2025-10-19 10:46:07,701 - INFO - OP PlaceIncrementalOrders | {'symbol': 'ZORA_USDC_PERP', 'action': 'sell', 'price': 0.09391, 'sizes': 100.0, 'order_id': '14319105079'}
+2025-10-19 10:46:07,701 - INFO - OP OrderAmended | {'type': 'sell', 'order_id': '14319105079', 'amount': 12.88, 'price': 0.09391}
+2025-10-19 15:22:23,396 - INFO - OP PlaceIncrementalOrders | {'symbol': 'ZORA_USDC_PERP', 'action': 'buy', 'price': 0.08939, 'sizes': 100.0, 'order_id': '14335533293'}
+2025-10-19 15:22:23,397 - INFO - OP OrderPlaced | {'type': 'buy', 'order_id': '14335533293', 'amount': 12.88, 'price': 0.08939}
+2025-10-19 15:22:24,365 - INFO - OP PlaceIncrementalOrders | {'symbol': 'ZORA_USDC_PERP', 'action': 'sell', 'price': 0.09391, 'sizes': 100.0, 'order_id': '14335534075'}
+2025-10-19 15:22:24,366 - INFO - OP OrderPlaced | {'type': 'sell', 'order_id': '14335534075', 'amount': 12.88, 'price': 0.09391}
+2025-10-19 18:02:19,802 - INFO - OP OrderFilled | {'type': 'sell', 'order_id': '14335534075', 'side_active': 'buy', 'buy_order_id': '14335533293'}
+2025-10-19 18:02:21,804 - INFO - OP PlaceIncrementalOrders | {'symbol': 'ZORA_USDC_PERP', 'action': 'buy', 'price': 0.09028, 'sizes': 100.0, 'order_id': '14351268909'}
+2025-10-19 18:02:21,805 - INFO - OP OrderAmended | {'type': 'buy', 'order_id': '14351268909', 'amount': 12.88, 'price': 0.09028}
+2025-10-19 18:02:22,751 - INFO - OP PlaceIncrementalOrders | {'symbol': 'ZORA_USDC_PERP', 'action': 'sell', 'price': 0.09485, 'sizes': 100.0, 'order_id': '14351271978'}
+2025-10-19 18:02:22,751 - INFO - OP OrderPlaced | {'type': 'sell', 'order_id': '14351271978', 'amount': 12.88, 'price': 0.09485}
+2025-10-19 18:25:38,924 - INFO - OP OrderFilled | {'type': 'sell', 'order_id': '14351271978', 'side_active': 'buy', 'buy_order_id': '14351268909'}
+2025-10-19 18:25:41,862 - INFO - OP PlaceIncrementalOrders | {'symbol': 'ZORA_USDC_PERP', 'action': 'buy', 'price': 0.09118, 'sizes': 100.0, 'order_id': '14354299178'}
+2025-10-19 18:25:41,862 - INFO - OP OrderAmended | {'type': 'buy', 'order_id': '14354299178', 'amount': 12.88, 'price': 0.09118}
+2025-10-19 18:25:43,451 - INFO - OP PlaceIncrementalOrders | {'symbol': 'ZORA_USDC_PERP', 'action': 'sell', 'price': 0.0958, 'sizes': 100.0, 'order_id': '14354305319'}
+2025-10-19 18:25:43,452 - INFO - OP OrderPlaced | {'type': 'sell', 'order_id': '14354305319', 'amount': 12.88, 'price': 0.0958}
+2025-10-19 19:13:15,145 - INFO - OP OrderFilled | {'type': 'sell', 'order_id': '14354305319', 'side_active': 'buy', 'buy_order_id': '14354299178'}
+2025-10-19 19:13:17,039 - INFO - OP PlaceIncrementalOrders | {'symbol': 'ZORA_USDC_PERP', 'action': 'buy', 'price': 0.09209, 'sizes': 100.0, 'order_id': '14360301017'}
+2025-10-19 19:13:17,040 - INFO - OP OrderAmended | {'type': 'buy', 'order_id': '14360301017', 'amount': 12.88, 'price': 0.09209}
+2025-10-19 19:13:18,005 - INFO - OP PlaceIncrementalOrders | {'symbol': 'ZORA_USDC_PERP', 'action': 'sell', 'price': 0.09676, 'sizes': 100.0, 'order_id': '14360304397'}
+2025-10-19 19:13:18,006 - INFO - OP OrderPlaced | {'type': 'sell', 'order_id': '14360304397', 'amount': 12.88, 'price': 0.09676}
+2025-10-19 20:20:19,516 - INFO - OP OrderFilled | {'type': 'buy', 'order_id': '14360301017', 'side_active': 'sell', 'sell_order_id': '14360304397'}
+2025-10-19 20:20:20,469 - INFO - OP PlaceIncrementalOrders | {'symbol': 'ZORA_USDC_PERP', 'action': 'buy', 'price': 0.09117, 'sizes': 100.0, 'order_id': '14366302442'}
+2025-10-19 20:20:20,470 - INFO - OP OrderPlaced | {'type': 'buy', 'order_id': '14366302442', 'amount': 12.88, 'price': 0.09117}
+2025-10-19 20:20:22,363 - INFO - OP PlaceIncrementalOrders | {'symbol': 'ZORA_USDC_PERP', 'action': 'sell', 'price': 0.09579, 'sizes': 100.0, 'order_id': '14366303699'}
+2025-10-19 20:20:22,364 - INFO - OP OrderAmended | {'type': 'sell', 'order_id': '14366303699', 'amount': 12.88, 'price': 0.09579}
+2025-10-20 02:18:46,076 - INFO - OP OrderFilled | {'type': 'buy', 'order_id': '14366302442', 'side_active': 'sell', 'sell_order_id': '14366303699'}
+2025-10-20 02:18:47,009 - INFO - OP PlaceIncrementalOrders | {'symbol': 'ZORA_USDC_PERP', 'action': 'buy', 'price': 0.09026, 'sizes': 100.0, 'order_id': '14397265132'}
+2025-10-20 02:18:47,009 - INFO - OP OrderPlaced | {'type': 'buy', 'order_id': '14397265132', 'amount': 12.88, 'price': 0.09026}
+2025-10-20 02:18:48,865 - INFO - OP PlaceIncrementalOrders | {'symbol': 'ZORA_USDC_PERP', 'action': 'sell', 'price': 0.09483, 'sizes': 100.0, 'order_id': '14397266916'}
+2025-10-20 02:18:48,866 - INFO - OP OrderAmended | {'type': 'sell', 'order_id': '14397266916', 'amount': 12.88, 'price': 0.09483}
+2025-10-20 02:26:05,856 - INFO - OP OrderFilled | {'type': 'buy', 'order_id': '14397265132', 'side_active': 'sell', 'sell_order_id': '14397266916'}
+2025-10-20 02:26:06,790 - INFO - OP PlaceIncrementalOrders | {'symbol': 'ZORA_USDC_PERP', 'action': 'buy', 'price': 0.08936, 'sizes': 100.0, 'order_id': '14397724964'}
+2025-10-20 02:26:06,790 - INFO - OP OrderPlaced | {'type': 'buy', 'order_id': '14397724964', 'amount': 12.88, 'price': 0.08936}
+2025-10-20 02:26:08,650 - INFO - OP PlaceIncrementalOrders | {'symbol': 'ZORA_USDC_PERP', 'action': 'sell', 'price': 0.09388, 'sizes': 100.0, 'order_id': '14397726489'}
+2025-10-20 02:26:08,651 - INFO - OP OrderAmended | {'type': 'sell', 'order_id': '14397726489', 'amount': 12.88, 'price': 0.09388}
+2025-10-20 05:44:16,908 - INFO - OP OrderFilled | {'type': 'buy', 'order_id': '14397724964', 'side_active': 'sell', 'sell_order_id': '14397726489'}
+2025-10-20 05:44:17,831 - INFO - OP PlaceIncrementalOrders | {'symbol': 'ZORA_USDC_PERP', 'action': 'buy', 'price': 0.08847, 'sizes': 100.0, 'order_id': '14408922015'}
+2025-10-20 05:44:17,832 - INFO - OP OrderPlaced | {'type': 'buy', 'order_id': '14408922015', 'amount': 12.88, 'price': 0.08847}
+2025-10-20 05:44:19,668 - INFO - OP PlaceIncrementalOrders | {'symbol': 'ZORA_USDC_PERP', 'action': 'sell', 'price': 0.09294, 'sizes': 100.0, 'order_id': '14408923154'}
+2025-10-20 05:44:19,668 - INFO - OP OrderAmended | {'type': 'sell', 'order_id': '14408923154', 'amount': 12.88, 'price': 0.09294}
+2025-10-20 08:00:39,532 - INFO - OP OrderFilled | {'type': 'buy', 'order_id': '14408922015', 'side_active': 'sell', 'sell_order_id': '14408923154'}
+2025-10-20 08:00:40,460 - INFO - OP PlaceIncrementalOrders | {'symbol': 'ZORA_USDC_PERP', 'action': 'buy', 'price': 0.08758, 'sizes': 100.0, 'order_id': '14417372953'}
+2025-10-20 08:00:40,461 - INFO - OP OrderPlaced | {'type': 'buy', 'order_id': '14417372953', 'amount': 12.88, 'price': 0.08758}
+2025-10-20 08:00:42,302 - INFO - OP PlaceIncrementalOrders | {'symbol': 'ZORA_USDC_PERP', 'action': 'sell', 'price': 0.09201, 'sizes': 100.0, 'order_id': '14417374281'}
+2025-10-20 08:00:42,303 - INFO - OP OrderAmended | {'type': 'sell', 'order_id': '14417374281', 'amount': 12.88, 'price': 0.09201}
+2025-10-20 08:03:07,324 - INFO - OP OrderFilled | {'type': 'buy', 'order_id': '14417372953', 'side_active': 'sell', 'sell_order_id': '14417374281'}
+2025-10-20 08:03:08,292 - INFO - OP PlaceIncrementalOrders | {'symbol': 'ZORA_USDC_PERP', 'action': 'buy', 'price': 0.08671, 'sizes': 100.0, 'order_id': '14417583515'}
+2025-10-20 08:03:08,293 - INFO - OP OrderPlaced | {'type': 'buy', 'order_id': '14417583515', 'amount': 12.88, 'price': 0.08671}
+2025-10-20 08:03:10,225 - INFO - OP PlaceIncrementalOrders | {'symbol': 'ZORA_USDC_PERP', 'action': 'sell', 'price': 0.09109, 'sizes': 100.0, 'order_id': '14417591385'}
+2025-10-20 08:03:10,225 - INFO - OP OrderAmended | {'type': 'sell', 'order_id': '14417591385', 'amount': 12.88, 'price': 0.09109}
+2025-10-20 08:03:40,060 - INFO - OP OrderFilled | {'type': 'buy', 'order_id': '14417583515', 'side_active': 'sell', 'sell_order_id': '14417591385'}
+2025-10-20 08:03:41,189 - INFO - OP PlaceIncrementalOrders | {'symbol': 'ZORA_USDC_PERP', 'action': 'buy', 'price': 0.08584, 'sizes': 200.0, 'order_id': '14417655133'}
+2025-10-20 08:03:41,189 - INFO - OP OrderPlaced | {'type': 'buy', 'order_id': '14417655133', 'amount': 12.88, 'price': 0.08584}
+2025-10-20 08:03:43,033 - INFO - OP PlaceIncrementalOrders | {'symbol': 'ZORA_USDC_PERP', 'action': 'sell', 'price': 0.09018, 'sizes': 100.0, 'order_id': '14417656824'}
+2025-10-20 08:03:43,033 - INFO - OP OrderAmended | {'type': 'sell', 'order_id': '14417656824', 'amount': 12.88, 'price': 0.09018}
+2025-10-20 11:09:06,544 - INFO - OP OrderFilled | {'type': 'sell', 'order_id': '14417656824', 'side_active': 'buy', 'buy_order_id': '14417655133'}
+2025-10-20 11:09:08,420 - INFO - OP PlaceIncrementalOrders | {'symbol': 'ZORA_USDC_PERP', 'action': 'buy', 'price': 0.0867, 'sizes': 100.0, 'order_id': '14436118508'}
+2025-10-20 11:09:08,421 - INFO - OP OrderAmended | {'type': 'buy', 'order_id': '14436118508', 'amount': 12.88, 'price': 0.0867}
+2025-10-20 11:09:09,348 - INFO - OP PlaceIncrementalOrders | {'symbol': 'ZORA_USDC_PERP', 'action': 'sell', 'price': 0.09108, 'sizes': 100.0, 'order_id': '14436120162'}
+2025-10-20 11:09:09,348 - INFO - OP OrderPlaced | {'type': 'sell', 'order_id': '14436120162', 'amount': 12.88, 'price': 0.09108}
+2025-10-20 11:11:57,296 - INFO - OP OrderFilled | {'type': 'sell', 'order_id': '14436120162', 'side_active': 'buy', 'buy_order_id': '14436118508'}
+2025-10-20 11:11:59,147 - INFO - OP PlaceIncrementalOrders | {'symbol': 'ZORA_USDC_PERP', 'action': 'buy', 'price': 0.08756, 'sizes': 100.0, 'order_id': '14436305753'}
+2025-10-20 11:11:59,147 - INFO - OP OrderAmended | {'type': 'buy', 'order_id': '14436305753', 'amount': 12.88, 'price': 0.08756}
+2025-10-20 11:12:00,080 - INFO - OP PlaceIncrementalOrders | {'symbol': 'ZORA_USDC_PERP', 'action': 'sell', 'price': 0.09199, 'sizes': 100.0, 'order_id': '14436307535'}
+2025-10-20 11:12:00,081 - INFO - OP OrderPlaced | {'type': 'sell', 'order_id': '14436307535', 'amount': 12.88, 'price': 0.09199}
+2025-10-20 11:15:58,372 - INFO - OP OrderFilled | {'type': 'sell', 'order_id': '14436307535', 'side_active': 'buy', 'buy_order_id': '14436305753'}
+2025-10-20 11:16:00,238 - INFO - OP PlaceIncrementalOrders | {'symbol': 'ZORA_USDC_PERP', 'action': 'buy', 'price': 0.08844, 'sizes': 100.0, 'order_id': '14436597159'}
+2025-10-20 11:16:00,239 - INFO - OP OrderAmended | {'type': 'buy', 'order_id': '14436597159', 'amount': 12.88, 'price': 0.08844}
+2025-10-20 11:16:01,213 - INFO - OP PlaceIncrementalOrders | {'symbol': 'ZORA_USDC_PERP', 'action': 'sell', 'price': 0.09291, 'sizes': 100.0, 'order_id': '14436599303'}
+2025-10-20 11:16:01,214 - INFO - OP OrderPlaced | {'type': 'sell', 'order_id': '14436599303', 'amount': 12.88, 'price': 0.09291}
+2025-10-20 11:23:54,724 - INFO - OP OrderFilled | {'type': 'sell', 'order_id': '14436599303', 'side_active': 'buy', 'buy_order_id': '14436597159'}
+2025-10-20 11:23:56,573 - INFO - OP PlaceIncrementalOrders | {'symbol': 'ZORA_USDC_PERP', 'action': 'buy', 'price': 0.08932, 'sizes': 100.0, 'order_id': '14437239752'}
+2025-10-20 11:23:56,574 - INFO - OP OrderAmended | {'type': 'buy', 'order_id': '14437239752', 'amount': 12.88, 'price': 0.08932}
+2025-10-20 11:23:57,501 - INFO - OP PlaceIncrementalOrders | {'symbol': 'ZORA_USDC_PERP', 'action': 'sell', 'price': 0.09384, 'sizes': 100.0, 'order_id': '14437240384'}
+2025-10-20 11:23:57,501 - INFO - OP OrderPlaced | {'type': 'sell', 'order_id': '14437240384', 'amount': 12.88, 'price': 0.09384}
+2025-10-20 11:51:32,147 - INFO - OP OrderFilled | {'type': 'sell', 'order_id': '14437240384', 'side_active': 'buy', 'buy_order_id': '14437239752'}
+2025-10-20 11:51:34,435 - INFO - OP PlaceIncrementalOrders | {'symbol': 'ZORA_USDC_PERP', 'action': 'buy', 'price': 0.09022, 'sizes': 100.0, 'order_id': '14439902281'}
+2025-10-20 11:51:34,436 - INFO - OP OrderAmended | {'type': 'buy', 'order_id': '14439902281', 'amount': 12.88, 'price': 0.09022}
+2025-10-20 11:51:35,655 - INFO - OP PlaceIncrementalOrders | {'symbol': 'ZORA_USDC_PERP', 'action': 'sell', 'price': 0.09478, 'sizes': 100.0, 'order_id': '14439907384'}
+2025-10-20 11:51:35,656 - INFO - OP OrderPlaced | {'type': 'sell', 'order_id': '14439907384', 'amount': 12.88, 'price': 0.09478}
+2025-10-20 12:04:21,961 - INFO - OP OrderFilled | {'type': 'sell', 'order_id': '14439907384', 'side_active': 'buy', 'buy_order_id': '14439902281'}
+2025-10-20 12:04:23,996 - INFO - OP PlaceIncrementalOrders | {'symbol': 'ZORA_USDC_PERP', 'action': 'buy', 'price': 0.09112, 'sizes': 100.0, 'order_id': '14442336561'}
+2025-10-20 12:04:23,996 - INFO - OP OrderAmended | {'type': 'buy', 'order_id': '14442336561', 'amount': 12.88, 'price': 0.09112}
+2025-10-20 12:04:25,124 - INFO - OP PlaceIncrementalOrders | {'symbol': 'ZORA_USDC_PERP', 'action': 'sell', 'price': 0.09573, 'sizes': 100.0, 'order_id': '14442339083'}
+2025-10-20 12:04:25,125 - INFO - OP OrderPlaced | {'type': 'sell', 'order_id': '14442339083', 'amount': 12.88, 'price': 0.09573}
+2025-10-20 12:13:05,044 - INFO - OP OrderFilled | {'type': 'sell', 'order_id': '14442339083', 'side_active': 'buy', 'buy_order_id': '14442336561'}
+2025-10-20 12:13:06,923 - INFO - OP PlaceIncrementalOrders | {'symbol': 'ZORA_USDC_PERP', 'action': 'buy', 'price': 0.09203, 'sizes': 100.0, 'order_id': '14443552933'}
+2025-10-20 12:13:06,923 - INFO - OP OrderAmended | {'type': 'buy', 'order_id': '14443552933', 'amount': 12.88, 'price': 0.09203}
+2025-10-20 12:13:07,866 - INFO - OP PlaceIncrementalOrders | {'symbol': 'ZORA_USDC_PERP', 'action': 'sell', 'price': 0.09669, 'sizes': 100.0, 'order_id': '14443556312'}
+2025-10-20 12:13:07,867 - INFO - OP OrderPlaced | {'type': 'sell', 'order_id': '14443556312', 'amount': 12.88, 'price': 0.09669}
+2025-10-20 12:14:03,760 - INFO - OP OrderFilled | {'type': 'sell', 'order_id': '14443556312', 'side_active': 'buy', 'buy_order_id': '14443552933'}
+2025-10-20 12:14:05,606 - INFO - OP PlaceIncrementalOrders | {'symbol': 'ZORA_USDC_PERP', 'action': 'buy', 'price': 0.09295, 'sizes': 100.0, 'order_id': '14443654496'}
+2025-10-20 12:14:05,606 - INFO - OP OrderAmended | {'type': 'buy', 'order_id': '14443654496', 'amount': 12.88, 'price': 0.09295}
+2025-10-20 12:14:06,541 - INFO - OP PlaceIncrementalOrders | {'symbol': 'ZORA_USDC_PERP', 'action': 'sell', 'price': 0.09765, 'sizes': 100.0, 'order_id': '14443655695'}
+2025-10-20 12:14:06,541 - INFO - OP OrderPlaced | {'type': 'sell', 'order_id': '14443655695', 'amount': 12.88, 'price': 0.09765}
+2025-10-20 13:14:52,024 - INFO - OP OrderFilled | {'type': 'sell', 'order_id': '14443655695', 'side_active': 'buy', 'buy_order_id': '14443654496'}
+2025-10-20 13:14:53,871 - INFO - OP PlaceIncrementalOrders | {'symbol': 'ZORA_USDC_PERP', 'action': 'buy', 'price': 0.09388, 'sizes': 100.0, 'order_id': '14449151014'}
+2025-10-20 13:14:53,872 - INFO - OP OrderAmended | {'type': 'buy', 'order_id': '14449151014', 'amount': 12.88, 'price': 0.09388}
+2025-10-20 13:14:54,796 - INFO - OP PlaceIncrementalOrders | {'symbol': 'ZORA_USDC_PERP', 'action': 'sell', 'price': 0.09863, 'sizes': 100.0, 'order_id': '14449152243'}
+2025-10-20 13:14:54,797 - INFO - OP OrderPlaced | {'type': 'sell', 'order_id': '14449152243', 'amount': 12.88, 'price': 0.09863}
+2025-10-20 13:15:13,396 - INFO - OP OrderFilled | {'type': 'sell', 'order_id': '14449152243', 'side_active': 'buy', 'buy_order_id': '14449151014'}
+2025-10-20 13:15:15,240 - INFO - OP PlaceIncrementalOrders | {'symbol': 'ZORA_USDC_PERP', 'action': 'buy', 'price': 0.09482, 'sizes': 100.0, 'order_id': '14449192923'}
+2025-10-20 13:15:15,240 - INFO - OP OrderAmended | {'type': 'buy', 'order_id': '14449192923', 'amount': 12.88, 'price': 0.09482}
+2025-10-20 13:15:16,166 - INFO - OP PlaceIncrementalOrders | {'symbol': 'ZORA_USDC_PERP', 'action': 'sell', 'price': 0.09962, 'sizes': 100.0, 'order_id': '14449194053'}
+2025-10-20 13:15:16,166 - INFO - OP OrderPlaced | {'type': 'sell', 'order_id': '14449194053', 'amount': 12.88, 'price': 0.09962}
+2025-10-20 16:12:02,252 - INFO - OP OrderFilled | {'type': 'buy', 'order_id': '14449192923', 'side_active': 'sell', 'sell_order_id': '14449194053'}
+2025-10-20 16:12:03,268 - INFO - OP PlaceIncrementalOrders | {'symbol': 'ZORA_USDC_PERP', 'action': 'buy', 'price': 0.09387, 'sizes': 100.0, 'order_id': '14464718741'}
+2025-10-20 16:12:03,269 - INFO - OP OrderPlaced | {'type': 'buy', 'order_id': '14464718741', 'amount': 12.88, 'price': 0.09387}
+2025-10-20 16:12:05,243 - INFO - OP PlaceIncrementalOrders | {'symbol': 'ZORA_USDC_PERP', 'action': 'sell', 'price': 0.09862, 'sizes': 100.0, 'order_id': '14464720771'}
+2025-10-20 16:12:05,243 - INFO - OP OrderAmended | {'type': 'sell', 'order_id': '14464720771', 'amount': 12.88, 'price': 0.09862}
+2025-10-20 17:02:48,752 - INFO - OP OrderFilled | {'type': 'buy', 'order_id': '14464718741', 'side_active': 'sell', 'sell_order_id': '14464720771'}
+2025-10-20 17:02:49,765 - INFO - OP PlaceIncrementalOrders | {'symbol': 'ZORA_USDC_PERP', 'action': 'buy', 'price': 0.09293, 'sizes': 100.0, 'order_id': '14469060909'}
+2025-10-20 17:02:49,765 - INFO - OP OrderPlaced | {'type': 'buy', 'order_id': '14469060909', 'amount': 12.88, 'price': 0.09293}
+2025-10-20 17:02:51,767 - INFO - OP PlaceIncrementalOrders | {'symbol': 'ZORA_USDC_PERP', 'action': 'sell', 'price': 0.09763, 'sizes': 100.0, 'order_id': '14469063092'}
+2025-10-20 17:02:51,767 - INFO - OP OrderAmended | {'type': 'sell', 'order_id': '14469063092', 'amount': 12.88, 'price': 0.09763}
+2025-10-20 20:54:20,441 - INFO - OP OrderFilled | {'type': 'buy', 'order_id': '14469060909', 'side_active': 'sell', 'sell_order_id': '14469063092'}
+2025-10-20 20:54:21,368 - INFO - OP PlaceIncrementalOrders | {'symbol': 'ZORA_USDC_PERP', 'action': 'buy', 'price': 0.092, 'sizes': 100.0, 'order_id': '14488831967'}
+2025-10-20 20:54:21,368 - INFO - OP OrderPlaced | {'type': 'buy', 'order_id': '14488831967', 'amount': 12.88, 'price': 0.092}
+2025-10-20 20:54:23,217 - INFO - OP PlaceIncrementalOrders | {'symbol': 'ZORA_USDC_PERP', 'action': 'sell', 'price': 0.09666, 'sizes': 100.0, 'order_id': '14488834027'}
+2025-10-20 20:54:23,218 - INFO - OP OrderAmended | {'type': 'sell', 'order_id': '14488834027', 'amount': 12.88, 'price': 0.09666}
+2025-10-20 21:13:55,304 - INFO - OP OrderFilled | {'type': 'buy', 'order_id': '14488831967', 'side_active': 'sell', 'sell_order_id': '14488834027'}
+2025-10-20 21:13:56,229 - INFO - OP PlaceIncrementalOrders | {'symbol': 'ZORA_USDC_PERP', 'action': 'buy', 'price': 0.09108, 'sizes': 100.0, 'order_id': '14490379776'}
+2025-10-20 21:13:56,230 - INFO - OP OrderPlaced | {'type': 'buy', 'order_id': '14490379776', 'amount': 12.88, 'price': 0.09108}
+2025-10-20 21:13:58,069 - INFO - OP PlaceIncrementalOrders | {'symbol': 'ZORA_USDC_PERP', 'action': 'sell', 'price': 0.09569, 'sizes': 100.0, 'order_id': '14490382547'}
+2025-10-20 21:13:58,070 - INFO - OP OrderAmended | {'type': 'sell', 'order_id': '14490382547', 'amount': 12.88, 'price': 0.09569}
+2025-10-20 22:16:32,592 - INFO - OP OrderFilled | {'type': 'buy', 'order_id': '14490379776', 'side_active': 'sell', 'sell_order_id': '14490382547'}
+2025-10-20 22:16:33,522 - INFO - OP PlaceIncrementalOrders | {'symbol': 'ZORA_USDC_PERP', 'action': 'buy', 'price': 0.09017, 'sizes': 100.0, 'order_id': '14497645657'}
+2025-10-20 22:16:33,523 - INFO - OP OrderPlaced | {'type': 'buy', 'order_id': '14497645657', 'amount': 12.88, 'price': 0.09017}
+2025-10-20 22:16:35,381 - INFO - OP PlaceIncrementalOrders | {'symbol': 'ZORA_USDC_PERP', 'action': 'sell', 'price': 0.09473, 'sizes': 100.0, 'order_id': '14497650174'}
+2025-10-20 22:16:35,381 - INFO - OP OrderAmended | {'type': 'sell', 'order_id': '14497650174', 'amount': 12.88, 'price': 0.09473}
+2025-10-21 00:01:44,428 - INFO - OP OrderFilled | {'type': 'buy', 'order_id': '14497645657', 'side_active': 'sell', 'sell_order_id': '14497650174'}
+2025-10-21 00:01:46,056 - INFO - OP PlaceIncrementalOrders | {'symbol': 'ZORA_USDC_PERP', 'action': 'buy', 'price': 0.08927, 'sizes': 100.0, 'order_id': '14508696688'}
+2025-10-21 00:01:46,057 - INFO - OP OrderPlaced | {'type': 'buy', 'order_id': '14508696688', 'amount': 12.88, 'price': 0.08927}
+2025-10-21 00:01:48,635 - INFO - OP PlaceIncrementalOrders | {'symbol': 'ZORA_USDC_PERP', 'action': 'sell', 'price': 0.09379, 'sizes': 100.0, 'order_id': '14508709639'}
+2025-10-21 00:01:48,635 - INFO - OP OrderAmended | {'type': 'sell', 'order_id': '14508709639', 'amount': 12.88, 'price': 0.09379}
+2025-10-21 04:03:26,320 - INFO - OP OrderFilled | {'type': 'sell', 'order_id': '14508709639', 'side_active': 'buy', 'buy_order_id': '14508696688'}
+2025-10-21 04:03:28,505 - INFO - OP PlaceIncrementalOrders | {'symbol': 'ZORA_USDC_PERP', 'action': 'buy', 'price': 0.09016, 'sizes': 100.0, 'order_id': '14534505259'}
+2025-10-21 04:03:28,505 - INFO - OP OrderAmended | {'type': 'buy', 'order_id': '14534505259', 'amount': 12.88, 'price': 0.09016}
+2025-10-21 04:03:29,594 - INFO - OP PlaceIncrementalOrders | {'symbol': 'ZORA_USDC_PERP', 'action': 'sell', 'price': 0.09473, 'sizes': 100.0, 'order_id': '14534507941'}
+2025-10-21 04:03:29,595 - INFO - OP OrderPlaced | {'type': 'sell', 'order_id': '14534507941', 'amount': 12.88, 'price': 0.09473}
+2025-10-21 04:43:03,976 - INFO - OP OrderFilled | {'type': 'sell', 'order_id': '14534507941', 'side_active': 'buy', 'buy_order_id': '14534505259'}
+2025-10-21 04:43:06,067 - INFO - OP PlaceIncrementalOrders | {'symbol': 'ZORA_USDC_PERP', 'action': 'buy', 'price': 0.09106, 'sizes': 100.0, 'order_id': '14537734849'}
+2025-10-21 04:43:06,068 - INFO - OP OrderAmended | {'type': 'buy', 'order_id': '14537734849', 'amount': 12.88, 'price': 0.09106}
+2025-10-21 04:43:07,109 - INFO - OP PlaceIncrementalOrders | {'symbol': 'ZORA_USDC_PERP', 'action': 'sell', 'price': 0.09567, 'sizes': 100.0, 'order_id': '14537735881'}
+2025-10-21 04:43:07,110 - INFO - OP OrderPlaced | {'type': 'sell', 'order_id': '14537735881', 'amount': 12.88, 'price': 0.09567}
+2025-10-21 05:30:15,190 - INFO - OP OrderFilled | {'type': 'sell', 'order_id': '14537735881', 'side_active': 'buy', 'buy_order_id': '14537734849'}
+2025-10-21 05:30:17,286 - INFO - OP PlaceIncrementalOrders | {'symbol': 'ZORA_USDC_PERP', 'action': 'buy', 'price': 0.09197, 'sizes': 100.0, 'order_id': '14541044667'}
+2025-10-21 05:30:17,287 - INFO - OP OrderAmended | {'type': 'buy', 'order_id': '14541044667', 'amount': 12.88, 'price': 0.09197}
+2025-10-21 05:30:18,375 - INFO - OP PlaceIncrementalOrders | {'symbol': 'ZORA_USDC_PERP', 'action': 'sell', 'price': 0.09663, 'sizes': 100.0, 'order_id': '14541045798'}
+2025-10-21 05:30:18,376 - INFO - OP OrderPlaced | {'type': 'sell', 'order_id': '14541045798', 'amount': 12.88, 'price': 0.09663}
+2025-10-21 05:31:21,941 - INFO - OP OrderFilled | {'type': 'sell', 'order_id': '14541045798', 'side_active': 'buy', 'buy_order_id': '14541044667'}
+2025-10-21 05:31:24,035 - INFO - OP PlaceIncrementalOrders | {'symbol': 'ZORA_USDC_PERP', 'action': 'buy', 'price': 0.09289, 'sizes': 100.0, 'order_id': '14541109178'}
+2025-10-21 05:31:24,035 - INFO - OP OrderAmended | {'type': 'buy', 'order_id': '14541109178', 'amount': 12.88, 'price': 0.09289}
+2025-10-21 05:31:25,135 - INFO - OP PlaceIncrementalOrders | {'symbol': 'ZORA_USDC_PERP', 'action': 'sell', 'price': 0.0976, 'sizes': 100.0, 'order_id': '14541110314'}
+2025-10-21 05:31:25,136 - INFO - OP OrderPlaced | {'type': 'sell', 'order_id': '14541110314', 'amount': 12.88, 'price': 0.0976}
+2025-10-21 05:31:29,313 - INFO - OP OrderFilled | {'type': 'sell', 'order_id': '14541110314', 'side_active': 'buy', 'buy_order_id': '14541109178'}
+2025-10-21 05:31:31,405 - INFO - OP PlaceIncrementalOrders | {'symbol': 'ZORA_USDC_PERP', 'action': 'buy', 'price': 0.09382, 'sizes': 100.0, 'order_id': '14541123363'}
+2025-10-21 05:31:31,406 - INFO - OP OrderAmended | {'type': 'buy', 'order_id': '14541123363', 'amount': 12.88, 'price': 0.09382}
+2025-10-21 05:31:32,490 - INFO - OP PlaceIncrementalOrders | {'symbol': 'ZORA_USDC_PERP', 'action': 'sell', 'price': 0.09857, 'sizes': 100.0, 'order_id': '14541124569'}
+2025-10-21 05:31:32,491 - INFO - OP OrderPlaced | {'type': 'sell', 'order_id': '14541124569', 'amount': 12.88, 'price': 0.09857}
+2025-10-21 05:33:59,673 - INFO - OP OrderFilled | {'type': 'sell', 'order_id': '14541124569', 'side_active': 'buy', 'buy_order_id': '14541123363'}
+2025-10-21 05:34:01,792 - INFO - OP PlaceIncrementalOrders | {'symbol': 'ZORA_USDC_PERP', 'action': 'buy', 'price': 0.09476, 'sizes': 100.0, 'order_id': '14541260132'}
+2025-10-21 05:34:01,792 - INFO - OP OrderAmended | {'type': 'buy', 'order_id': '14541260132', 'amount': 12.88, 'price': 0.09476}
+2025-10-21 05:34:02,899 - INFO - OP PlaceIncrementalOrders | {'symbol': 'ZORA_USDC_PERP', 'action': 'sell', 'price': 0.09956, 'sizes': 100.0, 'order_id': '14541261022'}
+2025-10-21 05:34:02,900 - INFO - OP OrderPlaced | {'type': 'sell', 'order_id': '14541261022', 'amount': 12.88, 'price': 0.09956}
+2025-10-21 05:41:29,960 - INFO - OP OrderFilled | {'type': 'sell', 'order_id': '14541261022', 'side_active': 'buy', 'buy_order_id': '14541260132'}
+2025-10-21 05:41:32,071 - INFO - OP PlaceIncrementalOrders | {'symbol': 'ZORA_USDC_PERP', 'action': 'buy', 'price': 0.09571, 'sizes': 100.0, 'order_id': '14541676482'}
+2025-10-21 05:41:32,071 - INFO - OP OrderAmended | {'type': 'buy', 'order_id': '14541676482', 'amount': 12.88, 'price': 0.09571}
+2025-10-21 05:41:33,160 - INFO - OP PlaceIncrementalOrders | {'symbol': 'ZORA_USDC_PERP', 'action': 'sell', 'price': 0.10055, 'sizes': 100.0, 'order_id': '14541677229'}
+2025-10-21 05:41:33,161 - INFO - OP OrderPlaced | {'type': 'sell', 'order_id': '14541677229', 'amount': 12.88, 'price': 0.10055}
+2025-10-21 05:41:40,892 - INFO - OP OrderFilled | {'type': 'sell', 'order_id': '14541677229', 'side_active': 'buy', 'buy_order_id': '14541676482'}
+2025-10-21 05:41:42,778 - INFO - OP PlaceIncrementalOrders | {'symbol': 'ZORA_USDC_PERP', 'action': 'buy', 'price': 0.09667, 'sizes': 100.0, 'order_id': '14541686577'}
+2025-10-21 05:41:42,779 - INFO - OP OrderAmended | {'type': 'buy', 'order_id': '14541686577', 'amount': 12.88, 'price': 0.09667}
+2025-10-21 05:41:43,877 - INFO - OP PlaceIncrementalOrders | {'symbol': 'ZORA_USDC_PERP', 'action': 'sell', 'price': 0.10156, 'sizes': 100.0, 'order_id': '14541687747'}
+2025-10-21 05:41:43,878 - INFO - OP OrderPlaced | {'type': 'sell', 'order_id': '14541687747', 'amount': 12.88, 'price': 0.10156}
+2025-10-21 05:42:57,620 - INFO - OP OrderFilled | {'type': 'sell', 'order_id': '14541687747', 'side_active': 'buy', 'buy_order_id': '14541686577'}
+2025-10-21 05:42:59,510 - INFO - OP PlaceIncrementalOrders | {'symbol': 'ZORA_USDC_PERP', 'action': 'buy', 'price': 0.09763, 'sizes': 100.0, 'order_id': '14541744972'}
+2025-10-21 05:42:59,511 - INFO - OP OrderAmended | {'type': 'buy', 'order_id': '14541744972', 'amount': 12.88, 'price': 0.09763}
+2025-10-21 05:43:00,468 - INFO - OP PlaceIncrementalOrders | {'symbol': 'ZORA_USDC_PERP', 'action': 'sell', 'price': 0.10257, 'sizes': 100.0, 'order_id': '14541745519'}
+2025-10-21 05:43:00,468 - INFO - OP OrderPlaced | {'type': 'sell', 'order_id': '14541745519', 'amount': 12.88, 'price': 0.10257}
+2025-10-21 05:43:12,288 - INFO - OP OrderFilled | {'type': 'sell', 'order_id': '14541745519', 'side_active': 'buy', 'buy_order_id': '14541744972'}
+2025-10-21 05:43:14,229 - INFO - OP PlaceIncrementalOrders | {'symbol': 'ZORA_USDC_PERP', 'action': 'buy', 'price': 0.09861, 'sizes': 100.0, 'order_id': '14541755578'}
+2025-10-21 05:43:14,230 - INFO - OP OrderAmended | {'type': 'buy', 'order_id': '14541755578', 'amount': 12.88, 'price': 0.09861}
+2025-10-21 05:43:15,185 - INFO - OP PlaceIncrementalOrders | {'symbol': 'ZORA_USDC_PERP', 'action': 'sell', 'price': 0.1036, 'sizes': 100.0, 'order_id': '14541756064'}
+2025-10-21 05:43:15,186 - INFO - OP OrderPlaced | {'type': 'sell', 'order_id': '14541756064', 'amount': 12.88, 'price': 0.1036}
+2025-10-21 05:45:29,492 - INFO - OP OrderFilled | {'type': 'sell', 'order_id': '14541756064', 'side_active': 'buy', 'buy_order_id': '14541755578'}
+2025-10-21 05:45:31,831 - INFO - OP PlaceIncrementalOrders | {'symbol': 'ZORA_USDC_PERP', 'action': 'buy', 'price': 0.0996, 'sizes': 100.0, 'order_id': '14541857367'}
+2025-10-21 05:45:31,831 - INFO - OP OrderAmended | {'type': 'buy', 'order_id': '14541857367', 'amount': 12.88, 'price': 0.0996}
+2025-10-21 05:45:32,929 - INFO - OP PlaceIncrementalOrders | {'symbol': 'ZORA_USDC_PERP', 'action': 'sell', 'price': 0.10464, 'sizes': 100.0, 'order_id': '14541858151'}
+2025-10-21 05:45:32,930 - INFO - OP OrderPlaced | {'type': 'sell', 'order_id': '14541858151', 'amount': 12.88, 'price': 0.10464}
+2025-10-21 05:56:59,273 - INFO - OP OrderFilled | {'type': 'sell', 'order_id': '14541858151', 'side_active': 'buy', 'buy_order_id': '14541857367'}
+2025-10-21 05:57:01,491 - INFO - OP PlaceIncrementalOrders | {'symbol': 'ZORA_USDC_PERP', 'action': 'buy', 'price': 0.10059, 'sizes': 100.0, 'order_id': '14542426685'}
+2025-10-21 05:57:01,491 - INFO - OP OrderAmended | {'type': 'buy', 'order_id': '14542426685', 'amount': 12.88, 'price': 0.10059}
+2025-10-21 05:57:02,444 - INFO - OP PlaceIncrementalOrders | {'symbol': 'ZORA_USDC_PERP', 'action': 'sell', 'price': 0.10568, 'sizes': 100.0, 'order_id': '14542427171'}
+2025-10-21 05:57:02,445 - INFO - OP OrderPlaced | {'type': 'sell', 'order_id': '14542427171', 'amount': 12.88, 'price': 0.10568}
+2025-10-21 06:09:55,376 - INFO - OP OrderFilled | {'type': 'sell', 'order_id': '14542427171', 'side_active': 'buy', 'buy_order_id': '14542426685'}
+2025-10-21 06:09:57,355 - INFO - OP PlaceIncrementalOrders | {'symbol': 'ZORA_USDC_PERP', 'action': 'buy', 'price': 0.1016, 'sizes': 100.0, 'order_id': '14543369453'}
+2025-10-21 06:09:57,356 - INFO - OP OrderAmended | {'type': 'buy', 'order_id': '14543369453', 'amount': 12.88, 'price': 0.1016}
+2025-10-21 06:09:58,368 - INFO - OP PlaceIncrementalOrders | {'symbol': 'ZORA_USDC_PERP', 'action': 'sell', 'price': 0.10674, 'sizes': 100.0, 'order_id': '14543370114'}
+2025-10-21 06:09:58,369 - INFO - OP OrderPlaced | {'type': 'sell', 'order_id': '14543370114', 'amount': 12.88, 'price': 0.10674}
+2025-10-21 06:18:44,012 - INFO - OP OrderFilled | {'type': 'sell', 'order_id': '14543370114', 'side_active': 'buy', 'buy_order_id': '14543369453'}
+2025-10-21 06:18:45,995 - INFO - OP PlaceIncrementalOrders | {'symbol': 'ZORA_USDC_PERP', 'action': 'buy', 'price': 0.10261, 'sizes': 100.0, 'order_id': '14543968236'}
+2025-10-21 06:18:45,996 - INFO - OP OrderAmended | {'type': 'buy', 'order_id': '14543968236', 'amount': 12.88, 'price': 0.10261}
+2025-10-21 06:18:47,007 - INFO - OP PlaceIncrementalOrders | {'symbol': 'ZORA_USDC_PERP', 'action': 'sell', 'price': 0.10781, 'sizes': 100.0, 'order_id': '14543969021'}
+2025-10-21 06:18:47,007 - INFO - OP OrderPlaced | {'type': 'sell', 'order_id': '14543969021', 'amount': 12.88, 'price': 0.10781}
+2025-10-21 06:19:25,396 - INFO - OP OrderFilled | {'type': 'sell', 'order_id': '14543969021', 'side_active': 'buy', 'buy_order_id': '14543968236'}
+2025-10-21 06:19:27,377 - INFO - OP PlaceIncrementalOrders | {'symbol': 'ZORA_USDC_PERP', 'action': 'buy', 'price': 0.10364, 'sizes': 100.0, 'order_id': '14544005528'}
+2025-10-21 06:19:27,377 - INFO - OP OrderAmended | {'type': 'buy', 'order_id': '14544005528', 'amount': 12.88, 'price': 0.10364}
+2025-10-21 06:19:28,390 - INFO - OP PlaceIncrementalOrders | {'symbol': 'ZORA_USDC_PERP', 'action': 'sell', 'price': 0.10888, 'sizes': 100.0, 'order_id': '14544006472'}
+2025-10-21 06:19:28,390 - INFO - OP OrderPlaced | {'type': 'sell', 'order_id': '14544006472', 'amount': 12.88, 'price': 0.10888}
+2025-10-21 06:48:10,936 - INFO - OP OrderFilled | {'type': 'buy', 'order_id': '14544005528', 'side_active': 'sell', 'sell_order_id': '14544006472'}
+2025-10-21 06:48:11,944 - INFO - OP PlaceIncrementalOrders | {'symbol': 'ZORA_USDC_PERP', 'action': 'buy', 'price': 0.1026, 'sizes': 100.0, 'order_id': '14545686582'}
+2025-10-21 06:48:11,945 - INFO - OP OrderPlaced | {'type': 'buy', 'order_id': '14545686582', 'amount': 12.88, 'price': 0.1026}
+2025-10-21 06:48:13,926 - INFO - OP PlaceIncrementalOrders | {'symbol': 'ZORA_USDC_PERP', 'action': 'sell', 'price': 0.1078, 'sizes': 100.0, 'order_id': '14545688621'}
+2025-10-21 06:48:13,926 - INFO - OP OrderAmended | {'type': 'sell', 'order_id': '14545688621', 'amount': 12.88, 'price': 0.1078}
+2025-10-21 06:48:37,012 - INFO - OP OrderFilled | {'type': 'buy', 'order_id': '14545686582', 'side_active': 'sell', 'sell_order_id': '14545688621'}
+2025-10-21 06:48:38,026 - INFO - OP PlaceIncrementalOrders | {'symbol': 'ZORA_USDC_PERP', 'action': 'buy', 'price': 0.10158, 'sizes': 100.0, 'order_id': '14545715046'}
+2025-10-21 06:48:38,027 - INFO - OP OrderPlaced | {'type': 'buy', 'order_id': '14545715046', 'amount': 12.88, 'price': 0.10158}
+2025-10-21 06:48:40,002 - INFO - OP PlaceIncrementalOrders | {'symbol': 'ZORA_USDC_PERP', 'action': 'sell', 'price': 0.10672, 'sizes': 100.0, 'order_id': '14545721546'}
+2025-10-21 06:48:40,003 - INFO - OP OrderAmended | {'type': 'sell', 'order_id': '14545721546', 'amount': 12.88, 'price': 0.10672}
+2025-10-21 06:49:03,120 - INFO - OP OrderFilled | {'type': 'buy', 'order_id': '14545715046', 'side_active': 'sell', 'sell_order_id': '14545721546'}
+2025-10-21 06:49:04,142 - INFO - OP PlaceIncrementalOrders | {'symbol': 'ZORA_USDC_PERP', 'action': 'buy', 'price': 0.10056, 'sizes': 100.0, 'order_id': '14545744459'}
+2025-10-21 06:49:04,142 - INFO - OP OrderPlaced | {'type': 'buy', 'order_id': '14545744459', 'amount': 12.88, 'price': 0.10056}
+2025-10-21 06:49:06,088 - INFO - OP PlaceIncrementalOrders | {'symbol': 'ZORA_USDC_PERP', 'action': 'sell', 'price': 0.10565, 'sizes': 100.0, 'order_id': '14545745640'}
+2025-10-21 06:49:06,089 - INFO - OP OrderAmended | {'type': 'sell', 'order_id': '14545745640', 'amount': 12.88, 'price': 0.10565}
+2025-10-21 07:33:49,516 - INFO - OP OrderFilled | {'type': 'sell', 'order_id': '14545745640', 'side_active': 'buy', 'buy_order_id': '14545744459'}
+2025-10-21 07:33:51,503 - INFO - OP PlaceIncrementalOrders | {'symbol': 'ZORA_USDC_PERP', 'action': 'buy', 'price': 0.10157, 'sizes': 100.0, 'order_id': '14548368837'}
+2025-10-21 07:33:51,503 - INFO - OP OrderAmended | {'type': 'buy', 'order_id': '14548368837', 'amount': 12.88, 'price': 0.10157}
+2025-10-21 07:33:52,516 - INFO - OP PlaceIncrementalOrders | {'symbol': 'ZORA_USDC_PERP', 'action': 'sell', 'price': 0.10671, 'sizes': 100.0, 'order_id': '14548369515'}
+2025-10-21 07:33:52,516 - INFO - OP OrderPlaced | {'type': 'sell', 'order_id': '14548369515', 'amount': 12.88, 'price': 0.10671}
+2025-10-21 08:30:52,652 - INFO - OP OrderFilled | {'type': 'buy', 'order_id': '14548368837', 'side_active': 'sell', 'sell_order_id': '14548369515'}
+2025-10-21 08:30:53,659 - INFO - OP PlaceIncrementalOrders | {'symbol': 'ZORA_USDC_PERP', 'action': 'buy', 'price': 0.10055, 'sizes': 100.0, 'order_id': '14552582685'}
+2025-10-21 08:30:53,660 - INFO - OP OrderPlaced | {'type': 'buy', 'order_id': '14552582685', 'amount': 12.88, 'price': 0.10055}
+2025-10-21 08:30:55,794 - INFO - OP PlaceIncrementalOrders | {'symbol': 'ZORA_USDC_PERP', 'action': 'sell', 'price': 0.10564, 'sizes': 100.0, 'order_id': '14552584449'}
+2025-10-21 08:30:55,795 - INFO - OP OrderAmended | {'type': 'sell', 'order_id': '14552584449', 'amount': 12.88, 'price': 0.10564}
+2025-10-21 09:28:59,060 - INFO - OP OrderFilled | {'type': 'buy', 'order_id': '14552582685', 'side_active': 'sell', 'sell_order_id': '14552584449'}
+2025-10-21 09:29:00,110 - INFO - OP PlaceIncrementalOrders | {'symbol': 'ZORA_USDC_PERP', 'action': 'buy', 'price': 0.09955, 'sizes': 100.0, 'order_id': '14556976721'}
+2025-10-21 09:29:00,111 - INFO - OP OrderPlaced | {'type': 'buy', 'order_id': '14556976721', 'amount': 12.88, 'price': 0.09955}
+2025-10-21 09:29:02,379 - INFO - OP PlaceIncrementalOrders | {'symbol': 'ZORA_USDC_PERP', 'action': 'sell', 'price': 0.10458, 'sizes': 100.0, 'order_id': '14556978925'}
+2025-10-21 09:29:02,380 - INFO - OP OrderAmended | {'type': 'sell', 'order_id': '14556978925', 'amount': 12.88, 'price': 0.10458}
+2025-10-21 09:35:39,576 - INFO - OP PlaceIncrementalOrders | {'symbol': 'ZORA_USDC_PERP', 'action': 'buy', 'price': 0.09955, 'sizes': 100.0, 'order_id': '14557455579'}
+2025-10-21 09:35:39,577 - INFO - OP OrderPlaced | {'type': 'buy', 'order_id': '14557455579', 'amount': 12.88, 'price': 0.09955}
+2025-10-21 09:35:40,908 - INFO - OP PlaceIncrementalOrders | {'symbol': 'ZORA_USDC_PERP', 'action': 'sell', 'price': 0.10458, 'sizes': 100.0, 'order_id': '14557456664'}
+2025-10-21 09:35:40,908 - INFO - OP OrderPlaced | {'type': 'sell', 'order_id': '14557456664', 'amount': 12.88, 'price': 0.10458}
+2025-10-21 09:55:10,428 - INFO - OP OrderFilled | {'type': 'buy', 'order_id': '14557455579', 'side_active': 'sell', 'sell_order_id': '14557456664'}
+2025-10-21 09:55:11,474 - INFO - OP PlaceIncrementalOrders | {'symbol': 'ZORA_USDC_PERP', 'action': 'buy', 'price': 0.09855, 'sizes': 100.0, 'order_id': '14558925196'}
+2025-10-21 09:55:11,474 - INFO - OP OrderPlaced | {'type': 'buy', 'order_id': '14558925196', 'amount': 12.88, 'price': 0.09855}
+2025-10-21 09:55:13,529 - INFO - OP PlaceIncrementalOrders | {'symbol': 'ZORA_USDC_PERP', 'action': 'sell', 'price': 0.10354, 'sizes': 100.0, 'order_id': '14558928538'}
+2025-10-21 09:55:13,530 - INFO - OP OrderAmended | {'type': 'sell', 'order_id': '14558928538', 'amount': 12.88, 'price': 0.10354}
+2025-10-21 10:05:11,704 - INFO - OP OrderFilled | {'type': 'buy', 'order_id': '14558925196', 'side_active': 'sell', 'sell_order_id': '14558928538'}
+2025-10-21 10:05:12,719 - INFO - OP PlaceIncrementalOrders | {'symbol': 'ZORA_USDC_PERP', 'action': 'buy', 'price': 0.09756, 'sizes': 100.0, 'order_id': '14560125262'}
+2025-10-21 10:05:12,720 - INFO - OP OrderPlaced | {'type': 'buy', 'order_id': '14560125262', 'amount': 12.88, 'price': 0.09756}
+2025-10-21 10:05:14,936 - INFO - OP PlaceIncrementalOrders | {'symbol': 'ZORA_USDC_PERP', 'action': 'sell', 'price': 0.1025, 'sizes': 100.0, 'order_id': '14560130913'}
+2025-10-21 10:05:14,937 - INFO - OP OrderAmended | {'type': 'sell', 'order_id': '14560130913', 'amount': 12.88, 'price': 0.1025}
+2025-10-21 10:22:22,960 - INFO - OP OrderFilled | {'type': 'sell', 'order_id': '14560130913', 'side_active': 'buy', 'buy_order_id': '14560125262'}
+2025-10-21 10:22:25,016 - INFO - OP PlaceIncrementalOrders | {'symbol': 'ZORA_USDC_PERP', 'action': 'buy', 'price': 0.09854, 'sizes': 100.0, 'order_id': '14561793568'}
+2025-10-21 10:22:25,016 - INFO - OP OrderAmended | {'type': 'buy', 'order_id': '14561793568', 'amount': 12.88, 'price': 0.09854}
+2025-10-21 10:22:26,063 - INFO - OP PlaceIncrementalOrders | {'symbol': 'ZORA_USDC_PERP', 'action': 'sell', 'price': 0.10353, 'sizes': 100.0, 'order_id': '14561794876'}
+2025-10-21 10:22:26,064 - INFO - OP OrderPlaced | {'type': 'sell', 'order_id': '14561794876', 'amount': 12.88, 'price': 0.10353}
+2025-10-21 10:22:43,021 - INFO - OP PlaceIncrementalOrders | {'symbol': 'ZORA_USDC_PERP', 'action': 'buy', 'price': 0.09854, 'sizes': 100.0, 'order_id': '14561813625'}
+2025-10-21 10:22:43,021 - INFO - OP OrderPlaced | {'type': 'buy', 'order_id': '14561813625', 'amount': 12.88, 'price': 0.09854}
+2025-10-21 10:22:44,280 - INFO - OP PlaceIncrementalOrders | {'symbol': 'ZORA_USDC_PERP', 'action': 'sell', 'price': 0.10353, 'sizes': 100.0, 'order_id': '14561815114'}
+2025-10-21 10:22:44,281 - INFO - OP OrderPlaced | {'type': 'sell', 'order_id': '14561815114', 'amount': 12.88, 'price': 0.10353}
+2025-10-21 10:26:33,084 - INFO - OP OrderFilled | {'type': 'buy', 'order_id': '14561813625', 'side_active': 'sell', 'sell_order_id': '14561815114'}
+2025-10-21 10:26:34,132 - INFO - OP PlaceIncrementalOrders | {'symbol': 'ZORA_USDC_PERP', 'action': 'buy', 'price': 0.09756, 'sizes': 100.0, 'order_id': '14562148107'}
+2025-10-21 10:26:34,133 - INFO - OP OrderPlaced | {'type': 'buy', 'order_id': '14562148107', 'amount': 12.88, 'price': 0.09756}
+2025-10-21 10:26:36,200 - INFO - OP PlaceIncrementalOrders | {'symbol': 'ZORA_USDC_PERP', 'action': 'sell', 'price': 0.10249, 'sizes': 100.0, 'order_id': '14562151013'}
+2025-10-21 10:26:36,200 - INFO - OP OrderAmended | {'type': 'sell', 'order_id': '14562151013', 'amount': 12.88, 'price': 0.10249}
+2025-10-21 12:07:38,656 - INFO - OP OrderFilled | {'type': 'buy', 'order_id': '14562148107', 'side_active': 'sell', 'sell_order_id': '14562151013'}
+2025-10-21 12:07:39,737 - INFO - OP PlaceIncrementalOrders | {'symbol': 'ZORA_USDC_PERP', 'action': 'buy', 'price': 0.09658, 'sizes': 100.0, 'order_id': '14571347700'}
+2025-10-21 12:07:39,737 - INFO - OP OrderPlaced | {'type': 'buy', 'order_id': '14571347700', 'amount': 12.88, 'price': 0.09658}
+2025-10-21 12:07:41,689 - INFO - OP PlaceIncrementalOrders | {'symbol': 'ZORA_USDC_PERP', 'action': 'sell', 'price': 0.10147, 'sizes': 100.0, 'order_id': '14571354777'}
+2025-10-21 12:07:41,689 - INFO - OP OrderAmended | {'type': 'sell', 'order_id': '14571354777', 'amount': 12.88, 'price': 0.10147}
+2025-10-21 12:18:24,752 - INFO - OP OrderFilled | {'type': 'buy', 'order_id': '14571347700', 'side_active': 'sell', 'sell_order_id': '14571354777'}
+2025-10-21 12:18:25,828 - INFO - OP PlaceIncrementalOrders | {'symbol': 'ZORA_USDC_PERP', 'action': 'buy', 'price': 0.09561, 'sizes': 100.0, 'order_id': '14573382522'}
+2025-10-21 12:18:25,828 - INFO - OP OrderPlaced | {'type': 'buy', 'order_id': '14573382522', 'amount': 12.88, 'price': 0.09561}
+2025-10-21 12:18:27,895 - INFO - OP PlaceIncrementalOrders | {'symbol': 'ZORA_USDC_PERP', 'action': 'sell', 'price': 0.10045, 'sizes': 100.0, 'order_id': '14573388500'}
+2025-10-21 12:18:27,895 - INFO - OP OrderAmended | {'type': 'sell', 'order_id': '14573388500', 'amount': 12.88, 'price': 0.10045}
+2025-10-21 13:15:11,255 - INFO - OP OrderFilled | {'type': 'buy', 'order_id': '14573382522', 'side_active': 'sell', 'sell_order_id': '14573388500'}
+2025-10-21 13:15:12,284 - INFO - OP PlaceIncrementalOrders | {'symbol': 'ZORA_USDC_PERP', 'action': 'buy', 'price': 0.09466, 'sizes': 100.0, 'order_id': '14580700298'}
+2025-10-21 13:15:12,285 - INFO - OP OrderPlaced | {'type': 'buy', 'order_id': '14580700298', 'amount': 12.88, 'price': 0.09466}
+2025-10-21 13:15:14,279 - INFO - OP PlaceIncrementalOrders | {'symbol': 'ZORA_USDC_PERP', 'action': 'sell', 'price': 0.09945, 'sizes': 100.0, 'order_id': '14580704025'}
+2025-10-21 13:15:14,280 - INFO - OP OrderAmended | {'type': 'sell', 'order_id': '14580704025', 'amount': 12.88, 'price': 0.09945}
+2025-10-21 14:45:17,477 - INFO - OP OrderFilled | {'type': 'buy', 'order_id': '14580700298', 'side_active': 'sell', 'sell_order_id': '14580704025'}
+2025-10-21 14:45:18,488 - INFO - OP PlaceIncrementalOrders | {'symbol': 'ZORA_USDC_PERP', 'action': 'buy', 'price': 0.09371, 'sizes': 100.0, 'order_id': '14589396512'}
+2025-10-21 14:45:18,488 - INFO - OP OrderPlaced | {'type': 'buy', 'order_id': '14589396512', 'amount': 12.88, 'price': 0.09371}
+2025-10-21 14:45:20,621 - INFO - OP PlaceIncrementalOrders | {'symbol': 'ZORA_USDC_PERP', 'action': 'sell', 'price': 0.09845, 'sizes': 100.0, 'order_id': '14589399160'}
+2025-10-21 14:45:20,621 - INFO - OP OrderAmended | {'type': 'sell', 'order_id': '14589399160', 'amount': 12.88, 'price': 0.09845}
+2025-10-21 15:15:56,233 - INFO - OP OrderFilled | {'type': 'sell', 'order_id': '14589399160', 'side_active': 'buy', 'buy_order_id': '14589396512'}
+2025-10-21 15:15:58,223 - INFO - OP PlaceIncrementalOrders | {'symbol': 'ZORA_USDC_PERP', 'action': 'buy', 'price': 0.09465, 'sizes': 100.0, 'order_id': '14591889831'}
+2025-10-21 15:15:58,224 - INFO - OP OrderAmended | {'type': 'buy', 'order_id': '14591889831', 'amount': 12.88, 'price': 0.09465}
+2025-10-21 15:15:59,236 - INFO - OP PlaceIncrementalOrders | {'symbol': 'ZORA_USDC_PERP', 'action': 'sell', 'price': 0.09944, 'sizes': 100.0, 'order_id': '14591890622'}
+2025-10-21 15:15:59,236 - INFO - OP OrderPlaced | {'type': 'sell', 'order_id': '14591890622', 'amount': 12.88, 'price': 0.09944}
+2025-10-21 15:16:03,060 - INFO - OP OrderFilled | {'type': 'sell', 'order_id': '14591890622', 'side_active': 'buy', 'buy_order_id': '14591889831'}
+2025-10-21 15:16:05,045 - INFO - OP PlaceIncrementalOrders | {'symbol': 'ZORA_USDC_PERP', 'action': 'buy', 'price': 0.09559, 'sizes': 100.0, 'order_id': '14591901171'}
+2025-10-21 15:16:05,045 - INFO - OP OrderAmended | {'type': 'buy', 'order_id': '14591901171', 'amount': 12.88, 'price': 0.09559}
+2025-10-21 15:16:06,059 - INFO - OP PlaceIncrementalOrders | {'symbol': 'ZORA_USDC_PERP', 'action': 'sell', 'price': 0.10043, 'sizes': 100.0, 'order_id': '14591903077'}
+2025-10-21 15:16:06,060 - INFO - OP OrderPlaced | {'type': 'sell', 'order_id': '14591903077', 'amount': 12.88, 'price': 0.10043}
+2025-10-21 15:22:34,133 - INFO - OP OrderFilled | {'type': 'buy', 'order_id': '14591901171', 'side_active': 'sell', 'sell_order_id': '14591903077'}
+2025-10-21 15:22:35,111 - INFO - OP PlaceIncrementalOrders | {'symbol': 'ZORA_USDC_PERP', 'action': 'buy', 'price': 0.09464, 'sizes': 100.0, 'order_id': '14592473084'}
+2025-10-21 15:22:35,111 - INFO - OP OrderPlaced | {'type': 'buy', 'order_id': '14592473084', 'amount': 12.88, 'price': 0.09464}
+2025-10-21 15:22:37,091 - INFO - OP PlaceIncrementalOrders | {'symbol': 'ZORA_USDC_PERP', 'action': 'sell', 'price': 0.09943, 'sizes': 100.0, 'order_id': '14592474969'}
+2025-10-21 15:22:37,091 - INFO - OP OrderAmended | {'type': 'sell', 'order_id': '14592474969', 'amount': 12.88, 'price': 0.09943}
+2025-10-21 15:56:30,272 - INFO - OP OrderFilled | {'type': 'sell', 'order_id': '14592474969', 'side_active': 'buy', 'buy_order_id': '14592473084'}
+2025-10-21 15:56:32,263 - INFO - OP PlaceIncrementalOrders | {'symbol': 'ZORA_USDC_PERP', 'action': 'buy', 'price': 0.09559, 'sizes': 100.0, 'order_id': '14595097425'}
+2025-10-21 15:56:32,263 - INFO - OP OrderAmended | {'type': 'buy', 'order_id': '14595097425', 'amount': 12.88, 'price': 0.09559}
+2025-10-21 15:56:33,281 - INFO - OP PlaceIncrementalOrders | {'symbol': 'ZORA_USDC_PERP', 'action': 'sell', 'price': 0.10042, 'sizes': 100.0, 'order_id': '14595098842'}
+2025-10-21 15:56:33,281 - INFO - OP OrderPlaced | {'type': 'sell', 'order_id': '14595098842', 'amount': 12.88, 'price': 0.10042}
+2025-10-21 16:40:25,836 - INFO - OP OrderFilled | {'type': 'sell', 'order_id': '14595098842', 'side_active': 'buy', 'buy_order_id': '14595097425'}
+2025-10-21 16:40:27,832 - INFO - OP PlaceIncrementalOrders | {'symbol': 'ZORA_USDC_PERP', 'action': 'buy', 'price': 0.09654, 'sizes': 100.0, 'order_id': '14598574240'}
+2025-10-21 16:40:27,832 - INFO - OP OrderAmended | {'type': 'buy', 'order_id': '14598574240', 'amount': 12.88, 'price': 0.09654}
+2025-10-21 16:40:28,842 - INFO - OP PlaceIncrementalOrders | {'symbol': 'ZORA_USDC_PERP', 'action': 'sell', 'price': 0.10143, 'sizes': 100.0, 'order_id': '14598575837'}
+2025-10-21 16:40:28,843 - INFO - OP OrderPlaced | {'type': 'sell', 'order_id': '14598575837', 'amount': 12.88, 'price': 0.10143}
+2025-10-21 16:54:38,645 - INFO - OP OrderFilled | {'type': 'sell', 'order_id': '14598575837', 'side_active': 'buy', 'buy_order_id': '14598574240'}
+2025-10-21 16:54:40,788 - INFO - OP PlaceIncrementalOrders | {'symbol': 'ZORA_USDC_PERP', 'action': 'buy', 'price': 0.09751, 'sizes': 100.0, 'order_id': '14599798637'}
+2025-10-21 16:54:40,789 - INFO - OP OrderAmended | {'type': 'buy', 'order_id': '14599798637', 'amount': 12.88, 'price': 0.09751}
+2025-10-21 16:54:41,806 - INFO - OP PlaceIncrementalOrders | {'symbol': 'ZORA_USDC_PERP', 'action': 'sell', 'price': 0.10244, 'sizes': 100.0, 'order_id': '14599801244'}
+2025-10-21 16:54:41,807 - INFO - OP OrderPlaced | {'type': 'sell', 'order_id': '14599801244', 'amount': 12.88, 'price': 0.10244}
+2025-10-21 16:57:19,353 - INFO - OP OrderFilled | {'type': 'sell', 'order_id': '14599801244', 'side_active': 'buy', 'buy_order_id': '14599798637'}
+2025-10-21 16:57:21,342 - INFO - OP PlaceIncrementalOrders | {'symbol': 'ZORA_USDC_PERP', 'action': 'buy', 'price': 0.09848, 'sizes': 100.0, 'order_id': '14600062710'}
+2025-10-21 16:57:21,342 - INFO - OP OrderAmended | {'type': 'buy', 'order_id': '14600062710', 'amount': 12.88, 'price': 0.09848}
+2025-10-21 16:57:22,319 - INFO - OP PlaceIncrementalOrders | {'symbol': 'ZORA_USDC_PERP', 'action': 'sell', 'price': 0.10347, 'sizes': 100.0, 'order_id': '14600064300'}
+2025-10-21 16:57:22,320 - INFO - OP OrderPlaced | {'type': 'sell', 'order_id': '14600064300', 'amount': 12.88, 'price': 0.10347}
+2025-10-21 17:14:51,176 - INFO - OP OrderFilled | {'type': 'sell', 'order_id': '14600064300', 'side_active': 'buy', 'buy_order_id': '14600062710'}
+2025-10-21 17:14:53,163 - INFO - OP PlaceIncrementalOrders | {'symbol': 'ZORA_USDC_PERP', 'action': 'buy', 'price': 0.09947, 'sizes': 100.0, 'order_id': '14601386157'}
+2025-10-21 17:14:53,164 - INFO - OP OrderAmended | {'type': 'buy', 'order_id': '14601386157', 'amount': 12.88, 'price': 0.09947}
+2025-10-21 17:14:54,175 - INFO - OP PlaceIncrementalOrders | {'symbol': 'ZORA_USDC_PERP', 'action': 'sell', 'price': 0.1045, 'sizes': 100.0, 'order_id': '14601386827'}
+2025-10-21 17:14:54,176 - INFO - OP OrderPlaced | {'type': 'sell', 'order_id': '14601386827', 'amount': 12.88, 'price': 0.1045}
+2025-10-21 17:41:07,336 - INFO - OP OrderFilled | {'type': 'sell', 'order_id': '14601386827', 'side_active': 'buy', 'buy_order_id': '14601386157'}
+2025-10-21 17:41:09,538 - INFO - OP PlaceIncrementalOrders | {'symbol': 'ZORA_USDC_PERP', 'action': 'buy', 'price': 0.10046, 'sizes': 100.0, 'order_id': '14603241848'}
+2025-10-21 17:41:09,539 - INFO - OP OrderAmended | {'type': 'buy', 'order_id': '14603241848', 'amount': 12.88, 'price': 0.10046}
+2025-10-21 17:41:10,552 - INFO - OP PlaceIncrementalOrders | {'symbol': 'ZORA_USDC_PERP', 'action': 'sell', 'price': 0.10554, 'sizes': 100.0, 'order_id': '14603242780'}
+2025-10-21 17:41:10,553 - INFO - OP OrderPlaced | {'type': 'sell', 'order_id': '14603242780', 'amount': 12.88, 'price': 0.10554}
+2025-10-21 17:46:06,329 - INFO - OP OrderFilled | {'type': 'sell', 'order_id': '14603242780', 'side_active': 'buy', 'buy_order_id': '14603241848'}
+2025-10-21 17:46:08,313 - INFO - OP PlaceIncrementalOrders | {'symbol': 'ZORA_USDC_PERP', 'action': 'buy', 'price': 0.10147, 'sizes': 100.0, 'order_id': '14603555387'}
+2025-10-21 17:46:08,314 - INFO - OP OrderAmended | {'type': 'buy', 'order_id': '14603555387', 'amount': 12.88, 'price': 0.10147}
+2025-10-21 17:46:09,328 - INFO - OP PlaceIncrementalOrders | {'symbol': 'ZORA_USDC_PERP', 'action': 'sell', 'price': 0.1066, 'sizes': 100.0, 'order_id': '14603556358'}
+2025-10-21 17:46:09,329 - INFO - OP OrderPlaced | {'type': 'sell', 'order_id': '14603556358', 'amount': 12.88, 'price': 0.1066}
+2025-10-21 17:46:49,244 - INFO - OP OrderFilled | {'type': 'sell', 'order_id': '14603556358', 'side_active': 'buy', 'buy_order_id': '14603555387'}
+2025-10-21 17:46:51,227 - INFO - OP PlaceIncrementalOrders | {'symbol': 'ZORA_USDC_PERP', 'action': 'buy', 'price': 0.10248, 'sizes': 100.0, 'order_id': '14603609691'}
+2025-10-21 17:46:51,227 - INFO - OP OrderAmended | {'type': 'buy', 'order_id': '14603609691', 'amount': 12.88, 'price': 0.10248}
+2025-10-21 17:46:52,469 - INFO - OP PlaceIncrementalOrders | {'symbol': 'ZORA_USDC_PERP', 'action': 'sell', 'price': 0.10767, 'sizes': 100.0, 'order_id': '14603611524'}
+2025-10-21 17:46:52,469 - INFO - OP OrderPlaced | {'type': 'sell', 'order_id': '14603611524', 'amount': 12.88, 'price': 0.10767}
+2025-10-21 17:51:08,636 - INFO - OP OrderFilled | {'type': 'buy', 'order_id': '14603609691', 'side_active': 'sell', 'sell_order_id': '14603611524'}
+2025-10-21 17:51:09,863 - INFO - OP PlaceIncrementalOrders | {'symbol': 'ZORA_USDC_PERP', 'action': 'buy', 'price': 0.10146, 'sizes': 100.0, 'order_id': '14603908204'}
+2025-10-21 17:51:09,864 - INFO - OP OrderPlaced | {'type': 'buy', 'order_id': '14603908204', 'amount': 12.88, 'price': 0.10146}
+2025-10-21 17:51:11,843 - INFO - OP PlaceIncrementalOrders | {'symbol': 'ZORA_USDC_PERP', 'action': 'sell', 'price': 0.10659, 'sizes': 100.0, 'order_id': '14603910385'}
+2025-10-21 17:51:11,843 - INFO - OP OrderAmended | {'type': 'sell', 'order_id': '14603910385', 'amount': 12.88, 'price': 0.10659}
+2025-10-21 17:51:34,664 - INFO - OP OrderFilled | {'type': 'buy', 'order_id': '14603908204', 'side_active': 'sell', 'sell_order_id': '14603910385'}
+2025-10-21 17:51:35,678 - INFO - OP PlaceIncrementalOrders | {'symbol': 'ZORA_USDC_PERP', 'action': 'buy', 'price': 0.10044, 'sizes': 100.0, 'order_id': '14603935050'}
+2025-10-21 17:51:35,678 - INFO - OP OrderPlaced | {'type': 'buy', 'order_id': '14603935050', 'amount': 12.88, 'price': 0.10044}
+2025-10-21 17:51:37,667 - INFO - OP PlaceIncrementalOrders | {'symbol': 'ZORA_USDC_PERP', 'action': 'sell', 'price': 0.10552, 'sizes': 100.0, 'order_id': '14603937924'}
+2025-10-21 17:51:37,668 - INFO - OP OrderAmended | {'type': 'sell', 'order_id': '14603937924', 'amount': 12.88, 'price': 0.10552}
+2025-10-21 18:02:18,012 - INFO - OP OrderFilled | {'type': 'sell', 'order_id': '14603937924', 'side_active': 'buy', 'buy_order_id': '14603935050'}
+2025-10-21 18:02:20,148 - INFO - OP PlaceIncrementalOrders | {'symbol': 'ZORA_USDC_PERP', 'action': 'buy', 'price': 0.10145, 'sizes': 100.0, 'order_id': '14604634269'}
+2025-10-21 18:02:20,148 - INFO - OP OrderAmended | {'type': 'buy', 'order_id': '14604634269', 'amount': 12.88, 'price': 0.10145}
+2025-10-21 18:02:21,164 - INFO - OP PlaceIncrementalOrders | {'symbol': 'ZORA_USDC_PERP', 'action': 'sell', 'price': 0.10658, 'sizes': 100.0, 'order_id': '14604635099'}
+2025-10-21 18:02:21,165 - INFO - OP OrderPlaced | {'type': 'sell', 'order_id': '14604635099', 'amount': 12.88, 'price': 0.10658}
+2025-10-21 18:02:47,956 - INFO - OP OrderFilled | {'type': 'sell', 'order_id': '14604635099', 'side_active': 'buy', 'buy_order_id': '14604634269'}
+2025-10-21 18:02:50,204 - INFO - OP PlaceIncrementalOrders | {'symbol': 'ZORA_USDC_PERP', 'action': 'buy', 'price': 0.10246, 'sizes': 100.0, 'order_id': '14604671976'}
+2025-10-21 18:02:50,205 - INFO - OP OrderAmended | {'type': 'buy', 'order_id': '14604671976', 'amount': 12.88, 'price': 0.10246}
+2025-10-21 18:02:51,217 - INFO - OP PlaceIncrementalOrders | {'symbol': 'ZORA_USDC_PERP', 'action': 'sell', 'price': 0.10764, 'sizes': 100.0, 'order_id': '14604674430'}
+2025-10-21 18:02:51,218 - INFO - OP OrderPlaced | {'type': 'sell', 'order_id': '14604674430', 'amount': 12.88, 'price': 0.10764}
+2025-10-21 18:04:17,080 - INFO - OP OrderFilled | {'type': 'sell', 'order_id': '14604674430', 'side_active': 'buy', 'buy_order_id': '14604671976'}
+2025-10-21 18:04:19,218 - INFO - OP PlaceIncrementalOrders | {'symbol': 'ZORA_USDC_PERP', 'action': 'buy', 'price': 0.10348, 'sizes': 100.0, 'order_id': '14604795425'}
+2025-10-21 18:04:19,219 - INFO - OP OrderAmended | {'type': 'buy', 'order_id': '14604795425', 'amount': 12.88, 'price': 0.10348}
+2025-10-21 18:04:20,157 - INFO - OP PlaceIncrementalOrders | {'symbol': 'ZORA_USDC_PERP', 'action': 'sell', 'price': 0.10872, 'sizes': 100.0, 'order_id': '14604796463'}
+2025-10-21 18:04:20,157 - INFO - OP OrderPlaced | {'type': 'sell', 'order_id': '14604796463', 'amount': 12.88, 'price': 0.10872}
+2025-10-21 18:05:20,890 - INFO - OP OrderFilled | {'type': 'sell', 'order_id': '14604796463', 'side_active': 'buy', 'buy_order_id': '14604795425'}
+2025-10-21 18:05:22,883 - INFO - OP PlaceIncrementalOrders | {'symbol': 'ZORA_USDC_PERP', 'action': 'buy', 'price': 0.10452, 'sizes': 100.0, 'order_id': '14604886346'}
+2025-10-21 18:05:22,884 - INFO - OP OrderAmended | {'type': 'buy', 'order_id': '14604886346', 'amount': 12.88, 'price': 0.10452}
+2025-10-21 18:05:23,821 - INFO - OP PlaceIncrementalOrders | {'symbol': 'ZORA_USDC_PERP', 'action': 'sell', 'price': 0.10981, 'sizes': 100.0, 'order_id': '14604887235'}
+2025-10-21 18:05:23,821 - INFO - OP OrderPlaced | {'type': 'sell', 'order_id': '14604887235', 'amount': 12.88, 'price': 0.10981}
+2025-10-21 18:44:26,132 - INFO - OP OrderFilled | {'type': 'buy', 'order_id': '14604886346', 'side_active': 'sell', 'sell_order_id': '14604887235'}
+2025-10-21 18:44:27,146 - INFO - OP PlaceIncrementalOrders | {'symbol': 'ZORA_USDC_PERP', 'action': 'buy', 'price': 0.10347, 'sizes': 100.0, 'order_id': '14607881528'}
+2025-10-21 18:44:27,147 - INFO - OP OrderPlaced | {'type': 'buy', 'order_id': '14607881528', 'amount': 12.88, 'price': 0.10347}
+2025-10-21 18:44:29,198 - INFO - OP PlaceIncrementalOrders | {'symbol': 'ZORA_USDC_PERP', 'action': 'sell', 'price': 0.10871, 'sizes': 100.0, 'order_id': '14607883218'}
+2025-10-21 18:44:29,199 - INFO - OP OrderAmended | {'type': 'sell', 'order_id': '14607883218', 'amount': 12.88, 'price': 0.10871}
+2025-10-21 18:46:23,624 - INFO - OP OrderFilled | {'type': 'buy', 'order_id': '14607881528', 'side_active': 'sell', 'sell_order_id': '14607883218'}
+2025-10-21 18:46:24,886 - INFO - OP PlaceIncrementalOrders | {'symbol': 'ZORA_USDC_PERP', 'action': 'buy', 'price': 0.10244, 'sizes': 100.0, 'order_id': '14608050385'}
+2025-10-21 18:46:24,886 - INFO - OP OrderPlaced | {'type': 'buy', 'order_id': '14608050385', 'amount': 12.88, 'price': 0.10244}
+2025-10-21 18:46:26,939 - INFO - OP PlaceIncrementalOrders | {'symbol': 'ZORA_USDC_PERP', 'action': 'sell', 'price': 0.10762, 'sizes': 100.0, 'order_id': '14608055770'}
+2025-10-21 18:46:26,940 - INFO - OP OrderAmended | {'type': 'sell', 'order_id': '14608055770', 'amount': 12.88, 'price': 0.10762}
+2025-10-21 19:08:16,951 - INFO - OP StrategyExit | {'reason': 'Manual interrupt', 'uptime': 357149.23244285583}

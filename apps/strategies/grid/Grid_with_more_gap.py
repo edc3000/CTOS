@@ -648,12 +648,12 @@ def grid_with_more_gap(engines=None, exchs=None, force_refresh=None, configs=Non
     # 获取持仓（支持缓存）
     GridPositions_all = [get_all_GridPositions(engine, exch, use_cache=True if not fr else False) for engine, exch, fr in zip(engines, exchs, force_refresh)]
     for engine, GridPositions in zip(engines, GridPositions_all):
-        if not GridPositions:
-            print("没有持仓，退出。")
-            engine.monitor.record_operation("StrategyExit", "Grid-Order-Management", {
-                "reason": "No GridPositions found"
-            })
-            return
+        # if not GridPositions:
+        #     print("没有持仓，退出。")
+        #     engine.monitor.record_operation("StrategyExit", "Grid-Order-Management", {
+        #         "reason": "No GridPositions found"
+        #     })
+        #     return
         print("初始持仓:", GridPositions)
 
     # 创建关注币种文件夹
@@ -743,7 +743,8 @@ def grid_with_more_gap(engines=None, exchs=None, force_refresh=None, configs=Non
     sleep_time = 1.88
     need_to_update = False
     while True:
-        try:
+        # try:
+        if True:
             for engine, GridPositions, config in zip(engines, GridPositions_all, configs):
                 if config["MODE"] == "DEACTIVATED":
                     print(f"{BeijingTime()} | [{config['exchange']}-{config['account']}] 策略曾出现故障，已禁用，跳过处理")
@@ -766,11 +767,6 @@ def grid_with_more_gap(engines=None, exchs=None, force_refresh=None, configs=Non
                 try:
                     origin_pos, err = engine.cex_driver.get_position(symbol=None, keep_origin=False)
                 except Exception as e:
-                    engine.monitor.record_operation("PositionGetFail", str(e), {"err": str(e), "time": BeijingTime(), "sym": sym})
-                    print(f"获取持仓失败: {e}")
-                    time.sleep(sleep_time)
-                    continue
-                if not origin_pos:
                     engine.monitor.record_operation("PositionGetFail", str(e), {"err": str(e), "time": BeijingTime(), "sym": sym})
                     print(f"获取持仓失败: {e}")
                     time.sleep(sleep_time)
@@ -820,18 +816,18 @@ def grid_with_more_gap(engines=None, exchs=None, force_refresh=None, configs=Non
                 if time.time() - start_ts % 1800 < sleep_time * len(GridPositions):
                     save_GridPositions(GridPositions, exch, engine.account)
 
-        except KeyboardInterrupt:
-            print("手动退出。")
-            engine.monitor.record_operation("StrategyExit", "Grid-Order-Management", {
-                "reason": "Manual interrupt",
-                "uptime": time.time() - start_ts
-            })
-            sys.exit()
-        except Exception as e:
-            print(f"网格策略异常:", e)
-            engine.monitor.record_operation("StrategyException", str(e), {"err": str(e), "time": BeijingTime(), "sym": sym})
-            time.sleep(sleep_time)
-            continue
+        # except KeyboardInterrupt:
+        #     print("手动退出。")
+        #     engine.monitor.record_operation("StrategyExit", "Grid-Order-Management", {
+        #         "reason": "Manual interrupt",
+        #         "uptime": time.time() - start_ts
+        #     })
+        #     sys.exit()
+        # except Exception as e:
+        #     print(f"网格策略异常:", e)
+        #     engine.monitor.record_operation("StrategyException", str(e), {"err": str(e), "time": BeijingTime(), "sym": sym})
+        #     time.sleep(sleep_time)
+        #     continue
 
 if __name__ == '__main__':
     print("\n=== 网格策略 (配置文件版) ===")
