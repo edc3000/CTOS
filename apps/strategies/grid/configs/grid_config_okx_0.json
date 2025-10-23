@@ -3,7 +3,7 @@
   "account": 0,
   "base_amount": 8.88,
   "base_quantity": 0,
-  "force_refresh": true,
+  "force_refresh": false,
   "buy_grid_step": 0.966,
   "sell_grid_step": 1.018,
   "buy_move_step": 0.99,

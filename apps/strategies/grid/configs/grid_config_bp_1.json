@@ -9,5 +9,5 @@
   "buy_move_step": 0.99,
   "sell_move_step": 1.01,
   "MODE": "DEACTIVATED",
-  "description": "Backpack账户3 - 辅助交易账户，使用较小金额进行测试"
+  "description": "Backpack账户1 - 辅助交易账户，使用较小金额进行测试"
 }

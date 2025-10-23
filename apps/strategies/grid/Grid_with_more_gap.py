@@ -71,6 +71,7 @@ def load_GridPositions(exchange: str, account: int) -> tuple[dict, bool]:
     try:
         storage_path = get_GridPositions_storage_path(exchange, account)
         if not os.path.exists(storage_path):
+            print(f"⚠ 持仓数据文件不存在: {storage_path}, 将重新获取")
             return {}, False
         
         with open(storage_path, 'r', encoding='utf-8') as f:
@@ -87,7 +88,7 @@ def load_GridPositions(exchange: str, account: int) -> tuple[dict, bool]:
             return {}, False
         
         # 检查交易所是否匹配
-        if data.get('exchange') != exchange:
+        if data.get('exchange').lower() != exchange.lower():
             print(f"⚠ 交易所不匹配 (文件: {data.get('exchange')}, 当前: {exchange}), 将重新获取")
             return {}, False
         
@@ -109,6 +110,7 @@ def get_all_GridPositions(engine, exchange: str, use_cache: bool = True):
     if use_cache:
         cached_GridPositions, is_valid = load_GridPositions(exchange, engine.account)
         if is_valid and cached_GridPositions:
+            print(f"从本地加载持仓数据:")
             return cached_GridPositions
     # 从API获取最新持仓
     GridPositions = {}
@@ -654,7 +656,7 @@ def grid_with_more_gap(engines=None, exchs=None, force_refresh=None, configs=Non
         #         "reason": "No GridPositions found"
         #     })
         #     return
-        print("初始持仓:", GridPositions)
+        print("初始持仓:", len(GridPositions))
 
     # 创建关注币种文件夹
     current_dir = os.path.dirname(os.path.abspath(__file__))
@@ -706,6 +708,7 @@ def grid_with_more_gap(engines=None, exchs=None, force_refresh=None, configs=Non
         # 1. 如果少了币种，则币种置空仓位
         for sym in focus_symbols:
             if sym not in GridPositions:
+                print(f"{key}  [{sym}] 币种不存在，置空仓位")
                 # 置空仓位
                 price_now = engine.cex_driver.get_price_now(sym)
                 GridPositions[sym] =  {
@@ -771,6 +774,8 @@ def grid_with_more_gap(engines=None, exchs=None, force_refresh=None, configs=Non
                     print(f"获取持仓失败: {e}")
                     time.sleep(sleep_time)
                     continue
+                if origin_pos is None:
+                    origin_pos = {}
                 poses = {}
                 for pos in origin_pos:
                     poses[pos["symbol"]] = pos
@@ -810,11 +815,11 @@ def grid_with_more_gap(engines=None, exchs=None, force_refresh=None, configs=Non
                         engine.monitor.record_operation("LoopException", str(e), {"err": str(e), "time": BeijingTime(), "sym": sym})
                         break
                 if need_to_update:
-                    save_GridPositions(GridPositions, exch, engine.account)
+                    save_GridPositions(GridPositions, engine.cex_driver.cex.lower(), engine.account)
                     need_to_update = False
                 # 定期保存数据
                 if time.time() - start_ts % 1800 < sleep_time * len(GridPositions):
-                    save_GridPositions(GridPositions, exch, engine.account)
+                    save_GridPositions(GridPositions, engine.cex_driver.cex.lower(), engine.account)
 
         # except KeyboardInterrupt:
         #     print("手动退出。")
@@ -843,7 +848,12 @@ if __name__ == '__main__':
     if not configs:
         print("❌ 未找到有效配置文件，退出")
         sys.exit(1)
-    
+    else:
+        print(f"✓ 加载 {len(configs)} 个配置文件")
+        for config in configs:
+            print(f"  - {config['exchange']}-{config['account']}")
+            print(json.dumps(config, ensure_ascii=False, indent=2))
+            print(f"  - {config['exchange']}-{config['account']}\n")
     # 自动用当前文件名（去除后缀）作为默认策略名，细节默认为COMMON
     default_strategy = os.path.splitext(os.path.basename(__file__))[0].upper()
     
@@ -866,5 +876,10 @@ if __name__ == '__main__':
         print("❌ 没有成功初始化任何交易所，退出")
         sys.exit(1)
     
-    print(f"🚀 启动网格策略，共 {len(engines)} 个账户")
+    print(f"🚀 启动网格策略，共 {len(engines)} , 个账户, {exchs}")
     grid_with_more_gap(engines, exchs, force_refresh, configs)
+
+
+# bp = BackpackDriver(account_id=5)
+# bp.fetch_balance()
+# bp.close_all_positions(mode='limit')
