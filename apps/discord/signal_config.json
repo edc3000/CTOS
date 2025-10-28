@@ -1,0 +1,60 @@
+{   "exchange": "okx",
+    "account_id": 0,
+    "optional_changes": {
+        "symbol_info": [{
+            "symbol": "BTC",
+            "image_url": "https://s2.coinmarketcap.com/static/img/coins/200x200/1.png",
+            "timeframe": ["30m", "1h", "4h", "1d"],
+            "percent": [0.3, 0.6, 1.2, 2.0]
+        },
+        {
+            "symbol": "ETH",
+            "image_url": "https://s2.coinmarketcap.com/static/img/coins/200x200/1027.png",
+            "timeframe": ["30m", "1h", "4h", "1d"],
+            "percent": [0.6, 1.2, 2.0, 3.0]
+        },
+        {
+            "symbol": "SOL",
+            "image_url": "https://s2.coinmarketcap.com/static/img/coins/200x200/5426.png",
+            "timeframe": ["30m", "1h", "4h", "1d"],
+            "percent": [0.6, 1.2, 2.0, 3.0]
+        },
+        {
+            "symbol": "HYPE",
+            "image_url": "https://s2.coinmarketcap.com/static/img/coins/200x200/32196.png",
+            "timeframe": ["30m", "1h", "4h", "1d"],
+            "percent": [0.6, 1.2, 2.0, 3.0]
+        },
+        {
+            "symbol": "DOGE",
+            "image_url": "https://s2.coinmarketcap.com/static/img/coins/200x200/74.png",
+            "timeframe": ["30m", "1h", "4h", "1d"],
+            "percent": [0.6, 1.2, 2.0, 3.0]
+        },
+        {
+            "symbol": "OKB",
+            "image_url": "https://s2.coinmarketcap.com/static/img/coins/200x200/3897.png",
+            "timeframe": ["30m", "1h", "4h", "1d"],
+            "percent": [0.6, 1.2, 2.0, 3.0]
+        },
+        {
+            "symbol": "KAITO",
+            "image_url": "https://s2.coinmarketcap.com/static/img/coins/200x200/35763.png",
+            "timeframe": ["30m", "1h", "4h", "1d"],
+            "percent": [1.0, 2.0, 3.0, 4.0]
+        },
+        {
+            "symbol": "JELLYJELLY",
+            "image_url": "https://s2.coinmarketcap.com/static/img/coins/200x200/35537.png",
+            "timeframe": ["30m", "1h", "4h", "1d"],
+            "percent": [1.0, 2.0, 3.0, 4.0]
+        }
+        ],
+        "max_send_times": 3
+    },
+    "global_settings": {
+    "monitor_interval": 8,
+    "emergency_stop": false,
+    "log_level": "INFO"
+  }
+}

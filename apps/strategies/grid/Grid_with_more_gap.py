@@ -466,7 +466,7 @@ def load_config():
     
     # 默认配置
     default_config = {
-        "exchange": "bp",
+        "exchange": "okx",
         "account": 0,
         "base_amount": 8.88,
         "base_quantity": 0,
@@ -490,7 +490,6 @@ def load_config():
     
     # 支持的交易所和账户组合
     exchange_accounts = [
-        ("bp", 0), ("bp", 1), ("bp", 3), ("bp", 4), ("bp", 5), ("bp", 6),
         ("okx", 0), ("okx", 1), ("okx", 2), ("okx", 3), ("okx", 4), ("okx", 5), ("okx", 6),
         ("bnb", 0), ("bnb", 1), ("bnb", 2), ("bnb", 3), ("bnb", 4), ("bnb", 5), ("bnb", 6)
     ]

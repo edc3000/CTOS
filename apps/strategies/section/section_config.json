@@ -1,7 +1,7 @@
 {
   "strategies": [
     {
-      "coin": "BTC",
+      "anchor_coin": "BTC",
       "exchange": "okx",
       "account_id": 0,
       "base_amount": 5.0,

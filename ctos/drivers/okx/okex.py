@@ -385,6 +385,13 @@ class OkexSpot:
        :return:order id and None, otherwise None and error information
        """
         symbol = symbol if symbol else self.symbol
+        poside_mapping = {
+            'buy': 'long',
+            'sell': 'short'
+        }
+        if posSide is None:
+            
+            posSide = poside_mapping.get(side, 'long')
         uri = "/api/v5/trade/order"
         if symbol.find('USDT') != -1:
             data = {"instId": symbol, "tdMode": tdMode, "side": side if side else 'buy', "posSide": posSide, "ccy": 'USDT'} if posSide else {"instId": symbol, "tdMode": tdMode, "side": side if side else 'buy', "ccy": 'USDT'}

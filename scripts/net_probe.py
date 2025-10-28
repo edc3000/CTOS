@@ -37,13 +37,13 @@ except ImportError as e:
     OKX_AVAILABLE = False
     BACKPACK_AVAILABLE = False
 
-try:
-    from ctos.drivers.binance.driver import init_BinanceClient
-    BINANCE_AVAILABLE = True
-except ImportError as e:
-    print(f"⚠️ Binance驱动导入失败: {e}")
-    BINANCE_AVAILABLE = False
-
+# try:
+#     from ctos.drivers.binance.driver import init_BinanceClient
+#     BINANCE_AVAILABLE = True
+# except ImportError as e:
+#     print(f"⚠️ Binance驱动导入失败: {e}")
+#     BINANCE_AVAILABLE = False
+BINANCE_AVAILABLE = False
 DRIVERS_AVAILABLE = OKX_AVAILABLE or BACKPACK_AVAILABLE or BINANCE_AVAILABLE
 
 EXCHANGES = [
